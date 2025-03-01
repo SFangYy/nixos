@@ -1,9 +1,5 @@
 { pkgs, lib, ... }:
 {
-  xdg.dataFile."fonts" = {
-    source = ./fonts;
-    recursive = true;
-  };
   home.packages = [
     (import ../../../../pkgs/fonts/kose.nix {
       inherit pkgs lib;
