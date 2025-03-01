@@ -2,7 +2,7 @@
 {
   imports = [
     ./tofi.nix
-    ./fonts.nx
+    ./fonts.nix
     ./mako.nix
     ./niri
   ];
