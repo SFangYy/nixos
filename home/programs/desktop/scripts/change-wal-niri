@@ -3,7 +3,7 @@
 wallpapers_dir="$HOME/Pictures/Wallpapers/generated"
 wall=$(ls $wallpapers_dir | grep -v '\-blurred\.jpg$' | tofi)
 if [ -z $wall ]; then
-  exit
+    exit
 fi
 output=$(niri msg -j focused-output | jq -r .name)
 swww img -o $output $wallpapers_dir/$wall --transition-type random --transition-duration 1

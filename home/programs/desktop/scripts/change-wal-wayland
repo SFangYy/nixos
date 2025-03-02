@@ -2,6 +2,6 @@
 
 wall=$(yad --file)
 if [[ $wall == "" ]]; then
-  exit
+    exit
 fi
 swww img $wall --transition-type random --transition-duration 1

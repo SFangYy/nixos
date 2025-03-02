@@ -6,27 +6,35 @@
 # Desc: A program for recoloring icon packs, themes and wallpapers. For NovaOS.
 # Auth: Nicklas Vraa
 
-from typing import Annotated,List, Set, Tuple, Dict, Optional
+from typing import Annotated, List, Set, Tuple, Dict, Optional
 from tqdm import tqdm
+
 # from basic_colormath.type_hints import RGB, Lab
 from basic_colormath.distance import rgb_to_lab, get_delta_e_lab
-from PIL import Image, ImageDraw # noqa
-import os, re, shutil, json, subprocess, argparse, random # noqa
+from PIL import Image, ImageDraw  # noqa
+import os, re, shutil, json, subprocess, argparse, random  # noqa
 
 # Using custom type hints as the default ones in basic_colormath.type_hits arent compatible past python 3.8
 RGB = Annotated[tuple[float, float, float], ([0, 255], [0, 255], [0, 255])]
 Lab = Annotated[tuple[float, float, float], ([0, 100], [-128, 127], [-128, 127])]
-def LabColor(L:float, a:float, b:float) -> Lab:
+
+
+def LabColor(L: float, a: float, b: float) -> Lab:
     return L, a, b
-def sRGBColor(r:float, g:float, b:float) -> RGB:
-    return r,g,b
+
+
+def sRGBColor(r: float, g: float, b: float) -> RGB:
+    return r, g, b
+
 
 # Global constants -------------------------------------------------------------
 
 # A dynamic dictionary to avoid multiple color conversions.
 hex_to_lab_dict = {
-    "#ffffff": LabColor(9341.568974319263, -0.037058350415009045, -0.6906417562959177), # White.
-    "#000000": LabColor(0,0,0) # Black.
+    "#ffffff": LabColor(
+        9341.568974319263, -0.037058350415009045, -0.6906417562959177
+    ),  # White.
+    "#000000": LabColor(0, 0, 0),  # Black.
 }
 
 name_to_hex_dict = {
@@ -177,86 +185,105 @@ name_to_hex_dict = {
     "white": "#ffffff",
     "whitesmoke": "#f5f5f5",
     "yellow": "#ffff00",
-    "yellowgreen": "#9acd32"
+    "yellowgreen": "#9acd32",
 }
 
 # Basic utility ----------------------------------------------------------------
 
-def expand_path(path:str) -> str:
-    """ Returns the absolute version of the given path, and expands unix notation like tilde for home folder. """
+
+def expand_path(path: str) -> str:
+    """Returns the absolute version of the given path, and expands unix notation like tilde for home folder."""
     return os.path.abspath(os.path.expanduser(path))
 
-def is_empty(list:List) -> bool:
-    """ Returns true if given list is empty, else false. """
+
+def is_empty(list: List) -> bool:
+    """Returns true if given list is empty, else false."""
     return len(list) == 0
 
-def load_json_file(path:str) -> Dict:
-    """ Return object defined in given json file. """
-    with open(path, 'r') as file:
+
+def load_json_file(path: str) -> Dict:
+    """Return object defined in given json file."""
+    with open(path, "r") as file:
         obj = json.load(file)
     return obj
 
-def check_path(path:str) -> None:
+
+def check_path(path: str) -> None:
     if not os.path.exists(expand_path(path)):
         raise Exception("Invalid path: " + path)
 
-def svg_to_png(src_path:str, dest_path:str, width:int = 300) -> None:
-    """ Generate pngs at given destination path from a given source folder with a given width. """
+
+def svg_to_png(src_path: str, dest_path: str, width: int = 300) -> None:
+    """Generate pngs at given destination path from a given source folder with a given width."""
 
     src_path = expand_path(src_path)
     dest_path = expand_path(dest_path)
 
     try:
-        subprocess.run(['inkscape', '--version'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(
+            ["inkscape", "--version"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
     except FileNotFoundError:
         raise RuntimeError("Inkscape is not installed.")
 
     os.makedirs(dest_path, exist_ok=True)
-    svgs = [file for file in os.listdir(src_path) if file.endswith('.svg')]
+    svgs = [file for file in os.listdir(src_path) if file.endswith(".svg")]
 
     for svg in svgs:
         svg_path = os.path.join(src_path, svg)
-        png = os.path.splitext(svg)[0] + '.png'
+        png = os.path.splitext(svg)[0] + ".png"
         png_path = os.path.join(dest_path, png)
-        command = ['inkscape', svg_path, '-o', png_path, '-w', str(width)]
+        command = ["inkscape", svg_path, "-o", png_path, "-w", str(width)]
         subprocess.run(command)
+
 
 # Color conversion -------------------------------------------------------------
 
-def hex_to_rgb(hex:str) -> Tuple[int,int,int]:
-    """ Converts 6-digit hexadecimal color to rgb color. """
+
+def hex_to_rgb(hex: str) -> Tuple[int, int, int]:
+    """Converts 6-digit hexadecimal color to rgb color."""
     return int(hex[1:3], 16), int(hex[3:5], 16), int(hex[5:7], 16)
 
-def hex_to_hsl(hex:str) -> Tuple[float,float,float]:
-    """ Converts 6-digit hexadecimal color to hsl color. """
+
+def hex_to_hsl(hex: str) -> Tuple[float, float, float]:
+    """Converts 6-digit hexadecimal color to hsl color."""
     return rgb_to_hsl(hex_to_rgb(hex))
 
-def hex_to_gray(hex:str) -> str:
-    """ Grayscales a given 6-digit hexadecimal color. """
-    r, g, b = hex_to_rgb(hex)
-    return '#' + format(int(0.21*r + 0.72*g + 0.07*b), '02x')*3
 
-def rgb_to_hex(rgb:Tuple[int,int,int]) -> str:
-    """ Converts rgb color to 6-digit hexadecimal color. """
+def hex_to_gray(hex: str) -> str:
+    """Grayscales a given 6-digit hexadecimal color."""
+    r, g, b = hex_to_rgb(hex)
+    return "#" + format(int(0.21 * r + 0.72 * g + 0.07 * b), "02x") * 3
+
+
+def rgb_to_hex(rgb: Tuple[int, int, int]) -> str:
+    """Converts rgb color to 6-digit hexadecimal color."""
     r, g, b = rgb
     return "#{:02x}{:02x}{:02x}".format(r, g, b)
 
-def rgba_to_hex(rgba:Tuple[int,int,int,Optional[float]]) -> str:
-    """ Converts rgba color to 8-digit hexadecimal color. """
+
+def rgba_to_hex(rgba: Tuple[int, int, int, Optional[float]]) -> str:
+    """Converts rgba color to 8-digit hexadecimal color."""
     r, g, b = rgba[:3]
     hex = "#{:02X}{:02X}{:02X}".format(r, g, b)
 
     if len(rgba) > 3:
         if rgba[3] != 1.0:
-            hex += format(int(rgba[3] * 255), '02X')
+            hex += format(int(rgba[3] * 255), "02X")
 
     return hex
 
-def rgb_to_hsl(rgb:Tuple[int,int,int]) -> Tuple[float,float,float]:
-    """ Converts rgb color to hsl color. """
+
+def rgb_to_hsl(rgb: Tuple[int, int, int]) -> Tuple[float, float, float]:
+    """Converts rgb color to hsl color."""
     r, g, b = rgb
-    r /= 255.0; g /= 255.0; b /= 255.0
-    max_val = max(r, g, b); min_val = min(r, g, b)
+    r /= 255.0
+    g /= 255.0
+    b /= 255.0
+    max_val = max(r, g, b)
+    min_val = min(r, g, b)
     h = s = l = (max_val + min_val) / 2.0
 
     if max_val == min_val:
@@ -265,28 +292,35 @@ def rgb_to_hsl(rgb:Tuple[int,int,int]) -> Tuple[float,float,float]:
         d = max_val - min_val
         s = d / (2.0 - max_val - min_val)
 
-        if max_val == r: h = (g - b) / d + (6.0 if g < b else 0.0)
-        elif max_val == g: h = (b - r) / d + 2.0
-        else: h = (r - g) / d + 4.0
+        if max_val == r:
+            h = (g - b) / d + (6.0 if g < b else 0.0)
+        elif max_val == g:
+            h = (b - r) / d + 2.0
+        else:
+            h = (r - g) / d + 4.0
         h /= 6.0
 
     return h, s, l
 
-def rgb_to_gray(rgb:Tuple[int,int,int]) -> Tuple[int,int,int]:
-    """ Grayscales a given rgb color. """
+
+def rgb_to_gray(rgb: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    """Grayscales a given rgb color."""
     r, g, b = rgb
-    weighed_avg = int(0.21*r + 0.72*g + 0.07*b)
+    weighed_avg = int(0.21 * r + 0.72 * g + 0.07 * b)
     return weighed_avg, weighed_avg, weighed_avg
 
-def hsl_to_rgb(hsl:Tuple[float,float,float]) -> Tuple[int,int,int]:
-    """ Converts hsl color to rgb color. """
+
+def hsl_to_rgb(hsl: Tuple[float, float, float]) -> Tuple[int, int, int]:
+    """Converts hsl color to rgb color."""
     h, s, l = hsl
 
     if s == 0:
         r = g = b = l
     else:
-        if l < 0.5: q = l * (1 + s)
-        else: q = l + s - l * s
+        if l < 0.5:
+            q = l * (1 + s)
+        else:
+            q = l + s - l * s
         p = 2 * l - q
         r = hue_to_rgb(p, q, h + 1 / 3)
         g = hue_to_rgb(p, q, h)
@@ -294,78 +328,92 @@ def hsl_to_rgb(hsl:Tuple[float,float,float]) -> Tuple[int,int,int]:
 
     return int(round(r * 255)), int(round(g * 255)), int(round(b * 255))
 
-def hue_to_rgb(p:float, q:float, t:float) -> float:
-    """ Converts hue to rgb values. Only used by the hsl_to_rgb function. """
-    if t < 0: t += 1
-    if t > 1: t -= 1
-    if t < 1 / 6: return p + (q - p) * 6 * t
-    if t < 1 / 2: return q
-    if t < 2 / 3: return p + (q - p) * (2 / 3 - t) * 6
+
+def hue_to_rgb(p: float, q: float, t: float) -> float:
+    """Converts hue to rgb values. Only used by the hsl_to_rgb function."""
+    if t < 0:
+        t += 1
+    if t > 1:
+        t -= 1
+    if t < 1 / 6:
+        return p + (q - p) * 6 * t
+    if t < 1 / 2:
+        return q
+    if t < 2 / 3:
+        return p + (q - p) * (2 / 3 - t) * 6
     return p
 
-def norm_hsl(h:int, s:int, l:int) -> Tuple[float,float,float]:
-    """ Normalize hsl color values. """
-    return h/360, s/100, l/100
+
+def norm_hsl(h: int, s: int, l: int) -> Tuple[float, float, float]:
+    """Normalize hsl color values."""
+    return h / 360, s / 100, l / 100
+
 
 # Preprocessing ----------------------------------------------------------------
 
+
 def expand_css_rgb(match) -> str:
-    """ Used by the css_to_hex function. """
-    return rgb_to_hex((
-        int(match.group(1)), int(match.group(2)),
-        int(match.group(3)))
+    """Used by the css_to_hex function."""
+    return rgb_to_hex((int(match.group(1)), int(match.group(2)), int(match.group(3))))
+
+
+def css_to_hex(text: str) -> str:
+    """Returns the given string with css rgba functions and named colors substituted for their corresponding hexadecimal codes."""
+
+    text = re.sub(
+        r"rgba\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d.]+)\)", expand_css_rgb, text
     )
 
-def css_to_hex(text:str) -> str:
-    """ Returns the given string with css rgba functions and named colors substituted for their corresponding hexadecimal codes. """
-
-    text = re.sub(r"rgba\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d.]+)\)",
-                  expand_css_rgb, text)
-
-    text = re.sub(r"rgb\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\)",
-                  expand_css_rgb, text)
+    text = re.sub(r"rgb\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\)", expand_css_rgb, text)
 
     for key in name_to_hex_dict:
         text = re.sub(key + r"\b", name_to_hex_dict[key], text)
 
     return text
 
+
 # Post-processing --------------------------------------------------------------
 
+
 def hex_to_rgba(match) -> str:
-    """ Converts 8-digit hexadecimal code to rgba function. """
+    """Converts 8-digit hexadecimal code to rgba function."""
     hex = match.group(1)
 
     return f"rgba({int(hex[1:3], 16)}, {int(hex[3:5], 16)}, {int(hex[5:7], 16)}, {int(hex[7:9], 16) / 255.0:.2f})"
 
-def hex_to_css(text:str) -> str:
-    """ Convert 8-digit hexadecimal color codes to css rgba color functions. Needed when a css interpreter does not recognize the alpha-channel when reading hexadecimal color codes. """
+
+def hex_to_css(text: str) -> str:
+    """Convert 8-digit hexadecimal color codes to css rgba color functions. Needed when a css interpreter does not recognize the alpha-channel when reading hexadecimal color codes."""
 
     return re.sub(r"(#[0-9a-fA-F]{8})", hex_to_rgba, text)
 
-def expand_all_hex(text:str) -> str:
+
+def expand_all_hex(text: str) -> str:
     """Expand all 3-digit hexadecimal codes in the input string to 6 digits."""
 
     return re.sub(
         r"((?<!&)#[A-Fa-f0-9]{3})\b",
         lambda match: ("#" + "".join([c * 2 for c in match.group(1)[1:]])),
-        text
+        text,
     )
+
 
 # Color comparision ------------------------------------------------------------
 
-def generate_palette_dict(colors:List[str]) -> Dict[str,Lab]:
-    """ Returns a dictionary mapping hexadecimal colors to lab colors. """
+
+def generate_palette_dict(colors: List[str]) -> Dict[str, Lab]:
+    """Returns a dictionary mapping hexadecimal colors to lab colors."""
     palette_dict = {}
 
     for color in colors:
         r, g, b = hex_to_rgb(color)
-        palette_dict[color] = rgb_to_lab(sRGBColor(r,g,b))
+        palette_dict[color] = rgb_to_lab(sRGBColor(r, g, b))
 
     return palette_dict
 
+
 def get_input_colors(resource):
-    """ Returns an HSL tuple, or a palette of colors, or a color mapping, depending on the input, as well as a string indicating which one, and if smoothing should be applied to pngs/jpgs. """
+    """Returns an HSL tuple, or a palette of colors, or a color mapping, depending on the input, as well as a string indicating which one, and if smoothing should be applied to pngs/jpgs."""
 
     # If resource is an hsl color.
     if isinstance(resource, tuple) and len(resource) == 3:
@@ -377,13 +425,18 @@ def get_input_colors(resource):
             resource = load_json_file(resource)
 
         if resource["type"] == "palette":
-            return generate_palette_dict(resource["colors"]), resource["smooth"], "palette"
+            return (
+                generate_palette_dict(resource["colors"]),
+                resource["smooth"],
+                "palette",
+            )
 
         elif resource["type"] == "mapping":
             return resource["map"], resource["smooth"], "mapping"
 
-def get_file_colors(text:str) -> Set[str]:
-    """ Return a set of all unique colors within a given string representing an svg-file. """
+
+def get_file_colors(text: str) -> Set[str]:
+    """Return a set of all unique colors within a given string representing an svg-file."""
 
     colors = set()
     matches = re.findall(r"#[A-Fa-f0-9]{6}", text)
@@ -393,11 +446,12 @@ def get_file_colors(text:str) -> Set[str]:
 
     return colors
 
-def closest_match(color:str, palette:Dict[str,Lab]) -> str:
-    """ Compare the similarity of colors in the CIELAB colorspace. Return the closest match, i.e. the palette entry with the smallest euclidian distance to the given color. """
+
+def closest_match(color: str, palette: Dict[str, Lab]) -> str:
+    """Compare the similarity of colors in the CIELAB colorspace. Return the closest match, i.e. the palette entry with the smallest euclidian distance to the given color."""
 
     closest_color = None
-    min_distance = float('inf')
+    min_distance = float("inf")
 
     for entry in palette:
 
@@ -406,7 +460,7 @@ def closest_match(color:str, palette:Dict[str,Lab]) -> str:
 
         if lab_color is None:
             r, g, b = hex_to_rgb(color)
-            lab_color = rgb_to_lab(sRGBColor(r,g,b))
+            lab_color = rgb_to_lab(sRGBColor(r, g, b))
             hex_to_lab_dict[color] = lab_color
 
         distance = get_delta_e_lab(lab_color, palette[entry])
@@ -417,32 +471,35 @@ def closest_match(color:str, palette:Dict[str,Lab]) -> str:
 
     return closest_color
 
+
 # Pack management --------------------------------------------------------------
 
+
 def get_paths(folder: str, exts: List[str]) -> List[str]:
-    """ Return paths of every file with the given extensions within a folder and its subfolders, excluding symbolic links. """
+    """Return paths of every file with the given extensions within a folder and its subfolders, excluding symbolic links."""
 
     paths = []
 
     for item in os.listdir(folder):
         item_path = os.path.join(folder, item)
 
-        if os.path.islink(item_path): # Link.
+        if os.path.islink(item_path):  # Link.
             continue
 
-        if os.path.isfile(item_path): # File.
+        if os.path.isfile(item_path):  # File.
             for ext in exts:
                 if item.lower().endswith(ext):
                     paths.append(item_path)
 
-        elif os.path.isdir(item_path): # Folder.
+        elif os.path.isdir(item_path):  # Folder.
             subfolder_paths = get_paths(item_path, exts)
             paths.extend(subfolder_paths)
 
     return paths
 
-def copy_file_structure(src_path:str, dest_path:str) -> None:
-    """ Copies a directory tree, but changes symbolic links to point to files within the destination folder instead of the source. Assumes that no link points to files outside the source folder. """
+
+def copy_file_structure(src_path: str, dest_path: str) -> None:
+    """Copies a directory tree, but changes symbolic links to point to files within the destination folder instead of the source. Assumes that no link points to files outside the source folder."""
 
     shutil.rmtree(dest_path, ignore_errors=True)
     shutil.copytree(src_path, dest_path, symlinks=True)
@@ -466,14 +523,15 @@ def copy_file_structure(src_path:str, dest_path:str) -> None:
                 relative_target = relative_target.replace(src_path, dest_path, 1)
                 os.symlink(relative_target, file_path)
 
-def rename_pack(src_path, dest_path:str, name:str) -> None:
-    """ If an index.theme file exists within the given folder, apply appropiate naming. """
+
+def rename_pack(src_path, dest_path: str, name: str) -> None:
+    """If an index.theme file exists within the given folder, apply appropiate naming."""
 
     index_path = os.path.join(dest_path, "index.theme")
 
     print(index_path)
     if os.path.exists(index_path):
-        with open(index_path, 'r') as file:
+        with open(index_path, "r") as file:
             text = file.read()
 
         text = re.sub(r"(Name=).*", "\\1" + name, text, count=1)
@@ -481,13 +539,22 @@ def rename_pack(src_path, dest_path:str, name:str) -> None:
         text = re.sub(r"(MetacityTheme=).*", "\\1" + name, text, count=1)
         text = re.sub(r"(IconTheme=).*", "\\1" + name, text, count=1)
 
-        text = re.sub(r"(Comment=).*", "\\1" + "A variant of " + os.path.basename(src_path) + " created by nicklasvraa/color-manager", text, count=1)
+        text = re.sub(
+            r"(Comment=).*",
+            "\\1"
+            + "A variant of "
+            + os.path.basename(src_path)
+            + " created by nicklasvraa/color-manager",
+            text,
+            count=1,
+        )
 
-        with open(index_path, 'w') as file:
+        with open(index_path, "w") as file:
             file.write(text)
 
-def copy_pack(src_path:str, dest_path:str, name:str) -> str:
-    """ Copy pack and return the resulting copy's directory path. """
+
+def copy_pack(src_path: str, dest_path: str, name: str) -> str:
+    """Copy pack and return the resulting copy's directory path."""
 
     src_path = expand_path(src_path)
     dest_path = os.path.join(expand_path(dest_path), name)
@@ -497,10 +564,14 @@ def copy_pack(src_path:str, dest_path:str, name:str) -> str:
 
     return dest_path
 
+
 # Vector-based recoloring ------------------------------------------------------
 
-def apply_monotones_to_vec(text:str, colors:Set[str], hsl:Tuple[float,float,float]) -> str:
-    """ Replace every instance of color within the given list with their monochrome equivalent in the given string representing an svg-file, determined by the given hue, saturation and lightness offset. """
+
+def apply_monotones_to_vec(
+    text: str, colors: Set[str], hsl: Tuple[float, float, float]
+) -> str:
+    """Replace every instance of color within the given list with their monochrome equivalent in the given string representing an svg-file, determined by the given hue, saturation and lightness offset."""
 
     h, s, _ = hsl
 
@@ -516,8 +587,11 @@ def apply_monotones_to_vec(text:str, colors:Set[str], hsl:Tuple[float,float,floa
 
     return text
 
-def apply_palette_to_vec(text:str, colors:Set[str], new_colors:Dict[str,Lab]) -> str:
-    """ Replace hexadecimal color codes in a given svg/xml/css string with their closest matches within the given color palette. """
+
+def apply_palette_to_vec(
+    text: str, colors: Set[str], new_colors: Dict[str, Lab]
+) -> str:
+    """Replace hexadecimal color codes in a given svg/xml/css string with their closest matches within the given color palette."""
 
     for color in colors:
         new_color = closest_match(color, new_colors)
@@ -528,17 +602,21 @@ def apply_palette_to_vec(text:str, colors:Set[str], new_colors:Dict[str,Lab]) ->
 
     return text
 
+
 # Pixel-based recoloring -------------------------------------------------------
 
-def apply_monotones_to_img(img:Image, hsl:Tuple[float,float,float]) -> Image:
-    """ Replace every instance of color within the given list with their monochrome equivalent in the given image, determined by the given hue, saturation and lightness offset. """
+
+def apply_monotones_to_img(img: Image, hsl: Tuple[float, float, float]) -> Image:
+    """Replace every instance of color within the given list with their monochrome equivalent in the given image, determined by the given hue, saturation and lightness offset."""
 
     mode = img.mode
     h, s, _ = hsl
 
     if s == 0:
-        if mode == "RGBA": img = img.convert("LA")
-        else: img = img.convert("L")
+        if mode == "RGBA":
+            img = img.convert("LA")
+        else:
+            img = img.convert("L")
     else:
         width, height = img.size
 
@@ -553,21 +631,26 @@ def apply_monotones_to_img(img:Image, hsl:Tuple[float,float,float]) -> Image:
                 new_color = hsl_to_rgb((h, s, old_l))
 
                 if mode == "RGBA":
-                    img.putpixel((x,y), new_color + (a,))
+                    img.putpixel((x, y), new_color + (a,))
                 else:
-                    img.putpixel((x,y), new_color)
+                    img.putpixel((x, y), new_color)
 
     return img
 
-def apply_palette_to_img(img:Image, new_colors:Dict[str,Lab], args) -> Image:
-    """ Replace colors in a given image with the closest match within a given color palette. """
 
-    if args.smooth: img = img.convert("P", palette=Image.ADAPTIVE, colors=256)
-    else: img = img.convert("P")
+def apply_palette_to_img(img: Image, new_colors: Dict[str, Lab], args) -> Image:
+    """Replace colors in a given image with the closest match within a given color palette."""
+
+    if args.smooth:
+        img = img.convert("P", palette=Image.ADAPTIVE, colors=256)
+    else:
+        img = img.convert("P")
 
     palette = img.getpalette()
 
-    rgb_palette = [(palette[i], palette[i+1], palette[i+2]) for i in range(0, len(palette), 3)]
+    rgb_palette = [
+        (palette[i], palette[i + 1], palette[i + 2]) for i in range(0, len(palette), 3)
+    ]
 
     hex_palette = ["#%02x%02x%02x" % rgb for rgb in rgb_palette]
 
@@ -582,10 +665,12 @@ def apply_palette_to_img(img:Image, new_colors:Dict[str,Lab], args) -> Image:
     img.putpalette(new_palette)
     return img
 
+
 # User interface functions -----------------------------------------------------
 
-def recolor_modified(op:str, args) -> None:
-    """ Recursively copies and converts a source folder into a destination, given either an hsl color, a palette, or a color mapping. """
+
+def recolor_modified(op: str, args) -> None:
+    """Recursively copies and converts a source folder into a destination, given either an hsl color, a palette, or a color mapping."""
 
     check_path(args.src)
 
@@ -595,7 +680,8 @@ def recolor_modified(op:str, args) -> None:
     # Recolor vector graphics.
     paths = get_paths(args.src, [".svg", ".xml"])
     for path in tqdm(paths, desc="svg", disable=is_empty(paths)):
-        with open(path, 'r') as file: x = file.read()
+        with open(path, "r") as file:
+            x = file.read()
 
         x = css_to_hex(x)
         x = expand_all_hex(x)
@@ -606,12 +692,14 @@ def recolor_modified(op:str, args) -> None:
         elif op == "palette":
             x = apply_palette_to_vec(x, colors, args.palette)
 
-        with open(path, 'w') as file: file.write(x)
+        with open(path, "w") as file:
+            file.write(x)
 
     # Recolor stylesheets.
     paths = get_paths(args.src, [".css", "rc"])
     for path in tqdm(paths, desc="css", disable=is_empty(paths)):
-        with open(path, 'r') as file: x = file.read()
+        with open(path, "r") as file:
+            x = file.read()
 
         x = css_to_hex(x)
         x = expand_all_hex(x)
@@ -623,14 +711,15 @@ def recolor_modified(op:str, args) -> None:
             x = apply_palette_to_vec(x, colors, args.palette)
 
         x = hex_to_css(x)
-        with open(path, 'w') as file: file.write(x)
+        with open(path, "w") as file:
+            file.write(x)
 
     # Recolor pngs.
     paths = get_paths(args.src, [".png"])
     for path in tqdm(paths, desc="png", disable=is_empty(paths)):
         x = Image.open(path)
         x = x.convert("RGBA")
-        a = x.split()[3] # Save original alpha channel.
+        a = x.split()[3]  # Save original alpha channel.
 
         if op == "monochrome":
             x = apply_monotones_to_img(x, random.choice(args.monochrome))
@@ -638,8 +727,8 @@ def recolor_modified(op:str, args) -> None:
             x = apply_palette_to_img(x, args.palette, args)
 
         x = x.convert("RGBA")
-        r,g,b,_ = x.split()
-        x = Image.merge("RGBA",(r,g,b,a)) # Restore original alpha channel.
+        r, g, b, _ = x.split()
+        x = Image.merge("RGBA", (r, g, b, a))  # Restore original alpha channel.
         x.save(path)
 
     # Recolor jpgs.
@@ -656,16 +745,18 @@ def recolor_modified(op:str, args) -> None:
         x = x.convert("RGB")
         x.save(path)
 
+
 def list_of_strings(arg):
-    return arg.split(',')
+    return arg.split(",")
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Recolor an image.')
+    parser = argparse.ArgumentParser(description="Recolor an image.")
 
-    parser.add_argument('--src', type=str)
-    parser.add_argument('--monochrome', type=list_of_strings)
-    parser.add_argument('--palette', type=list_of_strings)
-    parser.add_argument('--smooth', type=bool, default=True)
+    parser.add_argument("--src", type=str)
+    parser.add_argument("--monochrome", type=list_of_strings)
+    parser.add_argument("--palette", type=list_of_strings)
+    parser.add_argument("--smooth", type=bool, default=True)
 
     args = parser.parse_args()
 
@@ -676,5 +767,6 @@ def main():
     elif args.palette != None:
         recolor_modified("palette", args)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

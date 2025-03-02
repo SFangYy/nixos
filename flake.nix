@@ -11,8 +11,31 @@
       systems = [ "x86_64-linux" ];
       imports = [
         ./hosts
+        inputs.treefmt-nix.flakeModule
         { _module.args = { inherit inputs self nixpkgs; }; }
       ];
+      perSystem =
+        { pkgs, ... }:
+        {
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs.nixfmt.enable = true;
+            programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+            programs.black.enable = true;
+            programs.prettier.enable = true;
+            programs.beautysh.enable = true;
+            settings.formatter = {
+              jsonc = {
+                command = "${pkgs.nodePackages.prettier}/bin/prettier";
+                includes = [ "*.jsonc" ];
+              };
+              scripts = {
+                command = "${pkgs.beautysh}/bin/beautysh";
+                includes = [ "*/scripts/*" ];
+              };
+            };
+          };
+        };
     };
 
   inputs = {
@@ -42,5 +65,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nh.url = "github:viperML/nh";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 }
