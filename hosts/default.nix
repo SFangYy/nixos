@@ -62,6 +62,5 @@ in
           ./inspiron/home.nix
         ] ++ sharedHomeModules;
       };
-
     };
 }
