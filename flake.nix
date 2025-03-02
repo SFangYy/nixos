@@ -20,7 +20,6 @@
           treefmt = {
             projectRootFile = "flake.nix";
             programs.nixfmt.enable = true;
-            programs.nixfmt.package = pkgs.nixfmt-rfc-style;
             programs.black.enable = true;
             programs.prettier.enable = true;
             programs.beautysh.enable = true;
