@@ -20,8 +20,8 @@ in
       size = 32;
     };
     fonts = {
-      monospace.name = "ComicShannsMono Nerd Font";
-      monospace.package = pkgs.nerd-fonts.comic-shanns-mono;
+      monospace.name = "Comic Mono";
+      monospace.package = pkgs.comic-mono;
       sizes.terminal = 13;
       sansSerif.name = "LXGW WenKai";
       sansSerif.package = pkgs.lxgw-wenkai;
