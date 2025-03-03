@@ -1,4 +1,9 @@
-{ user, ... }:
+{
+  user,
+  config,
+  lib,
+  ...
+}:
 {
   programs.nixvim = {
     plugins = {
@@ -32,7 +37,7 @@
             # lua
             ''
               function ()
-                local siliconflow_token_file = io.open("/home/${user}/Downloads/tokens/siliconflow_token", "r")
+                local siliconflow_token_file = io.open("${config.age.secrets.siliconflow_token.path}", "r")
                 local siliconflow_api_key = siliconflow_token_file:read()
                 siliconflow_token_file:close()
                 return require("codecompanion.adapters").extend("openai_compatible", {
@@ -53,7 +58,7 @@
             # lua
             ''
               function()
-                local gemini_token_file = io.open("/home/${user}/Downloads/gemini_token", "r")
+                local gemini_token_file = io.open("${config.age.secrets.gemini_token.path}", "r")
                 local gemini_api_key = gemini_token_file:read()
                 gemini_token_file:close()
                 return require("codecompanion.adapters").extend("gemini", {

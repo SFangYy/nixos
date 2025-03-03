@@ -104,6 +104,8 @@
     gnome.gnome-browser-connector.enable = true;
 
     gvfs.enable = true;
+
+    openssh.enable = true;
   };
 
   security = {

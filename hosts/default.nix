@@ -23,6 +23,8 @@ let
     inputs.stylix.homeManagerModules.stylix
     inputs.niri.homeModules.niri
     inputs.nixvim.homeManagerModules.nixvim
+    inputs.agenix.homeManagerModules.default
+    ../secrets/age.nix
   ];
 in
 {
