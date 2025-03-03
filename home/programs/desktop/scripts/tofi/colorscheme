@@ -7,12 +7,12 @@ os_specialisations=$(find /nix/store/*nixos-system* -lname "$(realpath $current_
 if [ -z "$specialisations" ]; then
     specialisations=$current_profile/specialisation
 else
-    specialisations=$(dirname "$specialisations")
+    specialisations=$(dirname $specialisations | xargs ls -dt | head -n1)
 fi
 if [ -z "$os_specialisations" ]; then
     os_specialisations=$current_os_profile/specialisation
 else
-    specialisations=$(dirname "$specialisations")
+    specialisations=$(dirname $specialisations | xargs ls -dt | head -n1)
 fi
 colorscheme=$( (ls "$specialisations"; echo default) | tofi --require-match=false)
 

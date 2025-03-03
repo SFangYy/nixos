@@ -1,7 +1,5 @@
 {
-  user,
   config,
-  lib,
   ...
 }:
 {
