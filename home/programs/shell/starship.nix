@@ -5,7 +5,6 @@
   };
   xdg.configFile."starship.toml".text = with config.lib.stylix.colors.withHashtag; ''
     format = """
-    $username\
     $directory\
     $git_branch\
     $git_status\
@@ -25,7 +24,7 @@
     $python\
     $custom\
     $nix_shell\
-    $time\n  \
+    $time\n\
     $character \
     """
 
@@ -42,16 +41,16 @@
 
     [character]
     format = "$symbol "
-    success_symbol = "[󱞪](bold iris)"
-    error_symbol = "[󱞪](bold love)"
-    vimcmd_symbol = "[󱞪](bold foam)"
-    vimcmd_visual_symbol = "[󱞪](bold pine)"
-    vimcmd_replace_symbol = "[󱞪](bold gold)"
-    vimcmd_replace_one_symbol = "[󱞪](bold gold)"
+    success_symbol = "[╰─ ](bold iris)"
+    error_symbol = "[╰─ ](bold love)"
+    vimcmd_symbol = "[╰─ ](bold foam)"
+    vimcmd_visual_symbol = "[╰─ ](bold pine)"
+    vimcmd_replace_symbol = "[╰─ ](bold gold)"
+    vimcmd_replace_one_symbol = "[╰─ ](bold gold)"
 
     [directory]
-    format = "[](fg:overlay)[ $path ]($style)[](fg:overlay) "
-    style = "bg:overlay fg:pine"
+    format = "[╭─ $path ]($style)"
+    style = "bold iris"
     truncation_length = 3
     truncation_symbol = "…/"
 
@@ -85,7 +84,7 @@
 
     [time]
     disabled = false
-    format = " [](fg:overlay)[ $time 󰴈 ]($style)[](fg:overlay)"
+    format = " [](fg:overlay)[ $time 󰧱 ]($style)[](fg:overlay)"
     style = "bg:overlay fg:purple"
     time_format = "%I:%M%P"
     use_12hr = true
