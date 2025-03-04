@@ -14,89 +14,118 @@
       copilot-chat.enable = true;
       codecompanion = {
         enable = true;
-        settings = {
-          adapters.copilot.__raw =
-            # lua
-            ''
-              function()
-                return require("codecompanion.adapters").extend("copilot", {
-                  schema = {
-                    model = {
-                      default = "claude-3.7-sonnet",
+        settings =
+          let
+            get_base_secret =
+              path:
+              builtins.split "/" path
+              |> builtins.tail
+              |> builtins.filter (value: builtins.isString value)
+              |> builtins.concatStringsSep "/";
+          in
+          {
+            adapters.copilot.__raw =
+              # lua
+              ''
+                function()
+                  return require("codecompanion.adapters").extend("copilot", {
+                    schema = {
+                      model = {
+                        default = "claude-3.7-sonnet",
+                      },
+                      max_tokens = {
+                        default = 65536,
+                      }
+                    }
+                  })
+                end
+              '';
+            adapters.deepseek.__raw =
+              # lua
+              ''
+                function()
+                  local deepseek_token_file = io.open(os.getenv("XDG_RUNTIME_DIR") .. "/" .. "${get_base_secret config.age.secrets.deepseek_token.path}", "r")
+                  local deepseek_api_key = deepseek_token_file:read()
+                  deepseek_token_file:close()
+                  return require("codecompanion.adapters").extend("deepseek", {
+                    env = {
+                      url = "https://api.deepseek.ai",
+                      api_key = deepseek_api_key,
+                    }
+                  })
+                end
+              '';
+            adapters.siliconflow.__raw =
+              # lua
+              ''
+                function ()
+                  local siliconflow_token_file = io.open(os.getenv("XDG_RUNTIME_DIR") .. "/" .. "${get_base_secret config.age.secrets.siliconflow_token.path}", "r")
+                  local siliconflow_api_key = siliconflow_token_file:read()
+                  siliconflow_token_file:close()
+                  return require("codecompanion.adapters").extend("openai_compatible", {
+                    name = "siliconflow",
+                    env = {
+                      url = "https://api.siliconflow.cn",
+                      api_key = siliconflow_api_key,
                     },
-                    max_tokens = {
-                      default = 65536,
+                    schema = {
+                      model = {
+                        default = "Pro/deepseek-ai/DeepSeek-V3",
+                      }
                     }
-                  }
-                })
-              end
-            '';
-          adapters.siliconflow.__raw =
-            # lua
-            ''
-              function ()
-                local siliconflow_token_file = io.open("${config.age.secrets.siliconflow_token.path}", "r")
-                local siliconflow_api_key = siliconflow_token_file:read()
-                siliconflow_token_file:close()
-                return require("codecompanion.adapters").extend("openai_compatible", {
-                  name = "deepseek",
-                  env = {
-                    url = "https://api.siliconflow.cn",
-                    api_key = siliconflow_api_key,
-                  },
-                  schema = {
-                    model = {
-                      default = "Pro/deepseek-ai/DeepSeek-V3",
+                  })
+                end
+              '';
+            adapters.gemini.__raw =
+              # lua
+              ''
+                function()
+                  local gemini_token_file = io.open(os.getenv("XDG_RUNTIME_DIR") .. "/" .. "${get_base_secret config.age.secrets.gemini_token.path}", "r")
+                  local gemini_api_key = gemini_token_file:read()
+                  gemini_token_file:close()
+                  return require("codecompanion.adapters").extend("gemini", {
+                    env = {
+                      api_key = gemini_api_key,
+                    },
+                    schema = {
+                      model = {
+                        default = "gemini-2.0-flash-thinking-exp-01-21",
+                      }
                     }
-                  }
-                })
-              end
-            '';
-          adapters.gemini.__raw =
-            # lua
-            ''
-              function()
-                local gemini_token_file = io.open("${config.age.secrets.gemini_token.path}", "r")
-                local gemini_api_key = gemini_token_file:read()
-                gemini_token_file:close()
-                return require("codecompanion.adapters").extend("gemini", {
-                  env = {
-                    api_key = gemini_api_key,
-                  }
-                })
-              end
-            '';
-          strategies = {
-            inline = {
-              adapter = "siliconflow";
-              keymaps = {
-                accept_change.modes.n = "<Leader>ca";
-                reject_change.modes.n = "<Leader>cr";
+                  })
+                end
+              '';
+            strategies = {
+              inline = {
+                adapter = "siliconflow";
+                keymaps = {
+                  accept_change.modes.n = "<Leader>ca";
+                  reject_change.modes.n = "<Leader>cr";
+                };
               };
-            };
-            chat = {
-              adapter = "siliconflow";
-              slash_commands.__raw = # lua
-                ''
-                  {
-                    ["file"] = {
-                      opts = {
-                        provider = "telescope",
+              chat = {
+                adapter = "siliconflow";
+                slash_commands.__raw = # lua
+                  ''
+                    {
+                      ["file"] = {
+                        opts = {
+                          provider = "telescope",
+                        },
                       },
                     },
-                  },
-                  {
-                    ["buffer"] = {
-                      opts = {
-                        provider = "telescope",
+                    {
+                      ["buffer"] = {
+                        opts = {
+                          provider = "telescope",
+                        },
                       },
                     },
-                  },
-                '';
+                  '';
+              };
+              agent.adapter = "siliconflow";
             };
-            agent.adapter = "siliconflow";
           };
-        };
       };
     };
     keymaps = [

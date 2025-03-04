@@ -11,4 +11,8 @@ in
     eden
     eden-inspiron
   ];
+  "deepseek_token.age".publicKeys = [
+    eden
+    eden-inspiron
+  ];
 }
