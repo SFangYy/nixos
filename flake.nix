@@ -23,6 +23,8 @@
             programs.black.enable = true;
             programs.prettier.enable = true;
             programs.beautysh.enable = true;
+            programs.toml-sort.enable = true;
+            settings.global.excludes = [ "*.age" ];
             settings.formatter = {
               jsonc = {
                 command = "${pkgs.nodePackages.prettier}/bin/prettier";
