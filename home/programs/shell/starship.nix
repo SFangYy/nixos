@@ -75,7 +75,7 @@
     up_to_date = '[ 󰋑 ](bg:overlay fg:iris)'
     untracked = '[?\($count\)](bg:overlay fg:gold)'
     stashed = '[\$](bg:overlay fg:iris)'
-    modified = '[!\($count\)](ag:overlay fg:gold)'
+    modified = '[!\($count\)](bg:overlay fg:gold)'
     renamed = '[»\($count\)](bg:overlay fg:iris)'
     deleted = '[✘\($count\)](style)'
     staged = '[++\($count\)](bg:overlay fg:gold)'
@@ -172,7 +172,7 @@
     symbol = ' '
 
     [custom.flake]
-    command = "nix flake metadata --quiet --json | jq .description"
+    command = "nix flake metadata --quiet --json | jq .description --raw-output"
     style = "bg:overlay fg:pine"
     format = " [](fg:overlay)[ $symbol$output ]($style)[](fg:overlay)"
     disabled = false
