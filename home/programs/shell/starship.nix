@@ -23,6 +23,7 @@
     $scala\
     $conda\
     $python\
+    $custom\
     $nix_shell\
     $time\n  \
     $character \
@@ -71,7 +72,7 @@
     disabled = false
     style = "bg:overlay fg:love"
     format = '[](fg:overlay)([$all_status$ahead_behind]($style))[](fg:overlay) '
-    up_to_date = '[ ✓ ](bg:overlay fg:iris)'
+    up_to_date = '[ 󰋑 ](bg:overlay fg:iris)'
     untracked = '[?\($count\)](bg:overlay fg:gold)'
     stashed = '[\$](bg:overlay fg:iris)'
     modified = '[!\($count\)](ag:overlay fg:gold)'
@@ -169,6 +170,14 @@
     format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
     disabled = false
     symbol = ' '
+
+    [custom.flake]
+    command = "nix flake metadata --quiet --json | jq .description"
+    style = "bg:overlay fg:pine"
+    format = " [](fg:overlay)[ $symbol$output ]($style)[](fg:overlay)"
+    disabled = false
+    symbol = "󱄅 "
+    detect_files = ["flake.nix"]
 
     [nix_shell]
     format = 'via [$symbol$state( \($name\))]($style) '
