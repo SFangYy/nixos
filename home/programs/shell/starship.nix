@@ -78,9 +78,9 @@
     renamed = '[»\($count\)](bg:overlay fg:iris)'
     deleted = '[✘\($count\)](style)'
     staged = '[++\($count\)](bg:overlay fg:gold)'
-    ahead = '[⇡\($\{count}\)](bg:overlay fg:foam)'
-    diverged = '⇕[\[](bg:overlay fg:iris)[⇡\($\{ahead_count}\)](bg:overlay fg:foam)[⇣\($\{behind_count}\)](bg:overlay fg:rose)[\]](bg:overlay fg:iris)'
-    behind = '[⇣\($\{count}\)](bg:overlay fg:rose)'
+    ahead = '[⇡\($count\)](bg:overlay fg:foam)'
+    diverged = '⇕[\[](bg:overlay fg:iris)[⇡\($ahead_count\)](bg:overlay fg:foam)[⇣\($behind_count\)](bg:overlay fg:rose)[\]](bg:overlay fg:iris)'
+    behind = '[⇣\($count\)](bg:overlay fg:rose)'
 
     [time]
     disabled = false
