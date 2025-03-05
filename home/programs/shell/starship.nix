@@ -96,7 +96,7 @@
       disabled = false
       format = " [](fg:overlay)[ $time 󰧱 ]($style)[](fg:overlay)"
       style = "bg:overlay fg:purple"
-      time_format = "%I:%M%P"
+      time_format = "%H:%M"
       use_12hr = true
 
       [username]
