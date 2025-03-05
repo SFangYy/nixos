@@ -12,12 +12,17 @@ let
       swww
       clash-meta
       wlsunset
+      killall
     ];
     extraShellCheckFlags = [ ];
     bashOptions = [ ];
     text =
       # bash
       ''
+        killall swhkd
+        killall swhks
+        swhks &
+        doas pkexec swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
         swww kill
         swww-daemon &
         clash-meta -d ~/.config/clash &

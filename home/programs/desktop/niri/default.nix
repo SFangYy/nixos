@@ -5,11 +5,11 @@
 }:
 {
   imports = [
-    ./binds.nix
     ./animations.nix
     ./waybar.nix
     ./autostart.nix
     ./override-config.nix
+    ./swhkd.nix
   ];
 
   programs.niri = {

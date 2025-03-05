@@ -5,6 +5,7 @@
     ./fonts.nix
     ./mako.nix
     ./niri
+    ./swhkd.nix
   ];
   home.packages = with pkgs; [
     swww
