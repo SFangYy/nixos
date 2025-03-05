@@ -28,7 +28,7 @@
   '';
   xdg.configFile."swhkd/tofi.swhkdrc".text = ''
     super + x
-    	/home/${user}/scripts/tofi/powermenu
+      /home/${user}/scripts/tofi/powermenu
 
     super + shift + c
       /home/${user}/scripts/tofi/colorscheme

@@ -6,6 +6,7 @@
     }
     "everforest"
     "nord"
+    "petrichor-downpour"
     {
       name = "green-blue-flowers-dark";
       matugen = {
