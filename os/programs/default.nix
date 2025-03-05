@@ -4,5 +4,6 @@
     ./doas.nix
     ./niri.nix
     ./ai.nix
+    ./swhkd.nix
   ];
 }

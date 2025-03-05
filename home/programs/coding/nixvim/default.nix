@@ -30,11 +30,17 @@
       maplocalleader = " ";
       have_nerd_font = true;
     };
-    highlightOverride = {
+    highlightOverride = with config.lib.stylix.colors.withHashtag; {
       CursorLineNr = {
-        bg = "#${config.lib.stylix.colors.base01}";
-        fg = "#${config.lib.stylix.colors.base06}";
+        bg = base01;
+        fg = base06;
       };
+      Comment.italic = true;
+      Comment.fg = base03;
+      Boolean.italic = true;
+      Boolean.fg = base0E;
+      String.italic = true;
+      String.fg = base0B;
       #   LineNrAbove = {
       #     bg = "#${config.lib.stylix.colors.base00}";
       #     fg = "#${config.lib.stylix.colors.base06}";

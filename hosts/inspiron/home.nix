@@ -9,13 +9,13 @@
         refresh = 60.0;
       };
       position = {
-        x = 1067;
+        x = 1000;
         y = 0;
       };
       rotation = 0;
     };
     "HDMI-A-1" = {
-      scale = 1.5;
+      scale = 1.6;
       mode = {
         width = 2560;
         height = 1600;

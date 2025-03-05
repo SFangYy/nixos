@@ -22,7 +22,6 @@ in
     fonts = {
       monospace.name = "Comic Mono";
       monospace.package = pkgs.comic-mono;
-      sizes.terminal = 13;
       sansSerif.name = "LXGW WenKai";
       sansSerif.package = pkgs.lxgw-wenkai;
       serif.name = "LXGW WenKai";

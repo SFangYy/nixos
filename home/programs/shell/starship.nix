@@ -181,7 +181,7 @@
       symbol = ' '
 
       [custom.flake]
-      command = "nix flake metadata --quiet --json | jq .description --raw-output"
+      command = "cat flake.nix | grep description | cut -d\" -f2"
       style = "bg:overlay fg:pine"
       format = " [](fg:overlay)[ $symbol$output ]($style)[](fg:overlay)"
       disabled = false
