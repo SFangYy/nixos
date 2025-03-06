@@ -3,7 +3,6 @@
   programs = {
     fish = {
       enable = true;
-      package = inputs.nixpkgs-fish.legacyPackages.${pkgs.system}.fish;
       shellAbbrs = {
         nixu = "nh os switch --ask";
         homeu = "nh home switch --ask";

@@ -23,5 +23,5 @@ fi
 if [ "$colorscheme" = "default" ]; then
     colorscheme=".."
 fi
-"$specialisations/$colorscheme"/activate
+"$specialisations/$colorscheme"/activate > ~/scripts/tofi/t
 doas "$os_specialisations/$colorscheme"/bin/switch-to-configuration switch
