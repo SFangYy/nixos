@@ -4,6 +4,8 @@
   fetchFromGitHub,
   makeWrapper,
   pkg-config,
+  systemd,
+  libgcc,
 }:
 rustPlatform.buildRustPackage {
   pname = "swhkd";
@@ -33,6 +35,11 @@ rustPlatform.buildRustPackage {
       --replace /usr/bin/swhkd \
         "$out/bin/swhkd"
   '';
+
+  buildInputs = [
+    systemd
+    libgcc
+  ];
 
   meta = with lib; {
     description = "A drop-in replacement for sxhkd that works with wayland";

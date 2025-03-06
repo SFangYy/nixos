@@ -7,6 +7,8 @@ let
       fetchFromGitHub
       makeWrapper
       pkg-config
+      systemd
+      libgcc
       ;
   };
 in
