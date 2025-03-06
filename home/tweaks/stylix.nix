@@ -1,11 +1,10 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }:
 let
-  recolorScript = import ../../lib/colorScheme/recolor.nix { inherit pkgs config; };
+  inherit (config.lib.colorScheme) recolorScript;
 in
 {
   stylix = {

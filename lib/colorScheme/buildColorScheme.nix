@@ -5,53 +5,13 @@
   ...
 }:
 let
-  matugenOptions = lib.types.submodule {
-    options = {
-      image = lib.mkOption {
-        type = lib.types.either lib.types.str lib.types.path;
-        description = "Path to the image";
-      };
-      polarity = lib.mkOption {
-        type = lib.types.enum [
-          "dark"
-          "light"
-        ];
-        description = "Polarity of the color scheme (dark or light)";
-        default = "dark";
-      };
-      scheme = lib.mkOption {
-        type = lib.types.str;
-        description = "The material you scheme to use";
-        default = "scheme-tonal-spot";
-      };
-    };
-  };
-
-  colorScheme = lib.types.submodule {
-    options = {
-      name = lib.mkOption {
-        type = lib.types.str;
-        description = "Name of the color scheme";
-      };
-      isDefault = lib.mkOption {
-        type = lib.types.bool;
-        description = "Whether the color scheme is the default";
-        default = false;
-      };
-      matugen = lib.mkOption {
-        type = lib.types.nullOr matugenOptions;
-        description = "Matugen options";
-        default = null;
-      };
-    };
-  };
-
   convertColorScheme =
     colorScheme:
     if builtins.typeOf colorScheme == "string" then
       {
         name = colorScheme;
         isDefault = false;
+        polarity = "dark";
         matugen = null;
       }
     else
@@ -62,8 +22,8 @@ let
   matugenToBase16 =
     colorScheme:
     let
-      inherit (colorScheme) name matugen;
-      inherit (matugen) polarity scheme;
+      inherit (colorScheme) name matugen polarity;
+      inherit (matugen) scheme;
       image =
         if builtins.typeOf matugen.image == "path" then
           matugen.image
@@ -89,6 +49,7 @@ let
       inherit (colorScheme)
         name
         isDefault
+        polarity
         matugen
         ;
       forceOrDefault = if isDefault then lib.mkDefault else lib.mkForce;
@@ -99,13 +60,7 @@ let
           "${matugenToBase16 colorScheme}"
         else
           forceOrDefault "${pkgs.base16-schemes}/share/themes/${name}.yaml";
-      polarity =
-        if matugen != null then
-          matugen.polarity
-        else if builtins.fromJSON config.lib.stylix.colors.base00-dec-r < 0.5 then
-          forceOrDefault "dark"
-        else
-          forceOrDefault "light";
+      inherit polarity;
     };
 
   buildSpecialisation =
@@ -122,21 +77,7 @@ let
     };
 in
 {
-  options.colorSchemes = lib.mkOption {
-    type = lib.types.listOf (lib.types.either colorScheme lib.types.str);
-    description = "List of colorschemes";
+  config.lib.colorScheme = {
+    inherit convertColorScheme buildColorScheme buildSpecialisation;
   };
-
-  config =
-    let
-      colorSchemes = config.colorSchemes |> map convertColorScheme;
-    in
-    {
-      stylix = {
-        enable = true;
-      } // (builtins.filter (c: c.isDefault) colorSchemes |> builtins.head |> buildColorScheme);
-
-      specialisation =
-        builtins.filter (c: !c.isDefault) colorSchemes |> map buildSpecialisation |> builtins.listToAttrs;
-    };
 }

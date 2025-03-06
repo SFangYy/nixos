@@ -6,7 +6,7 @@
       pkill -HUP swhkd
 
     super + enter
-      kitty /home/${user}
+      kitty -d /home/${user}
 
     super + alt + c
       wl-color-picker

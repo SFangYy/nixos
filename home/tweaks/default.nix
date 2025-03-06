@@ -4,5 +4,7 @@
     ./fcitx5.nix
     ./dconf.nix
     ./stylix.nix
+    ./wallpaper.nix
+    ./colorscheme.nix
   ];
 }

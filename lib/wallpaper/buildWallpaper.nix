@@ -6,6 +6,8 @@
 }:
 with builtins;
 let
+  inherit (config.lib.wallpapers) goNord lutgen;
+
   getWallpaper =
     wallpaper:
     let
@@ -15,12 +17,6 @@ let
       inherit (wallpaper) name convertMethod;
       path = "${wallpaperPkg}";
     };
-
-  wallpapers = map getWallpaper config.wallpapers;
-
-  goNord = wallpaper: import ./goNord.nix { inherit pkgs config wallpaper; };
-
-  lutgen = wallpaper: import ./lutgen.nix { inherit pkgs config wallpaper; };
 
   getName =
     path:
@@ -46,8 +42,6 @@ let
         else
           path;
     };
-
-  generatedWallpapers = map generateWallpaper wallpapers;
 
   setWallpaper =
     wallpaper:
@@ -78,39 +72,15 @@ let
           '';
         };
       };
-
-  normalWallpapers = map setWallpaper generatedWallpapers |> listToAttrs;
-  blurredWallpapers = map blurWallpaper generatedWallpapers |> listToAttrs;
-
-  wallpaper = lib.types.submodule {
-    options = {
-      name = lib.mkOption {
-        type = lib.types.str;
-        description = "Name of the wallpaper";
-      };
-      url = lib.mkOption {
-        type = lib.types.str;
-        description = "URL of the wallpaper";
-      };
-      sha256 = lib.mkOption {
-        type = lib.types.str;
-        description = "SHA256 of the wallpaper";
-      };
-      convertMethod = lib.mkOption {
-        type = lib.types.str;
-        description = "Method to convert the wallpaper (gonord, lutgen, none)";
-        default = "lutgen";
-      };
-    };
-  };
 in
 {
-  options.wallpapers = lib.mkOption {
-    type = lib.types.listOf wallpaper;
-    description = "List of wallpapers";
-  };
-
-  config = {
-    home.file = normalWallpapers // blurredWallpapers;
+  config.lib.wallpapers = {
+    inherit
+      getWallpaper
+      convertWallpaper
+      generateWallpaper
+      setWallpaper
+      blurWallpaper
+      ;
   };
 }

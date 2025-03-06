@@ -1,6 +1,6 @@
-{ pkgs, config }:
+{ pkgs, config, ... }:
 let
-  cfg.recolor = {
+  recolorConfig = {
     mode = "palette";
     colors = config.lib.stylix.colors.withHashtag.toList;
     smooth = true;
@@ -31,14 +31,16 @@ let
     ]
   );
 in
-with cfg.recolor;
-''
-  ${pythonEnv}/bin/python ${./recolor.py} --src $out/share/icons \
-    --smooth '${toString smooth}' \
-    ${
-      if cfg.recolor.mode == "monochrome" then
-        "--monochrome '${builtins.concatStringsSep "," cfg.recolor.colors}'"
-      else
-        "--palette ''${builtins.concatStringsSep "," cfg.recolor.colors}''"
-    }
-''
+with recolorConfig;
+{
+  config.lib.colorScheme.recolorScript = ''
+    ${pythonEnv}/bin/python ${./recolor.py} --src $out/share/icons \
+      --smooth '${toString smooth}' \
+      ${
+        if mode == "monochrome" then
+          "--monochrome '${builtins.concatStringsSep "," colors}'"
+        else
+          "--palette ''${builtins.concatStringsSep "," colors}''"
+      }
+  '';
+}

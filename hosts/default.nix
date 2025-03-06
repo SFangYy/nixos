@@ -17,8 +17,8 @@ let
     ../home
     ../nix/nixpkgs.nix
     ../sharedConfig.nix
-    ../lib/colorScheme/buildColorScheme.nix
-    ../lib/wallpaper/buildWallpaper.nix
+    ../lib/colorScheme
+    ../lib/wallpaper
     inputs.nur.modules.homeManager.default
     inputs.stylix.homeManagerModules.stylix
     inputs.niri.homeModules.niri
