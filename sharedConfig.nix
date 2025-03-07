@@ -59,5 +59,11 @@
       sha256 = "1chzklk6j893fdxhp0jhjwgwyhg3p6hjrgrrr5fw8gkllx91sx5w";
       convertMethod = "gonord";
     }
+    {
+      name = "jw-summer-twilight.jpg";
+      url = "https://i.imgur.com/LozwAp2.jpg";
+      sha256 = "1w2qnsjxvlwm1hsmna83ja4gr88i2qf6kfrx256dfi3vzydh9sky";
+      convertMethod = "gonord";
+    }
   ];
 }

@@ -65,7 +65,7 @@ let
                 "--transition-type",
                 "fade",
                 "--transition-duration",
-                "0.5",
+                "0.3",
                 "-o",
                 monitor,
                 wallpaper,

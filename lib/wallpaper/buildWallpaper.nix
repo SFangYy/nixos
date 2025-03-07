@@ -68,7 +68,7 @@ let
         name = "Pictures/Wallpapers/generated/${name}-blurred.jpg";
         value = {
           source = pkgs.runCommand "${name}-blurred.jpg" { } ''
-            ${pkgs.imagemagick}/bin/magick ${path} -blur 0x20 $out
+            ${pkgs.imagemagick}/bin/magick ${path} -blur 0x15 $out
           '';
         };
       };
