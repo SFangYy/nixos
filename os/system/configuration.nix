@@ -64,8 +64,6 @@
       xkb.variant = "";
     };
 
-    displayManager.sessionPackages = [ pkgs.hyprland ];
-
     greetd = {
       enable = true;
       vt = 3;
