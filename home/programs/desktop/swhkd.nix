@@ -5,9 +5,6 @@
     super + shift + r
       pkill -HUP swhkd
 
-    super + enter
-      kitty -d /home/${user}
-
     super + alt + c
       wl-color-picker
 

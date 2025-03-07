@@ -39,6 +39,9 @@
           transform.rotation = value.rotation;
           background-color = base01;
         }) config.monitors;
+        binds = with config.lib.niri.actions; {
+          "Mod+Return".action = spawn "kitty";
+        };
         window-rules = [
           {
             geometry-corner-radius = {
