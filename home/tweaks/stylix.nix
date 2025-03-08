@@ -12,9 +12,7 @@ in
     targets.gtk.enable = true;
     targets.gtk.flatpakSupport.enable = true;
     cursor = {
-      package = pkgs.graphite-cursors.overrideAttrs (oldAttrs: {
-        postInstall = recolorScript + (oldAttrs.postInstall or "");
-      });
+      package = pkgs.graphite-cursors;
       name = "graphite-dark";
       size = 32;
     };

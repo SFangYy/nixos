@@ -34,7 +34,7 @@
         lib.hm.dag.entryAfter [ "writeBoundary" ]
           # bash
           ''
-            run ${pkgs.niri-unstable}/bin/niri msg action do-screen-transition --delay-ms 1000
+            run ${pkgs.niri-unstable}/bin/niri msg action do-screen-transition
           '';
       reload-waybar =
         lib.hm.dag.entryAfter [ "niri-transition" ]
