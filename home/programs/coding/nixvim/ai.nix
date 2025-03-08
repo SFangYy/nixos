@@ -76,6 +76,27 @@
                   })
                 end
               '';
+            adapters.zjuchat.__raw =
+              # lua
+              ''
+                function ()
+                  local zjuchat_token_file = io.open(os.getenv("XDG_RUNTIME_DIR") .. "/" .. "${get_base_secret config.age.secrets.zjuchat_token.path}", "r")
+                  local zjuchat_api_key = zjuchat_token_file:read()
+                  zjuchat_token_file:close()
+                  return require("codecompanion.adapters").extend("openai_compatible", {
+                    name = "zjuchat",
+                    env = {
+                      url = "https://chat.zju.edu.cn/api/ai",
+                      api_key = zjuchat_api_key,
+                    },
+                    schema = {
+                      model = {
+                        default = "deepseek-v3-671b",
+                      }
+                    }
+                  })
+                end
+              '';
             adapters.gemini.__raw =
               # lua
               ''

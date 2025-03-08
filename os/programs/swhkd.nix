@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  swhkd = import ../../pkgs/swhkd/swhkd.nix {
+  swhkd = import ../../pkgs/swhkd.nix {
     inherit (pkgs)
       lib
       rustPlatform

@@ -15,4 +15,12 @@ in
     eden
     eden-inspiron
   ];
+  "zjuchat_token.age".publicKeys = [
+    eden
+    eden-inspiron
+  ];
+  "tavily_token.age".publicKeys = [
+    eden
+    eden-inspiron
+  ];
 }

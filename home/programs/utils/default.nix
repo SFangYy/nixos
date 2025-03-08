@@ -40,6 +40,7 @@
     nurl
     wl-color-picker
     matugen
+    cherry-studio
   ];
   imports = [
     ./eye-candy.nix
