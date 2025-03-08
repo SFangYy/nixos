@@ -130,8 +130,6 @@ let
   };
 in
 {
-  imports = [ ../../../../lib/monitors.nix ];
-
   programs.waybar = {
     enable = true;
     systemd = {

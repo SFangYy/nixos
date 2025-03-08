@@ -1,36 +1,51 @@
-{ user, ... }:
+{ user, config, ... }:
 {
-
-  xdg.configFile."swhkd/basic.swhkdrc".text = ''
-    super + shift + r
-      pkill -HUP swhkd
-
-    super + alt + c
-      wl-color-picker
-
-    super + b
-      pkill -USR1 .waybar-wrapped
-
-    XF86AudioMute
-      wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-
-    XF86AudioMicMute
-      wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-
-    XF86AudioRaiseVolume
-      wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+
-
-    XF86AudioLowerVolume
-      wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-
-  '';
-  xdg.configFile."swhkd/tofi.swhkdrc".text = ''
-    super + x
-      /home/${user}/scripts/tofi/powermenu
-
-    super + shift + c
-      /home/${user}/scripts/tofi/colorscheme
-
-    super + {_, shift +} p
-      sh -c $(tofi-{run, drun})
-  '';
+  xdg.configFile."swhkd/basic.swhkdrc".text = config.lib.swhkd.mkSwhkdrc {
+    keyBindings = [
+      {
+        key = "super + shift + r";
+        command = "pkill -HUP swhkd";
+      }
+      {
+        key = "super + alt + c";
+        command = "wl-color-picker";
+      }
+      {
+        key = "super + b";
+        command = "pkill -USR1 .waybar-wrapped";
+      }
+      {
+        key = "XF86AudioMute";
+        command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      }
+      {
+        key = "XF86AudioMicMute";
+        command = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+      }
+      {
+        key = "XF86AudioRaiseVolume";
+        command = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
+      }
+      {
+        key = "XF86AudioLowerVolume";
+        command = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+      }
+    ];
+  };
+  xdg.configFile."swhkd/tofi.swhkdrc".text = config.lib.swhkd.mkSwhkdrc {
+    keyBindings = [
+      {
+        key = "super + x";
+        command = "/home/${user}/scripts/tofi/powermenu";
+      }
+      {
+        key = "super + shift + c";
+        command = "/home/${user}/scripts/tofi/colorscheme";
+      }
+      {
+        key = "super + {_, shift +} p";
+        command = "sh -c $(tofi-{run, drun})";
+      }
+    ];
+  };
 }

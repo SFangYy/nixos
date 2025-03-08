@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./lib
     ./programs
     ./tweaks
   ];
