@@ -60,9 +60,15 @@
       convertMethod = "gonord";
     }
     {
-      name = "jw-summer-twilight.jpg";
-      url = "https://i.imgur.com/LozwAp2.jpg";
-      sha256 = "1w2qnsjxvlwm1hsmna83ja4gr88i2qf6kfrx256dfi3vzydh9sky";
+      name = "morncolour-pink-landscape.png";
+      url = "https://i.imgur.com/BBzCYYQ.png";
+      sha256 = "14kjc7zipbwvswjbkzqk4781as6pn31naq26nxknzhmr4z5rhzci";
+      convertMethod = "gonord";
+    }
+    {
+      name = "jiaocha-girl-sea.jpg";
+      url = "https://i.imgur.com/LBowln5.jpeg";
+      sha256 = "0agpr2z7v6q77ypgfsl6b57gac7ncrgf1fh0b5g7g0a53mzib5hm";
       convertMethod = "gonord";
     }
   ];
