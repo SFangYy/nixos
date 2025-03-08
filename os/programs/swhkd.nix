@@ -5,10 +5,8 @@ let
       lib
       rustPlatform
       fetchFromGitHub
-      makeWrapper
       pkg-config
-      systemd
-      libgcc
+      udev
       ;
   };
 in

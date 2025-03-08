@@ -2,10 +2,8 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  makeWrapper,
   pkg-config,
-  systemd,
-  libgcc,
+  udev,
 }:
 rustPlatform.buildRustPackage {
   pname = "swhkd";
@@ -22,24 +20,20 @@ rustPlatform.buildRustPackage {
   cargoHash = "sha256-LBbmFyddyw7vV5voctXq3L4U3Ddbh428j5XbI+td/dg=";
 
   nativeBuildInputs = [
-    makeWrapper
     pkg-config
   ];
 
-  postInstall = ''
-    cp ${./com.github.swhkd.pkexec.policy} ./com.github.swhkd.pkexec.policy
+  buildInputs = [
+    udev
+  ];
 
-    install -D -m0444 -t "$out/share/polkit-1/actions" ./com.github.swhkd.pkexec.policy
-
-    substituteInPlace "$out/share/polkit-1/actions/com.github.swhkd.pkexec.policy" \
-      --replace /usr/bin/swhkd \
-        "$out/bin/swhkd"
+  postBuild = ''
+    $src/scripts/build-polkit-policy.sh --swhkd-path=$out/bin/swhkd
   '';
 
-  buildInputs = [
-    systemd
-    libgcc
-  ];
+  postInstall = ''
+    install -D -m0444 ./com.github.swhkd.pkexec.policy -t $out/share/polkit-1/actions
+  '';
 
   meta = with lib; {
     description = "A drop-in replacement for sxhkd that works with wayland";
