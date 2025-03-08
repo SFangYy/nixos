@@ -14,5 +14,4 @@ in
   environment.systemPackages = [
     swhkd
   ];
-  systemd.packages = [ swhkd ];
 }
