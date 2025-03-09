@@ -6,5 +6,6 @@
     ./neovide.nix
     ./zed.nix
     ./nixvim
+    ./R.nix
   ];
 }
