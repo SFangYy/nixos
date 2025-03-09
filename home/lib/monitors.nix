@@ -56,17 +56,11 @@ in
   options.monitors = lib.mkOption {
     type = lib.types.attrsOf monitor;
   };
-  options.mainMonitorName = lib.mkOption {
-    type = lib.types.str;
-  };
-  options.otherMonitorsNames = lib.mkOption {
-    type = lib.types.listOf lib.types.str;
-  };
 
-  config.mainMonitorName =
+  config.lib.monitors.mainMonitorName =
     builtins.attrNames config.monitors
     |> builtins.filter (name: config.monitors.${name}.isMain)
     |> builtins.head;
-  config.otherMonitorsNames =
+  config.lib.monitors.otherMonitorsNames =
     builtins.attrNames config.monitors |> builtins.filter (name: !config.monitors.${name}.isMain);
 }

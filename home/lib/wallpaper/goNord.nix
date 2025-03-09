@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  config.lib.wallpapers.goNord =
+  lib.wallpapers.goNord =
     image:
     let
       goNordScript =

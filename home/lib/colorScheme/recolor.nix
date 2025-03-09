@@ -33,7 +33,7 @@ let
 in
 with recolorConfig;
 {
-  config.lib.colorScheme.recolorScript = ''
+  lib.colorScheme.recolorScript = ''
     ${pythonEnv}/bin/python ${./recolor.py} --src $out/share/icons \
       --smooth '${toString smooth}' \
       ${

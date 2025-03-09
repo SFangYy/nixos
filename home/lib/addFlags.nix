@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  config.lib.misc.addFlags =
+  lib.misc.addFlags =
     flags: name: pkg:
     pkgs.symlinkJoin {
       name = "${name}-wrapped";

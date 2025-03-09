@@ -105,19 +105,19 @@
         };
         workspaces = {
           "1" = {
-            open-on-output = config.mainMonitorName;
+            open-on-output = config.lib.monitors.mainMonitorName;
             name = "coding";
           };
           "2" = {
-            open-on-output = config.mainMonitorName;
+            open-on-output = config.lib.monitors.mainMonitorName;
             name = "browsing";
           };
           "3" = {
-            open-on-output = builtins.head config.otherMonitorsNames;
+            open-on-output = builtins.head config.lib.monitors.otherMonitorsNames;
             name = "reading";
           };
           "4" = {
-            open-on-output = config.mainMonitorName;
+            open-on-output = config.lib.monitors.mainMonitorName;
             name = "music";
           };
         };

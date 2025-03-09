@@ -74,7 +74,7 @@ let
       };
 in
 {
-  config.lib.wallpapers = {
+  lib.wallpapers = {
     inherit
       getWallpaper
       convertWallpaper

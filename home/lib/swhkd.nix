@@ -49,5 +49,5 @@ let
     + extraConfig;
 in
 {
-  config.lib.swhkd = { inherit mkSwhkdrc; };
+  lib.swhkd = { inherit mkSwhkdrc; };
 }

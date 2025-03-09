@@ -4,7 +4,7 @@
   ...
 }:
 {
-  config.lib.wallpapers.lutgen =
+  lib.wallpapers.lutgen =
     image:
     let
       inherit (image) name path live;

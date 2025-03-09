@@ -159,7 +159,7 @@ in
                 ],
                 ${moduleConfiguration}
               },
-            '') config.otherMonitorsNames
+            '') config.lib.monitors.otherMonitorsNames
           |> builtins.concatStringsSep "\n";
       in
       # json
@@ -169,7 +169,7 @@ in
           {
             "position": "top",
             "layer": "top",
-            "output": "${config.mainMonitorName}",
+            "output": "${config.lib.monitors.mainMonitorName}",
             "modules-left": [
               "niri/workspaces",
               "tray",

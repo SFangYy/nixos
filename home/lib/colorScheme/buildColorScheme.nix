@@ -77,7 +77,7 @@ let
     };
 in
 {
-  config.lib.colorScheme = {
+  lib.colorScheme = {
     inherit convertColorScheme buildColorScheme buildSpecialisation;
   };
 }
