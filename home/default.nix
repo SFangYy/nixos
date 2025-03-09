@@ -40,7 +40,7 @@
         lib.hm.dag.entryAfter [ "niri-transition" ]
           # bash
           ''
-            run --quiet ${pkgs.systemd}/bin/systemctl --user restart waybar.service
+            run --quiet ${pkgs.systemd}/bin/systemctl --user reload waybar.service
           '';
     };
 

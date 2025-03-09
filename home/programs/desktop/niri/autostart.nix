@@ -12,6 +12,7 @@ let
       swww
       clash-meta
       wlsunset
+      systemd
       killall
     ];
     extraShellCheckFlags = [ ];
@@ -27,7 +28,7 @@ let
         swww-daemon &
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
-        niri-blur-wallpaper &
+        systemctl --user start waybar.service blueman-applet.service 'app-nm\\x2dapplet@autostart.service' app-org.fcitx.Fcitx5@autostart.service niri-blur-wallpaper.service
       '';
   };
   niri-blur-wallpaper = pkgs.writers.writePython3Bin "niri-blur-wallpaper" { doCheck = false; } ''
@@ -130,21 +131,16 @@ in
   systemd.user.services.niri-blur-wallpaper = {
     Unit = {
       Description = "Niri Blur Wallpaper";
-      BindsTo = [ "graphical-session.target" ];
-      Before = [ "graphical-session.target" ];
-      Wants = [ "graphical-session-pre.target" ];
-      After = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
     };
     Install = {
       WantedBy = [ "graphical-session.target" ];
-      Wants = [ "xdg-desktop-autostart.target" ];
-      After = [ "xdg-desktop-autostart.target" ];
     };
     Service = {
       Type = "simple";
       ExecStart = "${niri-blur-wallpaper}/bin/niri-blur-wallpaper";
       Restart = "on-failure";
-      RestartSec = "5s";
     };
   };
   home.activation.restart-niri-blur-wallpaper =
@@ -153,11 +149,5 @@ in
       ''run --quiet ${pkgs.systemd}/bin/systemctl --user restart niri-blur-wallpaper'';
   programs.niri.settings.spawn-at-startup = [
     { command = [ "${niri-autostart}/bin/niri-autostart" ]; }
-    {
-      command = [
-        "fcitx5"
-        "-d"
-      ];
-    }
   ];
 }

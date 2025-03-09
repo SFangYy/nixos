@@ -16,6 +16,7 @@ elif [ "$entry" = "mode" ]; then
 elif [ "$entry" = "exit" ]; then
     if [ "$(~/scripts/tofi/confirm "exit?")" = "yes" ]; then
         doas killall swhkd swhks
+        systemctl --user stop waybar.service blueman-applet.service 'app-nm\\x2dapplet@autostart.service' app-org.fcitx.Fcitx5@autostart.service niri-blur-wallpaper.service
         wayland-logout
     fi
 fi
