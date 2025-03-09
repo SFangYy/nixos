@@ -4,7 +4,10 @@ let
 in
 {
   home.packages = [
-    (import ../../../pkgs/rstudio.nix pkgs)
+    (
+      import ../../../pkgs/rstudio.nix pkgs
+      |> config.lib.misc.addFlags "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --wayland-text-input-version=3" "rstudio"
+    )
   ];
   xdg.configFile."rstudio/themes/stylix.rstheme".text = with colors; ''
     /* rsthemes 0.5.0 */

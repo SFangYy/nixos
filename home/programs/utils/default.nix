@@ -41,7 +41,7 @@
     nurl
     wl-color-picker
     matugen
-    (config.lib.misc.fixChromeIME "cherry-studio")
+    (config.lib.misc.addFlags "--wayland-text-input-version=3" "cherry-studio" cherry-studio)
   ];
   imports = [
     ./eye-candy.nix
