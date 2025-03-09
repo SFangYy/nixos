@@ -1,6 +1,6 @@
 {
   programs.chromium = {
     enable = true;
-    commandLineArgs = [ "--enable-features=UseOzonePlatform --ozone-platform=wayland" ];
+    commandLineArgs = [ "--wayland-text-input-version=3" ];
   };
 }

@@ -4,5 +4,6 @@
     ./wallpaper
     ./monitors.nix
     ./swhkd.nix
+    ./fixChromeIME.nix
   ];
 }

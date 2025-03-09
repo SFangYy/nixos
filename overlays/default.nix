@@ -2,7 +2,6 @@
 {
   imports = [
     ./qutebrowser.nix
-    ./cherry-studio.nix
     ./customColorSchemes
   ];
   nixpkgs.overlays = [

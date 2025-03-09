@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -40,7 +41,7 @@
     nurl
     wl-color-picker
     matugen
-    cherry-studio
+    (config.lib.misc.fixChromeIME "cherry-studio")
   ];
   imports = [
     ./eye-candy.nix

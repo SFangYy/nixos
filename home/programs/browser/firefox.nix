@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 let
 in
 # firefox-gnome-theme = builtins.fetchGit {
