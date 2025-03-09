@@ -3,11 +3,13 @@ let
   colors = config.lib.stylix.colors.withHashtag;
 in
 {
-  home.packages = [
-    (
-      import ../../../pkgs/rstudio.nix pkgs
-      |> config.lib.misc.addFlags "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --wayland-text-input-version=3" "rstudio"
+  home.packages = with (import ../../../pkgs/R.nix pkgs); [
+    (config.lib.misc.addFlags
+      "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --wayland-text-input-version=3"
+      "rstudio"
+      myRstudio
     )
+    myR
   ];
   xdg.configFile."rstudio/themes/stylix.rstheme".text = with colors; ''
     /* rsthemes 0.5.0 */
