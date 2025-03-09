@@ -28,7 +28,6 @@ let
         swww-daemon &
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
-        systemctl --user start waybar.service blueman-applet.service 'app-nm\\x2dapplet@autostart.service' app-org.fcitx.Fcitx5@autostart.service niri-blur-wallpaper.service
       '';
   };
   niri-blur-wallpaper = pkgs.writers.writePython3Bin "niri-blur-wallpaper" { doCheck = false; } ''
