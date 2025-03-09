@@ -34,17 +34,6 @@ in
         "browser.tabs.drawInTitlebar" = true;
         "svg.context-properties.content.enabled" = true;
       };
-      extensions.force = true;
-      extensions.settings."addon@darkreader.org".settings.theme =
-        with config.lib.stylix.colors.withHashtag; {
-          fontFamily = config.stylix.fonts.sansSerif.name;
-          lightSchemeBackgroundColor = base00;
-          darkSchemeBackgroundColor = base00;
-          lightSchemeTextColor = base05;
-          darkSchemeTextColor = base05;
-          selectionColor = base0D;
-        };
-
     };
   };
   stylix.targets.firefox.enable = true;
