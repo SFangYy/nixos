@@ -22,7 +22,6 @@
       enable = true;
       standalonePlugins = [
         "nvim-treesitter"
-        "copilot.lua"
       ];
     };
     globals = {

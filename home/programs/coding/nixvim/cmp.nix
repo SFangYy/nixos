@@ -9,7 +9,6 @@
         { name = "emoji"; }
         { name = "luasnip"; }
         { name = "nvim_lsp"; }
-        { name = "copilot"; }
       ];
       settings.mapping = {
         "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
