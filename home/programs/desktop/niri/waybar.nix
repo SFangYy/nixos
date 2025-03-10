@@ -1,4 +1,5 @@
 { config, ... }:
+with config.lib.stylix.colors;
 let
   moduleConfiguration =
     # jsonc
@@ -24,14 +25,14 @@ let
       },
       "memory": {
         "interval": 30,
-        "format": "<span foreground='#${config.lib.stylix.colors.base0E}'>  </span>  {used:0.1f}G/{total:0.1f}G",
+        "format": "<span foreground='#${base0E}'>  </span>  {used:0.1f}G/{total:0.1f}G",
         "on-click": "kitty --class=htop,htop -e htop"
       },
       "backlight": {
         "device": "intel_backlight",
         "on-scroll-up": "light -A 1",
         "on-scroll-down": "light -U 1",
-        "format": "<span size='13000' foreground='#${config.lib.stylix.colors.base0D}'>{icon} </span>  {percent}%",
+        "format": "<span size='13000' foreground='#${base0D}'>{icon} </span>  {percent}%",
         "format-icons": [
           "",
           ""
@@ -42,7 +43,7 @@ let
         "spacing": 10
       },
       "clock": {
-        "format": "<span foreground='#${config.lib.stylix.colors.base0E}'>  </span>  {:%a %d %H:%M}",
+        "format": "<span foreground='#${base0E}'>  </span>  {:%a %d %H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "on-click": "kitty --class=clock,clock --title=clock -o remember_window_size=no -o initial_window_width=600 -o initial_window_height=200 -e tty-clock -s -c -C 5"
       },
@@ -51,13 +52,13 @@ let
           "warning": 30,
           "critical": 15,
         },
-        "format": "<span size='13000' foreground='#${config.lib.stylix.colors.base0E}'>{icon}  </span>{capacity}%",
-        "format-warning": "<span size='13000' foreground='#${config.lib.stylix.colors.base0E}'>{icon}  </span>{capacity}%",
-        "format-critical": "<span size='13000' foreground='#${config.lib.stylix.colors.base08}'>{icon}  </span>{capacity}%",
-        "format-charging": "<span size='13000' foreground='#${config.lib.stylix.colors.base0E}'>  </span>{capacity}%",
-        "format-plugged": "<span size='13000' foreground='#${config.lib.stylix.colors.base0E}'>  </span>{capacity}%",
-        "format-alt": "<span size='13000' foreground='#${config.lib.stylix.colors.base0E}'>{icon} </span>{time}",
-        "format-full": "<span size='13000' foreground='#${config.lib.stylix.colors.base0E}'>  </span>{capacity}%",
+        "format": "<span size='13000' foreground='#${base0E}'>{icon}  </span>{capacity}%",
+        "format-warning": "<span size='13000' foreground='#${base0E}'>{icon}  </span>{capacity}%",
+        "format-critical": "<span size='13000' foreground='#${base08}'>{icon}  </span>{capacity}%",
+        "format-charging": "<span size='13000' foreground='#${base0E}'>  </span>{capacity}%",
+        "format-plugged": "<span size='13000' foreground='#${base0E}'>  </span>{capacity}%",
+        "format-alt": "<span size='13000' foreground='#${base0E}'>{icon} </span>{time}",
+        "format-full": "<span size='13000' foreground='#${base0E}'>  </span>{capacity}%",
         "format-icons": [
           "",
           "",
@@ -69,10 +70,10 @@ let
         "interval": 5
       },
       "network": {
-        "format-wifi": "<span size='13000' foreground='#${config.lib.stylix.colors.base06}'>󰖩  </span>{essid}",
-        "format-ethernet": "<span size='13000' foreground='#${config.lib.stylix.colors.base06}'>󰤭</span> Disconnected",
+        "format-wifi": "<span size='13000' foreground='#${base06}'>󰖩  </span>{essid}",
+        "format-ethernet": "<span size='13000' foreground='#${base06}'>󰤭</span> Disconnected",
         "format-linked": "{ifname} (No IP) 󱚵",
-        "format-disconnected": "<span size='13000' foreground='#${config.lib.stylix.colors.base06}'> </span>Disconnected",
+        "format-disconnected": "<span size='13000' foreground='#${base06}'> </span>Disconnected",
         "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
         "on-click": "kitty --class nmtui,nmtui --title=nmtui -o remember_window_size=no -o initial_window_width=400 -o initial_window_height=400 -e doas nmtui"
       },
@@ -80,8 +81,8 @@ let
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01-",
-        "format": "<span size='13000' foreground='#${config.lib.stylix.colors.base0A}'>{icon}  </span>{volume}%",
-        "format-muted": "<span size='13000' foreground='#${config.lib.stylix.colors.base0A}'>  </span>Muted",
+        "format": "<span size='13000' foreground='#${base0A}'>{icon}  </span>{volume}%",
+        "format-muted": "<span size='13000' foreground='#${base0A}'>  </span>Muted",
         "format-icons": {
           "headphone": "󱡏",
           "hands-free": "",
@@ -114,7 +115,7 @@ let
     '';
   trayBackgroundColor = if config.stylix.polarity == "dark" then "@base00" else "@base05";
   colors = {
-    inherit (config.lib.stylix.colors.withHashtag)
+    inherit (withHashtag)
       base00
       base01
       base04

@@ -40,14 +40,6 @@
       Boolean.fg = base0E;
       String.italic = true;
       String.fg = base0B;
-      #   LineNrAbove = {
-      #     bg = "#${config.lib.stylix.colors.base00}";
-      #     fg = "#${config.lib.stylix.colors.base06}";
-      #   };
-      #   LineNrBelow = {
-      #     bg = "#${config.lib.stylix.colors.base00}";
-      #     fg = "#${config.lib.stylix.colors.base07}";
-      #   };
     };
     opts = {
       number = true;

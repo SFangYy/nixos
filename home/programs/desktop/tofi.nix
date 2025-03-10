@@ -3,6 +3,7 @@
   pkgs,
   ...
 }:
+with config.lib.stylix.colors;
 {
   home.packages = with pkgs; [
     tofi
@@ -36,29 +37,29 @@
     prompt-text = "Can I have a"
     prompt-padding = 15
 
-    background-color = #${config.lib.stylix.colors.base00}
-    text-color = #${config.lib.stylix.colors.base05}
+    background-color = #${base00}
+    text-color = #${base05}
 
-    prompt-color = #${config.lib.stylix.colors.base00}
-    prompt-background = #${config.lib.stylix.colors.base0B}
+    prompt-color = #${base00}
+    prompt-background = #${base0B}
     prompt-background-padding = 2, 5
     prompt-background-corner-radius = 6
 
-    input-color = #${config.lib.stylix.colors.base00}
-    input-background = #${config.lib.stylix.colors.base07}
+    input-color = #${base00}
+    input-background = #${base07}
     input-background-padding = 2, 5
     input-background-corner-radius = 6
 
-    alternate-result-color = #${config.lib.stylix.colors.base00}
-    alternate-result-background = #${config.lib.stylix.colors.base0A}
+    alternate-result-color = #${base00}
+    alternate-result-background = #${base0A}
     alternate-result-background-padding = 2, 5
     alternate-result-background-corner-radius = 6
 
-    selection-color = #${config.lib.stylix.colors.base00}
-    selection-background = #${config.lib.stylix.colors.base0E}
+    selection-color = #${base00}
+    selection-background = #${base0E}
     selection-background-padding = 2, 5
     selection-background-corner-radius = 6
-    selection-match-color = #${config.lib.stylix.colors.base00}
+    selection-match-color = #${base00}
 
     clip-to-padding = false
 
@@ -76,9 +77,9 @@
     # font = Comic Mono Nerd Font
     font = Hug Me Tight
     prompt-padding = 15
-    background-color = #${config.lib.stylix.colors.base00}aa
-    text-color = #${config.lib.stylix.colors.base05}
-    prompt-color = #${config.lib.stylix.colors.base0B}
-    selection-color = #${config.lib.stylix.colors.base0E}
+    background-color = #${base00}aa
+    text-color = #${base05}
+    prompt-color = #${base0B}
+    selection-color = #${base0E}
   '';
 }

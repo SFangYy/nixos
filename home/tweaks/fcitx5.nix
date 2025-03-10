@@ -1,4 +1,5 @@
 { config, ... }:
+with config.lib.stylix.colors;
 {
   xdg.dataFile."fcitx5/themes/stylix/theme.conf".text =
     # ini
@@ -14,16 +15,16 @@
       Font=Sans 13
       # 非选中候选字颜色
       #Blue
-      NormalColor=#${config.lib.stylix.colors.base0D}
+      NormalColor=#${base0D}
       # 选中候选字颜色
       #Peach
-      HighlightCandidateColor=#${config.lib.stylix.colors.base00}
+      HighlightCandidateColor=#${base00}
       # 高亮前景颜色(输入字符颜色)
       #Peach
-      HighlightColor=#${config.lib.stylix.colors.base07}
+      HighlightColor=#${base07}
       # 输入字符背景颜色
       # Black3/surface0
-      HighlightBackgroundColor=#${config.lib.stylix.colors.base02}
+      HighlightBackgroundColor=#${base02}
       #
       Spacing=3
 
@@ -39,9 +40,9 @@
 
       [InputPanel/Background]
       #Black3/surface0
-      Color=#${config.lib.stylix.colors.base01}
+      Color=#${base01}
       #Black3/surface0
-      BorderColor=#${config.lib.stylix.colors.base0E}
+      BorderColor=#${base0E}
       BorderWidth=0
 
       [InputPanel/Background/Margin]
@@ -52,7 +53,7 @@
 
       [InputPanel/Highlight]
       #Black3/surface0
-      Color=#${config.lib.stylix.colors.base0E}
+      Color=#${base0E}
 
       [InputPanel/Highlight/Margin]
       # 高亮区域左边距
@@ -67,13 +68,13 @@
       [Menu]
       Font=Sans 10
       #White/Text
-      NormalColor=#${config.lib.stylix.colors.base05}
+      NormalColor=#${base05}
       #HighlightColor=#4c566a
       Spacing=3
 
       [Menu/Background]
       #Black3/surface0
-      Color=#${config.lib.stylix.colors.base02}
+      Color=#${base02}
 
       [Menu/Background/Margin]
       Left=2
@@ -89,7 +90,7 @@
 
       [Menu/Highlight]
       #Pink
-      Color=#${config.lib.stylix.colors.base0E}
+      Color=#${base0E}
 
       [Menu/Highlight/Margin]
       Left=10
@@ -99,7 +100,7 @@
 
       [Menu/Separator]
       #Black2/base
-      Color=#${config.lib.stylix.colors.base00}
+      Color=#${base00}
 
       [Menu/TextMargin]
       Left=5
