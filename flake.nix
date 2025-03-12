@@ -67,5 +67,6 @@
     nh.url = "github:viperML/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
+    distrobox4nix.url = "github:aguirre-matteo/distrobox4nix";
   };
 }

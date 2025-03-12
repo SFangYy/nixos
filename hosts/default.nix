@@ -23,6 +23,7 @@ let
     inputs.nixvim.homeManagerModules.nixvim
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
+    inputs.distrobox4nix.homeManagerModule
   ];
 in
 {

@@ -110,6 +110,21 @@
         "type": "github"
       }
     },
+    "distrobox4nix": {
+      "locked": {
+        "lastModified": 1741561924,
+        "narHash": "sha256-eJuZoG+vBTt6t0bjTvZRcQW2eAgD5tCIW/CkPnkbA0k=",
+        "owner": "aguirre-matteo",
+        "repo": "distrobox4nix",
+        "rev": "fc6578785ece239f64c4ab5f50a7c1f06e3880ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aguirre-matteo",
+        "repo": "distrobox4nix",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -834,6 +849,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "distrobox4nix": "distrobox4nix",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_2",
         "nh": "nh",

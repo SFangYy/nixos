@@ -7,5 +7,6 @@
     ./zed.nix
     ./nixvim
     ./R.nix
+    ./distrobox.nix
   ];
 }

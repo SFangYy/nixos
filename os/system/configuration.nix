@@ -88,8 +88,6 @@
 
     printing.enable = true;
 
-    flatpak.enable = true;
-
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -155,7 +153,6 @@
       curl
       gnumake
       cmake
-      distrobox
       ntfs3g
       base16-schemes
       home-manager
