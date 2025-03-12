@@ -12,7 +12,7 @@
       window_padding_width = "10 20 10 20";
       cursor_trail = 1;
       cursor_trail_start_threshold = 0;
-      font_family = lib.mkForce "Comic Code";
+      font_family = lib.mkForce "Comic Code Ligatures";
     };
     extraConfig = ''
       map ctrl+shift+p kitten hints --type path --program @
