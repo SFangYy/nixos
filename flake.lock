@@ -112,15 +112,15 @@
     },
     "distrobox4nix": {
       "locked": {
-        "lastModified": 1741561924,
-        "narHash": "sha256-eJuZoG+vBTt6t0bjTvZRcQW2eAgD5tCIW/CkPnkbA0k=",
-        "owner": "aguirre-matteo",
+        "lastModified": 1741762782,
+        "narHash": "sha256-592yZpY4SdEnD04Ue7gs/SQ1ZwrAkg9BoySGIVL8wXE=",
+        "owner": "EdenQwQ",
         "repo": "distrobox4nix",
-        "rev": "fc6578785ece239f64c4ab5f50a7c1f06e3880ad",
+        "rev": "a45d9af4d9f453ea4eea53c3abbb311f4042d2cc",
         "type": "github"
       },
       "original": {
-        "owner": "aguirre-matteo",
+        "owner": "EdenQwQ",
         "repo": "distrobox4nix",
         "type": "github"
       }
