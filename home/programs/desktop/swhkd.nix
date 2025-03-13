@@ -39,12 +39,8 @@
         command = "/home/${user}/scripts/tofi/powermenu";
       }
       {
-        key = "super + shift + c";
-        command = "/home/${user}/scripts/tofi/colorscheme";
-      }
-      {
-        key = "super + {_, shift +} p";
-        command = "sh -c $(tofi-{run, drun})";
+        key = "super + shift + p";
+        command = "sh -c $(tofi-drun)";
       }
     ];
   };

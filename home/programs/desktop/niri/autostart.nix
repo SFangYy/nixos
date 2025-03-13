@@ -23,7 +23,7 @@ let
         killall swhkd
         killall swhks
         swhks &
-        doas pkexec swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
+        doas swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
         swww kill
         swww-daemon &
         clash-meta -d ~/.config/clash &
