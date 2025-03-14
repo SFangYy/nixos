@@ -4,7 +4,7 @@
   ...
 }:
 let
-  edenfetch = import ../../../pkgs/edenfetch.nix { inherit (pkgs) lib fetchFromGitHub rustPlatform; };
+  edenfetch = pkgs.callPackage ../../../pkgs/edenfetch.nix { };
 in
 {
   home.packages = with pkgs; [

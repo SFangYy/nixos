@@ -1,6 +1,10 @@
-pkgs:
+{
+  rPackages,
+  rWrapper,
+  rstudioWrapper,
+}:
 let
-  rPkgs = with pkgs.rPackages; [
+  rPkgs = with rPackages; [
     ggplot2
     dplyr
     tidyverse
@@ -13,10 +17,10 @@ let
   ];
 in
 {
-  myR = pkgs.rWrapper.override {
+  myR = rWrapper.override {
     packages = rPkgs;
   };
-  myRstudio = pkgs.rstudioWrapper.override {
+  myRstudio = rstudioWrapper.override {
     packages = rPkgs;
   };
 }

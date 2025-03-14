@@ -1,14 +1,6 @@
 { pkgs, ... }:
 let
-  swhkd = import ../../pkgs/swhkd.nix {
-    inherit (pkgs)
-      lib
-      rustPlatform
-      fetchFromGitHub
-      pkg-config
-      udev
-      ;
-  };
+  swhkd = pkgs.callPackage ../../pkgs/swhkd.nix { };
 in
 {
   environment.systemPackages = [

@@ -1,13 +1,7 @@
 { pkgs, lib, ... }:
 {
   home.packages = [
-    (import ../../../pkgs/fonts/kose.nix {
-      inherit pkgs lib;
-      inherit (pkgs) stdenvNoCC;
-    })
-    (import ../../../pkgs/fonts/hugmetight.nix {
-      inherit pkgs lib;
-      inherit (pkgs) stdenvNoCC;
-    })
+    (pkgs.callPackage ../../../pkgs/fonts/kose.nix { })
+    (pkgs.callPackage ../../../pkgs/fonts/hugmetight.nix { })
   ];
 }
