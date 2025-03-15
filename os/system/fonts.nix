@@ -7,11 +7,9 @@
     noto-fonts-color-emoji
     noto-fonts-emoji
     nerd-fonts.symbols-only
-    nerd-fonts.droid-sans-mono
+    nerd-fonts.hurmit
     nerd-fonts.monofur
-    font-awesome
     lxgw-wenkai
-    nasin-nanpa
   ];
   fonts.fontDir.enable = true;
 }

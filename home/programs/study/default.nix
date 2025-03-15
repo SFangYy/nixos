@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   home.packages = with pkgs; [
     pspp
-    zotero
+    inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.zotero
   ];
 }
