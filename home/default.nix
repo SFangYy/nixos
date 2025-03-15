@@ -42,6 +42,12 @@
           ''
             run --quiet ${pkgs.systemd}/bin/systemctl --user reload waybar.service
           '';
+      reload-swhkd =
+        lib.hm.dag.entryAfter [ "reload-waybar" ]
+          # bash
+          ''
+            run --quiet ${pkgs.procps}/bin/pkill -HUP swhkd
+          '';
     };
 
   };

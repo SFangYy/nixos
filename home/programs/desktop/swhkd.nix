@@ -30,6 +30,12 @@
         key = "XF86AudioLowerVolume";
         command = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
       }
+      {
+        key = "super + shift + s";
+        command =
+          with config.lib.stylix.colors.withHashtag;
+          ''wshowkeys -a bottom -a right -F "Comic Code 30" -b "${base00}aa" -f "${base0E}ee" -s "${base0F}ee" -t 1'';
+      }
     ];
   };
   xdg.configFile."swhkd/tofi.swhkdrc".text = config.lib.swhkd.mkSwhkdrc {
