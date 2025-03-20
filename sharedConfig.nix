@@ -71,5 +71,11 @@
       sha256 = "0agpr2z7v6q77ypgfsl6b57gac7ncrgf1fh0b5g7g0a53mzib5hm";
       convertMethod = "gonord";
     }
+    {
+      name = "muji-monochrome.jpg";
+      url = "https://i.imgur.com/F2h7rsD.jpg";
+      sha256 = "02q0wd2xpyjfiifmrsf6sg1ja3zlb9514g98w156f7jdpw2c9ppb";
+      convertMethod = "gonord";
+    }
   ];
 }

@@ -14,7 +14,6 @@
   ];
 
   programs.niri = {
-    # home.file.".config/niri/config.kdl".source = ./config.kdl;
     enable = true;
     package = pkgs.niri-unstable;
     settings =
@@ -49,48 +48,53 @@
           ];
           "Mod+Shift+C".action = spawn "/home/${user}/scripts/tofi/colorscheme";
         };
-        window-rules = [
-          {
-            geometry-corner-radius = {
-              bottom-left = 10.0;
-              bottom-right = 10.0;
-              top-left = 10.0;
-              top-right = 10.0;
-            };
-            clip-to-geometry = true;
-            draw-border-with-background = false;
-          }
-          {
-            matches = [
-              { app-id = "yad"; }
-            ];
-            open-floating = true;
-          }
-          {
-            matches = [
-              { app-id = "firefox"; }
-              { app-id = "org.qutebrowser.qutebrowser"; }
-              { app-id = "kitty"; }
-              { app-id = "evince"; }
-              { app-id = "zathura"; }
-            ];
-            default-column-width = {
-              proportion = 1.0;
-            };
-          }
-          {
-            matches = [
-              { is-focused = true; }
-            ];
-            opacity = 0.95;
-          }
-          {
-            matches = [
-              { is-focused = false; }
-            ];
-            opacity = 0.85;
-          }
-        ];
+        window-rules =
+          let
+            matchAppIDs = appIDs: map (appID: { app-id = appID; }) appIDs;
+          in
+          [
+            {
+              geometry-corner-radius = {
+                bottom-left = 10.0;
+                bottom-right = 10.0;
+                top-left = 10.0;
+                top-right = 10.0;
+              };
+              clip-to-geometry = true;
+              draw-border-with-background = false;
+            }
+            {
+              matches = [
+                { app-id = "yad"; }
+              ];
+              open-floating = true;
+            }
+            {
+              matches = matchAppIDs [
+                "firefox"
+                "org.qutebrowser.qutebrowser"
+                "kitty"
+                "evince"
+                "zathura"
+                "Zotero"
+              ];
+              default-column-width = {
+                proportion = 1.0;
+              };
+            }
+            {
+              matches = [
+                { is-focused = true; }
+              ];
+              opacity = 0.95;
+            }
+            {
+              matches = [
+                { is-focused = false; }
+              ];
+              opacity = 0.85;
+            }
+          ];
         layer-rules = [
           {
             matches = [ { namespace = "launcher"; } ];
@@ -110,21 +114,21 @@
             max-speed = 1500;
           };
         };
-        workspaces = {
+        workspaces = with config.lib.monitors; {
           "1" = {
-            open-on-output = config.lib.monitors.mainMonitorName;
+            open-on-output = mainMonitorName;
             name = "coding";
           };
           "2" = {
-            open-on-output = config.lib.monitors.mainMonitorName;
+            open-on-output = mainMonitorName;
             name = "browsing";
           };
           "3" = {
-            open-on-output = builtins.head config.lib.monitors.otherMonitorsNames;
+            open-on-output = builtins.head otherMonitorsNames;
             name = "reading";
           };
           "4" = {
-            open-on-output = config.lib.monitors.mainMonitorName;
+            open-on-output = mainMonitorName;
             name = "music";
           };
         };
@@ -156,9 +160,7 @@
             enable = true;
             display = {
               gradient = {
-                # from = "#f9e2af";
                 from = base0A;
-                # to = "#eba0ac";
                 to = base09;
                 angle = 45;
               };
