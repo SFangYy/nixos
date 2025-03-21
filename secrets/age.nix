@@ -5,5 +5,6 @@
     deepseek_token.file = ./deepseek_token.age;
     zjuchat_token.file = ./zjuchat_token.age;
     tavily_token.file = ./tavily_token.age;
+    zjuconnect_password.file = ./zjuconnect_password.age;
   };
 }

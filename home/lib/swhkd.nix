@@ -19,17 +19,42 @@ let
       swallow ? true,
       oneoff ? false,
       keyBindings,
+      enterKeys ? [ ],
+      escapeKeys ? [ ],
     }:
     let
       swallowStr = if swallow then "swallow" else "";
       oneoffStr = if oneoff then "oneoff" else "";
     in
-    ''
+    (
+      map (
+        key:
+        mkKeyBinding {
+          inherit key;
+          command = "notify-send 'entering mode ${name}' && @enter ${name}";
+        }
+      ) enterKeys
+      |> builtins.concatStringsSep "\n"
+    )
+    + "\n"
+    + ''
       mode ${name} ${swallowStr} ${oneoffStr}
     ''
     + (map mkKeyBinding keyBindings |> builtins.concatStringsSep "\n")
+    + "\n"
+    + (
+      map (
+        key:
+        mkKeyBinding {
+          inherit key;
+          command = "notify-send 'exiting mode ${name}' && @escape";
+        }
+      ) escapeKeys
+      |> builtins.concatStringsSep "\n"
+    )
+    + "\n"
     + ''
-      \nendmode
+      endmode
     '';
   mkSwhkdrc =
     {

@@ -23,4 +23,8 @@ in
     eden
     eden-inspiron
   ];
+  "zjuconnect_password.age".publicKeys = [
+    eden
+    eden-inspiron
+  ];
 }
