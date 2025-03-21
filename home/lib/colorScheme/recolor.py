@@ -454,7 +454,6 @@ def closest_match(color: str, palette: Dict[str, Lab]) -> str:
     min_distance = float("inf")
 
     for entry in palette:
-
         # Prior dictionary lookup and update.
         lab_color = hex_to_lab_dict.get(color)
 

@@ -56,7 +56,7 @@ matugen_output = subprocess.run(
 colors = json.loads(matugen_output)["colors"][polarity]
 
 base16_colors = {
-    name: f'"{colors[hex].strip("\'")}"' for name, hex in base16_map.items()
+    name: f'"{colors[hex].strip("'")}"' for name, hex in base16_map.items()
 }
 
 yaml_content = f"""system: "base16"
@@ -64,9 +64,7 @@ name: "{name}"
 author: "matugen"
 variant: "{polarity}"
 palette:
-""" + "\n".join(
-    [f"  {k}: {v}" for k, v in base16_colors.items()]
-)
+""" + "\n".join([f"  {k}: {v}" for k, v in base16_colors.items()])
 
 with open(output, "w") as f:
     f.write(yaml_content)

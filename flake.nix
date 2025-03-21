@@ -20,7 +20,7 @@
           treefmt = {
             projectRootFile = "flake.nix";
             programs.nixfmt.enable = true;
-            programs.black.enable = true;
+            programs.ruff-format.enable = true;
             programs.prettier.enable = true;
             programs.beautysh.enable = true;
             programs.toml-sort.enable = true;

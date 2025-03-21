@@ -27,7 +27,7 @@
           };
         };
         servers = {
-          pyright.enable = true;
+          ruff.enable = true;
           lua_ls.enable = true;
           bashls.enable = true;
           nixd = {
@@ -92,7 +92,7 @@
               "injected"
             ];
             yaml = [ "yamlfmt" ];
-            python = [ "black" ];
+            python = [ "ruff" ];
             tex = [ "latexindent" ];
           };
           formatters = {
