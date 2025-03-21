@@ -6,17 +6,15 @@
 }:
 let
   sharedOSModules = [
-    ../overlays
     ../os
     ../nix
     inputs.stylix.nixosModules.stylix
     inputs.niri.nixosModules.niri
   ];
+
   sharedHomeModules = [
-    ../overlays
     ../home
     ../nix/nixpkgs.nix
-    ../sharedConfig.nix
     inputs.nur.modules.homeManager.default
     inputs.stylix.homeManagerModules.stylix
     inputs.niri.homeModules.niri
@@ -24,7 +22,7 @@ let
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
     inputs.distrobox4nix.homeManagerModule
-  ];
+  ] ++ (builtins.attrValues self.homeManagerModules);
 in
 {
   flake =
@@ -33,6 +31,10 @@ in
       user = "eden";
     in
     {
+      overlays = import ../overlays { inherit inputs; };
+
+      homeManagerModules = import ../modules/home-manager;
+
       nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit
@@ -47,6 +49,7 @@ in
           ./inspiron/os.nix
         ] ++ sharedOSModules;
       };
+
       homeConfigurations."${user}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {

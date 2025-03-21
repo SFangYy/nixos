@@ -3,7 +3,7 @@ let
   colors = config.lib.stylix.colors.withHashtag;
 in
 {
-  home.packages = with (pkgs.callPackage ../../../pkgs/R.nix { }); [
+  home.packages = with pkgs; [
     (config.lib.misc.addFlags
       "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --wayland-text-input-version=3"
       "rstudio"

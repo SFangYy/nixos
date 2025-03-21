@@ -3,14 +3,10 @@
   config,
   ...
 }:
-let
-  edenfetch = pkgs.callPackage ../../../pkgs/edenfetch.nix { };
-in
 {
   home.packages = with pkgs; [
     cmatrix
     cbonsai
-    edenfetch
   ];
   programs.fastfetch.enable = true;
   xdg.configFile."fastfetch/config.jsonc".source = ./fastfetch.jsonc;

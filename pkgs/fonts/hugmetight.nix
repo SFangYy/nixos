@@ -4,7 +4,7 @@
   pkgs,
 }:
 stdenvNoCC.mkDerivation {
-  pname = "kose-font";
+  pname = "hugmetight-font";
   version = "2025-03-01";
 
   src = pkgs.fetchzip {
