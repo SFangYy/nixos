@@ -14,9 +14,14 @@
         inputs.treefmt-nix.flakeModule
         { _module.args = { inherit inputs self nixpkgs; }; }
       ];
+      flake = {
+        homeManagerModules = import ./modules/home-manager;
+        overlays = import ./overlays { inherit inputs self; };
+      };
       perSystem =
         { pkgs, ... }:
         {
+          packages = import ./pkgs { inherit pkgs; };
           treefmt = {
             projectRootFile = "flake.nix";
             programs.nixfmt.enable = true;

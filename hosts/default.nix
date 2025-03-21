@@ -31,10 +31,6 @@ in
       user = "eden";
     in
     {
-      overlays = import ../overlays { inherit inputs; };
-
-      homeManagerModules = import ../modules/home-manager;
-
       nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit
