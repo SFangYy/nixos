@@ -60,5 +60,11 @@
       sha256 = "02q0wd2xpyjfiifmrsf6sg1ja3zlb9514g98w156f7jdpw2c9ppb";
       convertMethod = "gonord";
     }
+    {
+      name = "zzzzoka-gbc.jpg";
+      url = "https://i.imgur.com/qE6Pr45.jpg";
+      sha256 = "1li5ypdvlvdpihiplf5mjj0lvf9gbcwyjslpxgla6wz0fzrwnvgi";
+      convertMethod = "gonord";
+    }
   ];
 }
