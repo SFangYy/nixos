@@ -25,7 +25,6 @@
       $scala\
       $conda\
       $python\
-      $custom\
       $container\
       $nix_shell\
       $time\n\
@@ -179,14 +178,6 @@
       format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)"
       disabled = false
       symbol = ' '
-
-      [custom.flake]
-      command = "cat flake.nix | grep description | cut -d\" -f2"
-      style = "bg:overlay fg:pine"
-      format = " [](fg:overlay)[ $symbol$output ]($style)[](fg:overlay)"
-      disabled = false
-      symbol = "󱄅 "
-      detect_files = ["flake.nix"]
 
       [nix_shell]
       format = 'via [$symbol$state( \($name\))]($style) '

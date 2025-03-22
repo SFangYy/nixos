@@ -17,6 +17,7 @@
       flake = {
         homeManagerModules = import ./modules/home-manager;
         overlays = import ./overlays { inherit inputs self; };
+        templates = import ./templates;
       };
       perSystem =
         { pkgs, ... }:
