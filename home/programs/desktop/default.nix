@@ -6,6 +6,7 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
+    ./maomaowm
   ];
   home.packages = with pkgs; [
     swww

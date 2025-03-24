@@ -10,6 +10,7 @@ let
     ../nix
     inputs.stylix.nixosModules.stylix
     inputs.niri.nixosModules.niri
+    inputs.maomaowm.nixosModules.maomaowm
   ];
 
   sharedHomeModules = [
@@ -22,6 +23,7 @@ let
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
     inputs.distrobox4nix.homeManagerModule
+    inputs.maomaowm.hmModules.maomaowm
   ] ++ (builtins.attrValues self.homeManagerModules);
 in
 {

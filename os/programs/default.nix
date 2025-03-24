@@ -5,5 +5,6 @@
     ./niri.nix
     ./ai.nix
     ./swhkd.nix
+    ./maomaowm.nix
   ];
 }
