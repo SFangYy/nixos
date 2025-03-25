@@ -74,7 +74,6 @@
     nh.url = "github:viperML/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
-    distrobox4nix.url = "github:EdenQwQ/distrobox4nix";
     # maomaowm.url = "github:DreamMaoMao/maomaowm";
     maomaowm.url = "git+file:///home/eden/Repos/maomaowm-test";
   };

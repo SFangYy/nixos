@@ -38,6 +38,7 @@ in
       (niriAction "super + r" "switch-preset-column-width")
       (niriAction "super + f" "maximize-column")
       (niriAction "super + shift + f" "fullscreen-window")
+      (niriAction "super + ctrl + f" "toggle-windowed-fullscreen")
       (niriAction "super + c" "center-column")
       (niriAction "super + {_, shift +} {minus, equal}" "set-{column\\-width, window\\-height} \"{\\-, +}10%\"")
       (niriAction "{ctrl +, alt +} print" "screenshot-{screen, window}")

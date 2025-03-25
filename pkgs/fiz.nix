@@ -1,3 +1,4 @@
+# copied from https://github.com/nix-community/nur-combined/blob/main/repos/hhr2020/pkgs/fiz/default.nix
 {
   lib,
   stdenv,
