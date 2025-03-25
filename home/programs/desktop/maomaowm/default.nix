@@ -193,8 +193,8 @@
       bind=ALT,z,toggle_scratchpad
 
       # scroller layout
-      bind=ALT,e,set_proportion,1.0
-      bind=ALT,x,switch_proportion_preset,
+      bind=SUPER,f,set_proportion,1.0
+      bind=SUPER,r,switch_proportion_preset,
 
 
       # tile layout
@@ -264,8 +264,8 @@
       bind=SUPER+CTRL,9,toggleview,9
 
       # monitor switch
-      bind=SUPER+CTRL,H,focusmon,left
-      bind=SUPER+CTRL,L,focusmon,right
+      bind=SUPER+CTRL,h,focusmon,left
+      bind=SUPER+CTRL,l,focusmon,right
       bind=SUPER+CTRL,bracketleft,tagmon,left
       bind=SUPER+CTRL,bracketright,tagmon,right
 
@@ -311,8 +311,10 @@
         killall .waybar-wrapped
         waybar -c ~/.config/maomao/waybar/config.jsonc -s ~/.config/maomao/waybar/style.css &
         killall .fcitx5-wrapped
+        killall .nm-applet-wrap
+        killall .blueman-applet
         fcitx5 -d &
-        nmapplet &
+        nm-applet &
         blueman-applet &
       ''
       + (builtins.attrNames config.monitors |> map setWallpaper |> builtins.concatStringsSep "\n");
