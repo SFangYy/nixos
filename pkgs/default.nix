@@ -7,4 +7,5 @@
   kose-font = pkgs.callPackage ./fonts/kose.nix { };
   hugmetight-font = pkgs.callPackage ./fonts/hugmetight.nix { };
   custom-colorschemes = pkgs.callPackage ./customColorSchemes { };
+  fiz = pkgs.callPackage ./fiz.nix { };
 }
