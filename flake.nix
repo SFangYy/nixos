@@ -74,7 +74,8 @@
     nh.url = "github:viperML/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
-    # maomaowm.url = "github:DreamMaoMao/maomaowm";
-    maomaowm.url = "git+file:///home/eden/Repos/maomaowm-test";
+    # maomaowm.url = "github:DreamMaoMao/maomaowm/wlroots-0.19";
+    maomaowm.url = "git+file:///home/eden/Repos/maomaowm-orig";
+    maomaowm.inputs.nixpkgs.follows = "nixpkgs";
   };
 }

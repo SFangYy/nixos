@@ -88,15 +88,15 @@
 
       # tags rule
       # layout support: tile,scroller,grid,monocle,spiral,dwindle
-      tags=id:1,layout_name:tile
-      tags=id:2,layout_name:tile
-      tags=id:3,layout_name:tile
-      tags=id:4,layout_name:tile
-      tags=id:5,layout_name:tile
-      tags=id:6,layout_name:tile
-      tags=id:7,layout_name:tile
-      tags=id:8,layout_name:tile
-      tags=id:9,layout_name:tile
+      tags=id:1,layout_name:scroller
+      tags=id:2,layout_name:scroller
+      tags=id:3,layout_name:scroller
+      tags=id:4,layout_name:scroller
+      tags=id:5,layout_name:scroller
+      tags=id:6,layout_name:scroller
+      tags=id:7,layout_name:scroller
+      tags=id:8,layout_name:scroller
+      tags=id:9,layout_name:scroller
 
       # Window Rules
       # appid: type-string if match it or title, the rule match   
@@ -126,7 +126,11 @@
       # windowrule=animation_type_open:zoom,appid:wofi
       # windowrule=globalkeybinding:ctrl+alt-o,appid:com.obsproject.Studio
       # windowrule=globalkeybinding:ctrl+alt-n,appid:com.obsproject.Studio
-
+      windowrule=isfloating:1,appid:yad
+      windowrule=globalkeybinding:ctrl+alt-a,appid:com.obsproject.Studio
+      windowrule=globalkeybinding:ctrl+alt-s,appid:com.obsproject.Studio
+      windowrule=scroller_proportion:1.0,appid:kitty
+      windowrule=scroller_proportion:1.0,appid:firefox
 
       # open in specific tag
       # windowrule=tags:4,appid:Google-chrome
@@ -148,8 +152,8 @@
       # 7:flip and rotate 270 degrees counter-clockwise
 
       # example
-      monitorrule=eDP-1,0.55,1,tile,0,1.6,1000,0
-      monitorrule=HDMI-A-1,0.55,1,tile,1,1.6,0,0
+      monitorrule=eDP-1,0.55,1,scroller,0,1.6,1000,0
+      monitorrule=HDMI-A-1,0.55,1,scroller,1,1.6,0,0
 
       # Key Bindings
       # The mod key is not case sensitive, 
@@ -208,8 +212,8 @@
 
 
       # switch layout
-      bind=CTRL+SUPER,i,setlayout,tile
-      bind=CTRL+SUPER,l,setlayout,scroller
+      bind=CTRL+SUPER,t,setlayout,tile
+      bind=CTRL+SUPER,s,setlayout,scroller
       bind=SUPER,n,switch_layout
 
 
@@ -266,8 +270,8 @@
       # monitor switch
       bind=SUPER+CTRL,h,focusmon,left
       bind=SUPER+CTRL,l,focusmon,right
-      bind=SUPER+CTRL,bracketleft,tagmon,left
-      bind=SUPER+CTRL,bracketright,tagmon,right
+      bind=SUPER+CTRL+SHIFT,H,tagmon,left
+      bind=SUPER+CTRL+SHIFT,L,tagmon,right
 
       # gaps
       bind=ALT+SHIFT,X,incgaps,1
@@ -310,10 +314,9 @@
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
         killall .waybar-wrapped
         waybar -c ~/.config/maomao/waybar/config.jsonc -s ~/.config/maomao/waybar/style.css &
-        killall .fcitx5-wrapped
         killall .nm-applet-wrap
         killall .blueman-applet
-        fcitx5 -d &
+        fcitx5 -d -r &
         nm-applet &
         blueman-applet &
       ''
