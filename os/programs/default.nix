@@ -6,5 +6,6 @@
     ./ai.nix
     ./swhkd.nix
     ./maomaowm.nix
+    ./hellwm.nix
   ];
 }

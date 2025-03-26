@@ -8,4 +8,5 @@
   hugmetight-font = pkgs.callPackage ./fonts/hugmetight.nix { };
   custom-colorschemes = pkgs.callPackage ./customColorSchemes { };
   fiz = pkgs.callPackage ./fiz.nix { };
+  hellwm = pkgs.callPackage ./hellwm.nix { };
 }

@@ -43,6 +43,10 @@ in
       (niriAction "super + {_, shift +} {minus, equal}" "set-{column\\-width, window\\-height} \"{\\-, +}10%\"")
       (niriAction "{ctrl +, alt +} print" "screenshot-{screen, window}")
       (niriAction "print" "screenshot")
+      {
+        key = "super + ctrl + c";
+        command = "niri msg pick-color | grep Hex | sd 'Hex: ' '' | sd '\\n' '' | wl-copy";
+      }
     ];
   };
 }
