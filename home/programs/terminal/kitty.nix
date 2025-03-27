@@ -12,8 +12,6 @@
       window_padding_width = "10 20 10 20";
       cursor_trail = 1;
       cursor_trail_start_threshold = 0;
-      font_family = lib.mkForce "Monofur Nerd Font";
-      font_size = lib.mkForce 15;
     };
     extraConfig = ''
       map ctrl+shift+p kitten hints --type path --program @

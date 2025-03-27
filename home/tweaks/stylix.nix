@@ -17,8 +17,8 @@ in
       size = 32;
     };
     fonts = {
-      monospace.name = "Comic Mono";
-      monospace.package = pkgs.comic-mono;
+      monospace.name = "Maple Mono NF CN";
+      monospace.package = pkgs.maple-mono.NF-CN;
       sansSerif.name = "LXGW WenKai";
       sansSerif.package = pkgs.lxgw-wenkai;
       serif.name = "LXGW WenKai";

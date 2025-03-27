@@ -12,35 +12,51 @@ let
         name = colorScheme;
         isDefault = false;
         polarity = "dark";
-        matugen = null;
+        fromImage.enable = false;
       }
     else
       colorScheme;
 
   wallpapers = config.wallpapers;
 
+  getImage =
+    image:
+    if builtins.typeOf image == "path" then
+      image
+    else
+      pkgs.fetchurl {
+        inherit (builtins.filter (wallpaper: wallpaper.name == image) wallpapers |> builtins.head)
+          name
+          url
+          sha256
+          ;
+      };
+
   matugenToBase16 =
     colorScheme:
     let
-      inherit (colorScheme) name matugen polarity;
-      inherit (matugen) scheme;
-      image =
-        if builtins.typeOf matugen.image == "path" then
-          matugen.image
-        else
-          pkgs.fetchurl {
-            inherit (builtins.filter (wallpaper: wallpaper.name == matugen.image) wallpapers |> builtins.head)
-              name
-              url
-              sha256
-              ;
-          };
+      inherit (colorScheme) name polarity fromImage;
+      image = getImage fromImage.image;
+      scheme = if builtins.hasAttr "scheme" fromImage.passthru then fromImage.passthru.scheme else null;
     in
     pkgs.runCommand "${name}.yaml" { buildInputs = [ pkgs.matugen ]; }
       # bash
       ''
         ${pkgs.python3}/bin/python ${./matu2base16.py} ${image} \
         --name ${name} --polarity ${polarity} --type ${scheme} --output $out
+      '';
+
+  hellwalToBase16 =
+    colorScheme:
+    let
+      inherit (colorScheme) name polarity fromImage;
+      image = getImage fromImage.image;
+    in
+    pkgs.runCommand "${name}.yaml" { buildInputs = [ pkgs.hellwal ]; }
+      # bash
+      ''
+        ${pkgs.python3}/bin/python ${./hellwal2base16.py} ${image} \
+        --name ${name} --polarity ${polarity} --output $out
       '';
 
   buildColorScheme =
@@ -50,16 +66,29 @@ let
         name
         isDefault
         polarity
-        matugen
+        fromImage
         ;
       forceOrDefault = if isDefault then lib.mkDefault else lib.mkForce;
     in
-    {
-      base16Scheme =
-        if matugen != null then
-          "${matugenToBase16 colorScheme}"
+    (
+      if fromImage.enable then
+        let
+          inherit (fromImage) method;
+        in
+        if method == "matugen" then
+          {
+            base16Scheme = forceOrDefault "${matugenToBase16 colorScheme}";
+          }
         else
-          forceOrDefault "${pkgs.base16-schemes}/share/themes/${name}.yaml";
+          {
+            base16Scheme = forceOrDefault "${hellwalToBase16 colorScheme}";
+          }
+      else
+        {
+          base16Scheme = forceOrDefault "${pkgs.base16-schemes}/share/themes/${name}.yaml";
+        }
+    )
+    // {
       inherit polarity;
     };
 

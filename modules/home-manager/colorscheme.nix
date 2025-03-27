@@ -16,6 +16,29 @@ let
     };
   };
 
+  fromImageOptions = submodule {
+    options = {
+      enable = mkEnableOption "Enable generating colorscheme from image";
+      image = mkOption {
+        type = either str path;
+        description = "Path to the image";
+      };
+      method = mkOption {
+        type = enum [
+          "matugen"
+          "hellwal"
+          "stylix"
+        ];
+        description = "The method to use to generate the colorscheme";
+        default = "matugen";
+      };
+      passthru = mkOption {
+        type = attrs;
+        description = "Passthru options to the method";
+      };
+    };
+  };
+
   colorScheme = submodule {
     options = {
       name = mkOption {
@@ -35,10 +58,12 @@ let
         description = "Polarity of the color scheme (dark or light)";
         default = "dark";
       };
-      matugen = mkOption {
-        type = nullOr matugenOptions;
-        description = "Matugen options";
-        default = null;
+      fromImage = mkOption {
+        type = fromImageOptions;
+        description = "Options for generating colorscheme from image";
+        default = {
+          enable = false;
+        };
       };
     };
   };

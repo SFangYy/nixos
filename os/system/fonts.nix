@@ -10,6 +10,8 @@
     nerd-fonts.hurmit
     nerd-fonts.monofur
     lxgw-wenkai
+    maple-mono.NF-CN
+    maple-mono.variable
   ];
   fonts.fontDir.enable = true;
 }

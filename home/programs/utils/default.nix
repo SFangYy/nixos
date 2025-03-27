@@ -36,12 +36,13 @@
     direnv
     entr
     lutgen
+    matugen
+    hellwal
     imagemagick
     ffmpeg
     nurl
     nix-init
     wl-color-picker
-    matugen
     (config.lib.misc.addFlags "--wayland-text-input-version=3" "cherry-studio" cherry-studio)
   ];
   imports = [

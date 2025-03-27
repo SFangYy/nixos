@@ -5,13 +5,22 @@
       isDefault = true;
     }
     "everforest"
-    "nord"
+    {
+      name = "frieren-butterflies-dark";
+      fromImage = {
+        enable = true;
+        image = "frieren-butterflies.jpg";
+        method = "hellwal";
+      };
+    }
     "petrichor-downpour"
     {
-      name = "green-blue-flowers-dark";
-      matugen = {
-        image = "green-blue-flowers.jpg";
-        scheme = "scheme-expressive";
+      name = "zzzzoka-gbc-dark";
+      fromImage = {
+        enable = true;
+        image = "zzzzoka-gbc.jpg";
+        method = "matugen";
+        passthru.scheme = "scheme-expressive";
       };
     }
   ];
