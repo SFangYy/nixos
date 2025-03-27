@@ -9,13 +9,10 @@ let
         type = str;
         description = "Name of the wallpaper";
       };
-      url = mkOption {
-        type = str;
-        description = "URL of the wallpaper";
-      };
-      sha256 = mkOption {
-        type = str;
-        description = "SHA256 of the wallpaper";
+      path = mkOption {
+        type = nullOr path;
+        description = "Path to the wallpaper, ${pkgs.wallpapers}/name by default";
+        default = null;
       };
       convertMethod = mkOption {
         type = str;

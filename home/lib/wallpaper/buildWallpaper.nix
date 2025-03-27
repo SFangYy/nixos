@@ -11,12 +11,19 @@ let
   getWallpaper =
     wallpaper:
     let
-      wallpaperPkg = pkgs.fetchurl { inherit (wallpaper) name url sha256; };
+      inherit (wallpaper) name path convertMethod;
     in
     {
-      inherit (wallpaper) name convertMethod;
-      path = "${wallpaperPkg}";
-    };
+      inherit name convertMethod;
+    }
+    // (
+      if path == null then
+        {
+          path = "${pkgs.wallpapers}/${name}";
+        }
+      else
+        { inherit path; }
+    );
 
   getName =
     path:
@@ -26,7 +33,8 @@ let
     wallpaper:
     let
       inherit (wallpaper) path convertMethod;
-      name = getName path;
+      # name = getName path;
+      name = match "(.*)\\..*" wallpaper.name |> head;
       live = (toString path |> match ".*gif$") != null;
       thisWallpaper = { inherit name path live; };
     in

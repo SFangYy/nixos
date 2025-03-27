@@ -17,20 +17,7 @@ let
     else
       colorScheme;
 
-  wallpapers = config.wallpapers;
-
-  getImage =
-    image:
-    if builtins.typeOf image == "path" then
-      image
-    else
-      pkgs.fetchurl {
-        inherit (builtins.filter (wallpaper: wallpaper.name == image) wallpapers |> builtins.head)
-          name
-          url
-          sha256
-          ;
-      };
+  getImage = image: if builtins.typeOf image == "path" then image else "${pkgs.wallpapers}/${image}";
 
   matugenToBase16 =
     colorScheme:
