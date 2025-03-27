@@ -16,7 +16,6 @@
       map ctrl+shift+p kitten hints --type path --program @
       map ctrl+shift+s kitten hints --type word --program @
       map ctrl+shift+l kitten hints --type line --program @
-      map ctrl+shift+u kitten hints --type url --program @
 
       symbol_map U+4E00-U+9FFF   Xiaolai Mono SC
       symbol_map U+3400-U+4DBF   Xiaolai Mono SC
