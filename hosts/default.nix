@@ -24,13 +24,17 @@ let
     ../secrets/age.nix
     inputs.maomaowm.hmModules.maomaowm
   ] ++ (builtins.attrValues self.homeManagerModules);
-in
-{
-  flake =
-    let
-      host = "eden-inspiron";
-      user = "eden";
-    in
+
+  mkHost =
+    {
+      host,
+      user,
+      extraOSModules ? [ ],
+      extraOSArgs ? { },
+      extraHomeModules ? [ ],
+      extraHomeArgs ? { },
+      ...
+    }:
     {
       nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -41,10 +45,8 @@ in
             host
             user
             ;
-        };
-        modules = [
-          ./inspiron/os.nix
-        ] ++ sharedOSModules;
+        } // extraOSArgs;
+        modules = extraOSModules ++ sharedOSModules;
       };
 
       homeConfigurations."${user}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
@@ -56,12 +58,22 @@ in
             host
             user
             ;
-          nixosVersion = "unstable";
-          homeManagerVersion = "master";
-        };
-        modules = [
-          ./inspiron/home.nix
-        ] ++ sharedHomeModules;
+        } // extraHomeArgs;
+        modules = extraHomeModules ++ sharedHomeModules;
       };
     };
+
+in
+{
+  flake = import ./hosts.nix |> map mkHost |> builtins.foldl' (x: y: x // y) { };
+  # flake = mkHost {
+  #   host = "eden-inspiron";
+  #   user = "eden";
+  #   extraOSModules = [ ./inspiron/os.nix ];
+  #   extraHomeModules = [ ./inspiron/home.nix ];
+  #   extraHomeArgs = {
+  #     nixosVersion = "unstable";
+  #     homeManagerVersion = "master";
+  #   };
+  # };
 }
