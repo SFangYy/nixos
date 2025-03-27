@@ -383,8 +383,8 @@ in
         #tray > .needs-attention {
           -gtk-icon-effect: highlight;
         }
-      
-'';
+
+      '';
     ".config/maomao/waybar/animation.css".text =
       # css
       ''

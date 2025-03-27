@@ -5,14 +5,6 @@
       isDefault = true;
     }
     "everforest"
-    {
-      name = "frieren-butterflies-dark";
-      fromImage = {
-        enable = true;
-        image = "frieren-butterflies.jpg";
-        method = "hellwal";
-      };
-    }
     "petrichor-downpour"
     {
       name = "zzzzoka-gbc-dark";
