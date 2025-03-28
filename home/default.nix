@@ -49,7 +49,6 @@
             run --quiet ${pkgs.procps}/bin/pkill -HUP swhkd
           '';
     };
-
   };
 
   programs = {

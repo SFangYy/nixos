@@ -14,6 +14,8 @@ let
     reshape2
     rmdformats
     see
+    languageserver
+    styler
   ];
 in
 {
