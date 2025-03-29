@@ -41,6 +41,7 @@ in
       (niriAction "super + ctrl + f" "toggle-windowed-fullscreen")
       (niriAction "super + c" "center-column")
       (niriAction "super + {_, shift +} {minus, equal}" "set-{column\\-width, window\\-height} \"{\\-, +}10%\"")
+      (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x \\-10, y +10, y \\-10, x +10}")
       (niriAction "{ctrl +, alt +} print" "screenshot-{screen, window}")
       (niriAction "print" "screenshot")
       {

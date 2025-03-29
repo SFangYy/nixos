@@ -660,7 +660,9 @@
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
-        "niri-unstable": "niri-unstable",
+        "niri-unstable": [
+          "niri-unstable"
+        ],
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-stable": "nixpkgs-stable",
         "xwayland-satellite-stable": "xwayland-satellite-stable",
@@ -700,15 +702,15 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1743017820,
-        "narHash": "sha256-EYq2NfWSSO87O7hLrJLPPt0VbgvSjgPzru+58LQ29WI=",
-        "owner": "YaLTeR",
+        "lastModified": 1743243239,
+        "narHash": "sha256-zjMKXRIzC7+SOTENxknwnjulnwBK0YZ+p+fjmMlXnls=",
+        "owner": "YalTeR",
         "repo": "niri",
-        "rev": "7cfecf4b1b9b8c11c80061fb31926f888228499d",
+        "rev": "8d43efe4ac38ddb6ce298d6fbdfc3ec610b8da56",
         "type": "github"
       },
       "original": {
-        "owner": "YaLTeR",
+        "owner": "YalTeR",
         "repo": "niri",
         "type": "github"
       }
@@ -1082,6 +1084,7 @@
         "nh": "nh",
         "nil": "nil",
         "niri": "niri",
+        "niri-unstable": "niri-unstable",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-stable": "nixpkgs-stable_2",
