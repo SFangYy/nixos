@@ -57,12 +57,6 @@
       userName = "EdenQwQ";
       userEmail = "lsahlm1eden@gmail.com";
       extraConfig = {
-        http = {
-          proxy = "http://127.0.0.1:7890";
-        };
-        https = {
-          proxy = "http://127.0.0.1:7890";
-        };
         safe = {
           directory = "*";
         };

@@ -9,12 +9,6 @@
     git = {
       enable = true;
       config = {
-        http = {
-          proxy = "http://127.0.0.1:7890";
-        };
-        https = {
-          proxy = "http://127.0.0.1:7890";
-        };
         safe = {
           directory = "*";
         };

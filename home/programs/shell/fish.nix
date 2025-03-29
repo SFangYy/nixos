@@ -17,6 +17,8 @@
       shellInit = ''
         zoxide init fish | source
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
+        set -g fish_color_command = blue --italics
+        set -g fish_color_quote = yellow --italics
       '';
       plugins = with pkgs.fishPlugins; [
         {

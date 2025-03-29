@@ -9,15 +9,7 @@
     ./boot.nix
   ];
 
-  networking = {
-    networkmanager.enable = true;
-    proxy = {
-      default = "http://127.0.0.1:7890";
-      httpProxy = "http://127.0.0.1:7890";
-      httpsProxy = "http://127.0.0.1:7890";
-      noProxy = "localhost,internal.domain";
-    };
-  };
+  networking.networkmanager.enable = true;
 
   time = {
     timeZone = "Asia/Shanghai";
@@ -102,6 +94,11 @@
     gvfs.enable = true;
 
     openssh.enable = true;
+
+    dae = {
+      enable = true;
+      configFile = "/home/${user}/.config/dae/config.dae";
+    };
   };
 
   security = {
