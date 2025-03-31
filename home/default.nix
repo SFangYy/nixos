@@ -59,6 +59,7 @@
         fcitx5-chinese-addons
         fcitx5-rime
         fcitx5-pinyin-moegirl
+        fcitx5-pinyin-zhwiki
       ];
       waylandFrontend = true;
     };
