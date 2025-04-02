@@ -582,17 +582,18 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1742919954,
-        "narHash": "sha256-uog87uhRIOmJAaWbF+cP3x8TGX4uSqPYncPjKo5YA5U=",
-        "ref": "refs/heads/wlroots-0.19",
-        "rev": "ed7e8bf93afc3d428a93501de53d581a8eb53218",
-        "revCount": 228,
-        "type": "git",
-        "url": "file:///home/eden/Repos/maomaowm-test"
+        "lastModified": 1743518755,
+        "narHash": "sha256-Kclqxi3ocB0xYVljlrbbmc1Z32lZ5OxZ3v2ikFRqVFQ=",
+        "owner": "DreamMaoMao",
+        "repo": "maomaowm",
+        "rev": "d77fe3a2475b8f9189cb32db3e803ef4ce0ef087",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/eden/Repos/maomaowm-test"
+        "owner": "DreamMaoMao",
+        "ref": "wlroots-0.19",
+        "repo": "maomaowm",
+        "type": "github"
       }
     },
     "mmsg": {

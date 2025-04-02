@@ -39,8 +39,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "The Kose font";
-    maintainers = with maintainers; [ EdenQwQ ];
+    description = "The Kose font by LXGW";
+    homepage = "https://github.com/lxgw/kose-font";
     platforms = platforms.all;
   };
 }

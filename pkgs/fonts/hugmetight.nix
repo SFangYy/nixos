@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "The Hug Me Tight font";
-    maintainers = with maintainers; [ EdenQwQ ];
+    homepage = "https://mistifonts.com/hug-me-tight";
     platforms = platforms.all;
   };
 }

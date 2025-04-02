@@ -71,7 +71,7 @@ rustPlatform.buildRustPackage rec {
   meta = {
     homepage = "https://github.com/CrazySpottedDove/fiz";
     changelog = "https://github.com/CrazySpottedDove/fiz/releases/tag/app-v${version}";
-    description = "高速简洁的学在浙大第三方";
+    description = "Third-party app for Learning in ZJU";
     mainProgram = "fiz";
     license = lib.licenses.mit;
   };

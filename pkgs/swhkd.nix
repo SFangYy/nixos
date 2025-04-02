@@ -39,6 +39,5 @@ rustPlatform.buildRustPackage {
     description = "A drop-in replacement for sxhkd that works with wayland";
     homepage = "https://github.com/waycrate/swhkd";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ EdenQwQ ];
   };
 }

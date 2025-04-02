@@ -2,20 +2,6 @@
 with lib;
 with types;
 let
-  matugenOptions = submodule {
-    options = {
-      image = mkOption {
-        type = either str path;
-        description = "Path to the image";
-      };
-      scheme = mkOption {
-        type = str;
-        description = "The material you scheme to use";
-        default = "scheme-tonal-spot";
-      };
-    };
-  };
-
   fromImageOptions = submodule {
     options = {
       enable = mkEnableOption "Enable generating colorscheme from image";

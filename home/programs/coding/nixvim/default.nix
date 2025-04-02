@@ -40,6 +40,7 @@
       Boolean.fg = base0E;
       String.italic = true;
       String.fg = base0B;
+      StatusLine.bg = base00;
     };
     opts = {
       number = true;

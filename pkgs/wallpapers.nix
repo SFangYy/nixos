@@ -71,4 +71,7 @@ stdenvNoCC.mkDerivation {
       map (wallpaper: "ln -s ${wallpaper} $out/${wallpaper.name}") wallpaperSrcs
       |> builtins.concatStringsSep "\n"
     );
+  meta = {
+    description = "My wallpapers";
+  };
 }

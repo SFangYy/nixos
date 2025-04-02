@@ -23,7 +23,7 @@ buildGoModule rec {
   ];
 
   meta = {
-    description = "ZJU RVPN 客户端的 Go 语言实现";
+    description = "ZJU RVPN client implemented in GO";
     homepage = "https://github.com/Mythologyli/zju-connect";
     license = lib.licenses.agpl3Only;
     mainProgram = "zju-connect";
