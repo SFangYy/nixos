@@ -1,3 +1,4 @@
+# Largely copied from https://github.com/flickowoa/dotfiles/tree/aurora
 { config, ... }:
 with config.lib.stylix.colors;
 let

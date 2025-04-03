@@ -7,10 +7,10 @@
     "everforest"
     "petrichor-downpour"
     {
-      name = "zzzzoka-gbc-dark";
+      name = "frieren-butterflies-dark";
       fromImage = {
         enable = true;
-        image = "zzzzoka-gbc.jpg";
+        image = "frieren-butterflies.jpg";
         method = "matugen";
         passthru.scheme = "scheme-expressive";
       };
