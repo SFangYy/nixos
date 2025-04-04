@@ -11,10 +11,21 @@ let
   getWallpaper =
     wallpaper:
     let
-      inherit (wallpaper) name path convertMethod;
+      inherit (wallpaper)
+        name
+        baseImageName
+        path
+        convertMethod
+        effects
+        ;
     in
     {
-      inherit name convertMethod;
+      inherit
+        name
+        baseImageName
+        convertMethod
+        effects
+        ;
     }
     // (
       if path == null then
@@ -25,23 +36,59 @@ let
         { inherit path; }
     );
 
-  getName =
-    path:
-    baseNameOf path |> match "(.*)\\..*" |> head |> lib.splitString "-" |> tail |> concatStringsSep "-";
+  applyEffect =
+    {
+      name,
+      path,
+    }:
+    effect:
+    if hasAttr effect.name config.lib.wallpapers.effects then
+      config.lib.wallpapers.effects.${effect.name} { inherit name path; } // effect.passthru
+    else
+      path;
+
+  applyEffects =
+    wallpaper:
+    let
+      inherit (wallpaper)
+        name
+        baseImageName
+        path
+        convertMethod
+        effects
+        ;
+    in
+    {
+      inherit name baseImageName convertMethod;
+    }
+    // (
+      if effects == null then
+        { inherit path; }
+      else
+        {
+          path = foldl' (
+            acc: elem:
+            applyEffect {
+              inherit name;
+              path = acc;
+            } elem
+          ) path effects;
+        }
+    );
 
   generateWallpaper =
     wallpaper:
     let
       inherit (wallpaper) path convertMethod;
-      # name = getName path;
       name = match "(.*)\\..*" wallpaper.name |> head;
+      baseImageName = if wallpaper.baseImageName == null then name else wallpaper.baseImageName;
       live = (toString path |> match ".*gif$") != null;
       thisWallpaper = { inherit name path live; };
     in
     {
       inherit name live;
       path =
-        if lib.strings.hasPrefix name config.lib.stylix.colors.scheme then
+        if lib.strings.hasPrefix baseImageName config.lib.stylix.colors.scheme then
           path
         else if convertMethod == "gonord" then
           goNord thisWallpaper
@@ -85,6 +132,7 @@ in
   lib.wallpapers = {
     inherit
       getWallpaper
+      applyEffects
       convertWallpaper
       generateWallpaper
       setWallpaper
