@@ -125,6 +125,7 @@ let
       base07
       base08
       base0A
+      base0B
       base0D
       base0E
       base0F
