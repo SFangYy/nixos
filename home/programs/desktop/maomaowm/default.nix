@@ -292,6 +292,15 @@
       mousebind=NONE,btn_left,toggleoverview,-1
       mousebind=NONE,btn_right,killclient,0
 
+      gesturebind=NONE,left,3,focusdir,left
+      gesturebind=NONE,right,3,focusdir,right
+      gesturebind=NONE,up,3,focusdir,up
+      gesturebind=NONE,down,3,focusdir,down
+      gesturebind=NONE,left,4,viewtoleft_have_client
+      gesturebind=NONE,right,4,viewtoright_have_client
+      gesturebind=NONE,up,4,toggleoverview
+      gesturebind=NONE,down,4,toggleoverview
+
       # Axis Bindings
       axisbind=SUPER,UP,viewtoleft_have_client
       axisbind=SUPER,DOWN,viewtoright_have_client
