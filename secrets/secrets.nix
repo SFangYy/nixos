@@ -8,6 +8,7 @@ let
     "zjuchat_token"
     "tavily_token"
     "zjuconnect_password"
+    "linkai_token"
   ];
 in
 builtins.listToAttrs (
