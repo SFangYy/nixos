@@ -14,17 +14,15 @@
       baseImageName = "frieren-butterflies";
       path = "${pkgs.wallpapers}/frieren-butterflies.jpg";
       convertMethod = "lutgen";
-      effects = [
-        {
-          name = "hydrogen";
-          passthru = {
+      effects = {
+        hydrogen = {
+          enable = true;
+          options = {
             extraArguments = "--shadow-arguments '80x50+0+0'";
           };
-        }
-        {
-          name = "vignette";
-        }
-      ];
+        };
+        vignette.enable = true;
+      };
     }
     {
       name = "frieren-fire.jpg";
@@ -51,11 +49,7 @@
       baseImageName = "bangqiaoyan-girl-sky";
       path = "${pkgs.wallpapers}/bangqiaoyan-girl-sky.jpg";
       convertMethod = "gonord";
-      effects = [
-        {
-          name = "hydrogen";
-        }
-      ];
+      effects.hydrogen.enable = true;
     }
     {
       name = "morncolour-pink-landscape.png";

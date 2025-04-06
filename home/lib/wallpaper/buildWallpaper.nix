@@ -41,11 +41,15 @@ let
       name,
       path,
     }:
-    effect:
-    if hasAttr effect.name config.lib.wallpapers.effects then
-      config.lib.wallpapers.effects.${effect.name} { inherit name path; } // effect.passthru
+    effectName: effectOptions:
+    if config.lib.wallpapers.effects ? ${effectName} then
+      config.lib.wallpapers.effects.${effectName} { inherit name path; } // effectOptions
     else
       path;
+  # if hasAttr effect.name config.lib.wallpapers.effects then
+  #   config.lib.wallpapers.effects.${effect.name} { inherit name path; } // effect.passthru
+  # else
+  #   path;
 
   applyEffects =
     wallpaper:
@@ -66,13 +70,15 @@ let
         { inherit path; }
       else
         {
-          path = foldl' (
-            acc: elem:
-            applyEffect {
-              inherit name;
-              path = acc;
-            } elem
-          ) path effects;
+          path =
+            lib.attrsets.filterAttrs (_: v: v.enable == true) effects
+            |> lib.attrsets.foldlAttrs (
+              acc: effectName: effectOptions:
+              applyEffect {
+                inherit name;
+                path = acc;
+              } effectName effectOptions
+            ) path;
         }
     );
 

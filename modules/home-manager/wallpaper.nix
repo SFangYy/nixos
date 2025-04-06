@@ -27,22 +27,18 @@ let
       };
       effects = mkOption {
         type = nullOr (
-          listOf (submodule {
+          attrsOf (submodule {
             options = {
-              name = mkOption {
-                type = nullOr str;
-                description = "Name of the effect to apply";
-                default = null;
-              };
-              passthru = mkOption {
+              enable = mkEnableOption "Enable this effect";
+              options = mkOption {
                 type = attrs;
-                description = "Extra arguments to pass to the effect";
+                description = "Options for the effect";
                 default = { };
               };
             };
           })
         );
-        description = "List of effects to apply to the wallpaper";
+        description = "Effects to apply to the wallpaper";
         default = null;
       };
     };
