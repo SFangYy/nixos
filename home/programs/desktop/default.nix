@@ -7,6 +7,7 @@
     ./niri
     ./swhkd.nix
     ./maomaowm
+    ./waycorner.nix
   ];
   home.packages = with pkgs; [
     swww

@@ -14,6 +14,7 @@ let
       wlsunset
       systemd
       killall
+      waycorner
     ];
     extraShellCheckFlags = [ ];
     bashOptions = [ ];
@@ -28,6 +29,7 @@ let
         swww-daemon &
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
+        waycorner &
       '';
   };
   niri-blur-wallpaper = pkgs.writers.writePython3Bin "niri-blur-wallpaper" { doCheck = false; } ''
