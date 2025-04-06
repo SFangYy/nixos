@@ -54,7 +54,7 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     niri-unstable = {
-      url = "github:YalTeR/niri";
+      url = "github:YalTeR/niri/4ca7812e4fd51632995f9fccaad8f4607977abff";
       flake = false;
     };
     niri = {

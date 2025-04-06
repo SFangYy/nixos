@@ -44,6 +44,10 @@ in
       (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x \\-10, y +10, y \\-10, x +10}")
       (niriAction "{ctrl +, alt +} print" "screenshot-{screen, window}")
       (niriAction "print" "screenshot")
+      (niriAction "super + w" "toggle-overview")
+      (niriAction "super + alt + m" "set-dynamic-cast-monitor")
+      (niriAction "super + alt + w" "set-dynamic-cast-window")
+      (niriAction "super + alt + n" "clear-dynamic-cast-target")
       {
         key = "super + ctrl + c";
         command = "niri msg pick-color | grep Hex | sd 'Hex: ' '' | sd '\\n' '' | wl-copy";
