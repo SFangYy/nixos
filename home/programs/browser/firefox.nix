@@ -6,6 +6,8 @@
       settings = {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "browser.tabs.drawInTitlebar" = true;
+        "browser.tabs.groups.enabled" = true;
+        "browser.tabs.groups.smart.enabled" = true;
         "svg.context-properties.content.enabled" = true;
       };
     };
