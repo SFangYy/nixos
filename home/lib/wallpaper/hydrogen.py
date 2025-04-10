@@ -3,9 +3,10 @@ import argparse
 import subprocess
 import os
 import shlex
-import re  # Import re for parsing the aspect ratio string
+import re  # Import re for parsing and validation
 
 
+# Function to get image dimensions (no changes needed here)
 def get_image_dimensions(image_path):
     """Gets the width and height of an image using ImageMagick identify."""
     # Append [0] to the image path to select the first frame,
@@ -51,6 +52,7 @@ def get_image_dimensions(image_path):
         return None, None
 
 
+# Function to calculate crop (no changes needed here)
 def calculate_centered_crop(orig_w, orig_h, target_aspect_ratio):
     """Calculates the WxH for a centered crop preserving target aspect ratio."""
     orig_aspect_ratio = orig_w / orig_h
@@ -74,9 +76,19 @@ def calculate_centered_crop(orig_w, orig_h, target_aspect_ratio):
     return f"{crop_w}x{crop_h}+0+0"
 
 
+# Helper function to validate color format
+def is_valid_color(color_string):
+    """Checks if a string is 'blur' or a valid hex color (#RGB or #RRGGBB)."""
+    if color_string.lower() == "blur":
+        return True
+    # Simple hex color check (#RGB or #RRGGBB) - ImageMagick supports more formats,
+    # but this covers common web colors.
+    return re.fullmatch(r"#([0-9a-fA-F]{3}){1,2}", color_string) is not None
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="Optionally crop an image (manually or by aspect ratio), then overlay it on its blurred version with a shadow."
+        description="Optionally crop an image, then overlay it on a background (blurred version or solid color) with a shadow."
     )
     parser.add_argument(
         "-i", "--input", required=True, type=str, help="Input image file"
@@ -112,11 +124,19 @@ def main():
         default=0.8,
         help="Scale factor for the overlay (e.g., 0.8 for 80%% of original size)",
     )
+    # --- Background Argument ---
+    parser.add_argument(
+        "--background",
+        type=str,
+        default="blur",
+        help="Background type: 'blur' (default) for blurred input, or a hex color string (e.g., '#2a2a2a', '#FFF').",
+    )
+    # --- End Background Argument ---
     parser.add_argument(
         "--blur-arguments",
         type=str,
         default="0x20",
-        help="Arguments for the blur (e.g., '0x10' for sigma 10)",
+        help="Arguments for the blur (e.g., '0x10' for sigma 10). Only used if --background is 'blur'.",
     )
     parser.add_argument(
         "--shadow-arguments",
@@ -131,11 +151,31 @@ def main():
         print(f"Error: Input file '{args.input}' not found or is not a file.")
         exit(1)
 
+    # --- Validate Background Argument ---
+    if not is_valid_color(args.background):
+        print(
+            f"Error: Invalid --background value '{args.background}'. "
+            "Must be 'blur' or a hex color like '#RRGGBB' or '#RGB'."
+        )
+        exit(1)
+    # --- End Validation ---
+
     scale_percent = args.scale * 100
     crop_geometry_to_use = None
     use_gravity_center_for_crop = False
+    original_width, original_height = None, None  # Store original dimensions if needed
 
     # --- Determine Crop Geometry ---
+    if args.aspect_ratio_crop or args.crop or args.background != "blur":
+        # Get original dimensions if we need them for cropping or color background sizing
+        original_width, original_height = get_image_dimensions(args.input)
+        if original_width is None or original_height is None:
+            print("Error: Could not determine image dimensions.")
+            exit(1)
+
+    final_canvas_width = original_width
+    final_canvas_height = original_height
+
     if args.aspect_ratio_crop:
         # Validate and parse the aspect ratio string
         match = re.fullmatch(r"(\d+)[x:](\d+)", args.aspect_ratio_crop)
@@ -156,30 +196,46 @@ def main():
             )
             exit(1)
 
-        # Get original dimensions
-        orig_w, orig_h = get_image_dimensions(args.input)
-        if orig_w is None or orig_h is None:
-            print(
-                "Error: Could not determine image dimensions. Cannot perform aspect ratio crop."
-            )
-            exit(1)
-
         # Calculate the crop needed
         crop_geometry_to_use = calculate_centered_crop(
-            orig_w, orig_h, target_aspect_ratio
+            original_width, original_height, target_aspect_ratio
         )
         use_gravity_center_for_crop = True  # Center this type of crop
         print(
             f"Calculated aspect ratio crop geometry: {crop_geometry_to_use} (centered)"
         )
+        # Update final canvas dimensions based on crop
+        # Extract WxH from geometry string 'WxH+X+Y'
+        crop_dims_match = re.match(r"(\d+)x(\d+)", crop_geometry_to_use)
+        if crop_dims_match:
+            final_canvas_width = int(crop_dims_match.group(1))
+            final_canvas_height = int(crop_dims_match.group(2))
+        else:
+            print(
+                f"Warning: Could not parse dimensions from calculated crop geometry '{crop_geometry_to_use}'"
+            )
+            # Fallback or error? For now, we'll proceed but background might be wrong size
+            final_canvas_width = original_width
+            final_canvas_height = original_height
 
     elif args.crop:
         # Use the manually specified crop geometry
-        # We assume the user knows what they're doing with offsets etc.
-        # Manual crop typically defaults to top-left unless gravity is set elsewhere.
         crop_geometry_to_use = args.crop
         use_gravity_center_for_crop = False  # Do not force center for manual crop
         print(f"Using manual crop geometry: {crop_geometry_to_use}")
+        # Update final canvas dimensions based on crop
+        crop_dims_match = re.match(r"(\d+)x(\d+)", crop_geometry_to_use)
+        if crop_dims_match:
+            final_canvas_width = int(crop_dims_match.group(1))
+            final_canvas_height = int(crop_dims_match.group(2))
+        else:
+            print(
+                f"Warning: Could not parse dimensions from manual crop geometry '{crop_geometry_to_use}'"
+            )
+            # Fallback or error?
+            final_canvas_width = original_width
+            final_canvas_height = original_height
+
     # --- End Determine Crop Geometry ---
 
     # --- Build the command list dynamically ---
@@ -191,49 +247,74 @@ def main():
     # 2. Add cropping if specified
     if crop_geometry_to_use:
         if use_gravity_center_for_crop:
-            # Aspect ratio crop needs gravity center first
             cmd.extend(["-gravity", "Center"])
         cmd.extend(["-crop", crop_geometry_to_use])
         cmd.append("+repage")  # Reset page geometry after crop
+        print(f"Image will be cropped to {final_canvas_width}x{final_canvas_height}")
+    else:
+        print(f"Image dimensions: {final_canvas_width}x{final_canvas_height}")
 
-    # 3. Add the rest of the processing steps
+    # 3. Add the background layer generation
+    # This comes *after* the crop, operating on the cropped image dimensions.
+    # Stack: [cropped_image]
+    if args.background == "blur":
+        print(f"Using blurred background with arguments: {args.blur_arguments}")
+        cmd.extend(
+            [
+                "(",
+                "+clone",  # Clone the (potentially cropped) image
+                "-blur",
+                args.blur_arguments,
+                ")",  # Result: [cropped_image, blurred_background]
+            ]
+        )
+    else:
+        # Generate solid color background matching the (potentially cropped) image size
+        print(f"Using solid color background: {args.background}")
+        cmd.extend(
+            [
+                "(",
+                # Create a canvas of the correct size and color
+                "-size",
+                f"{final_canvas_width}x{final_canvas_height}",
+                f"canvas:{args.background}",
+                ")",  # Result: [cropped_image, color_background]
+            ]
+        )
+
+    # 4. Add the overlay processing
+    # Stack is now: [cropped_image, background_layer]
     cmd.extend(
         [
-            # These steps now operate on the (potentially cropped) image
-            "(",
-            "+clone",  # Clone the (potentially cropped) image for blurring
-            "-blur",
-            args.blur_arguments,
-            ")",  # Result: [cropped_image, blurred_background]
             "(",
             "-clone",
-            "0",  # Clone the original (potentially cropped) image again
+            "0",  # Clone the original (cropped) image again (at index 0)
             "-resize",
-            f"{scale_percent}%",  # Resize this clone
-            # Result: [cropped_image, blurred_background, resized_overlay]
+            f"{scale_percent}%",  # Resize this clone for the overlay
+            # Stack: [cropped_image, background_layer, resized_overlay]
             "(",
-            "+clone",  # Clone the resized overlay to create shadow from
+            "+clone",  # Clone the resized overlay for shadow
             "-background",
             "black",
             "-shadow",
             args.shadow_arguments,
-            ")",  # Result: [cropped_image, blurred_background, resized_overlay, shadow]
+            ")",  # Stack: [cropped_image, background_layer, resized_overlay, shadow]
             "+swap",  # Swap shadow and resized overlay
-            # Result: [cropped_image, blurred_background, shadow, resized_overlay]
+            # Stack: [cropped_image, background_layer, shadow, resized_overlay]
             "-background",
             "none",
             "-layers",
             "merge",  # Merge shadow onto resized overlay
             "+repage",  # Reset page geometry after merge
-            ")",  # Result: [cropped_image, blurred_background, overlay_with_shadow]
+            ")",  # Stack: [cropped_image, background_layer, overlay_with_shadow]
             "-delete",
-            "0",  # Delete the original (potentially cropped) image at index 0
-            # Result: [blurred_background, overlay_with_shadow]
-            "-gravity",  # <<< This gravity is for the FINAL composite step
-            "center",
+            "0",  # Delete the cropped_image at index 0
+            # Stack: [background_layer, overlay_with_shadow]
+            "-gravity",
+            "Center",  # <<< Gravity for the FINAL composite
             "-compose",
             "over",
-            "-composite",  # Composite overlay_with_shadow onto blurred_background
+            "-composite",  # Composite overlay_with_shadow onto background_layer
             args.output,  # Specify the output file
         ]
     )
@@ -242,23 +323,24 @@ def main():
     print(f"Executing command: {' '.join(shlex.quote(c) for c in cmd)}")
 
     try:
-        # Use stderr=subprocess.PIPE to capture errors from magick
         process = subprocess.run(cmd, check=True, capture_output=True, text=True)
         print(f"Successfully created {args.output}")
-        if process.stdout:  # Print stdout from magick if any
+        if process.stdout:
             print("ImageMagick Output:\n", process.stdout)
         if process.stderr:
-            print("ImageMagick Warnings/Messages:\n", process.stderr)
+            print(
+                "ImageMagick Warnings/Messages:\n", process.stderr
+            )  # Show non-error output too
     except subprocess.CalledProcessError as e:
         print(f"Error processing image: {e}")
         print(f"Command failed: {' '.join(shlex.quote(c) for c in cmd)}")
-        print("ImageMagick Error Output:\n", e.stderr)  # Print stderr on error
+        print("ImageMagick Error Output:\n", e.stderr)
     except FileNotFoundError:
         print(
             "Error: 'magick' command not found. Is ImageMagick installed and in your PATH?"
         )
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        print(f"An unexpected error occurred ({type(e).__name__}): {e}")
 
 
 if __name__ == "__main__":

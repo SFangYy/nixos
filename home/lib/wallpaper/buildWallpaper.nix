@@ -43,7 +43,7 @@ let
     }:
     effectName: effectOptions:
     if config.lib.wallpapers.effects ? ${effectName} then
-      config.lib.wallpapers.effects.${effectName} { inherit name path; } // effectOptions
+      config.lib.wallpapers.effects.${effectName} ({ inherit name path; } // effectOptions.options)
     else
       path;
   # if hasAttr effect.name config.lib.wallpapers.effects then
