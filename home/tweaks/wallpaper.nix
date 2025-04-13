@@ -17,10 +17,9 @@
       effects = {
         hydrogen = {
           enable = true;
-          options = {
-            extraArguments = "--shadow-arguments '80x50+0+0' --background \"${config.lib.stylix.colors.withHashtag.base02}\"";
-          };
+          options.extraArguments = "--shadow-arguments '80x50+0+0'";
         };
+        vignette.enable = true;
       };
     }
     {
@@ -48,10 +47,11 @@
       baseImageName = "bangqiaoyan-girl-sky";
       path = "${pkgs.wallpapers}/bangqiaoyan-girl-sky.jpg";
       convertMethod = "gonord";
-      effects = {
-        hydrogen.enable = true;
-        vignette.enable = true;
+      effects.hydrogen = {
+        enable = true;
+        options.extraArguments = "--background \"${config.lib.stylix.colors.withHashtag.base02}\"";
       };
+
     }
     {
       name = "morncolour-pink-landscape.png";

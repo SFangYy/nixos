@@ -4,9 +4,16 @@ let
     # kdl
     '''';
   finalNiriConfig =
+    with config.lib.stylix.colors.withHashtag;
     builtins.replaceStrings
-      [ "output \"${config.lib.monitors.mainMonitorName}\" {" ]
-      [ "output \"${config.lib.monitors.mainMonitorName}\" {\nfocus-at-startup" ]
+      [
+        "output \"${config.lib.monitors.mainMonitorName}\" {"
+        # "background-color \"${base01}\""
+      ]
+      [
+        "output \"${config.lib.monitors.mainMonitorName}\" {\nfocus-at-startup"
+        # "background-color \"${base01}\"\n    backdrop-color \"${base02}\""
+      ]
       config.programs.niri.finalConfig
     + "\n"
     + extraConfig;

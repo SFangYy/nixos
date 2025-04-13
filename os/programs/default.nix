@@ -7,5 +7,6 @@
     ./swhkd.nix
     ./maomaowm.nix
     ./hellwm.nix
+    ./miracle-wm.nix
   ];
 }

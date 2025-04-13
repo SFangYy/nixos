@@ -54,7 +54,7 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     niri-unstable = {
-      url = "github:YalTeR/niri/4ca7812e4fd51632995f9fccaad8f4607977abff";
+      url = "github:YalTeR/niri/35623ea34582d6dfb0946a56981053f6fe8ed8b1";
       flake = false;
     };
     niri = {
@@ -81,7 +81,6 @@
     nh.url = "github:viperML/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
-    maomaowm.url = "github:DreamMaoMao/maomaowm/wlroots-0.19";
-    # maomaowm.url = "git+file:///home/eden/Repos/maomaowm-orig";
+    maomaowm.url = "github:DreamMaoMao/maomaowm";
   };
 }
