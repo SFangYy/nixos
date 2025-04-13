@@ -28,6 +28,7 @@
         };
         servers = {
           ruff.enable = true;
+          pyright.enable = true;
           lua_ls.enable = true;
           bashls.enable = true;
           nixd = {
