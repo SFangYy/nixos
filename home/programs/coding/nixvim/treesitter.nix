@@ -21,6 +21,7 @@
       "glsl"
       "css"
       "hyprlang"
+      "r"
     ];
     settings.highlight.enable = true;
     settings.indent.enable = true;

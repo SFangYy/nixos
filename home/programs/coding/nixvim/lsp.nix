@@ -118,6 +118,7 @@
             shellcheck.command = lib.getExe pkgs.shellcheck;
             shellharden.command = lib.getExe pkgs.shellharden;
             stylua.command = lib.getExe pkgs.stylua;
+            yamlfmt.command = lib.getExe pkgs.yamlfmt;
             latexindent.prepend_args = [ ''-y="defaultIndent='  '"'' ];
           };
         };

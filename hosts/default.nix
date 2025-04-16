@@ -66,14 +66,4 @@ let
 in
 {
   flake = import ./hosts.nix |> map mkHost |> builtins.foldl' (x: y: x // y) { };
-  # flake = mkHost {
-  #   host = "eden-inspiron";
-  #   user = "eden";
-  #   extraOSModules = [ ./inspiron/os.nix ];
-  #   extraHomeModules = [ ./inspiron/home.nix ];
-  #   extraHomeArgs = {
-  #     nixosVersion = "unstable";
-  #     homeManagerVersion = "master";
-  #   };
-  # };
 }

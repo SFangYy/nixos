@@ -47,11 +47,7 @@
       baseImageName = "bangqiaoyan-girl-sky";
       path = "${pkgs.wallpapers}/bangqiaoyan-girl-sky.jpg";
       convertMethod = "gonord";
-      effects.hydrogen = {
-        enable = true;
-        options.extraArguments = "--background \"${config.lib.stylix.colors.withHashtag.base02}\"";
-      };
-
+      effects.hydrogen.enable = true;
     }
     {
       name = "morncolour-pink-landscape.png";
