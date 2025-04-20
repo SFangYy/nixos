@@ -8,11 +8,11 @@ let
     builtins.replaceStrings
       [
         "output \"${config.lib.monitors.mainMonitorName}\" {"
-        # "background-color \"${base01}\""
+        "background-color \"${base01}\""
       ]
       [
         "output \"${config.lib.monitors.mainMonitorName}\" {\nfocus-at-startup"
-        # "background-color \"${base01}\"\n    backdrop-color \"${base02}\""
+        "background-color \"${base01}\"\n    backdrop-color \"${base02}\""
       ]
       config.programs.niri.finalConfig
     + "\n"

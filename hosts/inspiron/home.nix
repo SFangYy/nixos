@@ -23,7 +23,7 @@
       };
       position = {
         x = 0;
-        y = 0;
+        y = 60;
       };
       rotation = 90;
     };
