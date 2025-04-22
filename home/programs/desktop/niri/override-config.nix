@@ -2,7 +2,11 @@
 let
   extraConfig =
     # kdl
-    '''';
+    ''
+      overview {
+          zoom 0.36
+        }
+    '';
   finalNiriConfig =
     with config.lib.stylix.colors.withHashtag;
     builtins.replaceStrings

@@ -27,6 +27,7 @@
                     ps: with ps; [
                       numpy
                       pandas
+                      openpyxl
                       scipy
                       requests
                       matplotlib

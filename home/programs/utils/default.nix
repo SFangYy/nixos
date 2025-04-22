@@ -32,7 +32,6 @@
     ydotool
     jq
     scrcpy
-    upscaler
     direnv
     entr
     lutgen
