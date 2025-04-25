@@ -754,17 +754,16 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1745476742,
-        "narHash": "sha256-5bfMdGLKqu/hm9QlZKXelcxG4XzwMXN4dF5DLshUtqg=",
+        "lastModified": 1745571618,
+        "narHash": "sha256-yim78eRKNJOvnEDjRAd5iGwulXNpoMJQqcyLmwZ8Ejo=",
         "owner": "YalTeR",
         "repo": "niri",
-        "rev": "9204719cd9c9145f6824bcc75485bcf7f7262468",
+        "rev": "85cd64e83017459f0a6edfd7b91ba31d70b0ef17",
         "type": "github"
       },
       "original": {
         "owner": "YalTeR",
         "repo": "niri",
-        "rev": "9204719cd9c9145f6824bcc75485bcf7f7262468",
         "type": "github"
       }
     },
@@ -1195,6 +1194,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland_2",
         "nixvim": "nixvim",
         "nur": "nur",
+        "scroll": "scroll",
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix_5"
       }
@@ -1217,6 +1217,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "scroll": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745571747,
+        "narHash": "sha256-K9uRAj3V7/8uvx25rChYnEuA2bitCy/c2irV/ak0tr4=",
+        "owner": "dawsers",
+        "repo": "scroll",
+        "rev": "6322c05624f88dbb8c61cfc4c87dba3122cb1524",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dawsers",
+        "repo": "scroll",
         "type": "github"
       }
     },

@@ -54,7 +54,7 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     niri-unstable = {
-      url = "github:YalTeR/niri/9204719cd9c9145f6824bcc75485bcf7f7262468";
+      url = "github:YalTeR/niri";
       flake = false;
     };
     niri = {
@@ -83,5 +83,9 @@
     agenix.url = "github:ryantm/agenix";
     maomaowm.url = "github:DreamMaoMao/maomaowm";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    scroll = {
+      url = "github:dawsers/scroll";
+      flake = false;
+    };
   };
 }
