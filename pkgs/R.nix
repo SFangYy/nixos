@@ -16,6 +16,7 @@ let
     see
     languageserver
     styler
+    openxlsx
   ];
 in
 {
