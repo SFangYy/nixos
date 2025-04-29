@@ -17,6 +17,8 @@ let
     languageserver
     styler
     openxlsx
+    ez
+    multicmp
   ];
 in
 {

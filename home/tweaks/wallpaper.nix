@@ -65,5 +65,9 @@
       name = "zzzzoka-gbc.jpg";
       convertMethod = "gonord";
     }
+    {
+      name = "celestia-lunar.jpg";
+      convertMethod = "lutgen";
+    }
   ];
 }

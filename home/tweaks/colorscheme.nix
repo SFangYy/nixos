@@ -7,10 +7,10 @@
     "everforest"
     "petrichor-downpour"
     {
-      name = "frieren-butterflies-dark";
+      name = "celestia-lunar-dark";
       fromImage = {
         enable = true;
-        image = "frieren-butterflies.jpg";
+        image = "celestia-lunar.jpg";
         method = "matugen";
         passthru.scheme = "scheme-expressive";
       };

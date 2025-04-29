@@ -56,6 +56,11 @@ let
       url = "https://i.imgur.com/qE6Pr45.jpg";
       sha256 = "1li5ypdvlvdpihiplf5mjj0lvf9gbcwyjslpxgla6wz0fzrwnvgi";
     }
+    {
+      name = "celestia-lunar.jpg";
+      url = "https://i.imgur.com/QIhYwtH.jpg";
+      sha256 = "04dsm4dpv2mddzw7vw77bb0s2mkd4n54hnfa277181smnns7cdzz";
+    }
   ];
 
   wallpaperSrcs = map fetchurl wallpapers;

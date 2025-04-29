@@ -6,6 +6,7 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
+    ./scroll
   ];
   home.packages = with pkgs; [
     swww
