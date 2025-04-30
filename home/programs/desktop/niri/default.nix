@@ -77,6 +77,7 @@
                 "evince"
                 "zathura"
                 "Zotero"
+                "RStudio"
               ];
               default-column-width = {
                 proportion = 1.0;
