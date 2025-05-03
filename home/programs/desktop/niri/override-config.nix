@@ -1,14 +1,15 @@
 { config, ... }:
+with config.lib.stylix.colors.withHashtag;
 let
   extraConfig =
     # kdl
     ''
       overview {
           zoom 0.36
+          backdrop-color "${base02}"
         }
     '';
   finalNiriConfig =
-    with config.lib.stylix.colors.withHashtag;
     builtins.replaceStrings
       [
         "output \"${config.lib.monitors.mainMonitorName}\" {"
@@ -16,7 +17,7 @@ let
       ]
       [
         "output \"${config.lib.monitors.mainMonitorName}\" {\nfocus-at-startup"
-        "background-color \"${base01}\"\n    backdrop-color \"${base02}\""
+        "background-color \"${base01}\""
       ]
       config.programs.niri.finalConfig
     + "\n"
