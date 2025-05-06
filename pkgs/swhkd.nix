@@ -12,12 +12,14 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "waycrate";
     repo = "swhkd";
-    rev = "d7182b6854ea1873c388f38714b923570cb71f86";
-    hash = "sha256-+cxF/aWy2OLs1s+vQIXXsTx4hVAfJGenEdxOSgsmcqk=";
+    rev = "c5c4071459a6465a3743a8bb5bb990e27cdf315b";
+    hash = "sha256-Tv9+UBDBuRD3equ2XNmyt3Fm1+9DxkRzqV4M7PWnBLA=";
   };
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-LBbmFyddyw7vV5voctXq3L4U3Ddbh428j5XbI+td/dg=";
+
+  NO_RFKILL_SW_SUPPORT = 1;
 
   nativeBuildInputs = [
     pkg-config

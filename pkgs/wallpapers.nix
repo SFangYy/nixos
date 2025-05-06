@@ -61,6 +61,11 @@ let
       url = "https://i.imgur.com/QIhYwtH.jpg";
       sha256 = "04dsm4dpv2mddzw7vw77bb0s2mkd4n54hnfa277181smnns7cdzz";
     }
+    {
+      name = "kita.png";
+      url = "https://i.imgur.com/fn2kneH.png";
+      sha256 = "1pl9234h48xffyvbkvyg3rdxjw0432p8m0jbx7k8pb1l2d2m09a4";
+    }
   ];
 
   wallpaperSrcs = map fetchurl wallpapers;

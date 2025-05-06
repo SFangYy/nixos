@@ -69,5 +69,9 @@
       name = "celestia-lunar.jpg";
       convertMethod = "lutgen";
     }
+    {
+      name = "kita.png";
+      convertMethod = "gonord";
+    }
   ];
 }
