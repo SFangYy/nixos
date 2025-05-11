@@ -18,7 +18,7 @@ let
     styler
     openxlsx
     ez
-    multicmp
+    multcomp
   ];
 in
 {
