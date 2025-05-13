@@ -19,6 +19,7 @@ let
     openxlsx
     ez
     multcomp
+    rsdmx
   ];
 in
 {
