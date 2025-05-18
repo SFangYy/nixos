@@ -59,7 +59,7 @@ let
 
 
     def set_wallpaper(monitor, wallpaper):
-        subprocess.run(
+        subprocess.Popen(
             [
                 "swww",
                 "img",
@@ -70,6 +70,20 @@ let
                 "-o",
                 monitor,
                 wallpaper,
+            ]
+        )
+
+
+    def set_backdrop_wallpaper(monitor, wallpaper):
+        subprocess.Popen(
+            [
+                "swaybg",
+                "-o",
+                monitor,
+                "-i",
+                wallpaper,
+                "-m",
+                "fill",
             ]
         )
 
@@ -92,14 +106,15 @@ let
             return
         wallpaper_name = get_wallpaper_name(current_wallpaper)
         active_workspace_is_empty = active_workspace["active_window_id"] is None
-        if active_workspace_is_empty:
-            wallpaper = os.path.join(wallpapers_path, f"{wallpaper_name}.jpg")
-        else:
-            wallpaper = os.path.join(wallpapers_path, f"{wallpaper_name}-blurred.jpg")
+        wallpaper = os.path.join(wallpapers_path, f"{wallpaper_name}.jpg")
+        blurred_wallpaper = os.path.join(wallpapers_path, f"{wallpaper_name}-blurred.jpg")
+        if not active_workspace_is_empty:
+            wallpaper = blurred_wallpaper
         real_wallpaper = os.path.realpath(wallpaper)
         if current_wallpaper == real_wallpaper and not init:
             return
         set_wallpaper(active_workspace_monitor, wallpaper)
+        set_backdrop_wallpaper(active_workspace_monitor, blurred_wallpaper)
 
 
     def change_wallpaper(init=False):

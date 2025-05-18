@@ -10,6 +10,7 @@
   ];
   home.packages = with pkgs; [
     swww
+    swaybg
     kanshi
     wlsunset
     wayneko
