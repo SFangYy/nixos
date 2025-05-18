@@ -2,8 +2,10 @@
 {
   services.mako = {
     enable = true;
-    borderSize = 4;
-    borderRadius = 8;
+    settings = {
+      border-size = 4;
+      border-radius = 8;
+    };
   };
   stylix.targets.mako.enable = true;
   home.packages = [ pkgs.libnotify ];

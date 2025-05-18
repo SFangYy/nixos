@@ -17,7 +17,7 @@ let
     ../home
     ../nix/nixpkgs.nix
     inputs.nur.modules.homeManager.default
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.niri
     inputs.nixvim.homeManagerModules.nixvim
     inputs.agenix.homeManagerModules.default
