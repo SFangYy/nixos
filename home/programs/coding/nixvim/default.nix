@@ -21,6 +21,7 @@
     performance.combinePlugins = {
       enable = true;
       standalonePlugins = [
+        "copilot.lua"
         "nvim-treesitter"
       ];
     };

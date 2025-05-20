@@ -13,33 +13,43 @@ let
 in
 {
   programs.nixvim = {
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "fittencode";
-        src = pkgs.fetchFromGitHub {
-          owner = "luozhiya";
-          repo = "fittencode.nvim";
-          rev = "a52440968404917d0a3625a60c809edf65e52787";
-          hash = "sha256-Xw34CLaVIXDbX6knW9TZgE0eaz6bT4UGKiBHesH/KcQ=";
-        };
-      })
-    ];
-    extraConfigLua =
-      # lua
-      ''
-        require("fittencode").setup({
-        	completion_mode = "inline",
-        	keymaps = {
-        		inline = {
-        			["<C-L>"] = "accept_all_suggestions",
-        		},
-        	},
-        })
-      '';
+    # extraPlugins = [
+    #   (pkgs.vimUtils.buildVimPlugin {
+    #     name = "fittencode";
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "luozhiya";
+    #       repo = "fittencode.nvim";
+    #       rev = "a52440968404917d0a3625a60c809edf65e52787";
+    #       hash = "sha256-Xw34CLaVIXDbX6knW9TZgE0eaz6bT4UGKiBHesH/KcQ=";
+    #     };
+    #   })
+    # ];
+    # extraConfigLua =
+    #   # lua
+    #   ''
+    #     require("fittencode").setup({
+    #     	completion_mode = "inline",
+    #     	keymaps = {
+    #     		inline = {
+    #     			["<C-L>"] = "accept_all_suggestions",
+    #     		},
+    #     	},
+    #     })
+    #   '';
     plugins = {
+      copilot-lua = {
+        enable = true;
+        settings = {
+          panel.enabled = false;
+          suggestion.enabled = false;
+          filetypes.markdown = true;
+        };
+      };
+      copilot-cmp.enable = true;
       cmp.settings.sources = [
         {
-          name = "fittencode";
+          # name = "fittencode";
+          name = "copilot";
           group_index = 1;
         }
       ];
