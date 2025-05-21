@@ -18,7 +18,7 @@
     killall
     htop
     gparted
-    gimp
+    gimp3
     kdePackages.kdenlive
     tesseract # ocr
     marp-cli

@@ -63,7 +63,7 @@
     };
     nur.url = "github:nix-community/NUR";
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
