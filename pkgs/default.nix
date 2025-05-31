@@ -9,4 +9,5 @@
   fiz = pkgs.callPackage ./fiz.nix { };
   hellwm = pkgs.callPackage ./hellwm.nix { };
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
+  wechat = pkgs.callPackage ./wechat.nix { };
 }

@@ -5,7 +5,7 @@ in
 {
   home.packages = with pkgs; [
     (config.lib.misc.addFlags
-      "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --wayland-text-input-version=3"
+      "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --enable-wayland-ime --wayland-text-input-version=3"
       "rstudio"
       myRstudio
     )

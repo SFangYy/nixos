@@ -8,7 +8,6 @@ let
   niri-autostart = pkgs.writeShellApplication {
     name = "niri-autostart";
     runtimeInputs = with pkgs; [
-      niri-blur-wallpaper
       swww
       clash-meta
       wlsunset

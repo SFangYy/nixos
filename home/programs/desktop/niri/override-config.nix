@@ -17,9 +17,19 @@ let
     builtins.replaceStrings
       [
         "output \"${config.lib.monitors.mainMonitorName}\" {"
+        # "layout {"
       ]
       [
         "output \"${config.lib.monitors.mainMonitorName}\" {\nfocus-at-startup"
+        # ''
+        #   layout {
+        #       blur {
+        #           on
+        #           passes 2
+        #           radius 5
+        #           noise 0.1
+        #       }
+        # ''
       ]
       config.programs.niri.finalConfig
     + "\n"

@@ -55,6 +55,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     niri-unstable = {
       url = "github:YalTeR/niri";
+      # url = "github:visualglitch91/niri/feat/blur-lite";
       flake = false;
     };
     niri = {
@@ -86,6 +87,11 @@
     scroll = {
       url = "github:dawsers/scroll";
       flake = false;
+    };
+    zen-nebula.url = "github:JustAdumbPrsn/Zen-Nebula";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

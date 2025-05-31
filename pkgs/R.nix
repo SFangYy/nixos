@@ -20,6 +20,7 @@ let
     ez
     multcomp
     rsdmx
+    MuMIn
   ];
 in
 {
