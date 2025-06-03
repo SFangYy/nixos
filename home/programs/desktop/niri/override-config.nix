@@ -4,10 +4,6 @@ let
   extraConfig =
     # kdl
     ''
-      overview {
-        zoom 0.36
-        backdrop-color "${base02}"
-      }
       layer-rule {
         match namespace="wallpaper"
         place-within-backdrop true

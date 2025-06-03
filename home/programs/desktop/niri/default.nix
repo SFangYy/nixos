@@ -133,6 +133,10 @@
             name = "music";
           };
         };
+        overview = {
+          zoom = 0.36;
+          backdrop-color = base02;
+        };
         layout = {
           gaps = 12;
           border = {
