@@ -49,5 +49,5 @@
     ./obs.nix
     ./music.nix
   ];
-  programs.thefuck.enable = true;
+  programs.pay-respects.enable = true;
 }

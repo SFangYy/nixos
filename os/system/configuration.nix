@@ -33,13 +33,12 @@
   };
 
   services = {
+    displayManager.gdm.enable = false;
+    desktopManager.gnome.enable = true;
+
     xserver = {
       enable = true;
-
-      displayManager.gdm.enable = false;
-      desktopManager.gnome.enable = true;
       desktopManager.runXdgAutostartIfNone = true;
-
       xkb.layout = "us";
       xkb.variant = "";
     };

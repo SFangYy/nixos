@@ -2,7 +2,7 @@
 
 . ~/scripts/tofi/config
 
-entry=$(printf "⏻ poweroff\n   reboot\n   mode\n   exit\n  suspend" | tofi_full "power")
+entry=$(printf "   poweroff\n   reboot\n   mode\n   exit\n   suspend" | tofi_full "power")
 entry=$(echo $entry | cut -d' ' -f2 )
 
 if [ "$entry" = "poweroff" ] || [ "$entry" = "reboot" ]; then
