@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 with config.lib.stylix.colors.withHashtag;
 let
   extraConfig =
@@ -7,6 +7,10 @@ let
       layer-rule {
         match namespace="wallpaper"
         place-within-backdrop true
+      }
+
+      xwayland-satellite {
+        path "${pkgs.xwayland-satellite}/bin/xwayland-satellite"
       }
     '';
   finalNiriConfig =

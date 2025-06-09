@@ -110,10 +110,11 @@ let
         if not active_workspace_is_empty:
             wallpaper = blurred_wallpaper
         real_wallpaper = os.path.realpath(wallpaper)
+        if init:
+            set_backdrop_wallpaper(active_workspace_monitor, blurred_wallpaper)
         if current_wallpaper == real_wallpaper and not init:
             return
         set_wallpaper(active_workspace_monitor, wallpaper)
-        set_backdrop_wallpaper(active_workspace_monitor, blurred_wallpaper)
 
 
     def change_wallpaper(init=False):
