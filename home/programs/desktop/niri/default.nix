@@ -80,7 +80,7 @@
                 "RStudio"
               ];
               default-column-width = {
-                proportion = 1.0;
+                proportion = 0.95;
               };
             }
             {
