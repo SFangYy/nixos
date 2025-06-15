@@ -8,10 +8,6 @@ let
         match namespace="wallpaper"
         place-within-backdrop true
       }
-
-      xwayland-satellite {
-        path "${pkgs.xwayland-satellite}/bin/xwayland-satellite"
-      }
     '';
   finalNiriConfig =
     builtins.replaceStrings

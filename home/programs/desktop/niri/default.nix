@@ -34,6 +34,7 @@
           touchpad.natural-scroll = false;
           keyboard.xkb.options = "caps:escape";
         };
+        environment.DISPLAY = ":0";
         outputs = builtins.mapAttrs (name: value: {
           inherit (value) scale mode position;
           transform.rotation = value.rotation;

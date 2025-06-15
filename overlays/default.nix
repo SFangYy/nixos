@@ -31,4 +31,5 @@
   };
 
   inherit (inputs.niri.overlays) niri;
+  nur = inputs.nur.overlays.default;
 }
