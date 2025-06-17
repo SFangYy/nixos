@@ -121,6 +121,7 @@
       "docker"
       "libvirtd"
       "video"
+      "kvm"
     ];
     packages = with pkgs; [
       nautilus

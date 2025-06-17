@@ -9,5 +9,6 @@
     # ./hellwm.nix
     # ./miracle-wm.nix
     ./sway.nix
+    ./matlab.nix
   ];
 }

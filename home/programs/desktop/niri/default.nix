@@ -34,7 +34,12 @@
           touchpad.natural-scroll = false;
           keyboard.xkb.options = "caps:escape";
         };
-        environment.DISPLAY = ":0";
+        environment = {
+          DISPLAY = ":0";
+          XIM = "fcitx";
+          GTK_IM_MODULE = "fcitx";
+          QT_IM_MODULE = "fcitx";
+        };
         outputs = builtins.mapAttrs (name: value: {
           inherit (value) scale mode position;
           transform.rotation = value.rotation;

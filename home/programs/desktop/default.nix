@@ -14,6 +14,8 @@
     kanshi
     wlsunset
     wayneko
+    xwayland-satellite
+    wmname
   ];
   home.file."scripts" = {
     source = ./scripts;
