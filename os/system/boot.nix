@@ -11,24 +11,8 @@
     consoleLogLevel = 0;
     initrd.verbose = false;
     loader = {
-      systemd-boot.enable = false;
-      grub = {
-        enable = true;
-        device = "nodev";
-        useOSProber = true;
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        extraEntriesBeforeNixOS = true;
-        extraEntries = ''
-          menuentry "Reboot" {
-            reboot
-          }
-          menuentry "Poweroff" {
-            halt
-          }
-        '';
-        default = "saved";
-      };
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
     };
     plymouth.enable = true;

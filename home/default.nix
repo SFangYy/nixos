@@ -20,7 +20,9 @@
       zip
       xz
       unzip
-
+      niri 
+      waybar
+      fish
       # utils
       ripgrep
       zoxide

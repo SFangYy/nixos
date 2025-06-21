@@ -78,7 +78,7 @@
             {
               matches = matchAppIDs [
                 "firefox"
-                "org.qutebrowser.qutebrowser"
+                #"org.qutebrowser.qutebrowser"
                 "kitty"
                 "evince"
                 "zathura"
