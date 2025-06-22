@@ -10,5 +10,6 @@
     # ./miracle-wm.nix
     ./sway.nix
     ./matlab.nix
+    ./misc.nix
   ];
 }
