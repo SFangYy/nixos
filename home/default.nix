@@ -20,8 +20,6 @@
       zip
       xz
       unzip
-      niri 
-      waybar
       fish
       # utils
       ripgrep
@@ -87,7 +85,11 @@
       enableBashIntegration = false;
       enableZshIntegration = false;
     };
-
+    
+    niri = {
+    	enable = true;
+    };
+    waybar.enable = true;
     home-manager.enable = true;
   };
 }

@@ -11,6 +11,8 @@
     ./autostart.nix
     ./override-config.nix
     ./swhkd.nix
+    ./wofi.nix
+    #./rofi.nix
   ];
 
   programs.niri = {
@@ -78,7 +80,7 @@
             {
               matches = matchAppIDs [
                 "firefox"
-                #"org.qutebrowser.qutebrowser"
+                "org.qutebrowser.qutebrowser"
                 "kitty"
                 "evince"
                 "zathura"

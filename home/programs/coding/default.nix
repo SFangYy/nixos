@@ -1,12 +1,12 @@
 {
   imports = [
-    ./misc.nix
+    #./misc.nix
     #./tex.nix
     ./python.nix
     ./neovide.nix
     #./zed.nix
     ./nixvim
     #./R.nix
-    ./distrobox.nix
+    #./distrobox.nix
   ];
 }

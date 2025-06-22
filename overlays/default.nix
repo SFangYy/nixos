@@ -7,7 +7,7 @@
     };
 
   modifications = final: prev: {
-    #qutebrowser = prev.qutebrowser.override { enableWideVine = true; };
+    qutebrowser = prev.qutebrowser.override { enableWideVine = true; };
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
       installPhase = ''
         runHook preInstall
@@ -32,5 +32,4 @@
 
   inherit (inputs.niri.overlays) niri;
   nur = inputs.nur.overlays.default;
-
 }
