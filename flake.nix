@@ -88,11 +88,6 @@
       url = "github:dawsers/scroll";
       flake = false;
     };
-    zen-nebula.url = "github:JustAdumbPrsn/Zen-Nebula";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";

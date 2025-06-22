@@ -22,8 +22,6 @@ let
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
     inputs.maomaowm.hmModules.maomaowm
-    inputs.zen-nebula.homeModules.default
-    inputs.zen-browser.homeModules.twilight
   ] ++ (builtins.attrValues self.homeManagerModules);
 
   mkHost =
