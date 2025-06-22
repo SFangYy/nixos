@@ -70,8 +70,8 @@
   programs = {
     git = {
       enable = true;
-      userName = "EdenQwQ";
-      userEmail = "lsahlm1eden@gmail.com";
+      userName = "SFangYy";
+      userEmail = "sfangyy@163.com";
       extraConfig = {
         safe = {
           directory = "*";
@@ -89,7 +89,6 @@
     niri = {
     	enable = true;
     };
-    waybar.enable = true;
     home-manager.enable = true;
   };
 }

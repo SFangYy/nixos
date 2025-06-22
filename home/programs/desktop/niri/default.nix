@@ -12,7 +12,6 @@
     ./override-config.nix
     ./swhkd.nix
     ./wofi.nix
-    #./rofi.nix
   ];
 
   programs.niri = {
@@ -53,6 +52,11 @@
             "sh"
             "-c"
             "$(tofi-run)"
+          ];
+          "Mod+D".action = spawn [
+            "bash"
+            "-c"
+            "wofi --show drun"
           ];
           "Mod+Shift+C".action = spawn "/home/${user}/scripts/tofi/colorscheme";
         };
