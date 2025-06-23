@@ -73,5 +73,9 @@
       name = "kita.png";
       convertMethod = "gonord";
     }
+    {
+      name = "android-nautilus.jpg";
+      convertMethod = "gonord";
+    }
   ];
 }
