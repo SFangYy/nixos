@@ -118,6 +118,24 @@
         key = "<Leader>o";
         action = ":lua MiniFiles.open()<cr>";
       }
+            { mode = "n"; key = "<leader>ff"; action = "<cmd>Telescope find_files<cr>"; options.desc = "Find files"; }
+      { mode = "n"; key = "<leader>fg"; action = "<cmd>Telescope live_grep<cr>"; options.desc = "Live Grep"; }
+      { mode = "n"; key = "<leader>fb"; action = "<cmd>Telescope buffers<cr>"; options.desc = "Find Buffers"; }
+      { mode = "n"; key = "<leader>fh"; action = "<cmd>Telescope help_tags<cr>"; options.desc = "Help Tags"; }
+
+      # 自定义文件创建快捷键 (调用你的 Lua 模块)
+      {
+        mode = "n";
+        key = "<leader>nd";
+        action = "lua require('custom.file_templates').create_file_in_subdir_with_template('daily_note', 'notes/daily/')";
+        options.desc = "Create Daily Note (select subdir)";
+      }
+      {
+        mode = "n";
+        key = "<leader>nw";
+        action = "lua require('custom.file_templates').create_file_in_subdir_with_template('new_doc', 'docs/')";
+        options.desc = "Create New Doc (select subdir)";
+      }
     ];
     plugins = {
       sleuth.enable = true; # automatically set shiftwidth and expandtab based on the file
@@ -127,9 +145,40 @@
       nvim-autopairs.enable = true;
       endwise.enable = true;
       markdown-preview.enable = true;
+            telescope = {
+        enable = true;
+        package = with pkgs; [ ripgrep fd ]; # 依赖
+        settings = {
+          defaults = {
+            vimgrep_arguments = [
+              "rg" "--color=never" "--no-heading" "--with-filename" "--line-number" "--column" "--smart-case"
+            ];
+          };
+        };
+        # 注意：这里只放 Telescope 自己的快捷键，自定义的放 keymaps 里
+      };
+
+      # vim-wiki 配置
+      vim-wiki = {
+        enable = true;
+        wikis = [
+          {
+            path = "${config.home.homeDirectory}/obsidian";
+            syntax = "markdown";
+            ext = ".md";
+          }
+        ];
+      };
+
+      # 确保 plenary.nvim 被启用，它是 Telescope 的依赖
+      # nixvim 会自动处理许多常见插件的依赖，但明确启用也无妨
+      plenary-nvim.enable = true;
     };
     extraPlugins = with pkgs.vimPlugins; [
       fcitx-vim
+    ];
+    extraRuntimePaths = [
+      ./programs/coding/nixvim/nvim-custom-lua # 这个路径是相对于你的 home.nix 文件
     ];
   };
 }
