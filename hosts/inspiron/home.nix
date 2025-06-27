@@ -13,6 +13,7 @@
         y = 0;
       };
       rotation = 0;
+      focus-at-startup = true;
     };
     "HDMI-A-1" = {
       scale = 1.6;

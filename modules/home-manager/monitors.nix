@@ -50,6 +50,11 @@ let
         type = int;
         description = "The rotation of the monitor";
       };
+      focus-at-startup = mkOption {
+        type = bool;
+        default = false;
+        description = "Whether to focus this monitor at startup";
+      };
     };
   };
 in

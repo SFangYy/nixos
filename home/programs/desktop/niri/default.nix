@@ -2,6 +2,7 @@
   config,
   pkgs,
   user,
+  lib,
   ...
 }:
 {
@@ -104,6 +105,10 @@
           ];
         layer-rules = [
           {
+            matches = [ { namespace = "swww-daemonbackdrop"; } ];
+            place-within-backdrop = true;
+          }
+          {
             matches = [ { namespace = "launcher"; } ];
             geometry-corner-radius = {
               bottom-left = 15.0;
@@ -138,6 +143,10 @@
             open-on-output = mainMonitorName;
             name = "music";
           };
+        };
+        xwayland-satellite = {
+          enable = true;
+          path = lib.getExe pkgs.xwayland-satellite;
         };
         overview = {
           zoom = 0.36;
