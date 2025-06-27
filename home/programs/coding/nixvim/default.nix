@@ -118,6 +118,32 @@
         key = "<Leader>o";
         action = ":lua MiniFiles.open()<cr>";
       }
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = "<cmd>NvimTreeToggle<CR>";
+        options.desc = "Togle NvimTree";
+      }
+      {
+        mode = "n";
+        key = "<leader>h";
+        action = "<C-w>h";
+        options.desc = "Nevigation left";
+      }
+      {
+        mode = "n";
+        key = "<leader>h";
+        action = "<C-w>h";
+        options.desc = "Nevigation left";
+      }
+      {
+        mode = "i";
+        key = "jk";
+        action = "<ESC>";
+        options.desc = "Exit Insert Model";
+      }
+
+
     ];
     plugins = {
       sleuth.enable = true; # automatically set shiftwidth and expandtab based on the file
@@ -127,6 +153,7 @@
       nvim-autopairs.enable = true;
       endwise.enable = true;
       markdown-preview.enable = true;
+      nvim-tree.enable = true;
     };
     extraPlugins = with pkgs.vimPlugins; [
       fcitx-vim

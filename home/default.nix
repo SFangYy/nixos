@@ -27,6 +27,7 @@
       fzf
       eza
       fd
+      moonlight-qt
     ];
 
     activation = {

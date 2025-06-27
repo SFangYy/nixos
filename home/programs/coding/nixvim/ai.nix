@@ -54,7 +54,7 @@ in
         }
       ];
       codecompanion = {
-        enable = true;
+        enable = false;
         settings = {
           adapters.deepseek.__raw =
             # lua

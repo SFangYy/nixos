@@ -9,5 +9,7 @@
     verible
     nemu
     onedrivegui
+    remmina
+    act
   ];
 }
