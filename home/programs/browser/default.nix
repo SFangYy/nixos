@@ -2,7 +2,7 @@
   imports = [
     ./firefox.nix
     #./chromium.nix
-    #./qutebrowser.nix
-    ./zen.nix
+    ./qutebrowser.nix
+    # ./zen.nix
   ];
 }

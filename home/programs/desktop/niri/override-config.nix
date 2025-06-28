@@ -3,20 +3,13 @@ with config.lib.stylix.colors.withHashtag;
 let
   extraConfig =
     # kdl
-    ''
-      layer-rule {
-        match namespace="wallpaper"
-        place-within-backdrop true
-      }
-    '';
+    '''';
   finalNiriConfig =
     builtins.replaceStrings
       [
-        "output \"${config.lib.monitors.mainMonitorName}\" {"
         # "layout {"
       ]
       [
-        "output \"${config.lib.monitors.mainMonitorName}\" {\nfocus-at-startup"
         # ''
         #   layout {
         #       blur {

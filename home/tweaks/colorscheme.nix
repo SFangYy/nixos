@@ -5,7 +5,7 @@
       isDefault = true;
     }
     "everforest"
-    "petrichor-downpour"
+    "onedark"
     {
       name = "celestia-lunar-dark";
       fromImage = {

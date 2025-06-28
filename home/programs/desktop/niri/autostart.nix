@@ -25,7 +25,8 @@ let
         swhks &
         doas swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
         swww kill
-        swww-daemon &
+        swww-daemon --namespace "background" &
+        swww-daemon --namespace "backdrop" &
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
       '';
@@ -35,8 +36,7 @@ let
     import subprocess
     import json
 
-    wallpapers_path = "/home/${user}/Pictures/Wallpapers/generated/"
-    wallpapers_cache_path = "/home/${user}/.cache/swww/"
+    wallpapers_path = "/home/eden/Pictures/Wallpapers/generated/"
     events_of_interest = [
         "Workspace changed",
         "Workspace focused",
@@ -52,9 +52,17 @@ let
 
 
     def get_current_wallpaper(monitor):
-        with open(os.path.join(wallpapers_cache_path, monitor)) as f:
-            wallpaper = str(f.read())
-            return wallpaper
+        output = (
+            subprocess.check_output(["swww", "query", "--namespace", "background"])
+            .decode()
+            .strip()
+            .split("\n")
+        )
+        output = [info.split(", ") for info in output]
+        for o in output:
+            if o[0].split(": ")[1] == monitor:
+                return o[2].split(": ")[2]
+        return None
 
 
     def set_wallpaper(monitor, wallpaper):
@@ -66,6 +74,8 @@ let
                 "fade",
                 "--transition-duration",
                 "0.3",
+                "--namespace",
+                "background",
                 "-o",
                 monitor,
                 wallpaper,
@@ -76,13 +86,17 @@ let
     def set_backdrop_wallpaper(monitor, wallpaper):
         subprocess.Popen(
             [
-                "swaybg",
+                "swww",
+                "img",
+                "--transition-type",
+                "fade",
+                "--transition-duration",
+                "0.3",
+                "--namespace",
+                "backdrop",
                 "-o",
                 monitor,
-                "-i",
                 wallpaper,
-                "-m",
-                "fill",
             ]
         )
 

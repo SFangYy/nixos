@@ -46,7 +46,7 @@
     };
 
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -88,9 +88,10 @@
       url = "github:dawsers/scroll";
       flake = false;
     };
-    zen-nebula.url = "github:JustAdumbPrsn/Zen-Nebula";
+    #zen-nebula.url = "github:JustAdumbPrsn/Zen-Nebula";
     zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
+      #url = "github:0xc000022070/zen-browser-flake";
+      url = "github:MarceColl/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

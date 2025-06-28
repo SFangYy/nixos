@@ -15,6 +15,9 @@
     username = user;
     homeDirectory = "/home/${user}";
 
+    sessionVariables = {
+      GOPATH = "/home/sfangyy/.local";
+    };
     packages = with pkgs; [
       # files
       zip

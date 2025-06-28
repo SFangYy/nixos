@@ -20,7 +20,7 @@
         set -g fish_color_command = blue --italics
         set -g fish_color_quote = yellow --italics
       '';
-      plugins = with pkgs.fishPlugins; [
+     plugins = with pkgs.fishPlugins; [
         {
           name = "puffer";
           src = puffer.src;

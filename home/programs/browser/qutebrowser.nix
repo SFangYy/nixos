@@ -3,11 +3,14 @@
   homeManagerVersion,
   config,
   lib,
+  pkgs,
+  inputs,
   ...
 }:
 {
   programs.qutebrowser = {
     enable = true;
+    package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.qutebrowser;
     keyBindings = {
       normal = {
         ";i" = "hint images download";
