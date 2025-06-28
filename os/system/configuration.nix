@@ -143,6 +143,7 @@
       home-manager
       polkit
       polkit_gnome
+      inputs.zen-browser.packages.${pkgs.system}.default
     ];
 
     variables = {

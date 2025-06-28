@@ -10,7 +10,6 @@
     nemu
     onedrivegui
     remmina
-    act
-    clash-verge 
+    clash-verge-rev
   ];
 }

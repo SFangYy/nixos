@@ -91,7 +91,7 @@
     #zen-nebula.url = "github:JustAdumbPrsn/Zen-Nebula";
     zen-browser = {
       #url = "github:0xc000022070/zen-browser-flake";
-      url = "github:MarceColl/zen-browser-flake";
+      url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

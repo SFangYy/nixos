@@ -2,6 +2,7 @@
   pkgs,
   lib,
   user,
+  inputs,
   ...
 }:
 {
@@ -31,6 +32,7 @@
       eza
       fd
       moonlight-qt
+      inputs.zen-browser.packages.${pkgs.system}.default
     ];
 
     activation = {
