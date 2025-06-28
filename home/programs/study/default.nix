@@ -11,5 +11,6 @@
     onedrivegui
     remmina
     act
+    clash-verge 
   ];
 }

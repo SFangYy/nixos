@@ -151,13 +151,13 @@
       {
         mode = "n";
         key = "<leader>nd";
-        action = "lua require('custom.file_templates').create_file_in_subdir_with_template('daily_note', 'notes/daily/')";
+        action = "<cmd>lua _G.CreateTemplatedFileInSubdir('A/B')<cr>";
         options.desc = "Create Daily Note (select subdir)";
       }
       {
         mode = "n";
         key = "<leader>nw";
-        action = "lua require('custom.file_templates').create_file_in_subdir_with_template('new_doc', 'docs/')";
+        action = "<cmd>lua _G.CreateTemplatedFileInSubdir('A/B')<cr>";
         options.desc = "Create New Doc (select subdir)";
       }
 
@@ -197,7 +197,7 @@
     extraPlugins = with pkgs.vimPlugins; [
       fcitx-vim
     ];
-    #extraConfigLua = builtins.readFile ./nvim-custom-lua/utils.lua;
+    extraConfigLua = builtins.readFile ./custom/utils.lua;
       #[
       #./programs/coding/nixvim/nvim-custom-lua # 这个路径是相对于你的 home.nix 文件
 
