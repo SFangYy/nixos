@@ -174,7 +174,7 @@
       nvim-tree.enable = true;
       telescope = {
         enable = true;
-        package = with pkgs; [ ripgrep fd ]; # 依赖
+        #package = with pkgs; [ ripgrep fd ]; # 依赖
         settings = {
           defaults = {
             vimgrep_arguments = [
@@ -186,26 +186,21 @@
       };
 
       # vim-wiki 配置
-      vim-wiki = {
+      vimwiki = {
         enable = true;
-        wikis = [
-          {
-            path = "${config.home.homeDirectory}/obsidian";
-            syntax = "markdown";
-            ext = ".md";
-          }
-        ];
       };
 
       # 确保 plenary.nvim 被启用，它是 Telescope 的依赖
       # nixvim 会自动处理许多常见插件的依赖，但明确启用也无妨
-      plenary-nvim.enable = true;
+      #plenary.enable = true;
     };
     extraPlugins = with pkgs.vimPlugins; [
       fcitx-vim
     ];
-    extraRuntimePaths = [
-      ./programs/coding/nixvim/nvim-custom-lua # 这个路径是相对于你的 home.nix 文件
-    ];
+    #extraConfigLua = builtins.readFile ./nvim-custom-lua/utils.lua;
+      #[
+      #./programs/coding/nixvim/nvim-custom-lua # 这个路径是相对于你的 home.nix 文件
+
+      #];
   };
 }
