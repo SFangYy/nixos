@@ -27,6 +27,8 @@ let
         swww kill
         swww-daemon --namespace "background" &
         swww-daemon --namespace "backdrop" &
+        swww restore --namespace "background"
+        swww restore --namespace "backdrop"
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
       '';
@@ -36,7 +38,7 @@ let
     import subprocess
     import json
 
-    wallpapers_path = "/home/eden/Pictures/Wallpapers/generated/"
+    wallpapers_path = "/home/${user}/Pictures/Wallpapers/generated/"
     events_of_interest = [
         "Workspace changed",
         "Workspace focused",

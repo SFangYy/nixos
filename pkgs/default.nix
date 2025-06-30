@@ -8,6 +8,5 @@
   custom-colorschemes = pkgs.callPackage ./customColorSchemes { };
   hellwm = pkgs.callPackage ./hellwm.nix { };
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
-  wechat = pkgs.callPackage ./wechat.nix { };
   maple-mono-variable = pkgs.callPackage ./maple-mono-variable.nix { };
 }
