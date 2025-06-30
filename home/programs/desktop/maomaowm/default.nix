@@ -35,6 +35,7 @@
 
         # Animation Configuration
         animations=1
+        layer_animations=1
         animation_type_open=zoom
         animation_type_close=slide
         animation_fade_in=1
@@ -187,7 +188,7 @@
 
 
         # menu and terminal
-        bind=SUPER,p,spawn,sh -c $(tofi-run)
+        bind=SUPER,p,spawn,sh -c \$(tofi-run)
         bind=SUPER,Return,spawn,kitty
         bind=SUPER+SHIFT,C,spawn,/home/eden/scripts/tofi/colorscheme
         bind=SUPER+SHIFT,W,spawn,/home/eden/scripts/change-wal-wayland
@@ -329,7 +330,7 @@
     autostart_sh =
       let
         setWallpaper = monitor: ''
-          swww img -o ${monitor} ~/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor} | xargs basename | cut -d'-' -f2- | sd "\-blurred" "")
+          swww img --namespace background -o ${monitor} ~/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor} | cut -d'/' -f7 | cut -d'-' -f2- | sd "\-blurred" "")
         '';
       in
       ''
@@ -338,7 +339,7 @@
         swhks &
         doas swhkd -c ~/.config/maomao/swhkdrc &
         swww kill
-        swww-daemon &
+        swww-daemon --namespace background &
         killall clash-meta
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
