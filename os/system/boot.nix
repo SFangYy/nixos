@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.linuxPackages_zen;
     kernelParams = [
       "loglevel=3"
       "quiet"
