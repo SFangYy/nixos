@@ -71,6 +71,11 @@ let
       url = "https://i.imgur.com/53Azuew.jpg";
       sha256 = "09qaj2nzlsk3xv88lsawpy3dnhw5vjcgs1r4ski9wdknbnxvl3b2";
     }
+    {
+      name = "city.jpeg";
+      url = "https://i.imgur.com/F8WcIQK.jpeg";
+      sha256 = "1y4mvy26iq284p8b2xh2ygbjfw9r00v9d77hjjw4wmnc3216v1jy";
+    }
   ];
 
   wallpaperSrcs = map fetchurl wallpapers;

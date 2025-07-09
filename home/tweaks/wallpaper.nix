@@ -77,5 +77,9 @@
       name = "android-nautilus.jpg";
       convertMethod = "gonord";
     }
+    {
+      name = "city.jpeg";
+      convertMethod = "gonord";
+    }
   ];
 }
