@@ -5,7 +5,7 @@
     kernelParams = [
       "loglevel=3"
       "quiet"
-      "spash"
+      "splash"
       "console=tty1"
     ];
     consoleLogLevel = 0;
