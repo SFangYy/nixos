@@ -7,5 +7,6 @@
     tavily_token.file = ./tavily_token.age;
     zjuconnect_password.file = ./zjuconnect_password.age;
     linkai_token.file = ./linkai_token.age;
+    anyrouter_token.file = ./anyrouter_token.age;
   };
 }

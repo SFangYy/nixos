@@ -9,6 +9,7 @@ let
     "tavily_token"
     "zjuconnect_password"
     "linkai_token"
+    "anyrouter_token"
   ];
 in
 builtins.listToAttrs (
