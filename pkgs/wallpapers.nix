@@ -76,6 +76,11 @@ let
       url = "https://i.imgur.com/F8WcIQK.jpeg";
       sha256 = "1y4mvy26iq284p8b2xh2ygbjfw9r00v9d77hjjw4wmnc3216v1jy";
     }
+    {
+      name = "jw-follow-the-wind.jpeg";
+      url = "https://i.imgur.com/eCilr4R.jpeg";
+      sha256 = "1vnnmlxa6bx1yi9b3hh7v5wggwab3k5nx7hxpnc56ld4p1wm3g4l";
+    }
   ];
 
   wallpaperSrcs = map fetchurl wallpapers;

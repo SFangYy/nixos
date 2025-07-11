@@ -79,6 +79,10 @@
     }
     {
       name = "city.jpeg";
+      convertMethod = "lutgen";
+    }
+    {
+      name = "jw-follow-the-wind.jpeg";
       convertMethod = "gonord";
     }
   ];
