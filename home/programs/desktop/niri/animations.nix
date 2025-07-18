@@ -77,17 +77,7 @@
       custom-shader =
         let
           inherit (config.lib.stylix) colors;
-          mkColor =
-            color:
-            let
-              r = colors."${color}-rgb-r";
-              g = colors."${color}-rgb-g";
-              b = colors."${color}-rgb-b";
-              rf = "${r}.0 / 255.0";
-              gf = "${g}.0 / 255.0";
-              bf = "${b}.0 / 255.0";
-            in
-            "vec4(${rf}, ${gf}, ${bf}, 1.0)";
+          inherit (config.lib.misc) mkGLSLColor;
         in
         # glsl
         ''
@@ -143,11 +133,11 @@
               steps[4] = 0.8;
 
               vec4 colors[5];
-              colors[0] = ${mkColor "base00"} * 1.0;
-              colors[1] = ${mkColor "base08"} * 1.0;
-              colors[2] = ${mkColor "base09"} * 1.0;
-              colors[3] = ${mkColor "base0A"} * 1.0;
-              colors[4] = ${mkColor "base05"} * 1.0;
+              colors[0] = ${mkGLSLColor "base00"} * 1.0;
+              colors[1] = ${mkGLSLColor "base08"} * 1.0;
+              colors[2] = ${mkGLSLColor "base09"} * 1.0;
+              colors[3] = ${mkGLSLColor "base0A"} * 1.0;
+              colors[4] = ${mkGLSLColor "base05"} * 1.0;
 
               if (v < steps[0]) {
                   return colors[0];
