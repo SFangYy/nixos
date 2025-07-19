@@ -84,10 +84,6 @@
     agenix.url = "github:ryantm/agenix";
     maomaowm.url = "github:DreamMaoMao/maomaowm";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    scroll = {
-      url = "github:dawsers/scroll";
-      flake = false;
-    };
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";

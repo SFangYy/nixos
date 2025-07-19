@@ -30,7 +30,6 @@
           ruff.enable = true;
           pyright.enable = true;
           lua_ls.enable = true;
-          bashls.enable = true;
           nixd = {
             enable = true;
             package = inputs.nixd.packages.${pkgs.system}.nixd;
