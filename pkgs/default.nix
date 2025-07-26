@@ -8,4 +8,5 @@
   custom-colorschemes = pkgs.callPackage ./customColorSchemes { };
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
   maple-mono-variable = pkgs.callPackage ./maple-mono-variable.nix { };
+  qwen-code = pkgs.callPackage ./qwen-code.nix { };
 }
