@@ -21,6 +21,7 @@ let
     multcomp
     rsdmx
     MuMIn
+    ggforce
   ];
 in
 {
