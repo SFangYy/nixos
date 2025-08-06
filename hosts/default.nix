@@ -10,7 +10,7 @@ let
     ../nix
     inputs.stylix.nixosModules.stylix
     inputs.niri.nixosModules.niri
-    inputs.maomaowm.nixosModules.maomaowm
+    inputs.mangowc.nixosModules.mango
   ];
 
   sharedHomeModules = [
@@ -18,10 +18,10 @@ let
     ../nix/nixpkgs.nix
     inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.niri
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
-    inputs.maomaowm.hmModules.maomaowm
+    inputs.mangowc.hmModules.mango
   ] ++ (builtins.attrValues self.homeManagerModules);
 
   mkHost =

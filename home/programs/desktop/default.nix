@@ -7,7 +7,7 @@
     ./niri
     ./swhkd.nix
     ./scroll
-    ./maomaowm
+    ./mango
   ];
   home.packages = with pkgs; [
     swww

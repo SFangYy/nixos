@@ -68,8 +68,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim/nixos-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nil = {
       url = "github:oxalica/nil";
@@ -82,7 +82,7 @@
     nh.url = "github:viperML/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
-    maomaowm.url = "github:DreamMaoMao/maomaowm";
+    mangowc.url = "github:DreamMaoMao/mangowc";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";

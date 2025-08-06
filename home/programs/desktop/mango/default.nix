@@ -5,7 +5,7 @@
     ./waybar.nix
   ];
 
-  wayland.windowManager.maomaowm = {
+  wayland.windowManager.mango = {
     enable = true;
     settings =
       with config.lib.stylix.colors;
@@ -337,14 +337,14 @@
         killall swhkd
         killall swhks
         swhks &
-        doas swhkd -c ~/.config/maomao/swhkdrc &
+        doas swhkd -c ~/.config/mango/swhkdrc &
         swww kill
         swww-daemon --namespace background &
         killall clash-meta
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
         killall .waybar-wrapped
-        waybar -c ~/.config/maomao/waybar/config.jsonc -s ~/.config/maomao/waybar/style.css &
+        waybar -c ~/.config/mango/waybar/config.jsonc -s ~/.config/mango/waybar/style.css &
         killall .nm-applet-wrap
         killall .blueman-applet
         fcitx5 -d -r &

@@ -3,10 +3,10 @@
     ./basic.nix
     ./doas.nix
     ./niri.nix
-    ./ai.nix
     ./swhkd.nix
-    ./maomaowm.nix
+    ./mango.nix
     ./matlab.nix
     ./misc.nix
+    ./tuigreet.nix
   ];
 }

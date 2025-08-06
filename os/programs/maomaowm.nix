@@ -1,5 +1,0 @@
-{
-  programs = {
-    maomaowm.enable = true;
-  };
-}

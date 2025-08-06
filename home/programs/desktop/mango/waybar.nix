@@ -136,7 +136,7 @@ in
     };
   };
   home.file = {
-    ".config/maomao/waybar/config.jsonc".text =
+    ".config/mango/waybar/config.jsonc".text =
       let
         otherMonitorsConfig =
           map (
@@ -188,19 +188,19 @@ in
         ]
 
       '';
-    ".config/maomao/waybar/colors.css".text =
+    ".config/mango/waybar/colors.css".text =
       # css
       (builtins.mapAttrs (name: value: "@define-color ${name} ${value};") colors)
       |> builtins.attrValues
       |> builtins.concatStringsSep "\n";
-    ".config/maomao/waybar/tray.css".text =
+    ".config/mango/waybar/tray.css".text =
       # css
       ''
         #tray {
           background: shade(alpha(${trayBackgroundColor}, 0.9), 1);
         }
       '';
-    ".config/maomao/waybar/style.css".text =
+    ".config/mango/waybar/style.css".text =
       # css
       ''
         @import "animation.css";
@@ -383,9 +383,9 @@ in
         #tray > .needs-attention {
           -gtk-icon-effect: highlight;
         }
-
-      '';
-    ".config/maomao/waybar/animation.css".text =
+      
+'';
+    ".config/mango/waybar/animation.css".text =
       # css
       ''
         @keyframes gradient {

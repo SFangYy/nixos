@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   user,
   ...
 }:
@@ -41,24 +40,6 @@
       desktopManager.runXdgAutostartIfNone = true;
       xkb.layout = "us";
       xkb.variant = "";
-    };
-
-    greetd = {
-      enable = true;
-      vt = 3;
-      settings.default_session = {
-        command = # bash
-          let
-            inherit (config.services.displayManager.sessionData) desktops;
-          in
-          # bash
-          ''
-            ${pkgs.greetd.tuigreet}/bin/tuigreet --time \
-              --sessions ${desktops}/share/xsessions:${desktops}/share/wayland-sessions \
-              --remember --remember-user-session --asterisks --cmd niri-session \
-              --user-menu --greeting "Who TF Are You?" --window-padding 2'';
-        user = "greeter";
-      };
     };
 
     fprintd = {
