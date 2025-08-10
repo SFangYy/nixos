@@ -6,9 +6,10 @@
 }:
 {
   stylix.targets.ghostty.enable = true;
+  nixGL.packages = inputs.nixGL.packages;
   programs.ghostty = {
     enable = true;
-    package = inputs.ghostty.packages.${pkgs.system}.ghostty;
+    package = config.lib.nixGL.wrap inputs.ghostty.packages.${pkgs.system}.ghostty;
     settings = {
       font-family = [
         "Symbols Nerd Font"

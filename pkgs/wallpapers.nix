@@ -73,8 +73,8 @@ let
     }
     {
       name = "city.jpeg";
-      url = "https://i.imgur.com/F8WcIQK.jpeg";
-      sha256 = "1y4mvy26iq284p8b2xh2ygbjfw9r00v9d77hjjw4wmnc3216v1jy";
+      url = "https://i.imgur.com/pUG5lpl.jpeg";
+      sha256 = "0zsfih9c09mkjdlimla6bmilkdvj7hqsavqc729w9ymxxqfyyyqj";
     }
     {
       name = "jw-follow-the-wind.jpeg";
@@ -88,14 +88,13 @@ in
 stdenvNoCC.mkDerivation {
   name = "wallpapers";
   phases = [ "installPhase" ];
-  installPhase =
-    ''
-      mkdir -p $out
-    ''
-    + (
-      map (wallpaper: "ln -s ${wallpaper} $out/${wallpaper.name}") wallpaperSrcs
-      |> builtins.concatStringsSep "\n"
-    );
+  installPhase = ''
+    mkdir -p $out
+  ''
+  + (
+    map (wallpaper: "ln -s ${wallpaper} $out/${wallpaper.name}") wallpaperSrcs
+    |> builtins.concatStringsSep "\n"
+  );
   meta = {
     description = "My wallpapers";
   };

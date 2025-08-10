@@ -89,5 +89,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ghostty.url = "github:ghostty-org/ghostty";
+    nixGL.url = "github:nix-community/nixGL";
   };
 }
