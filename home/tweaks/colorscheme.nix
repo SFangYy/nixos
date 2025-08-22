@@ -5,6 +5,6 @@
       isDefault = true;
     }
     "everforest"
-    "catppuccin-frappe"
+    "nord"
   ];
 }

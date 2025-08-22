@@ -50,7 +50,7 @@
     ./eye-candy.nix
     ./obs.nix
     ./music.nix
-    ./claude-code.nix
+    ./ai.nix
   ];
   programs.pay-respects.enable = true;
 }
