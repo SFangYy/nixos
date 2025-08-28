@@ -48,7 +48,10 @@
         }) config.monitors;
         binds = with config.lib.niri.actions; {
           "Mod+Return".action = spawn "kitty";
-          "Mod+Shift+Return".action = spawn "ghostty";
+          "Mod+Shift+Return".action = spawn [
+            "ghostty"
+            "--launched-from=desktop"
+          ];
           "Mod+P".action = spawn [
             "sh"
             "-c"
