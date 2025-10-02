@@ -7,16 +7,20 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "swhkd";
-  version = "1.3.0-unstable-2025-02-08";
+  version = "unstable";
 
   src = fetchFromGitHub {
     owner = "waycrate";
     repo = "swhkd";
-    rev = "d7182b6854ea1873c388f38714b923570cb71f86";
-    hash = "sha256-+cxF/aWy2OLs1s+vQIXXsTx4hVAfJGenEdxOSgsmcqk=";
+    rev = "ae372e0aff2e87fbfed11d79bcd7fd9ef5f68a60";
+    hash = "sha256-EhbRIlI+RsZjPjbYmgu4WzOHJ8udTtlxgJ2kr9iHyd0=";
   };
 
   cargoHash = "sha256-LBbmFyddyw7vV5voctXq3L4U3Ddbh428j5XbI+td/dg=";
+
+  cargoBuildFlags = [
+    "--features no_rfkill"
+  ];
 
   nativeBuildInputs = [
     pkg-config
