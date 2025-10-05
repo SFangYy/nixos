@@ -9,7 +9,7 @@
         in
         # bash
         ''
-          ${pkgs.greetd.tuigreet}/bin/tuigreet --time \
+          ${pkgs.tuigreet}/bin/tuigreet --time \
             --sessions ${desktops}/share/xsessions:${desktops}/share/wayland-sessions \
             --remember --remember-user-session --asterisks --cmd niri-session \
             --user-menu --greeting "Who TF Are You?" --window-padding 2'';

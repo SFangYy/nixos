@@ -79,7 +79,7 @@
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nh.url = "github:viperML/nh";
+    nh.url = "github:nix-community/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
     mangowc.url = "github:DreamMaoMao/mangowc";

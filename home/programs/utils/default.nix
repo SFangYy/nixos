@@ -13,25 +13,25 @@
     sd
     socat
     pandoc
-    typst
+    # typst
     du-dust
     killall
     htop
     gparted
     gimp3
     kdePackages.kdenlive
-    tesseract # ocr
-    marp-cli
+    # tesseract # ocr
+    # marp-cli
     appimage-run
-    audiowaveform
-    papers
-    nom
+    # audiowaveform
+    # papers
+    # nom
     yad
-    pcmanfm
-    yazi
-    ydotool
+    # pcmanfm
+    # yazi
+    # ydotool
     jq
-    scrcpy
+    # scrcpy
     direnv
     entr
     lutgen
@@ -43,8 +43,6 @@
     nix-init
     wl-color-picker
     (config.lib.misc.addFlags "--wayland-text-input-version=3" "cherry-studio" cherry-studio)
-    gemini-cli
-    qwen-code
   ];
   imports = [
     ./eye-candy.nix

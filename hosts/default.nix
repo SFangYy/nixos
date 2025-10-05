@@ -10,7 +10,7 @@ let
     ../nix
     inputs.stylix.nixosModules.stylix
     inputs.niri.nixosModules.niri
-    inputs.mangowc.nixosModules.mango
+    # inputs.mangowc.nixosModules.mango
   ];
 
   sharedHomeModules = [
@@ -21,8 +21,9 @@ let
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
-    inputs.mangowc.hmModules.mango
-  ] ++ (builtins.attrValues self.homeManagerModules);
+    # inputs.mangowc.hmModules.mango
+  ]
+  ++ (builtins.attrValues self.homeManagerModules);
 
   mkHost =
     {
@@ -44,7 +45,8 @@ let
             host
             user
             ;
-        } // extraOSArgs;
+        }
+        // extraOSArgs;
         modules = extraOSModules ++ sharedOSModules;
       };
 
@@ -57,7 +59,8 @@ let
             host
             user
             ;
-        } // extraHomeArgs;
+        }
+        // extraHomeArgs;
         modules = extraHomeModules ++ sharedHomeModules;
       };
     };

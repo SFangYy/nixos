@@ -17,5 +17,5 @@
     ANTHROPIC_AUTH_TOKEN = "$(cat ${config.age.secrets.anyrouter_token.path})";
     ANTHROPIC_BASE_URL = "https://anyrouter.top";
   };
-  home.packages = with pkgs; [ qwen-code ];
+  # home.packages = with pkgs; [ qwen-code ];
 }

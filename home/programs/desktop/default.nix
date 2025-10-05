@@ -6,8 +6,9 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
-    ./scroll
-    ./mango
+    ./dank.nix
+    # ./scroll
+    # ./mango
   ];
   home.packages = with pkgs; [
     swww
