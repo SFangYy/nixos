@@ -134,7 +134,7 @@ let
 in
 {
   programs.waybar = {
-    enable = true;
+    # enable = true;
     systemd = {
       enable = true;
       target = config.wayland.systemd.target;

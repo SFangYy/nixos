@@ -7,4 +7,5 @@
     ./wallpaper.nix
     ./colorscheme.nix
   ];
+  desktopShell = "dank";
 }

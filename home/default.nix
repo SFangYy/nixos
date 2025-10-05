@@ -37,17 +37,27 @@
           ''
             run ${pkgs.niri-unstable}/bin/niri msg action do-screen-transition
           '';
-      reload-waybar =
+      reload-swhkd =
         lib.hm.dag.entryAfter [ "niri-transition" ]
+          # bash
+          ''
+            run --quiet ${pkgs.procps}/bin/pkill -HUP swhkd
+          '';
+    }
+    // lib.mkIf (config.desktopShell == "waybar") {
+      reload-waybar =
+        lib.hm.dag.entryAfter [ "reload-swhkd" ]
           # bash
           ''
             run --quiet ${pkgs.systemd}/bin/systemctl --user reload waybar.service
           '';
-      reload-swhkd =
-        lib.hm.dag.entryAfter [ "reload-waybar" ]
+    }
+    // lib.mkIf (config.desktopShell == "dms") {
+      reload-dms =
+        lib.hm.dag.entryAfter [ "reload-swhkd" ]
           # bash
           ''
-            run --quiet ${pkgs.procps}/bin/pkill -HUP swhkd
+            run --quiet ${pkgs.systemd}/bin/systemctl --user reload dms.service
           '';
     };
   };

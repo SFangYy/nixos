@@ -90,5 +90,9 @@
     };
     ghostty.url = "github:ghostty-org/ghostty";
     nixGL.url = "github:nix-community/nixGL";
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

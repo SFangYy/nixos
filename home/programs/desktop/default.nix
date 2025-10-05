@@ -6,7 +6,7 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
-    ./dank.nix
+    ./dms.nix
     # ./scroll
     # ./mango
   ];

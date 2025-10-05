@@ -22,6 +22,7 @@ let
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
     # inputs.mangowc.hmModules.mango
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
   ]
   ++ (builtins.attrValues self.homeManagerModules);
 

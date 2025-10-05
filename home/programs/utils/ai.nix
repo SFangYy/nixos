@@ -2,12 +2,6 @@
 {
   programs.gemini-cli = {
     enable = true;
-    settings = {
-      theme = "ANSI";
-      vimMode = true;
-      preferredEditor = "nvim";
-      autoAccept = false;
-    };
   };
   programs.claude-code = {
     enable = true;
