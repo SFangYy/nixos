@@ -57,7 +57,7 @@
         lib.hm.dag.entryAfter [ "reload-swhkd" ]
           # bash
           ''
-            run --quiet ${pkgs.systemd}/bin/systemctl --user reload dms.service
+            run --quiet ${pkgs.systemd}/bin/systemctl --user reload quickshell.service
           '';
     };
   };

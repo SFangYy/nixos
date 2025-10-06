@@ -242,9 +242,7 @@ in
         "animationSpeed": 2
       }
     '';
-  programs.dankMaterialShell.enableSystemd = true;
   home.sessionVariables = {
     DMS_DISABLE_MATUGEN = "1";
-    QT_QPA_PLATFORM = "gtk3";
   };
 }

@@ -175,7 +175,7 @@ in
     };
   };
   home.activation.restart-niri-blur-wallpaper =
-    lib.hm.dag.entryAfter [ "reload-waybar" ]
+    lib.hm.dag.entryAfter [ "reload-swhkd" ]
       # bash
       ''run --quiet ${pkgs.systemd}/bin/systemctl --user restart niri-blur-wallpaper'';
   programs.niri.settings.spawn-at-startup = [
