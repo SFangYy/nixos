@@ -43,21 +43,23 @@
           ''
             run --quiet ${pkgs.procps}/bin/pkill -HUP swhkd
           '';
-    }
-    // lib.mkIf (config.desktopShell == "waybar") {
-      reload-waybar =
+      reload-shell =
         lib.hm.dag.entryAfter [ "reload-swhkd" ]
           # bash
           ''
-            run --quiet ${pkgs.systemd}/bin/systemctl --user reload waybar.service
-          '';
-    }
-    // lib.mkIf (config.desktopShell == "dms") {
-      reload-dms =
-        lib.hm.dag.entryAfter [ "reload-swhkd" ]
-          # bash
-          ''
-            run --quiet ${pkgs.systemd}/bin/systemctl --user reload quickshell.service
+            # only run stop if the service is active
+            if ${pkgs.systemd}/bin/systemctl --user is-active waybar.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop waybar.service
+            fi
+            if ${pkgs.systemd}/bin/systemctl --user is-active quickshell.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop quickshell.service
+            fi
+            if ${pkgs.systemd}/bin/systemctl --user is-active caelestia.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop caelestia.service
+            fi
+            run --silence ${pkgs.systemd}/bin/systemctl --user start ${
+              if config.desktopShell == "dms" then "quickshell" else config.desktopShell
+            }.service
           '';
     };
   };

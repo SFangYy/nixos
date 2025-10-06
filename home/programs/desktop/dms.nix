@@ -171,11 +171,11 @@ in
         "dankBarCenterWidgets": ["music", "clock", "weather"],
         "dankBarRightWidgets": [
           {
-            "id": "notepadButton",
+            "id": "systemTray",
             "enabled": true
           },
           {
-            "id": "cpuUsage",
+            "id": "memUsage",
             "enabled": true
           },
           {
