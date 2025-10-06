@@ -40,6 +40,10 @@
             enabled = true;
           }
           {
+            id = "spacer";
+            enabled = true;
+          }
+          {
             id = "tray";
             enabled = true;
           }
@@ -56,6 +60,10 @@
             enabled = true;
           }
         ];
+        tray = {
+          background = true;
+          recolour = true;
+        };
       };
       services = {
         weatherLocation = "西湖区, 浙江省";
