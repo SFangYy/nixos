@@ -2,6 +2,7 @@
   pkgs,
   lib,
   user,
+  config,
   ...
 }:
 let
@@ -14,6 +15,7 @@ let
       systemd
       killall
       waycorner
+      config.programs.caelestia.cli.package
     ];
     extraShellCheckFlags = [ ];
     bashOptions = [ ];
@@ -31,7 +33,17 @@ let
         swww restore --namespace "backdrop"
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
-      '';
+      ''
+      + (
+        if config.desktopShell == "caelestia" then
+          # bash
+          ''
+            caelestia wallpaper -f "$HOME/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${config.lib.monitors.mainMonitorName}-file)"
+            caelestia scheme set -n dynamic -m dark
+          ''
+        else
+          ''''
+      );
   };
   niri-blur-wallpaper = pkgs.writers.writePython3Bin "niri-blur-wallpaper" { doCheck = false; } ''
     import os

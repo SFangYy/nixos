@@ -90,9 +90,8 @@
     };
     ghostty.url = "github:ghostty-org/ghostty";
     nixGL.url = "github:nix-community/nixGL";
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    dankMaterialShell.url = "github:AvengeMedia/DankMaterialShell";
+    niri-caelestia-shell.url = "github:jutraim/niri-caelestia-shell";
+    caelestia-cli.url = "github:caelestia-dots/cli";
   };
 }

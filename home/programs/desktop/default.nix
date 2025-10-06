@@ -7,6 +7,7 @@
     ./niri
     ./swhkd.nix
     ./dms.nix
+    ./caelestia.nix
     # ./scroll
     # ./mango
   ];
@@ -23,4 +24,5 @@
     source = ./scripts;
     recursive = true;
   };
+  home.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk3";
 }

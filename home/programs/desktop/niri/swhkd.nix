@@ -14,7 +14,11 @@ in
     keyBindings = [
       {
         key = "super + shift + w";
-        command = "/home/${user}/scripts/change-wal-niri";
+        command =
+          if config.desktopShell == "caelestia" then
+            "/home/${user}/scripts/change-wal-niri && caelestia wallpaper -f ~/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${config.lib.monitors.mainMonitorName}-file) && caelestia scheme set -n dynamic -m dark"
+          else
+            "/home/${user}/scripts/change-wal-niri";
       }
       (niriAction "super + q" "close-window")
       (niriAction "super + e" "expand-column-to-available-width")

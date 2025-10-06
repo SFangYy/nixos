@@ -10,7 +10,7 @@
   ];
   programs.fastfetch.enable = true;
   xdg.configFile."fastfetch/config.jsonc".source = ./fastfetch.jsonc;
-  home.file."Pictures/face.jpg".source = config.lib.wallpapers.goNord {
+  home.file.".face".source = config.lib.wallpapers.goNord {
     name = "face";
     path = pkgs.fetchurl {
       name = "face.jpg";

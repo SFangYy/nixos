@@ -23,6 +23,7 @@ let
     ../secrets/age.nix
     # inputs.mangowc.hmModules.mango
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.niri-caelestia-shell.homeManagerModules.default
   ]
   ++ (builtins.attrValues self.homeManagerModules);
 
