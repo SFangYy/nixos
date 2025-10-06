@@ -29,16 +29,26 @@ let
         swww kill
         swww-daemon --namespace "background" &
         swww-daemon --namespace "backdrop" &
-        swww restore --namespace "background"
-        swww restore --namespace "backdrop"
+        # swww restore --namespace "background"
+        # swww restore --namespace "backdrop"
         clash-meta -d ~/.config/clash &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
       ''
       + (
+        builtins.attrNames config.monitors
+        |> map (monitor: [
+          "swww img --namespace background -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor}-file)\""
+          "swww img --namespace backdrop -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor}-blurred-file)\""
+        ])
+        |> builtins.concatLists
+        |> builtins.concatStringsSep "\n"
+      )
+      + "\n"
+      + (
         if config.desktopShell == "caelestia" then
           # bash
           ''
-            caelestia wallpaper -f "$HOME/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${config.lib.monitors.mainMonitorName}-file)"
+            caelestia wallpaper -f "/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${config.lib.monitors.mainMonitorName}-file)"
             caelestia scheme set -n dynamic -m dark
           ''
         else
