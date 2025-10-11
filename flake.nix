@@ -67,10 +67,7 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+    nixvim.url = "github:nix-community/nixvim";
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";

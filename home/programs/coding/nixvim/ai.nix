@@ -36,6 +36,19 @@ in
     #     	},
     #     })
     #   '';
+    extraConfigLua =
+      # lua
+      ''
+        local cmp = require("cmp")
+        local current_sources = cmp.get_config().sources or {}
+        table.insert(current_sources, {
+        	name = "copilot",
+        	priority = 100,
+        })
+        cmp.setup({
+        	sources = current_sources,
+        })
+      '';
     plugins = {
       copilot-lua = {
         enable = true;
@@ -46,17 +59,17 @@ in
         };
       };
       copilot-cmp.enable = true;
-      cmp.settings.sources = [
-        {
-          # name = "fittencode";
-          name = "copilot";
-          group_index = 1;
-        }
-      ];
+      # cmp.settings.sources = [
+      #   {
+      #     # name = "fittencode";
+      #     name = "copilot";
+      #     group_index = 2;
+      #   }
+      # ];
       codecompanion = {
         enable = true;
         settings = {
-          adapters.deepseek.__raw =
+          adapters.http.deepseek.__raw =
             # lua
             ''
               function()
@@ -71,7 +84,7 @@ in
                 })
               end
             '';
-          adapters.siliconflow.__raw =
+          adapters.http.siliconflow.__raw =
             # lua
             ''
               function ()
@@ -92,28 +105,7 @@ in
                 })
               end
             '';
-          adapters.zjuchat.__raw =
-            # lua
-            ''
-              function ()
-                local zjuchat_token_file = io.open(os.getenv("XDG_RUNTIME_DIR") .. "/" .. "${get_base_secret config.age.secrets.zjuchat_token.path}", "r")
-                local zjuchat_api_key = zjuchat_token_file:read()
-                zjuchat_token_file:close()
-                return require("codecompanion.adapters").extend("openai_compatible", {
-                  name = "zjuchat",
-                  env = {
-                    url = "https://chat.zju.edu.cn/api/ai",
-                    api_key = zjuchat_api_key,
-                  },
-                  schema = {
-                    model = {
-                      default = "deepseek-v3-671b",
-                    }
-                  }
-                })
-              end
-            '';
-          adapters.gemini.__raw =
+          adapters.http.gemini.__raw =
             # lua
             ''
               function()

@@ -127,8 +127,10 @@
       };
       lspsaga = {
         enable = true;
-        lightbulb.virtualText = true;
-        lightbulb.sign = false;
+        settings.lightbulb = {
+          virtualText = true;
+          sign = false;
+        };
       };
       trouble.enable = true;
       lsp-signature.enable = true;
