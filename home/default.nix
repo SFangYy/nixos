@@ -57,6 +57,9 @@
             if ${pkgs.systemd}/bin/systemctl --user is-active caelestia.service; then
               run --silence ${pkgs.systemd}/bin/systemctl --user stop caelestia.service
             fi
+            if ${pkgs.systemd}/bin/systemctl --user is-active noctalia-shell.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia-shell.service
+            fi
             run --silence ${pkgs.systemd}/bin/systemctl --user start ${
               if config.desktopShell == "dms" then "quickshell" else config.desktopShell
             }.service

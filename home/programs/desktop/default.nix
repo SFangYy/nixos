@@ -8,6 +8,7 @@
     ./swhkd.nix
     ./dms.nix
     ./caelestia.nix
+    ./noctalia.nix
     # ./scroll
     # ./mango
   ];

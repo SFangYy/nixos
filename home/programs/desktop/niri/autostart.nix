@@ -38,7 +38,9 @@ let
         builtins.attrNames config.monitors
         |> map (monitor: [
           "swww img --namespace background -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor}-file)\""
+          "sleep 0.2"
           "swww img --namespace backdrop -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor}-blurred-file)\""
+          "sleep 0.2"
         ])
         |> builtins.concatLists
         |> builtins.concatStringsSep "\n"

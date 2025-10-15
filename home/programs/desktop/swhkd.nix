@@ -12,7 +12,14 @@
       }
       {
         key = "super + b";
-        command = "pkill -USR1 .waybar-wrapped";
+        command =
+          {
+            waybar = "pkill -USR1 .waybar-wrapped";
+            dms = "dms ipc call bar toggle";
+            caelestia = "echo pass";
+            noctalia-shell = "noctalia-shell ipc call bar toggle";
+          }
+          .${config.desktopShell};
       }
       {
         key = "XF86AudioMute";

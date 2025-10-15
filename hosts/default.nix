@@ -24,6 +24,7 @@ let
     # inputs.mangowc.hmModules.mango
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
     inputs.niri-caelestia-shell.homeManagerModules.default
+    inputs.noctalia-shell.homeModules.default
   ]
   ++ (builtins.attrValues self.homeManagerModules);
 

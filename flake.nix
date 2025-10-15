@@ -87,8 +87,22 @@
     };
     ghostty.url = "github:ghostty-org/ghostty";
     nixGL.url = "github:nix-community/nixGL";
-    dankMaterialShell.url = "github:AvengeMedia/DankMaterialShell";
-    niri-caelestia-shell.url = "github:jutraim/niri-caelestia-shell";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.quickshell.follows = "quickshell";
+    };
+    niri-caelestia-shell = {
+      url = "github:jutraim/niri-caelestia-shell";
+      inputs.quickshell.follows = "quickshell";
+    };
     caelestia-cli.url = "github:caelestia-dots/cli";
+    noctalia-shell = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.quickshell.follows = "quickshell";
+    };
   };
 }
