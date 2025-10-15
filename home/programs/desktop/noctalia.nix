@@ -64,6 +64,10 @@
               blacklist = [ ];
             }
             {
+              id = "Volume";
+              displayMode = "onhover";
+            }
+            {
               id = "Battery";
               displayMode = "alwaysShow";
               warningThreshold = 30;
