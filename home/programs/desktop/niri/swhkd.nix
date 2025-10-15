@@ -21,7 +21,6 @@ in
             "/home/${user}/scripts/change-wal-niri";
       }
       (niriAction "super + q" "close-window")
-      (niriAction "super + e" "expand-column-to-available-width")
       (niriAction "super + t" "toggle-column-tabbed-display")
       (niriAction "super + {left, down, up, right}" "focus-column-{left, down, up, right}")
       (niriAction "super + {h, l}" "focus-column-or-monitor-{left, right}")
