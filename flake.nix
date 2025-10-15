@@ -104,5 +104,6 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.quickshell.follows = "quickshell";
     };
+    hexecute.url = "github:ThatOtherAndrew/Hexecute";
   };
 }

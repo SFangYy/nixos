@@ -20,6 +20,7 @@
     wayneko
     xwayland-satellite
     wmname
+    inputs.hexecute.packages.${pkgs.system}.default
   ];
   home.file."scripts" = {
     source = ./scripts;
