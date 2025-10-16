@@ -61,7 +61,7 @@
       # 显示歌词翻译
       showLyricTrans=false
       # 是否显示通知信息
-      showNotify=true
+      showNotify=false
       # 开启pprof, --pprof时会开启
       pprofPort=9876
       # altScreen显示模式
