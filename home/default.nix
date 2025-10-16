@@ -51,8 +51,8 @@
             if ${pkgs.systemd}/bin/systemctl --user is-active waybar.service; then
               run --silence ${pkgs.systemd}/bin/systemctl --user stop waybar.service
             fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active quickshell.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop quickshell.service
+            if ${pkgs.systemd}/bin/systemctl --user is-active dms.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop dms.service
             fi
             if ${pkgs.systemd}/bin/systemctl --user is-active caelestia.service; then
               run --silence ${pkgs.systemd}/bin/systemctl --user stop caelestia.service
@@ -60,9 +60,7 @@
             if ${pkgs.systemd}/bin/systemctl --user is-active noctalia-shell.service; then
               run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia-shell.service
             fi
-            run --silence ${pkgs.systemd}/bin/systemctl --user start ${
-              if config.desktopShell == "dms" then "quickshell" else config.desktopShell
-            }.service
+            run --silence ${pkgs.systemd}/bin/systemctl --user start ${config.desktopShell}.service
           '';
     };
   };

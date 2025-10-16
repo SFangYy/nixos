@@ -25,6 +25,7 @@
       mTeritiary = base0C;
     };
     settings = {
+      setupCompleted = true;
       bar = {
         backgroundOpacity = 0.6;
         density = "comfortable";
