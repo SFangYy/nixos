@@ -21,6 +21,7 @@
     xwayland-satellite
     wmname
     inputs.hexecute.packages.${pkgs.system}.default
+    inputs.quickshell.packages.${pkgs.system}.default
   ];
   home.file."scripts" = {
     source = ./scripts;

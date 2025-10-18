@@ -74,6 +74,10 @@
               "rmd"
             ];
           };
+          qmlls = {
+            enable = true;
+            filetypes = [ "qml" ];
+          };
         };
       };
       conform-nvim = {
