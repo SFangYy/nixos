@@ -1,6 +1,37 @@
-{ config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 let
+  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
   colors = config.lib.stylix.colors.withHashtag;
+  rPkgs = with pkgs-stable.rPackages; [
+    ggplot2
+    dplyr
+    tidyverse
+    bruceR
+    afex
+    ggpubr
+    reshape2
+    rmdformats
+    see
+    languageserver
+    styler
+    openxlsx
+    ez
+    multcomp
+    rsdmx
+    MuMIn
+    ggforce
+  ];
+  myR = pkgs-stable.rWrapper.override {
+    packages = rPkgs;
+  };
+  myRstudio = pkgs-stable.rstudioWrapper.override {
+    packages = rPkgs;
+  };
 in
 {
   home.packages = with pkgs; [
@@ -11,6 +42,20 @@ in
     )
     myR
   ];
+  programs.nixvim.plugins.lsp.servers.r_language_server = {
+    enable = true;
+    package = null;
+    cmd = [
+      "${myR}/bin/R"
+      "--slave"
+      "-e"
+      "languageserver::run()"
+    ];
+    filetypes = [
+      "r"
+      "rmd"
+    ];
+  };
   xdg.configFile."rstudio/themes/stylix.rstheme".text = with colors; ''
     /* rsthemes 0.5.0 */
     /* https://github.com/danth/stylix */

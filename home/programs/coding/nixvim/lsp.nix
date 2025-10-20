@@ -60,20 +60,6 @@
             };
           };
           texlab.enable = true;
-          r_language_server = {
-            enable = true;
-            package = null;
-            cmd = [
-              "${pkgs.myR}/bin/R"
-              "--slave"
-              "-e"
-              "languageserver::run()"
-            ];
-            filetypes = [
-              "r"
-              "rmd"
-            ];
-          };
           qmlls = {
             enable = true;
             filetypes = [ "qml" ];

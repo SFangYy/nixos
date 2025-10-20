@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  inherit (pkgs.callPackage ./R.nix { }) myR myRstudio;
   zju-connect = pkgs.callPackage ./zju-connect.nix { };
   swhkd = pkgs.callPackage ./swhkd.nix { };
   kose-font = pkgs.callPackage ./fonts/kose.nix { };
