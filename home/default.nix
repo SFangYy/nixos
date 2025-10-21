@@ -84,12 +84,15 @@
   programs = {
     git = {
       enable = true;
-      userName = "EdenQwQ";
-      userEmail = "lsahlm1eden@gmail.com";
-      extraConfig = {
+      settings = {
+        user = {
+          name = "EdenQwQ";
+          email = "lsahlm1eden@gmail.com";
+        };
         safe = {
           directory = "*";
         };
+
       };
     };
 
