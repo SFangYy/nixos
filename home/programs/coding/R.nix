@@ -25,6 +25,8 @@ let
     rsdmx
     MuMIn
     ggforce
+    brms
+    bayestestR
   ];
   myR = pkgs-stable.rWrapper.override {
     packages = rPkgs;
