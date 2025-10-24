@@ -13,59 +13,33 @@ let
 in
 {
   programs.nixvim = {
-    # extraPlugins = [
-    #   (pkgs.vimUtils.buildVimPlugin {
-    #     name = "fittencode";
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "luozhiya";
-    #       repo = "fittencode.nvim";
-    #       rev = "a52440968404917d0a3625a60c809edf65e52787";
-    #       hash = "sha256-Xw34CLaVIXDbX6knW9TZgE0eaz6bT4UGKiBHesH/KcQ=";
-    #     };
-    #   })
-    # ];
     # extraConfigLua =
     #   # lua
     #   ''
-    #     require("fittencode").setup({
-    #     	completion_mode = "inline",
-    #     	keymaps = {
-    #     		inline = {
-    #     			["<C-L>"] = "accept_all_suggestions",
-    #     		},
-    #     	},
+    #     local cmp = require("cmp")
+    #     local current_sources = cmp.get_config().sources or {}
+    #     table.insert(current_sources, {
+    #     	name = "copilot",
+    #     	priority = 100,
+    #     })
+    #     cmp.setup({
+    #     	sources = current_sources,
     #     })
     #   '';
-    extraConfigLua =
-      # lua
-      ''
-        local cmp = require("cmp")
-        local current_sources = cmp.get_config().sources or {}
-        table.insert(current_sources, {
-        	name = "copilot",
-        	priority = 100,
-        })
-        cmp.setup({
-        	sources = current_sources,
-        })
-      '';
     plugins = {
       copilot-lua = {
-        enable = true;
+        enable = false;
         settings = {
           panel.enabled = false;
           suggestion.enabled = false;
           filetypes.markdown = true;
         };
       };
-      copilot-cmp.enable = true;
-      # cmp.settings.sources = [
-      #   {
-      #     # name = "fittencode";
-      #     name = "copilot";
-      #     group_index = 2;
-      #   }
-      # ];
+      copilot-cmp.enable = false;
+      windsurf-nvim = {
+        enable = true;
+      };
+      cmp.settings.sources = [ { name = "codeium"; } ];
       codecompanion = {
         enable = true;
         settings = {
