@@ -67,6 +67,8 @@
       enable = true;
       configFile = "/home/${user}/.config/dae/config.dae";
     };
+
+    flatpak.enable = true;
   };
 
   security = {

@@ -37,9 +37,9 @@ let
       + (
         builtins.attrNames config.monitors
         |> map (monitor: [
-          "swww img --namespace background -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor}-file)\""
+          "swww img --namespace background -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${monitor}-file)\""
           "sleep 0.2"
-          "swww img --namespace backdrop -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${monitor}-blurred-file)\""
+          "swww img --namespace backdrop -o ${monitor} \"/home/${user}/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${monitor}-blurred-file)\""
           "sleep 0.2"
         ])
         |> builtins.concatLists
@@ -50,7 +50,7 @@ let
         if config.desktopShell == "caelestia" then
           # bash
           ''
-            caelestia wallpaper -f "/home/${user}/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${config.lib.monitors.mainMonitorName}-file)"
+            caelestia wallpaper -f "/home/${user}/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${config.lib.monitors.mainMonitorName}-file)"
             caelestia scheme set -n dynamic -m dark
           ''
         else

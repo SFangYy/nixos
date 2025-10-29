@@ -106,6 +106,12 @@
               ];
               opacity = 0.85;
             }
+            {
+              matches = [
+                { app-id = "MATLAB R2022b - academic use"; }
+              ];
+              open-floating = true;
+            }
           ];
         layer-rules = [
           {

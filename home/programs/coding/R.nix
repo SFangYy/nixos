@@ -7,27 +7,52 @@
 let
   pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
   colors = config.lib.stylix.colors.withHashtag;
-  rPkgs = with pkgs-stable.rPackages; [
-    ggplot2
-    dplyr
-    tidyverse
-    bruceR
-    afex
-    ggpubr
-    reshape2
-    rmdformats
-    see
-    languageserver
-    styler
-    openxlsx
-    ez
-    multcomp
-    rsdmx
-    MuMIn
-    ggforce
-    brms
-    bayestestR
-  ];
+  rPkgs =
+    with pkgs-stable.rPackages;
+    with pkgs-stable;
+    [
+      ggplot2
+      dplyr
+      tidyverse
+      bruceR
+      afex
+      ggpubr
+      reshape2
+      rmdformats
+      see
+      languageserver
+      styler
+      openxlsx
+      ez
+      multcomp
+      rsdmx
+      MuMIn
+      ggforce
+      brms
+      bayestestR
+      BayesFactor
+      ggrounded
+      bain
+      (buildRPackage {
+        name = "cmdstanr";
+        src = pkgs.fetchFromGitHub {
+          owner = "stan-dev";
+          repo = "cmdstanr";
+          rev = "edccf2d2f6449e7d80626a3ee6cc93845e82915b";
+          sha256 = "0nvqjv35l6qrrdg325kj1f01h9awsp1vgdaz6ylasckphqpcqln3";
+        };
+        propagatedBuildInputs = with rPackages; [
+          posterior
+          checkmate
+          jsonlite
+          processx
+          R6
+          withr
+          rlang
+          data_table
+        ];
+      })
+    ];
   myR = pkgs-stable.rWrapper.override {
     packages = rPkgs;
   };

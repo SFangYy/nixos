@@ -16,7 +16,7 @@ in
         key = "super + shift + w";
         command =
           if config.desktopShell == "caelestia" then
-            "/home/${user}/scripts/change-wal-niri && caelestia wallpaper -f ~/Pictures/Wallpapers/generated/$(cat ~/.cache/swww/${config.lib.monitors.mainMonitorName}-file) && caelestia scheme set -n dynamic -m dark"
+            "/home/${user}/scripts/change-wal-niri && caelestia wallpaper -f ~/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${config.lib.monitors.mainMonitorName}-file) && caelestia scheme set -n dynamic -m dark"
           else
             "/home/${user}/scripts/change-wal-niri";
       }
