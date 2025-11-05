@@ -96,7 +96,6 @@
       };
       general = {
         avatarImage = "/home/${user}/.face";
-        dimDesktop = true;
         forceBlackScreenCorners = true;
         showScreenCorners = true;
       };
@@ -107,6 +106,7 @@
         fontDefault = "Hug Me Tight";
         fontFixed = "Maple Mono";
       };
+      dock.enabled = false;
       wallpaper.enabled = false;
     };
   };

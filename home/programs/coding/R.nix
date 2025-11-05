@@ -33,6 +33,7 @@ let
       BayesFactor
       ggrounded
       bain
+      patchwork
       (buildRPackage {
         name = "cmdstanr";
         src = pkgs.fetchFromGitHub {

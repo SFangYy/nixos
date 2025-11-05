@@ -64,6 +64,7 @@
             enable = true;
             filetypes = [ "qml" ];
           };
+          harper_ls.enable = true;
         };
       };
       conform-nvim = {
