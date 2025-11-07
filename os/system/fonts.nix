@@ -5,7 +5,6 @@
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     noto-fonts-color-emoji
-    noto-fonts-emoji
     nerd-fonts.symbols-only
     nerd-fonts.hurmit
     nerd-fonts.monofur

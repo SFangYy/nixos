@@ -14,7 +14,7 @@
     socat
     pandoc
     # typst
-    du-dust
+    dust
     killall
     htop
     gparted

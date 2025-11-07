@@ -91,12 +91,9 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.quickshell.follows = "quickshell";
-    };
-    niri-caelestia-shell = {
-      url = "github:jutraim/niri-caelestia-shell";
+    dankMaterialShell.url = "github:AvengeMedia/DankMaterialShell";
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
       inputs.quickshell.follows = "quickshell";
     };
     caelestia-cli.url = "github:caelestia-dots/cli";

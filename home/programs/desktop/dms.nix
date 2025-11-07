@@ -69,6 +69,8 @@ in
   #         };
   #   in
   #   "${dankMaterialShell}/etc/xdg/quickshell/DankMaterialShell" |> lib.mkForce;
+  programs.dankMaterialShell.quickshell.package =
+    inputs.quickshell.packages.${pkgs.system}.quickshell;
   xdg.configFile."DankMaterialShell/stylix-colors.json".text = builtins.toJSON colorTheme;
   xdg.configFile."DankMaterialShell/settings.json".text = # json
     ''

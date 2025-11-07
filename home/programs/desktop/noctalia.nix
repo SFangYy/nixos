@@ -31,6 +31,7 @@
         density = "comfortable";
         floating = true;
         showCapsule = true;
+        outerCorners = false;
         widgets = {
           center = [
             {
