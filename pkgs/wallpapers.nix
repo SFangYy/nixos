@@ -81,6 +81,11 @@ let
       url = "https://i.imgur.com/eCilr4R.jpeg";
       sha256 = "1vnnmlxa6bx1yi9b3hh7v5wggwab3k5nx7hxpnc56ld4p1wm3g4l";
     }
+    {
+      name = "kyora-autumn.png";
+      url = "https://i.imgur.com/rx7hwo4.png";
+      sha256 = "00mb4hlhw58iysf5n8krhm2z98m2c6xj89fx7js6vp9ffzds53bc";
+    }
   ];
 
   wallpaperSrcs = map fetchurl wallpapers;

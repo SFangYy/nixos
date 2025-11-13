@@ -85,5 +85,9 @@
       name = "jw-follow-the-wind.jpeg";
       convertMethod = "gonord";
     }
+    {
+      name = "kyora-autumn.png";
+      convertMethod = "gonord";
+    }
   ];
 }

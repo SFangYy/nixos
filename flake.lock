@@ -849,26 +849,6 @@
         "type": "github"
       }
     },
-    "nirinit": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1759527445,
-        "narHash": "sha256-eBFGtv6uuHJpGBa3WB3UAij967PgP7AT5qiwkpvb6Rc=",
-        "owner": "amaanq",
-        "repo": "nirinit",
-        "rev": "32193bbc08a2c92165c695f1af8c467fcdc80f7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "amaanq",
-        "repo": "nirinit",
-        "type": "github"
-      }
-    },
     "nix-matlab": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1472,7 +1452,6 @@
         "nh": "nh",
         "nil": "nil",
         "niri": "niri",
-        "nirinit": "nirinit",
         "nix-matlab": "nix-matlab",
         "nixGL": "nixGL",
         "nixd": "nixd",
