@@ -9,7 +9,7 @@
 {
   programs.nh = {
     enable = true;
-    package = inputs.nh.packages.${pkgs.system}.nh;
+    package = inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.nh;
     clean = {
       enable = true;
       dates = "3 days";

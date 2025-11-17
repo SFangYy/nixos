@@ -19,6 +19,9 @@
       };
     };
     settings = {
+      general.idle = {
+        timeouts = [ ];
+      };
       appearance.font.family = {
         mono = config.stylix.fonts.monospace.name;
         sans = "Hug Me Tight";

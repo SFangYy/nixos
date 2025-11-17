@@ -32,7 +32,7 @@
           lua_ls.enable = true;
           nixd = {
             enable = true;
-            package = inputs.nixd.packages.${pkgs.system}.nixd;
+            package = inputs.nixd.packages.${pkgs.stdenv.hostPlatform.system}.nixd;
             settings = {
               formatting.command = [ "nixfmt" ];
               nixd.nixpkgs.expr = "import <nixpkgs> { }";
@@ -51,7 +51,7 @@
           };
           nil_ls = {
             enable = true;
-            package = inputs.nil.packages.${pkgs.system}.nil;
+            package = inputs.nil.packages.${pkgs.stdenv.hostPlatform.system}.nil;
             settings = {
               # formatting.command = ["nixfmt"];
               nix.flake = {

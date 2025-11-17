@@ -24,11 +24,11 @@
         src = inputs.scroll;
         patches = [ ];
       })).override
-        { inherit (inputs.nixpkgs-wayland.packages.${final.system}) wlroots; };
+        { inherit (inputs.nixpkgs-wayland.packages.${final.stdenv.hostPlatform.system}) wlroots; };
     sway = prev.sway.overrideAttrs (oldAttrs: {
       passthru.providedSessions = [ "scroll" ];
     });
-    inherit (inputs.nixpkgs-wayland.packages.${final.system}) swww;
+    inherit (inputs.nixpkgs-wayland.packages.${final.stdenv.hostPlatform.system}) swww;
   };
 
   inherit (inputs.niri.overlays) niri;

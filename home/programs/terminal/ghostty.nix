@@ -9,7 +9,7 @@
   nixGL.packages = inputs.nixGL.packages;
   programs.ghostty = {
     enable = true;
-    package = config.lib.nixGL.wrap inputs.ghostty.packages.${pkgs.system}.ghostty;
+    package = config.lib.nixGL.wrap inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty;
     settings = {
       font-family = [
         "Symbols Nerd Font"

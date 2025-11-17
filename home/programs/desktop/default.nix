@@ -20,8 +20,8 @@
     wayneko
     xwayland-satellite
     wmname
-    inputs.hexecute.packages.${pkgs.system}.default
-    inputs.quickshell.packages.${pkgs.system}.default
+    inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
   home.file."scripts" = {
     source = ./scripts;

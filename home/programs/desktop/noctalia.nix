@@ -29,9 +29,9 @@
       bar = {
         backgroundOpacity = 0.6;
         density = "comfortable";
-        floating = true;
+        floating = false;
         showCapsule = true;
-        outerCorners = false;
+        outerCorners = true;
         widgets = {
           center = [
             {
@@ -115,7 +115,7 @@
   systemd.user.services = lib.mkIf (config.desktopShell == "noctalia-shell") {
     noctalia-shell =
       let
-        noctaliaPackage = inputs.noctalia-shell.packages.${pkgs.system}.default;
+        noctaliaPackage = inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default;
         noctaliaConfig = "/home/${user}/.config/noctalia/gui-settings.json";
       in
       {

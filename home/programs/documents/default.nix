@@ -4,7 +4,7 @@
     ./zathura.nix
   ];
   home.packages = with pkgs; [
-    inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.libreoffice
-    inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.onlyoffice-desktopeditors
+    inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.libreoffice
+    inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.onlyoffice-desktopeditors
   ];
 }

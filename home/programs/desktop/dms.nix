@@ -57,7 +57,7 @@ in
   # programs.quickshell.configs.dms =
   #   let
   #     dankMaterialShell =
-  #       inputs.dankMaterialShell.packages.${pkgs.system}.dankMaterialShell.overrideAttrs
+  #       inputs.dankMaterialShell.packages.${pkgs.stdenv.hostPlatform.system}.dankMaterialShell.overrideAttrs
   #         {
   #           installPhase = ''
   #             mkdir -p $out/etc/xdg/quickshell/DankMaterialShell
@@ -70,7 +70,7 @@ in
   #   in
   #   "${dankMaterialShell}/etc/xdg/quickshell/DankMaterialShell" |> lib.mkForce;
   programs.dankMaterialShell.quickshell.package =
-    inputs.quickshell.packages.${pkgs.system}.quickshell;
+    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
   xdg.configFile."DankMaterialShell/stylix-colors.json".text = builtins.toJSON colorTheme;
   xdg.configFile."DankMaterialShell/settings.json".text = # json
     ''

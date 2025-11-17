@@ -5,7 +5,7 @@
   ...
 }:
 let
-  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
+  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   colors = config.lib.stylix.colors.withHashtag;
   rPkgs =
     with pkgs-stable.rPackages;
