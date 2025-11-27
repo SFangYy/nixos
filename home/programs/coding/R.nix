@@ -34,6 +34,7 @@ let
       ggrounded
       bain
       patchwork
+      factoextra
       (buildRPackage {
         name = "cmdstanr";
         src = pkgs.fetchFromGitHub {
