@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }:
 {
@@ -19,7 +20,7 @@
     htop
     gparted
     gimp3
-    kdePackages.kdenlive
+    inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.kdePackages.kdenlive
     # tesseract # ocr
     # marp-cli
     appimage-run

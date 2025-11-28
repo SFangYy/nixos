@@ -20,7 +20,7 @@
     };
     programs.dankMaterialShell = {
       enable = config.desktopShell == "dms";
-      enableSystemd = config.desktopShell == "dms";
+      systemd.enable = config.desktopShell == "dms";
     };
     programs.caelestia = {
       enable = config.desktopShell == "caelestia";

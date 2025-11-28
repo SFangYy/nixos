@@ -99,7 +99,7 @@
     caelestia-cli.url = "github:caelestia-dots/cli";
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
-      inputs.quickshell.follows = "quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hexecute.url = "github:ThatOtherAndrew/Hexecute";
   };

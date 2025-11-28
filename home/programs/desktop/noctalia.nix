@@ -42,6 +42,7 @@
               showMemoryAsPercent = false;
               showMemoryUsage = true;
               showNetworkoStats = false;
+              usePrimaryColor = true;
             }
           ];
           left = [
@@ -62,6 +63,7 @@
           right = [
             {
               id = "Tray";
+              drawerEnabled = false;
               colorizeIcons = true;
               blacklist = [ ];
             }
