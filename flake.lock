@@ -865,6 +865,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kimi-cli": {
+      "locked": {
+        "lastModified": 1762848367,
+        "narHash": "sha256-xI+WSnETMXwwbB0sGmKs6wwUwIFvAfRW30KBLyajGDI=",
+        "owner": "jetjinser",
+        "repo": "nixpkgs",
+        "rev": "7bd2238bc0eef41e08cd1ac6c36aa7a2af27759d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jetjinser",
+        "ref": "jinser/kimi-cli",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1761765539,
@@ -1375,6 +1391,7 @@
         "nixGL": "nixGL",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_12",
+        "nixpkgs-kimi-cli": "nixpkgs-kimi-cli",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nixvim": "nixvim",
