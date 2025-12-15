@@ -37,14 +37,8 @@
           ''
             run ${pkgs.niri-unstable}/bin/niri msg action do-screen-transition
           '';
-      reload-swhkd =
-        lib.hm.dag.entryAfter [ "niri-transition" ]
-          # bash
-          ''
-            run --quiet ${pkgs.procps}/bin/pkill -HUP swhkd
-          '';
       reload-shell =
-        lib.hm.dag.entryAfter [ "reload-swhkd" ]
+        lib.hm.dag.entryAfter [ "niri-transition" ]
           # bash
           ''
             # only run stop if the service is active

@@ -35,6 +35,9 @@ let
       bain
       patchwork
       factoextra
+      umap
+      concaveman
+      Rtsne
       (buildRPackage {
         name = "cmdstanr";
         src = pkgs.fetchFromGitHub {
