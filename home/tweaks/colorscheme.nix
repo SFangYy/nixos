@@ -6,6 +6,6 @@
     }
     "catppuccin-frappe"
     "everforest"
-    "nord"
+    "kanagawa"
   ];
 }

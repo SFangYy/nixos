@@ -27,7 +27,6 @@
     settings = {
       setupCompleted = true;
       bar = {
-        backgroundOpacity = 0.6;
         density = "comfortable";
         floating = false;
         showCapsule = true;
@@ -108,9 +107,33 @@
       ui = {
         fontDefault = "Hug Me Tight";
         fontFixed = "Maple Mono";
+        panelBackgroundOpacity = 0.9;
       };
       dock.enabled = false;
       wallpaper.enabled = false;
+      desktopWidgets = {
+        editMode = false;
+        enabled = true;
+        monitorWidgets = [
+          {
+            name = config.lib.monitors.mainMonitorName;
+            widgets = [
+              {
+                id = "Clock";
+                showBackground = true;
+                x = 80;
+                y = 100;
+              }
+              {
+                id = "Weather";
+                showBackground = true;
+                x = 80;
+                y = 300;
+              }
+            ];
+          }
+        ];
+      };
     };
   };
 
