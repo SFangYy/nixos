@@ -38,6 +38,7 @@ let
       umap
       concaveman
       Rtsne
+      see
       (buildRPackage {
         name = "cmdstanr";
         src = pkgs.fetchFromGitHub {

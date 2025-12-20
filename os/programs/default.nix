@@ -4,9 +4,9 @@
     ./doas.nix
     ./niri.nix
     ./swhkd.nix
-    # ./mango.nix
     ./matlab.nix
     ./misc.nix
     ./tuigreet.nix
+    ./cosmic.nix
   ];
 }
