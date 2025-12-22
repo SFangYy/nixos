@@ -30,6 +30,13 @@
       fd
     ];
 
+    sessionVariables = {
+      all_proxy = "http://127.0.0.1:7890";
+      ALL_PROXY = "http://127.0.0.1:7890";
+      HTTP_PROXY = "http://127.0.0.1:7890";
+      HTTPS_PROXY = "http://127.0.0.1:7890";
+    };
+
     activation = {
       niri-transition =
         lib.hm.dag.entryAfter [ "writeBoundary" ]
@@ -86,7 +93,7 @@
         safe = {
           directory = "*";
         };
-
+        http.proxy = "http://127.0.0.1:7890";
       };
     };
 

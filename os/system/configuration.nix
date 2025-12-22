@@ -63,10 +63,10 @@
 
     openssh.enable = true;
 
-    dae = {
-      enable = true;
-      configFile = "/home/${user}/.config/dae/config.dae";
-    };
+    # dae = {
+    #   enable = true;
+    #   configFile = "/home/${user}/.config/dae/config.dae";
+    # };
 
     flatpak.enable = true;
   };
@@ -133,6 +133,10 @@
       GDK_SCALE = "";
       GDK_DPI_SCALE = "";
       NIRI_CONFIG = "/home/${user}/.config/niri/config-override.kdl";
+      all_proxy = "http://127.0.0.1:7890";
+      ALL_PROXY = "http://127.0.0.1:7890";
+      HTTP_PROXY = "http://127.0.0.1:7890";
+      HTTPS_PROXY = "http://127.0.0.1:7890";
     };
 
     sessionVariables = {
