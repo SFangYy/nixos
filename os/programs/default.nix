@@ -8,5 +8,6 @@
     ./misc.nix
     ./tuigreet.nix
     ./cosmic.nix
+    ./clash.nix
   ];
 }
