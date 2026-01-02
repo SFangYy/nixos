@@ -1,32 +1,32 @@
 {
   monitors = {
-    "eDP-1" = {
-      isMain = true;
-      scale = 1.6;
+    "DP-1" = {
+      scale = 2.0;
       mode = {
-        width = 2240;
-        height = 1400;
-        refresh = 60.0;
+        width = 3840;
+        height = 2160;
+        refresh = 59.98;
       };
       position = {
-        x = 1000;
+        x = 0;
+        y = 0;
+      };
+      rotation = 270;
+    };
+    "DP-4" = {
+      isMain = true;
+      scale = 2.0;
+      mode = {
+        width = 3840;
+        height = 2160;
+        refresh = 59.98;
+      };
+      position = {
+        x = 1080;
         y = 0;
       };
       rotation = 0;
       focus-at-startup = true;
-    };
-    "HDMI-A-1" = {
-      scale = 1.6;
-      mode = {
-        width = 2560;
-        height = 1600;
-        refresh = 60.0;
-      };
-      position = {
-        x = 0;
-        y = 60;
-      };
-      rotation = 90;
     };
   };
   home.stateVersion = "23.11";

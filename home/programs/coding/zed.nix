@@ -9,6 +9,8 @@
       features = {
         copilot = true;
       };
+      buffer_font_family = "Maple Mono";
+      buffer_font_size = 18;
       vim_mode = true;
       hover_popover_enabled = true;
       confirm_quit = true;

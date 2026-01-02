@@ -16,7 +16,10 @@
       };
       shellInit = ''
         zoxide init fish | source
-        export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
+        set -x VCS_HOME $HOME/EDAHome/vcs/W-2024.09-SP1
+        set -x VERDI_HOME $HOME/EDAHome/verdi/W-2024.09-SP1	
+        set -x UVMC_UVMC $HOME/EDAHome/uvmc
+        export PATH="$HOME/.local/bin:$VCS_HOME/bin:$VERDI_HOME/bin:$HOME/.juliaup/bin:$PATH"
         set -g fish_color_command = blue --italics
         set -g fish_color_quote = yellow --italics
       '';

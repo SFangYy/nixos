@@ -16,6 +16,7 @@ let
   sharedHomeModules = [
     ../home
     ../nix/nixpkgs.nix
+    ../nix/substituters.nix
     inputs.stylix.homeModules.stylix
     inputs.niri.homeModules.niri
     inputs.nixvim.homeModules.nixvim

@@ -12,6 +12,7 @@
     package = config.lib.nixGL.wrap inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty;
     settings = {
       font-family = [
+        "Maple Mono"
         "Symbols Nerd Font"
         "Xiaolai Mono SC"
       ];

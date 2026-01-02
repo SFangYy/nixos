@@ -17,6 +17,8 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
+      # vcs-env
+
       # files
       zip
       xz
@@ -87,8 +89,8 @@
       enable = true;
       settings = {
         user = {
-          name = "EdenQwQ";
-          email = "lsahlm1eden@gmail.com";
+          name = "SFangYy";
+          email = "sfangyy@163.com";
         };
         safe = {
           directory = "*";
@@ -106,4 +108,6 @@
 
     home-manager.enable = true;
   };
+
+  nix.package = pkgs.nix;
 }

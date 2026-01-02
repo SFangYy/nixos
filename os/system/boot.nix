@@ -19,7 +19,6 @@
         useOSProber = true;
         efiSupport = true;
         efiInstallAsRemovable = true;
-        extraEntriesBeforeNixOS = true;
         extraEntries = ''
           menuentry "Reboot" {
             reboot
@@ -28,7 +27,7 @@
             halt
           }
         '';
-        default = "saved";
+        default = 0;
       };
       efi.efiSysMountPoint = "/boot";
     };

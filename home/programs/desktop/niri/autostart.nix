@@ -11,6 +11,7 @@ let
     runtimeInputs = with pkgs; [
       swww
       mihomo
+      clash-verge-rev
       wlsunset
       systemd
       killall
@@ -32,6 +33,7 @@ let
         # swww restore --namespace "background"
         # swww restore --namespace "backdrop"
         mihomo -d ~/.config/clash &
+        clash-verge &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
       ''
       + (

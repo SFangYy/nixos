@@ -9,8 +9,6 @@
     ./dms.nix
     ./caelestia.nix
     ./noctalia.nix
-    # ./scroll
-    # ./mango
   ];
   home.packages = with pkgs; [
     swww
