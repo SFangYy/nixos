@@ -125,6 +125,7 @@
       home-manager
       polkit
       polkit_gnome
+      nodejs
     ];
 
     variables = {
