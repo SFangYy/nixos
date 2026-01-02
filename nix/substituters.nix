@@ -4,10 +4,10 @@
     trusted-users = [ user ];
     substituters = [
       "https://cache.nixos.org"
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://nix-community.cachix.org"
       "https://hyprland.cachix.org"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://niri.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
     ];
