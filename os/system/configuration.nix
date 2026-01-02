@@ -101,7 +101,6 @@
       "networkmanager"
       "wheel"
       "adbuser"
-      "docker"
       "libvirtd"
       "video"
       "kvm"
@@ -186,15 +185,5 @@
       defaultNetwork.settings.dns_enabled = true;
     };
 
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-    };
-
-    oci-containers.backend = "docker";
   };
 }
