@@ -52,6 +52,10 @@ in
       (niriAction "super + alt + w" "set-dynamic-cast-window")
       (niriAction "super + alt + n" "clear-dynamic-cast-target")
       {
+        key = "super + n";
+        command = "nautilus";
+      }
+      {
         key = "super + ctrl + c";
         command = "niri msg pick-color | grep Hex | sd 'Hex: ' '' | sd '\\n' '' | wl-copy";
       }

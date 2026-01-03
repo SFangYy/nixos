@@ -1,6 +1,6 @@
 {
   monitors = {
-    "DP-1" = {
+    "DP-2" = {
       scale = 2.0;
       mode = {
         width = 3840;

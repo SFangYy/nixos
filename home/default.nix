@@ -17,8 +17,6 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      # vcs-env
-
       # files
       zip
       xz

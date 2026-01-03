@@ -55,7 +55,11 @@ let
       };
 
       homeConfigurations."${user}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = builtins.attrValues self.overlays;
+          config.allowUnfree = true;
+        };
         extraSpecialArgs = {
           inherit
             inputs

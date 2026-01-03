@@ -12,9 +12,12 @@
     consoleLogLevel = 0;
     initrd.verbose = false;
     loader = {
-      systemd-boot.enable = false;
-      grub = {
+      systemd-boot = {
         enable = true;
+        configurationLimit = 5;
+      };
+      grub = {
+        enable = false;
         device = "nodev";
         useOSProber = true;
         efiSupport = true;
