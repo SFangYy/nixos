@@ -74,6 +74,21 @@
     };
     keymaps = [
       {
+        mode = "i";
+        key = "jk";
+        action = "<Esc>";
+      }
+      {
+        mode = "n";
+        key = "<S-h>";
+        action = ":bprevious<cr>";
+      }
+      {
+        mode = "n";
+        key = "<S-l>";
+        action = ":bnext<cr>";
+      }
+      {
         mode = "n";
         key = "S";
         action = ":w<cr>";

@@ -48,11 +48,11 @@
         }) config.monitors;
         binds = with config.lib.niri.actions; {
           "Mod+Return".action = spawn "kitty";
-          # "Mod+Shift+Return".action = spawn [
-          #   "ghostty"
-          #   "--launched-from=desktop"
-          # ];
-          "Mod+P".action = spawn [
+          "Mod+Shift+Return".action = spawn [
+            "kitty "
+            "--app-id floating-terminal"
+          ];
+          "Mod+D".action = spawn [
             "sh"
             "-c"
             "$(tofi-run)"
@@ -77,6 +77,7 @@
             {
               matches = [
                 { app-id = "yad"; }
+                { app-id = "floating-terminal"; }
               ];
               open-floating = true;
             }

@@ -1,25 +1,40 @@
 { pkgs, inputs, ... }:
 {
   programs = {
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
     fish = {
       enable = true;
       shellAbbrs = {
+        # Nix
         nixu = "nh os switch --ask";
         homeu = "nh home switch --ask";
         nixc = "doas systemctl start nh-clean.service";
+        
+        # Git
+        g = "git";
+        ga = "git add";
+        gc = "git commit -m";
+        gp = "git push";
+        gl = "git pull";
+        gst = "git status";
+        gd = "git diff";
+        gb = "git branch";
+        gco = "git checkout";
+
+        # Others
         vim = "nvim";
-        cd = "z";
+        n = "nvim";
+        vi = "nvim";
       };
       shellAliases = {
         "ls" = "exa";
         "l" = "exa -lah --icons=auto";
       };
       shellInit = ''
-        zoxide init fish | source
-        set -x VCS_HOME $HOME/EDAHome/vcs/W-2024.09-SP1
-        set -x VERDI_HOME $HOME/EDAHome/verdi/W-2024.09-SP1	
-        set -x UVMC_HOME $HOME/EDAHome/uvmc
-        export PATH="$HOME/.local/bin:$VCS_HOME/bin:$VERDI_HOME/bin:$HOME/.juliaup/bin:$PATH"
+        export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
         set -g fish_color_command = blue --italics
         set -g fish_color_quote = yellow --italics
       '';

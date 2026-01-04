@@ -21,6 +21,8 @@ in
             "/home/${user}/scripts/change-wal-niri";
       }
       (niriAction "super + q" "close-window")
+      (niriAction "super + w" "close-window")
+      (niriAction "super + shift + a" "toggle-overview")
       (niriAction "super + t" "toggle-column-tabbed-display")
       (niriAction "super + {left, down, up, right}" "focus-column-{left, down, up, right}")
       (niriAction "super + {h, l}" "focus-column-or-monitor-{left, right}")
@@ -47,7 +49,6 @@ in
       (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x \\-10, y +10, y \\-10, x +10}")
       (niriAction "{ctrl +, alt +} print" "screenshot-{screen, window}")
       (niriAction "print" "screenshot")
-      (niriAction "super + w" "toggle-overview")
       (niriAction "super + alt + m" "set-dynamic-cast-monitor")
       (niriAction "super + alt + w" "set-dynamic-cast-window")
       (niriAction "super + alt + n" "clear-dynamic-cast-target")
