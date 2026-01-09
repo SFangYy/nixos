@@ -39,6 +39,42 @@ let
       concaveman
       Rtsne
       see
+      R_matlab
+      permuco
+      hdf5r
+      formatR
+      ggnewscale
+      (buildRPackage {
+        name = "eegUtils";
+        src = fetchFromGitHub {
+          owner = "craddm";
+          repo = "eegUtils";
+          rev = "44c49d0381b8052b44fa1219ef52e6d94263522f";
+          hash = "sha256-Q3CfIY0SF6oa1bU7CACxqxUkYgAq9yZ21JCSl6jHlWc=";
+        };
+        propagatedBuildInputs = with rPackages; [
+          ggplot2
+          dplyr
+          scales
+          purrr
+          shiny
+          tidyr
+          miniUI
+          rlang
+          MASS
+          signal
+          tibble
+          matrixStats
+          abind
+          plotly
+          future_apply
+          Rcpp
+          data_table
+          isoband
+          bslib
+          RcppArmadillo
+        ];
+      })
       (buildRPackage {
         name = "cmdstanr";
         src = pkgs.fetchFromGitHub {

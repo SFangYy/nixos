@@ -21,7 +21,20 @@
     xwayland-satellite
     wmname
     inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    (inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (oldAttrs: {
+      buildInputs =
+        oldAttrs.buildInputs
+        ++ (
+          with pkgs.qt6;
+          with pkgs.kdePackages;
+          [
+            qt5compat
+            qtpositioning
+            kirigami
+            syntax-highlighting
+          ]
+        );
+    }))
   ];
   home.file."scripts" = {
     source = ./scripts;
