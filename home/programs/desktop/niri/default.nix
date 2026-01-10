@@ -108,7 +108,7 @@
             }
             {
               matches = [
-                { app-id = "MATLAB R2022b - academic use"; }
+                { app-id = "MATLAB R2024b - academic use"; }
               ];
               open-floating = true;
             }

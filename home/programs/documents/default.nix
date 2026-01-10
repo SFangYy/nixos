@@ -6,5 +6,6 @@
   home.packages = with pkgs; [
     libreoffice
     onlyoffice-desktopeditors
+    evince
   ];
 }

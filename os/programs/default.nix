@@ -5,8 +5,7 @@
     ./niri.nix
     ./swhkd.nix
     ./matlab.nix
-    ./misc.nix
     ./tuigreet.nix
-    ./cosmic.nix
+    # ./cosmic.nix
   ];
 }

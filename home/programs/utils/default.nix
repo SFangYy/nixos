@@ -44,6 +44,10 @@
     nix-init
     wl-color-picker
     (config.lib.misc.addFlags "--wayland-text-input-version=3" "cherry-studio" cherry-studio)
+    loupe
+    showtime
+    nautilus
+    gnome-disk-utility
   ];
   imports = [
     ./eye-candy.nix
