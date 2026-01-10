@@ -82,7 +82,7 @@
     mangowc.url = "github:DreamMaoMao/mangowc";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nix-matlab = {
-      url = "gitlab:doronbehar/nix-matlab";
+      url = "github:EdenQwQ/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ghostty.url = "github:ghostty-org/ghostty";

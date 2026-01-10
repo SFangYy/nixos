@@ -794,17 +794,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1754476755,
-        "narHash": "sha256-vSF0VMEmPMzwNkrXIZwkhOSYmKES9BaDK/LlEe7/q8E=",
-        "owner": "doronbehar",
+        "lastModified": 1768051943,
+        "narHash": "sha256-urpycV6QT20RRKNEXAGRqOErjcsAfBN3lt2SBgJxFeA=",
+        "owner": "EdenQwQ",
         "repo": "nix-matlab",
-        "rev": "0e9c9fb660f9e1a1e4d59fd083e0212a15b513e2",
-        "type": "gitlab"
+        "rev": "cf5cacf3d5ffefb267618a8ce9f93365d3b1a6b3",
+        "type": "github"
       },
       "original": {
-        "owner": "doronbehar",
+        "owner": "EdenQwQ",
         "repo": "nix-matlab",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "nixGL": {

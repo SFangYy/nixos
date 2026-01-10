@@ -1,11 +1,8 @@
 {
   colorSchemes = [
     {
-      name = "gruvbox-material-dark-soft";
+      name = "everforest";
       isDefault = true;
     }
-    "catppuccin-frappe"
-    "everforest"
-    "kanagawa"
   ];
 }
