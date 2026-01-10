@@ -48,6 +48,7 @@
     showtime
     nautilus
     gnome-disk-utility
+    upower
   ];
   imports = [
     ./eye-candy.nix
