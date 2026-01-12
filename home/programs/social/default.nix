@@ -3,5 +3,6 @@
   home.packages = with pkgs; [
     telegram-desktop
     fractal
+    wechat
   ];
 }

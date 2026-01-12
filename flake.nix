@@ -79,24 +79,16 @@
     nh.url = "github:nix-community/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
-    mangowc.url = "github:DreamMaoMao/mangowc";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ghostty.url = "github:ghostty-org/ghostty";
     nixGL.url = "github:nix-community/nixGL";
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dankMaterialShell.url = "github:AvengeMedia/DankMaterialShell";
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
-      inputs.quickshell.follows = "quickshell";
-    };
-    caelestia-cli.url = "github:caelestia-dots/cli";
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";

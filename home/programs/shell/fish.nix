@@ -12,7 +12,7 @@
         nixu = "nh os switch --ask";
         homeu = "nh home switch --ask";
         nixc = "doas systemctl start nh-clean.service";
-        
+
         # Git
         g = "git";
         ga = "git add";
@@ -23,6 +23,11 @@
         gd = "git diff";
         gb = "git branch";
         gco = "git checkout";
+
+        # SSH
+        s = "ssh";
+        sa = "ssh-add";
+        sl = "ssh-add -l";
 
         # Others
         vim = "nvim";
@@ -37,6 +42,10 @@
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
         set -g fish_color_command = blue --italics
         set -g fish_color_quote = yellow --italics
+      '';
+      interactiveShellInit = ''
+        # Initialize pay-respects (command correction tool)
+        pay-respects fish --alias | source
       '';
       plugins = with pkgs.fishPlugins; [
         {

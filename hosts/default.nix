@@ -10,7 +10,6 @@ let
     ../nix
     inputs.stylix.nixosModules.stylix
     inputs.niri.nixosModules.niri
-    # inputs.mangowc.nixosModules.mango
   ];
 
   sharedHomeModules = [
@@ -21,10 +20,7 @@ let
     inputs.niri.homeModules.niri
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
-    ../secrets/age.nix
-    # inputs.mangowc.hmModules.mango
-    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-    inputs.caelestia-shell.homeManagerModules.default
+    ../secrets/home-age.nix
     inputs.noctalia-shell.homeModules.default
   ]
   ++ (builtins.attrValues self.homeManagerModules);

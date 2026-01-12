@@ -137,6 +137,8 @@
       ALL_PROXY = "http://127.0.0.1:7890";
       HTTP_PROXY = "http://127.0.0.1:7890";
       HTTPS_PROXY = "http://127.0.0.1:7890";
+      no_proxy = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
+      NO_PROXY = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
     };
 
     sessionVariables = {

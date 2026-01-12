@@ -6,8 +6,6 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
-    ./dms.nix
-    ./caelestia.nix
     ./noctalia.nix
   ];
   home.packages = with pkgs; [

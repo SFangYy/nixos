@@ -10,6 +10,7 @@
     ./lib
     ./programs
     ./tweaks
+    ./services/webdav.nix
   ];
 
   home = {
@@ -28,6 +29,8 @@
       fzf
       eza
       fd
+      davfs2
+      pay-respects  # Command correction tool (like thefuck)
     ];
 
     sessionVariables = {
@@ -95,6 +98,13 @@
         };
         http.proxy = "http://127.0.0.1:7890";
       };
+    };
+
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 7d --keep 5";
+      flake = "${config.home.homeDirectory}/nixos";
     };
 
     nix-index = {

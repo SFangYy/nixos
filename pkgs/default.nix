@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  # zju-connect = pkgs.callPackage ./zju-connect.nix { };
   swhkd = pkgs.callPackage ./swhkd.nix { };
   kose-font = pkgs.callPackage ./fonts/kose.nix { };
   hugmetight-font = pkgs.callPackage ./fonts/hugmetight.nix { };
@@ -8,4 +7,5 @@
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
   maple-mono-variable = pkgs.callPackage ./maple-mono-variable.nix { };
   ue = pkgs.callPackage ./unitychip-env.nix { };
+  wechat = pkgs.callPackage ./wechat.nix { };
 }
