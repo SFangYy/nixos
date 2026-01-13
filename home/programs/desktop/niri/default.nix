@@ -31,7 +31,7 @@
         hotkey-overlay.skip-at-startup = true;
         prefer-no-csd = true;
         input = {
-          focus-follows-mouse.enable = true;
+          focus-follows-mouse.enable = false;
           touchpad.natural-scroll = false;
           keyboard.xkb.options = "caps:escape";
         };
@@ -49,8 +49,10 @@
         binds = with config.lib.niri.actions; {
           "Mod+Return".action = spawn "kitty";
           "Mod+Shift+Return".action = spawn [
-            "kitty "
-            "--app-id floating-terminal"
+            "kitty"
+            "--app-id"
+            "floating-terminal"
+            "/home/${user}/scripts/quick-note"
           ];
           "Mod+D".action = spawn [
             "sh"
@@ -73,6 +75,9 @@
               };
               clip-to-geometry = true;
               draw-border-with-background = false;
+              default-column-width = {
+                proportion = 0.75;
+              };
             }
             {
               matches = [

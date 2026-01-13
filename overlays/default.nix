@@ -7,7 +7,6 @@
     };
 
   modifications = final: prev: {
-    qutebrowser = prev.qutebrowser.override { enableWideVine = true; };
     base16-schemes = prev.base16-schemes.overrideAttrs (oldAttrs: {
       installPhase = ''
         runHook preInstall
@@ -19,19 +18,9 @@
         runHook postInstall
       '';
     });
-    sway-unwrapped =
-      (prev.sway-unwrapped.overrideAttrs (oldAttrs: {
-        src = inputs.scroll;
-        patches = [ ];
-      })).override
-        { inherit (inputs.nixpkgs-wayland.packages.${final.stdenv.hostPlatform.system}) wlroots; };
-    sway = prev.sway.overrideAttrs (oldAttrs: {
-      passthru.providedSessions = [ "scroll" ];
-    });
     inherit (inputs.nixpkgs-wayland.packages.${final.stdenv.hostPlatform.system}) swww;
   };
 
   inherit (inputs.niri.overlays) niri;
   nur = inputs.nur.overlays.default;
-  nix-matlab = inputs.nix-matlab.overlay;
 }

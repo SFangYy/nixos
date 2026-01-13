@@ -7,5 +7,6 @@
     ./wallpaper.nix
     ./colorscheme.nix
   ];
-  desktopShell = "noctalia-shell";
+  desktopShell = "dms";
+  # desktopShell = "noctalia-shell";
 }

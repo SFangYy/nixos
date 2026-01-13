@@ -12,21 +12,13 @@
     enable = true;
   };
   home.sessionVariables = {
-    GEMINI_API_KEY = "$(cat ${config.age.secrets.gemini_token.path})";
-    ANTHROPIC_AUTH_TOKEN = "$(cat ${config.age.secrets.anyrouter_token.path})";
+    #GEMINI_API_KEY = "$(cat ${config.age.secrets.gemini_token.path})";
+    #ANTHROPIC_AUTH_TOKEN = "$(cat ${config.age.secrets.anyrouter_token.path})";
     ANTHROPIC_BASE_URL = "https://anyrouter.top";
-    SILICONFLOW_API_KEY = "$(cat ${config.age.secrets.siliconflow_token.path})";
+    #SILICONFLOW_API_KEY = "$(cat ${config.age.secrets.siliconflow_token.path})";
   };
   home.packages = with pkgs; [
     nur.repos.charmbracelet.crush
-    (inputs.nixpkgs-kimi-cli.legacyPackages.${pkgs.stdenv.hostPlatform.system}.kimi-cli.overrideAttrs {
-      src = fetchFromGitHub {
-        owner = "MoonshotAI";
-        repo = "kimi-cli";
-        rev = "8c942b97c52996885a508e37e503d37b63e5bf90";
-        hash = "sha256-mRoyGpZv6C2wva3ishqqRLQwoabeKDtCrpVoFBwX5QM=";
-      };
-    })
   ];
   xdg.configFile."crush/crush.json".text = ''
     {

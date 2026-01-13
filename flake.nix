@@ -80,13 +80,12 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    nix-matlab = {
-      url = "gitlab:doronbehar/nix-matlab";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixGL.url = "github:nix-community/nixGL";
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia-shell = {
@@ -94,6 +93,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hexecute.url = "github:ThatOtherAndrew/Hexecute";
-    nixpkgs-kimi-cli.url = "github:jetjinser/nixpkgs/jinser/kimi-cli";
   };
 }

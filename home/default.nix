@@ -11,6 +11,7 @@
     ./programs
     ./tweaks
     ./services/webdav.nix
+    ./github-token.nix
   ];
 
   home = {
@@ -104,7 +105,7 @@
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 7d --keep 5";
-      flake = "${config.home.homeDirectory}/nixos";
+      flake = "${config.home.homeDirectory}/.config/nixos";
     };
 
     nix-index = {

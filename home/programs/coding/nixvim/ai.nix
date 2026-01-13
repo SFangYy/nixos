@@ -68,7 +68,7 @@ in
       };
       # cmp.settings.sources = [ { name = "codeium"; } ];
       codecompanion = {
-        enable = true;
+        enable = false;
         settings = {
           adapters.http.deepseek.__raw =
             # lua

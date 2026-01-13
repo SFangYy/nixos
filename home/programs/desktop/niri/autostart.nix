@@ -16,7 +16,6 @@ let
       systemd
       killall
       waycorner
-      config.programs.caelestia.cli.package
     ];
     extraShellCheckFlags = [ ];
     bashOptions = [ ];

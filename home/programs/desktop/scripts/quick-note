@@ -1,0 +1,2 @@
+#!/bin/sh
+nvim "$HOME/work/Notes/2-area/journal/$(date +%Y-%m-%d).md"

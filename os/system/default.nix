@@ -4,5 +4,6 @@
     ./boot.nix
     ./fonts.nix
     ./stylix.nix
+    ./network.nix
   ];
 }

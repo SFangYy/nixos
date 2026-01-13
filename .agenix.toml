@@ -1,1 +1,2 @@
 secretsDir = "secrets"
+secretsFile = "secrets/secrets.nix"

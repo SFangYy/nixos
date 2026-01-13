@@ -6,7 +6,8 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
-    ./noctalia.nix
+    ./dms.nix
+    # ./noctalia.nix
   ];
   home.packages = with pkgs; [
     swww
