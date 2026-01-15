@@ -104,6 +104,7 @@
       "libvirtd"
       "video"
       "kvm"
+      "davfs2"
     ];
     packages = with pkgs; [
       nautilus

@@ -23,7 +23,14 @@
         gd = "git diff";
         gb = "git branch";
         gco = "git checkout";
+        gcl = "git clone";
+        glog = "git log --oneline --graph --decorate";
 
+        # Navigation & Files
+        ".." = "cd ..";
+        "..." = "cd ../..";
+        md = "mkdir -p";
+        
         # SSH
         s = "ssh";
         sa = "ssh-add";
@@ -46,6 +53,18 @@
       interactiveShellInit = ''
         # Initialize pay-respects (command correction tool)
         pay-respects fish --alias | source
+
+        # Toggle sudo with Alt+s
+        function __toggle_sudo
+            set -l cmd (commandline)
+            [ -z "$cmd" ] && set cmd $history[1]
+            if string match -q "sudo *" "$cmd"
+                commandline -r (string replace -r '^sudo ' "" "$cmd")
+            else
+                commandline -r "sudo $cmd"
+            end
+        end
+        bind \es __toggle_sudo
       '';
       plugins = with pkgs.fishPlugins; [
         {

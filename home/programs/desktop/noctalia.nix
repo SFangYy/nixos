@@ -106,7 +106,7 @@
       };
       ui = {
         fontDefault = "Hug Me Tight";
-        fontFixed = "Maple Mono";
+        fontFixed = "JetBrains Mono";
         panelBackgroundOpacity = 0.9;
       };
       dock.enabled = false;

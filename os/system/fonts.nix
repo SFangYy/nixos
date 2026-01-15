@@ -6,10 +6,9 @@
     noto-fonts-cjk-serif
     noto-fonts-color-emoji
     nerd-fonts.symbols-only
-    nerd-fonts.hurmit
     nerd-fonts.monofur
-    lxgw-wenkai
-    maple-mono-variable
+    jetbrains-mono
+    sarasa-gothic
   ];
   fonts.fontDir.enable = true;
 }

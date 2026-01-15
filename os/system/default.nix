@@ -1,9 +1,10 @@
 {
   imports = [
-    ./configuration.nix
     ./boot.nix
+    ./configuration.nix
     ./fonts.nix
-    ./stylix.nix
     ./network.nix
+    ./stylix.nix
+    ./secrets.nix
   ];
 }

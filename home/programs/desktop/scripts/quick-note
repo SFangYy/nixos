@@ -1,2 +1,45 @@
 #!/bin/sh
-nvim "$HOME/work/Notes/2-area/journal/$(date +%Y-%m-%d).md"
+
+# Configuration
+# The name of your Obsidian vault (usually the folder name)
+VAULT_NAME="Notes"
+# The path to your daily notes folder *inside* the vault
+# (Ensure this matches your Obsidian 'Daily Notes' plugin settings)
+DAILY_REL_PATH="2-area/journal"
+
+DATE=$(date +%Y-%m-%d)
+# Full path to the expected note file on disk
+NOTE_FILE="$HOME/work/$VAULT_NAME/$DAILY_REL_PATH/$DATE.md"
+
+# 1. Check if the daily note exists
+if [ ! -f "$NOTE_FILE" ]; then
+    echo "Daily note for $DATE not found."
+    echo "Requesting Obsidian to create it via Advanced URI..."
+    
+    # Call Obsidian to create the daily note (apply templates, etc.)
+    xdg-open "obsidian://advanced-uri?vault=$VAULT_NAME&daily=true" > /dev/null 2>&1
+    
+    echo "Waiting for file creation..."
+    
+    # Wait for the file to appear (timeout after ~10 seconds)
+    for i in $(seq 1 20); do
+        if [ -f "$NOTE_FILE" ]; then
+            echo " Note created!"
+            break
+        fi
+        sleep 0.5
+        echo -n "."
+    done
+    echo ""
+fi
+
+# 2. Open the note in Neovim if it exists
+if [ -f "$NOTE_FILE" ]; then
+    exec nvim "$NOTE_FILE"
+else
+    echo "Error: Failed to find or create daily note at:"
+    echo "$NOTE_FILE"
+    echo "Please check if Obsidian is running and the Vault name/Path is correct."
+    echo "Press Enter to exit..."
+    read _
+fi

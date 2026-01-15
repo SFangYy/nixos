@@ -20,7 +20,6 @@ let
     inputs.niri.homeModules.niri
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
-    ../secrets/age.nix
     inputs.dankMaterialShell.homeModules.dankMaterialShell.default
     inputs.noctalia-shell.homeModules.default
   ]

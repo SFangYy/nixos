@@ -269,8 +269,32 @@ These bindings are configured across various files in `home/programs/coding/nixv
 
 ## Shell (Fish & Zoxide)
 
-- **目录跳转**: 使用 `z <目录名>` 快速跳转到常用目录（由 `zoxide` 驱动）。
-- **常用缩写 (Abbreviations)**:
-    - **Nix**: `nixu` (系统更新), `homeu` (用户配置更新), `nixc` (清理缓存)。
-    - **Git**: `g` (git), `ga` (添加), `gc` (提交), `gp` (推送), `gl` (拉取), `gst` (状态), `gd` (差异), `gb` (分支), `gco` (检出)。
-    - **通用**: `n`, `vim`, `vi` (均映射至 `nvim`)。
+### 常用快捷键 (Fish Built-ins)
+| 快捷键 | 描述 |
+| :--- | :--- |
+| `Ctrl + a` | 跳转到行首 (Start of Line) |
+| `Ctrl + e` | 跳转到行尾 (End of Line) |
+| `Ctrl + f` | 接受建议 (Accept Autosuggestion) |
+| `Alt + f` | 接受建议的一个单词 (Accept Word) |
+| `Alt + s` | 快速添加/取消 `sudo` (Toggle Sudo) |
+| `Ctrl + u` | 删除光标前的所有内容 (Clear to Start) |
+| `Ctrl + k` | 删除光标后的所有内容 (Clear to End) |
+| `Ctrl + l` | 清屏 (Clear Screen) |
+| `Alt + ← / →` | 移动到上/下一个访问的目录 (Prev/Next Dir) |
+| `Tab` | 自动补全 (Autocomplete) |
+
+### 命令缩写 (Abbreviations) & 工具
+- **目录跳转 (Zoxide)**: 使用 `z <目录名>` 智能跳转到常用目录。
+- **系统管理 (Nix)**:
+    - `nixu`: 系统更新 (`nh os switch`)
+    - `homeu`: 用户配置更新 (`nh home switch`)
+    - `nixc`: 清理垃圾 (`nh clean`)
+- **Git 操作**:
+    - `g` (git), `ga` (add), `gc` (commit -m)
+    - `gp` (push), `gl` (pull), `gcl` (clone)
+    - `gst` (status), `gd` (diff), `glog` (图形化日志)
+    - `gb` (branch), `gco` (checkout)
+- **文件与导航**:
+    - `..` (cd ..), `...` (cd ../..)
+    - `md` (mkdir -p), `l` (ls -lah)
+    - `n`, `vim` (nvim)

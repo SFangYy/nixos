@@ -11,7 +11,6 @@
     ./programs
     ./tweaks
     ./services/webdav.nix
-    ./github-token.nix
   ];
 
   home = {

@@ -76,7 +76,7 @@ in
     ''
       {
         "currentThemeName": "custom",
-        "customThemeFile": "/home/eden/.config/DankMaterialShell/stylix-colors.json",
+        "customThemeFile": "${config.home.homeDirectory}/.config/DankMaterialShell/stylix-colors.json",
         "matugenScheme": "scheme-tonal-spot",
         "dankBarTransparency": 0.5,
         "dankBarWidgetTransparency": 0.56,
@@ -197,8 +197,8 @@ in
         "osLogoColorOverride": "#7daea3",
         "osLogoBrightness": 0.5,
         "osLogoContrast": 1,
-        "fontFamily": "Hug Me Tight",
-        "monoFontFamily": "Maple Mono",
+        "fontFamily": "JetBrains Mono",
+        "monoFontFamily": "JetBrains Mono",
         "fontWeight": 400,
         "fontScale": 1,
         "notepadUseMonospace": true,
@@ -246,5 +246,6 @@ in
     '';
   home.sessionVariables = {
     DMS_DISABLE_MATUGEN = "1";
+    QT_SCALE_FACTOR_ROUNDING_POLICY = "PassThrough";
   };
 }

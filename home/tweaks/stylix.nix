@@ -18,12 +18,12 @@ in
       size = 32;
     };
     fonts = {
-      monospace.name = "Maple Mono";
-      monospace.package = pkgs.maple-mono-variable;
-      sansSerif.name = "Maple Mono";
-      sansSerif.package = pkgs.maple-mono-variable;
-      serif.name = "Maple Mono";
-      serif.package = pkgs.maple-mono-variable;
+      monospace.name = "JetBrains Mono";
+      monospace.package = pkgs.jetbrains-mono;
+      sansSerif.name = "JetBrains Mono";
+      sansSerif.package = pkgs.jetbrains-mono;
+      serif.name = "JetBrains Mono";
+      serif.package = pkgs.jetbrains-mono;
       emoji.name = "Noto Color Emoji";
       emoji.package = pkgs.noto-fonts-color-emoji;
     };

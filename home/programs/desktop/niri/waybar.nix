@@ -216,7 +216,7 @@ in
           /* all: unset; */
           font-size: 14px;
           /* font-family: "Comic Mono Nerd Font"; */
-          font-family: "Hug Me Tight", "Xiaolai SC";
+          font-family: "Hug Me Tight", "Sarasa Gothic SC";
           min-height: 0;
         }
 
