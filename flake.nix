@@ -93,5 +93,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hexecute.url = "github:ThatOtherAndrew/Hexecute";
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

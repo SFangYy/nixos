@@ -170,7 +170,11 @@ in
           "workspaceSwitcher",
           "focusedWindow"
         ],
-        "dankBarCenterWidgets": ["music", "clock", "weather"],
+        "dankBarCenterWidgets": [
+          "music",
+          "clock",
+          "weather"
+        ],
         "dankBarRightWidgets": [
           {
             "id": "systemTray",

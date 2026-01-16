@@ -5,6 +5,5 @@
     nixfmt-rfc-style
     texlab
     nodePackages.prettier
-    antigravity
   ];
 }

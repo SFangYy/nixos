@@ -100,6 +100,18 @@
       };
     };
 
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "github.com" = {
+          hostname = "github.com";
+          user = "git";
+          proxyCommand = "nc -X 5 -x 127.0.0.1:7890 %h %p";
+        };
+      };
+    };
+
     nh = {
       enable = true;
       clean.enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     # pspp
@@ -6,6 +6,6 @@
     obsidian
     brave
     vscode
-    antigravity
+    inputs.antigravity-nix.packages.x86_64-linux.default
   ];
 }
