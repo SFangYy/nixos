@@ -6,5 +6,6 @@
     obsidian
     brave
     vscode
+    antigravity
   ];
 }

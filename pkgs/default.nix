@@ -6,4 +6,5 @@
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
   ue = pkgs.callPackage ./unitychip-env.nix { };
   wechat = pkgs.callPackage ./wechat.nix { };
+  mihomo-party = pkgs.callPackage ./mihomo-party.nix { };
 }

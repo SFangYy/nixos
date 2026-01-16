@@ -1,8 +1,16 @@
 { pkgs, ... }:
 {
   programs.clash-verge = {
-    enable=true;
+    enable = false;
     package = pkgs.clash-verge-rev;
-    tunMode=true;
+    tunMode = true;
+  };
+
+  # Allow mihomo to run with elevated permissions for TUN mode
+  security.wrappers.mihomo = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_admin,cap_net_bind_service=+ep";
+    source = "${pkgs.mihomo}/bin/mihomo";
   };
 }

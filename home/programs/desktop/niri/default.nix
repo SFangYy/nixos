@@ -59,6 +59,8 @@
             "-c"
             "$(tofi-run)"
           ];
+          "Mod+O".action = spawn "obsidian";
+          "Mod+B".action = spawn "brave";
           "Mod+Shift+C".action = spawn "/home/${user}/scripts/tofi/colorscheme";
         };
         window-rules =
@@ -85,6 +87,18 @@
                 { app-id = "floating-terminal"; }
               ];
               open-floating = true;
+            }
+            {
+              matches = [ { app-id = "obsidian"; } ];
+              open-on-workspace = "reading";
+            }
+            {
+              matches = [ { app-id = "mihomo-party"; } ];
+              open-on-workspace = "9";
+            }
+            {
+              matches = [ { app-id = "brave"; } ];
+              open-on-workspace = "browsing";
             }
             {
               matches = matchAppIDs [
@@ -158,6 +172,10 @@
           "4" = {
             open-on-output = mainMonitorName;
             name = "music";
+          };
+          "9" = {
+            open-on-output = mainMonitorName;
+            name = "background";
           };
         };
         xwayland-satellite = {

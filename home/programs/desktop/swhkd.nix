@@ -11,7 +11,7 @@
         command = "wl-color-picker";
       }
       {
-        key = "super + b";
+        key = "super + shift + b";
         command =
           {
             waybar = "pkill -USR1 .waybar-wrapped";

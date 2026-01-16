@@ -10,8 +10,7 @@ let
     name = "niri-autostart";
     runtimeInputs = with pkgs; [
       swww
-      mihomo
-      clash-verge-rev
+      mihomo-party
       wlsunset
       systemd
       killall
@@ -31,8 +30,7 @@ let
         swww-daemon --namespace "backdrop" &
         # swww restore --namespace "background"
         # swww restore --namespace "backdrop"
-        mihomo -d ~/.config/clash &
-        clash-verge &
+        mihomo-party &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
       ''
       + (

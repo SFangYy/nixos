@@ -154,15 +154,15 @@
     localBinInPath = true;
   };
 
-  systemd.services.clash-verge-service = {
-    description = "Clash Verge Service Mode";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.clash-verge-rev}/bin/clash-verge-service"; # 注意检查路径是否存在
-      Restart = "always";
-      User = "root"; # 服务模式必须 root 运行
-    };
-  };
+  # systemd.services.clash-verge-service = {
+  #   description = "Clash Verge Service Mode";
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.clash-verge-rev}/bin/clash-verge-service"; # 注意检查路径是否存在
+  #     Restart = "always";
+  #     User = "root"; # 服务模式必须 root 运行
+  #   };
+  # };
   
   systemd.user.services = {
     polkit-gnome-authentication-agent-1 = {
