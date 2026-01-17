@@ -33,7 +33,7 @@
         input = {
           focus-follows-mouse.enable = false;
           touchpad.natural-scroll = false;
-          keyboard.xkb.options = "caps:escape";
+          keyboard.xkb.options = "caps:escape,ctrl:swap_lalt_lctl";
         };
         environment = {
           DISPLAY = ":0";
@@ -91,10 +91,13 @@
             {
               matches = [ { app-id = "obsidian"; } ];
               open-on-workspace = "reading";
+              default-column-width = {
+                proportion = 1.0;
+              };
             }
             {
               matches = [ { app-id = "mihomo-party"; } ];
-              open-on-workspace = "9";
+              open-on-workspace = "8";
             }
             {
               matches = [ { app-id = "brave"; } ];
@@ -128,7 +131,7 @@
             }
             {
               matches = [
-                { app-id = "MATLAB R2022b - academic use"; }
+                { app-id = "MATLAB R2024b - academic use"; }
               ];
               open-floating = true;
             }
@@ -173,9 +176,9 @@
             open-on-output = mainMonitorName;
             name = "music";
           };
-          "9" = {
+          "8" = {
             open-on-output = mainMonitorName;
-            name = "background";
+            name = "proxy";
           };
         };
         xwayland-satellite = {

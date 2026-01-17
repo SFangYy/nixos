@@ -28,9 +28,11 @@
       setupCompleted = true;
       bar = {
         density = "comfortable";
-        floating = false;
+        floating = true;
         showCapsule = true;
         outerCorners = true;
+        position = "left";
+        showOutline = true;
         widgets = {
           center = [
             {
@@ -45,6 +47,9 @@
             }
           ];
           left = [
+            {
+              id = "Launcher";
+            }
             {
               id = "Workspace";
               labelMode = "none";
@@ -92,6 +97,13 @@
           ];
         };
       };
+      appLauncher = {
+        enableClipboardHistory = true;
+        autoPasteClipboard = true;
+        enableClipPreview = true;
+        clipboardWrapText = true;
+        position = "top_left";
+    };
       colorSchemes = {
         generateTemplatesForPredefined = false;
         useWallpaperColors = false;
@@ -102,10 +114,10 @@
         showScreenCorners = true;
       };
       location = {
-        name = "西湖";
+        name = "海淀";
       };
       ui = {
-        fontDefault = "Hug Me Tight";
+        fontDefault = "JetBrains Mono";
         fontFixed = "JetBrains Mono";
         panelBackgroundOpacity = 0.9;
       };

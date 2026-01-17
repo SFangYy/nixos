@@ -5,6 +5,7 @@
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     noto-fonts-color-emoji
+    fira-code
     nerd-fonts.symbols-only
     nerd-fonts.monofur
     jetbrains-mono

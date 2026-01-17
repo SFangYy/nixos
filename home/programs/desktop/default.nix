@@ -6,19 +6,17 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
-    ./dms.nix
-    # ./noctalia.nix
+    # ./dms.nix
+    ./noctalia.nix
   ];
   home.packages = with pkgs; [
     swww
     swaybg
     kanshi
     wlsunset
-    wayneko
     xwayland-satellite
     wmname
     inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
   home.file."scripts" = {
     source = ./scripts;

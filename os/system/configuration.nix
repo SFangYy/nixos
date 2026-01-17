@@ -33,7 +33,7 @@
 
   services = {
     displayManager.gdm.enable = false;
-    desktopManager.gnome.enable = true;
+    # desktopManager.gnome.enable = true;
 
     xserver = {
       enable = true;
@@ -57,7 +57,7 @@
 
     blueman.enable = true;
 
-    gnome.gnome-browser-connector.enable = true;
+    # gnome.gnome-browser-connector.enable = true;
 
     gvfs.enable = true;
 
@@ -69,6 +69,10 @@
     # };
 
     flatpak.enable = true;
+
+    upower.enable = true;
+
+    udisks2.enable = true;
   };
 
   security = {
@@ -105,11 +109,6 @@
       "video"
       "kvm"
       "davfs2"
-    ];
-    packages = with pkgs; [
-      nautilus
-      loupe
-      podman-compose
     ];
   };
 
