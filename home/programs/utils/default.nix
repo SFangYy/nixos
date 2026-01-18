@@ -29,7 +29,7 @@
     # nom
     yad
     # pcmanfm
-    # yazi
+    yazi
     # ydotool
     jq
     # scrcpy
@@ -49,6 +49,7 @@
     nautilus
     gnome-disk-utility
     upower
+    rustdesk
   ];
   imports = [
     ./eye-candy.nix

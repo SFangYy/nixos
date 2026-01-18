@@ -47,8 +47,18 @@ in
       (niriAction "super + c" "center-column")
       (niriAction "super + {_, shift +} {minus, equal}" "set-{column\\-width, window\\-height} \"{\\-, +}10%\"")
       (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x \\-10, y +10, y \\-10, x +10}")
-      (niriAction "{ctrl +, alt +} print" "screenshot-{screen, window}")
-      (niriAction "print" "screenshot")
+      {
+        key = "super + s";
+        command = "grim -g \"$(slurp)\" - | wl-copy";
+      }
+      {
+        key = "ctrl + super + s";
+        command = "grim - | wl-copy";
+      }
+      {
+        key = "alt + super + s";
+        command = "grim -g \"$(slurp -f '%o')\" - | wl-copy";
+      }
       (niriAction "super + alt + m" "set-dynamic-cast-monitor")
       (niriAction "super + alt + w" "set-dynamic-cast-window")
       (niriAction "super + alt + n" "clear-dynamic-cast-target")

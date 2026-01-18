@@ -16,6 +16,10 @@
       map ctrl+shift+s kitten hints --type word --program @
       map ctrl+shift+l kitten hints --type line --program @
 
+      map ctrl+c copy_to_clipboard
+      map ctrl+v paste_from_clipboard
+      map alt+c send_text all \x03
+
       symbol_map U+4E00-U+9FFF   Sarasa Mono SC
       symbol_map U+3400-U+4DBF   Sarasa Mono SC
       symbol_map U+20000-U+2A6DF Sarasa Mono SC

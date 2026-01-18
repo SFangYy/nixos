@@ -36,9 +36,9 @@ These bindings are configured in `home/programs/desktop/niri/swhkd.nix`.
 | `Super + Alt + {h, j, k, l}` | `move-floating-window` | Move floating window precisely |
 | **Utilities** | | |
 | `Super + n` | `nautilus` | Open File Manager (Nautilus) |
-| `Print` | `screenshot` | Take a full screenshot |
-| `Ctrl + Print` | `screenshot-screen` | Take a screen screenshot |
-| `Alt + Print` | `screenshot-window` | Take a window screenshot |
+| `Super + s` | `screenshot` | Take an area screenshot |
+| `Ctrl + Super + s` | `screenshot-screen` | Take a full screen screenshot |
+| `Alt + Super + s` | `screenshot-window` | Take a window screenshot |
 | `Super + Ctrl + c` | *Script* | Pick color and copy Hex code to clipboard |
 | **Screencasting** | | |
 | `Super + Alt + m` | `set-dynamic-cast-monitor` | Set monitor for dynamic cast |
@@ -175,9 +175,9 @@ These bindings are configured across various files in `home/programs/coding/nixv
 | `Super + Alt + {h, j, k, l}` | `move-floating-window` | 精确移动悬浮窗口 |
 | **实用工具** | | |
 | `Super + n` | `nautilus` | 打开文件管理器 (Nautilus) |
-| `Print` | `screenshot` | 全屏截图 |
-| `Ctrl + Print` | `screenshot-screen` | 屏幕截图 |
-| `Alt + Print` | `screenshot-window` | 窗口截图 |
+| `Super + s` | `screenshot` | 区域截图 |
+| `Ctrl + Super + s` | `screenshot-screen` | 全屏截图 |
+| `Alt + Super + s` | `screenshot-window` | 窗口截图 |
 | `Super + Ctrl + c` | *Script* | 取色并复制 Hex 代码到剪贴板 |
 | **投屏 (Screencasting)** | | |
 | `Super + Alt + m` | `set-dynamic-cast-monitor` | 设置动态投屏监视器 |

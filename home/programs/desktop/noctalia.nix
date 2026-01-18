@@ -45,6 +45,11 @@
               showNetworkoStats = false;
               usePrimaryColor = true;
             }
+            {
+              id = "Clock";
+              formatHorizontal = "HH:mm ddd, MMM dd";
+              formatVertical = "HH mm - dd MMM";
+            }
           ];
           left = [
             {
@@ -63,6 +68,9 @@
               showVisualizer = true;
               visualizerType = "wave";
             }
+            {
+              id = "ActiveWindow";
+            }
           ];
           right = [
             {
@@ -79,14 +87,6 @@
               id = "Battery";
               displayMode = "alwaysShow";
               warningThreshold = 30;
-            }
-            {
-              id = "Clock";
-              customFont = "Monofur Nerd Font Mono";
-              formatHorizontal = "HH:mm ddd, MMM dd";
-              formatVertical = "HH mm - dd MM";
-              useCustomFont = true;
-              usePrimaryColor = true;
             }
             {
               id = "ControlCenter";
@@ -113,6 +113,39 @@
         forceBlackScreenCorners = true;
         showScreenCorners = true;
       };
+        appLauncher = {
+        };
+        controlCenter = {
+          cards = [
+            {
+              enabled = false;
+              id = "brightness-card";
+            }
+            {
+              enabled = true;
+              id = "weather-card";
+            }
+            {
+              enabled = true;
+              id = "media-sysmon-card";
+            }
+            {
+              enabled = true;
+              id = "audio-card";
+            }
+            {
+              enabled = true;
+              id = "shortcuts-card";
+            }
+            {
+              enabled = true;
+              id = "profile-card";
+            }
+          ];
+        };
+        sessionMenu = {
+          position = "bottom_left";
+        };
       location = {
         name = "海淀";
       };
