@@ -53,78 +53,198 @@ These bindings are configured across various files in `home/programs/coding/nixv
 
 **Leader Key:** `Space`
 
-### General
+### General (通用)
 | Keybinding | Mode | Action | Description |
 | :--- | :--- | :--- | :--- |
+| `j` / `k` | Normal | `gj` / `gk` | Move by display line (wrap-aware) |
 | `jk` | Insert | `<Esc>` | Exit insert mode to normal mode |
+| `<C-s>` | Insert/Normal | `:w<CR>` | Save file |
+| `<C-a>` | Insert/Normal | `ggVG` | Select all |
 | `S` | Normal | `:w<CR>` | Save file |
 | `Q` | Normal | `:bd<CR>` | Close buffer (Buffer Delete) |
 | `<S-h>` | Normal | `:bprevious<CR>` | Switch to previous buffer |
 | `<S-l>` | Normal | `:bnext<CR>` | Switch to next buffer |
 | `<Esc><Esc>` | Terminal | `<C-\><C-n>` | Exit terminal insert mode |
+| `<Leader>Y` | Visual | `"+y` | Copy to system clipboard |
+| `<Leader>D` | Visual | `"+x` | Cut to system clipboard |
+| `<Leader>qq` | Normal | `:wqa<CR>` | Quit editor (save and quit all) |
 | `<Leader>o` | Normal | `MiniFiles.open()` | Open MiniFiles file explorer |
-| `<Leader>1` - `<Leader>4` | Normal | `:BufferLineGoToBuffer N` | Switch to buffer N |
+
+### Window Management (窗口管理)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<C-Up>` | Normal | `resize +2` | Increase window height |
+| `<C-Down>` | Normal | `resize -2` | Decrease window height |
+| `<C-Left>` | Normal | `vertical resize -2` | Decrease window width |
+| `<C-Right>` | Normal | `vertical resize +2` | Increase window width |
+| `<Leader>wH` | Normal | `<C-w>H` | Move window to left |
+| `<Leader>wJ` | Normal | `<C-w>J` | Move window to bottom |
+| `<Leader>wK` | Normal | `<C-w>K` | Move window to top |
+| `<Leader>wL` | Normal | `<C-w>L` | Move window to right |
+
+### Line Movement (行移动)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<A-j>` | Normal | `:m .+1<CR>==` | Move line down |
+| `<A-k>` | Normal | `:m .-2<CR>==` | Move line up |
+| `<A-j>` | Visual | `:m '>+1<CR>gv=gv` | Move selection down |
+| `<A-k>` | Visual | `:m '<-2<CR>gv=gv` | Move selection up |
+
+### Tab Management (标签页管理)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<Leader><tab><tab>` | Normal | `tabnew` | New tab |
+| `<Leader><tab>d` | Normal | `tabclose` | Close current tab |
+| `<Leader><tab>o` | Normal | `tabonly` | Close other tabs |
+| `<Leader><tab>l` | Normal | `tabnext` | Next tab |
+| `<Leader><tab>h` | Normal | `tabprevious` | Previous tab |
 
 ### LSP (Language Server Protocol)
 | Keybinding | Mode | Action | Description |
 | :--- | :--- | :--- | :--- |
-| `K` | Normal | `:Lspsaga hover_doc` | Show hover documentation |
-| `<Leader>lE` | Normal | `open_float` | Show line diagnostics |
-| `[` | Normal | `goto_prev` | Go to previous diagnostic |
-| `]` | Normal | `goto_next` | Go to next diagnostic |
+| `K` | Normal | `hover` | Show hover documentation |
+| `<Leader>cd` | Normal | `open_float` | Show line diagnostics |
+| `[d` | Normal | `goto_prev` | Go to previous diagnostic |
+| `]d` | Normal | `goto_next` | Go to next diagnostic |
 | `gD` | Normal | `declaration` | Go to declaration |
 | `gd` | Normal | `definition` | Go to definition |
 | `gr` | Normal | `references` | Find references |
-| `gI` | Normal | `implementation` | Go to implementation |
-| `gy` | Normal | `type_definition` | Go to type definition |
-| `<Leader>lo` | Normal | `:Lspsaga outline` | Toggle symbol outline |
-| `<Leader>lr` | Normal | `:Lspsaga rename` | Rename symbol |
-| `<Leader>la` | Normal | `:Lspsaga code_action` | Code actions |
-| `<Leader>lf` | Normal | `:Lspsaga finder` | Find references/implementations |
-
-### AI Assistant (CodeCompanion)
-| Keybinding | Mode | Action | Description |
-| :--- | :--- | :--- | :--- |
-| `<Leader>ca` | Normal | `:CodeCompanionActions` | Open AI actions menu |
-| `<Leader>cc` | Normal | `:CodeCompanionChat Toggle` | Toggle AI chat window |
-| `<Leader>ci` | Normal | `:CodeCompanion ` | Start inline AI command |
-| `Leader>ca` | Normal | *Inline Strategy* | Accept change |
-| `<Leader>cr` | Normal | *Inline Strategy* | Reject change |
+| `gi` | Normal | `implementation` | Go to implementation |
+| `gt` | Normal | `type_definition` | Go to type definition |
+| `<Leader>cR` | Normal | `rename` | Rename symbol |
+| `<Leader>ca` | Normal | `code_action` | Code actions |
+| `<Leader>ci` | Normal | `Telescope lsp_implementations` | Find implementations |
+| `<Leader>cr` | Normal | `Telescope lsp_references` | Find references |
+| `<Leader>cw` | Normal | `Telescope lsp_workspace_symbols` | Find workspace symbols |
+| `<Leader>cf` | Normal | `Telescope lsp_document_symbols` | File outline |
+| `<Leader>c[` | Normal | `Telescope lsp_incoming_calls` | Incoming calls |
+| `<Leader>c]` | Normal | `Telescope lsp_outgoing_calls` | Outgoing calls |
+| `<Leader>ce` | Normal | `Telescope diagnostics bufnr=0` | Current file diagnostics |
+| `<Leader>cW` | Normal | `Telescope diagnostics` | Global diagnostics |
+| `<Leader>D` | Normal | `diagnostic.open_float()` | Show diagnostics float |
 
 ### Telescope (Fuzzy Finder)
 | Keybinding | Mode | Action | Description |
 | :--- | :--- | :--- | :--- |
-| `<Leader>ff` | Normal | `:Telescope fd` | Find files |
-| `<Leader>fd` | Normal | `:Telescope diagnostics` | Find diagnostics |
-| `<Leader>fb` | Normal | `:Telescope buffers` | Find open buffers |
-| `<Leader>fr` | Normal | `:Telescope registers` | View registers |
+| `<Leader>ff` | Normal | `Telescope find_files` | Find files |
+| `<Leader>fs` | Normal | `Telescope grep_string` | Search string in files |
+| `<Leader>fg` | Normal | `Telescope live_grep` | Global search |
+| `<Leader>fb` | Normal | `Telescope buffers` | Find open buffers |
+| `<Leader>fo` | Normal | `Telescope oldfiles` | Recent files |
+| `<Leader>fr` | Normal | `Telescope live_grep_args` | Advanced search |
+| `<Leader>fp` | Normal | `Telescope projects` | Switch projects |
+| `<Leader>H` | Normal | `Telescope help_tags` | Help search |
+| `<Leader>ft` | Normal | `Telescope todo-comments` | Todo search |
+| `<A-s>` | Telescope | `file_split` | Open in horizontal split |
+| `<A-v>` | Telescope | `file_vsplit` | Open in vertical split |
+| `<A-t>` | Telescope | `file_tab` | Open in new tab |
 
-### Hop (Easy Motion)
+### Flash (Quick Jump)
 | Keybinding | Mode | Action | Description |
 | :--- | :--- | :--- | :--- |
-| `<Leader>hw` | Normal | `:HopWord` | Hop to word |
-| `<Leader>hl` | Normal | `:HopLine` | Hop to line |
+| `s` | Normal/Visual/Op | `flash.jump()` | Flash jump |
+| `S` | Normal/Visual/Op | `flash.treesitter()` | Flash treesitter jump |
+| `r` | Operator-pending | `flash.remote()` | Remote jump |
+| `R` | Operator/Visual | `flash.treesitter_search()` | Treesitter search |
+| `gl` | Normal/Visual/Op | `flash.jump({pattern="^"})` | Jump to line |
+| `<C-S>` | Insert/Command | `flash.toggle()` | Toggle flash search |
 
-### Completion (CMP)
+### Harpoon (File Marking)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<Leader>ma` | Normal | `harpoon:list():add()` | Add mark |
+| `<Leader>md` | Normal | `harpoon:list():remove()` | Remove mark |
+| `<Leader>mm` | Normal | `harpoon.ui:toggle_quick_menu()` | Toggle Harpoon menu |
+| `<Leader>m1` | Normal | `harpoon:list():select(1)` | Jump to mark 1 |
+| `<Leader>m2` | Normal | `harpoon:list():select(2)` | Jump to mark 2 |
+| `<Leader>m3` | Normal | `harpoon:list():select(3)` | Jump to mark 3 |
+| `<Leader>m[` | Normal | `harpoon:list():prev()` | Previous mark |
+| `<Leader>m]` | Normal | `harpoon:list():next()` | Next mark |
+
+### Bufferline (Buffer Management)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `]b` | Normal | `BufferLineCycleNext` | Next buffer |
+| `[b` | Normal | `BufferLineCyclePrev` | Previous buffer |
+| `<Leader>bb` | Normal | `e #` | Quick switch buffer |
+| `<Leader>bf` | Normal | `BufferLinePick` | Pick and jump to buffer |
+| `<Leader>bd` | Normal | `bdelete` | Delete buffer |
+| `<Leader>bo` | Normal | `BufferLineCloseOthers` | Close other buffers |
+| `<Leader>bp` | Normal | `BufferLineTogglePin` | Toggle pin |
+| `<Leader>bP` | Normal | `BufferLineGroupClose ungrouped` | Close ungrouped buffers |
+
+### ToggleTerm (Terminal)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<C-\>` | Normal | `ToggleTerm` | Toggle terminal |
+| `<Leader>tt` | Normal | `ToggleTerm` | Toggle terminal |
+| `<Leader>tv` | Normal | `ToggleTerm direction=vertical` | Vertical terminal |
+| `<Leader>th` | Normal | `ToggleTerm direction=horizontal` | Horizontal terminal |
+| `<Leader>tf` | Normal | `ToggleTerm direction=float` | Floating terminal |
+| `<Esc>` | Terminal | `<C-\><C-n>` | Exit terminal mode |
+
+### Neo-tree (File Explorer)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<Leader>e` | Normal | `Neotree toggle` | Toggle file tree |
+
+**Neo-tree 使用说明：**
+
+#### 基本操作
+- 按 `<Leader>e` 打开/关闭文件树
+- 文件树会自动跟随当前文件
+- 使用 `h/j/k/l` 或方向键导航文件和目录
+- 按 `Enter` 或 `o` 打开文件/展开目录
+- 按 `Tab` 在新标签页打开文件
+- 按 `t` 在新标签页打开文件
+- 按 `s` 在水平分屏中打开文件
+- 按 `v` 在垂直分屏中打开文件
+- 按 `p` 预览文件内容
+- 按 `a` 创建新文件/目录
+- 按 `d` 删除文件/目录
+- 按 `r` 重命名文件/目录
+- 按 `c` 复制文件/目录
+- 按 `x` 剪切文件/目录
+- 按 `P` 粘贴文件/目录
+- 按 `y` 复制文件路径
+- 按 `Y` 复制文件内容
+- 按 `.` 显示/隐藏隐藏文件
+- 按 `R` 刷新文件树
+- 按 `?` 显示帮助信息
+
+#### Git 状态图标
+- `●` - 新增文件
+- `M` - 修改文件
+- `D` - 删除文件
+- `R` - 重命名文件
+- `??` - 未跟踪文件
+- `A` - 已暂存
+- `!` - 忽略文件
+
+#### 文件树特性
+- 自动合并空目录
+- 支持拖拽移动文件
+- 显示 Git 状态
+- 支持文件过滤和搜索
+- 支持书签功能
+
+---
+
+### AI Assistant (Avante)
+| Keybinding | Mode | Action | Description |
+| :--- | :--- | :--- | :--- |
+| `<Leader>aa` | Normal | `AvanteAsk` | Ask AI |
+| `<Leader>ae` | Normal | `AvanteEdit` | Edit with AI |
+| `<Leader>at` | Normal | `AvanteToggle` | Toggle AI sidebar |
+| `<Leader>ar` | Normal | `AvanteRefresh` | Refresh AI |
+| `<Leader>am` | Normal | `AvanteModels` | Switch AI models |
+
+### Completion (Blink CMP)
 | Keybinding | Mode | Action | Description |
 | :--- | :--- | :--- | :--- |
 | `<Tab>` | Insert/Select | `select_next_item` | Next completion item |
 | `<S-Tab>` | Insert/Select | `select_prev_item` | Previous completion item |
 | `<CR>` | Insert/Select | `confirm` | Confirm selection |
-
-### Copilot
-| Keybinding | Mode | Action | Description |
-| :--- | :--- | :--- | :--- |
-| `<C-l>` | Insert | `accept` | Accept suggestion |
-| `<C-Tab>` | Insert | `next` | Next suggestion |
-| `<C-S-Tab>` | Insert | `prev` | Previous suggestion |
-| `<C-h>` | Insert | `dismiss` | Dismiss suggestion |
-
-### Window & Buffer Management (Mini & Others)
-| Keybinding | Mode | Action | Description |
-| :--- | :--- | :--- | :--- |
-| `<C-h/j/k/l>` | Normal | *Move Focus* | Move focus between windows (Mini.move) |
-| `<Leader>m` | Normal | *Minimap* | Toggle Minimap (CodeWindow) |
 
 ---
 
@@ -195,75 +315,193 @@ These bindings are configured across various files in `home/programs/coding/nixv
 ### 通用
 | 快捷键 | 模式 | 动作 | 描述 |
 | :--- | :--- | :--- | :--- |
-| `jk` | 插入 (Insert) | `<Esc>` | 退出插入模式返回普通模式 |
+| `j` / `k` | Normal | `gj` / `gk` | 按显示行移动（支持自动换行） |
+| `jk` | Insert | `<Esc>` | 退出插入模式返回普通模式 |
+| `<C-s>` | Insert/Normal | `:w<CR>` | 保存文件 |
+| `<C-a>` | Insert/Normal | `ggVG` | 全选 |
 | `S` | Normal | `:w<CR>` | 保存文件 |
 | `Q` | Normal | `:bd<CR>` | 关闭缓冲区 (删除 Buffer) |
 | `<S-h>` | Normal | `:bprevious<CR>` | 切换到上一个缓冲区 |
 | `<S-l>` | Normal | `:bnext<CR>` | 切换到下一个缓冲区 |
 | `<Esc><Esc>` | Terminal | `<C-\><C-n>` | 退出终端插入模式 |
+| `<Leader>Y` | Visual | `"+y` | 复制到系统剪贴板 |
+| `<Leader>D` | Visual | `"+x` | 剪切到系统剪贴板 |
+| `<Leader>qq` | Normal | `:wqa<CR>` | 退出编辑器（保存并退出所有） |
 | `<Leader>o` | Normal | `MiniFiles.open()` | 打开 MiniFiles 文件浏览器 |
-| `<Leader>1` - `<Leader>4` | Normal | `:BufferLineGoToBuffer N` | 切换到缓冲区 N |
+
+### 窗口管理
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<C-Up>` | Normal | `resize +2` | 增加窗口高度 |
+| `<C-Down>` | Normal | `resize -2` | 减少窗口高度 |
+| `<C-Left>` | Normal | `vertical resize -2` | 减少窗口宽度 |
+| `<C-Right>` | Normal | `vertical resize +2` | 增加窗口宽度 |
+| `<Leader>wH` | Normal | `<C-w>H` | 窗口移到左边 |
+| `<Leader>wJ` | Normal | `<C-w>J` | 窗口移到底部 |
+| `<Leader>wK` | Normal | `<C-w>K` | 窗口移到顶部 |
+| `<Leader>wL` | Normal | `<C-w>L` | 窗口移到右边 |
+
+### 行移动
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<A-j>` | Normal | `:m .+1<CR>==` | 向下移动行 |
+| `<A-k>` | Normal | `:m .-2<CR>==` | 向上移动行 |
+| `<A-j>` | Visual | `:m '>+1<CR>gv=gv` | 向下移动选择 |
+| `<A-k>` | Visual | `:m '<-2<CR>gv=gv` | 向上移动选择 |
+
+### 标签页管理
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<Leader><tab><tab>` | Normal | `tabnew` | 新建标签页 |
+| `<Leader><tab>d` | Normal | `tabclose` | 关闭当前标签页 |
+| `<Leader><tab>o` | Normal | `tabonly` | 关闭其他标签页 |
+| `<Leader><tab>l` | Normal | `tabnext` | 下一个标签页 |
+| `<Leader><tab>h` | Normal | `tabprevious` | 上一个标签页 |
 
 ### LSP (语言服务器协议)
 | 快捷键 | 模式 | 动作 | 描述 |
 | :--- | :--- | :--- | :--- |
-| `K` | Normal | `:Lspsaga hover_doc` | 显示悬停文档 |
-| `<Leader>lE` | Normal | `open_float` | 显示行诊断信息 |
-| `[` | Normal | `goto_prev` | 跳转到上一个诊断 |
-| `]` | Normal | `goto_next` | 跳转到下一个诊断 |
+| `K` | Normal | `hover` | 显示悬停文档 |
+| `<Leader>cd` | Normal | `open_float` | 显示行诊断信息 |
+| `[d` | Normal | `goto_prev` | 跳转到上一个诊断 |
+| `]d` | Normal | `goto_next` | 跳转到下一个诊断 |
 | `gD` | Normal | `declaration` | 跳转到声明 |
 | `gd` | Normal | `definition` | 跳转到定义 |
 | `gr` | Normal | `references` | 查找引用 |
-| `gI` | Normal | `implementation` | 跳转到实现 |
-| `gy` | Normal | `type_definition` | 跳转到类型定义 |
-| `<Leader>lo` | Normal | `:Lspsaga outline` | 切换符号大纲 |
-| `<Leader>lr` | Normal | `:Lspsaga rename` | 重命名符号 |
-| `<Leader>la` | Normal | `:Lspsaga code_action` | 代码操作 (Code Action) |
-| `<Leader>lf` | Normal | `:Lspsaga finder` | 查找引用/实现 |
-
-### AI 助手 (CodeCompanion)
-| 快捷键 | 模式 | 动作 | 描述 |
-| :--- | :--- | :--- | :--- |
-| `<Leader>ca` | Normal | `:CodeCompanionActions` | 打开 AI 操作菜单 |
-| `<Leader>cc` | Normal | `:CodeCompanionChat Toggle` | 切换 AI 聊天窗口 |
-| `<Leader>ci` | Normal | `:CodeCompanion ` | 启动行内 AI 命令 |
-| `Leader>ca` | Normal | *Inline Strategy* | 接受更改 |
-| `<Leader>cr` | Normal | *Inline Strategy* | 拒绝更改 |
+| `gi` | Normal | `implementation` | 跳转到实现 |
+| `gt` | Normal | `type_definition` | 跳转到类型定义 |
+| `<Leader>cR` | Normal | `rename` | 重命名符号 |
+| `<Leader>ca` | Normal | `code_action` | 代码操作 (Code Action) |
+| `<Leader>ci` | Normal | `Telescope lsp_implementations` | 查找实现 |
+| `<Leader>cr` | Normal | `Telescope lsp_references` | 查找引用 |
+| `<Leader>cw` | Normal | `Telescope lsp_workspace_symbols` | 查找工作区符号 |
+| `<Leader>cf` | Normal | `Telescope lsp_document_symbols` | 文件大纲 |
+| `<Leader>c[` | Normal | `Telescope lsp_incoming_calls` | 被调列表 |
+| `<Leader>c]` | Normal | `Telescope lsp_outgoing_calls` | 调用列表 |
+| `<Leader>ce` | Normal | `Telescope diagnostics bufnr=0` | 当前文件诊断 |
+| `<Leader>cW` | Normal | `Telescope diagnostics` | 全局诊断 |
+| `<Leader>D` | Normal | `diagnostic.open_float()` | 显示诊断浮窗 |
 
 ### Telescope (模糊查找)
 | 快捷键 | 模式 | 动作 | 描述 |
 | :--- | :--- | :--- | :--- |
-| `<Leader>ff` | Normal | `:Telescope fd` | 查找文件 |
-| `<Leader>fd` | Normal | `:Telescope diagnostics` | 查找诊断信息 |
-| `<Leader>fb` | Normal | `:Telescope buffers` | 查找打开的缓冲区 |
-| `<Leader>fr` | Normal | `:Telescope registers` | 查看寄存器 |
+| `<Leader>ff` | Normal | `Telescope find_files` | 查找文件 |
+| `<Leader>fs` | Normal | `Telescope grep_string` | 字符快搜 |
+| `<Leader>fg` | Normal | `Telescope live_grep` | 全局搜索 |
+| `<Leader>fb` | Normal | `Telescope buffers` | 查找打开的缓冲区 |
+| `<Leader>fo` | Normal | `Telescope oldfiles` | 历史文件 |
+| `<Leader>fr` | Normal | `Telescope live_grep_args` | 高级搜索 |
+| `<Leader>fp` | Normal | `Telescope projects` | 切换项目 |
+| `<Leader>H` | Normal | `Telescope help_tags` | 帮助查询 |
+| `<Leader>ft` | Normal | `Telescope todo-comments` | Todo 查询 |
+| `<A-s>` | Telescope | `file_split` | 水平分屏打开 |
+| `<A-v>` | Telescope | `file_vsplit` | 垂直分屏打开 |
+| `<A-t>` | Telescope | `file_tab` | 新标签页打开 |
 
-### Hop (快速跳转)
+### Flash (快速跳转)
 | 快捷键 | 模式 | 动作 | 描述 |
 | :--- | :--- | :--- | :--- |
-| `<Leader>hw` | Normal | `:HopWord` | 跳转到单词 |
-| `<Leader>hl` | Normal | `:HopLine` | 跳转到行 |
+| `s` | Normal/Visual/Op | `flash.jump()` | Flash 跳转 |
+| `S` | Normal/Visual/Op | `flash.treesitter()` | Flash Treesitter 跳转 |
+| `r` | Operator-pending | `flash.remote()` | 远程跳转 |
+| `R` | Operator/Visual | `flash.treesitter_search()` | Treesitter 搜索 |
+| `gl` | Normal/Visual/Op | `flash.jump({pattern="^"})` | 跳转行 |
+| `<C-S>` | Insert/Command | `flash.toggle()` | 切换 Flash 搜索 |
 
-### 补全 (CMP)
+### Harpoon (文件标记)
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<Leader>ma` | Normal | `harpoon:list():add()` | 添加标记 |
+| `<Leader>md` | Normal | `harpoon:list():remove()` | 移除标记 |
+| `<Leader>mm` | Normal | `harpoon.ui:toggle_quick_menu()` | 切换 Harpoon 菜单 |
+| `<Leader>m1` | Normal | `harpoon:list():select(1)` | 跳转标记 1 |
+| `<Leader>m2` | Normal | `harpoon:list():select(2)` | 跳转标记 2 |
+| `<Leader>m3` | Normal | `harpoon:list():select(3)` | 跳转标记 3 |
+| `<Leader>m[` | Normal | `harpoon:list():prev()` | 上一个标记 |
+| `<Leader>m]` | Normal | `harpoon:list():next()` | 下一个标记 |
+
+### Bufferline (缓冲区管理)
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `]b` | Normal | `BufferLineCycleNext` | 下一个缓冲区 |
+| `[b` | Normal | `BufferLineCyclePrev` | 上一个缓冲区 |
+| `<Leader>bb` | Normal | `e #` | 快速切换缓冲区 |
+| `<Leader>bf` | Normal | `BufferLinePick` | 查询并跳转缓冲区 |
+| `<Leader>bd` | Normal | `bdelete` | 删除缓冲区 |
+| `<Leader>bo` | Normal | `BufferLineCloseOthers` | 删除其他缓冲区 |
+| `<Leader>bp` | Normal | `BufferLineTogglePin` | 切换固定状态 |
+| `<Leader>bP` | Normal | `BufferLineGroupClose ungrouped` | 删除未固定的缓冲区 |
+
+### ToggleTerm (终端)
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<C-\>` | Normal | `ToggleTerm` | 切换终端 |
+| `<Leader>tt` | Normal | `ToggleTerm` | 切换终端 |
+| `<Leader>tv` | Normal | `ToggleTerm direction=vertical` | 垂直终端 |
+| `<Leader>th` | Normal | `ToggleTerm direction=horizontal` | 水平终端 |
+| `<Leader>tf` | Normal | `ToggleTerm direction=float` | 浮动终端 |
+| `<Esc>` | Terminal | `<C-\><C-n>` | 退出终端模式 |
+
+### Neo-tree (文件浏览器)
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<Leader>e` | Normal | `Neotree toggle` | 切换文件树 |
+
+**Neo-tree 使用说明：**
+
+#### 基本操作
+- 按 `<Leader>e` 打开/关闭文件树
+- 文件树会自动跟随当前文件
+- 使用 `h/j/k/l` 或方向键导航文件和目录
+- 按 `Enter` 或 `o` 打开文件/展开目录
+- 按 `Tab` 在新标签页打开文件
+- 按 `t` 在新标签页打开文件
+- 按 `s` 在水平分屏中打开文件
+- 按 `v` 在垂直分屏中打开文件
+- 按 `p` 预览文件内容
+- 按 `a` 创建新文件/目录
+- 按 `d` 删除文件/目录
+- 按 `r` 重命名文件/目录
+- 按 `c` 复制文件/目录
+- 按 `x` 剪切文件/目录
+- 按 `P` 粘贴文件/目录
+- 按 `y` 复制文件路径
+- 按 `Y` 复制文件内容
+- 按 `.` 显示/隐藏隐藏文件
+- 按 `R` 刷新文件树
+- 按 `?` 显示帮助信息
+
+#### Git 状态图标
+- `●` - 新增文件 (Added)
+- `M` - 修改文件 (Modified)
+- `D` - 删除文件 (Deleted)
+- `R` - 重命名文件 (Renamed)
+- `??` - 未跟踪文件 (Untracked)
+- `A` - 已暂存 (Staged)
+- `!` - 忽略文件 (Ignored)
+
+#### 文件树特性
+- 自动合并空目录
+- 支持拖拽移动文件
+- 显示 Git 状态
+- 支持文件过滤和搜索
+- 支持书签功能
+
+### AI 助手 (Avante)
+| 快捷键 | 模式 | 动作 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `<Leader>aa` | Normal | `AvanteAsk` | 询问 AI |
+| `<Leader>ae` | Normal | `AvanteEdit` | 使用 AI 编辑 |
+| `<Leader>at` | Normal | `AvanteToggle` | 切换 AI 侧边栏 |
+| `<Leader>ar` | Normal | `AvanteRefresh` | 刷新 AI |
+| `<Leader>am` | Normal | `AvanteModels` | 切换 AI 模型 |
+
+### 补全 (Blink CMP)
 | 快捷键 | 模式 | 动作 | 描述 |
 | :--- | :--- | :--- | :--- |
 | `<Tab>` | Insert/Select | `select_next_item` | 下一个补全项 |
 | `<S-Tab>` | Insert/Select | `select_prev_item` | 上一个补全项 |
 | `<CR>` | Insert/Select | `confirm` | 确认选择 |
-
-### Copilot (GitHub Copilot)
-| 快捷键 | 模式 | 动作 | 描述 |
-| :--- | :--- | :--- | :--- |
-| `<C-l>` | Insert | `accept` | 接受建议 |
-| `<C-Tab>` | Insert | `next` | 下一条建议 |
-| `<C-S-Tab>` | Insert | `prev` | 上一条建议 |
-| `<C-h>` | Insert | `dismiss` | 忽略建议 |
-
-### 窗口与缓冲区管理 (Mini 等)
-| 快捷键 | 模式 | 动作 | 描述 |
-| :--- | :--- | :--- | :--- |
-| `<C-h/j/k/l>` | Normal | *Move Focus* | 在窗口间移动焦点 (Mini.move) |
-| `<Leader>m` | Normal | *Minimap* | 切换小地图 (CodeWindow) |
 
 ---
 

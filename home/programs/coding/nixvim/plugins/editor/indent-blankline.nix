@@ -1,0 +1,26 @@
+{
+  programs.nixvim = {
+    plugins.indent-blankline.enable = true;
+    plugins.indent-blankline.lazyLoad = {
+      enable = true;
+      settings.event = "User LazyFile";
+    };
+    plugins.indent-blankline.settings = {
+      exclude = {
+        buftypes = [
+          "terminal"
+          "quickfix"
+        ];
+        filetypes = [
+          "dashboard"
+        ];
+      };
+      indent = {
+        char = "│";
+      };
+      scope = {
+        enabled = false;
+      };
+    };
+  };
+}
