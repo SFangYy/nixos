@@ -50,6 +50,7 @@
     gnome-disk-utility
     upower
     rustdesk
+    etxlauncher
   ];
   imports = [
     ./eye-candy.nix

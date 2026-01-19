@@ -1,0 +1,25 @@
+# Binary packages
+pkgs/*.tar.gz
+pkgs/*.tar.bz2
+pkgs/*.tar.xz
+pkgs/*.zip
+
+# Nix build artifacts
+result
+result-*
+
+# Direnv
+.direnv/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+*.log
