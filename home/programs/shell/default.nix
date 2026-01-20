@@ -3,5 +3,6 @@
     ./fish.nix
     ./starship.nix
     ./unitychip-env.nix
+    ./formal-env.nix
   ];
 }

@@ -10,8 +10,8 @@
     keyMode = "vi";
     customPaneNavigationAndResize = true;
 
-    # Set prefix to C-s
-    prefix = "C-s";
+    # Set prefix to C-w
+    prefix = "C-w";
 
     plugins = with pkgs.tmuxPlugins; [
       cpu
@@ -20,8 +20,8 @@
     extraConfig = ''
       # Rebind prefix
       unbind C-b
-      set -g prefix C-s
-      bind -n -N "Send the prefix key through to the application" C-s send-prefix
+      set -g prefix C-w
+      bind -n -N "Send the prefix key through to the application" C-w send-prefix
 
       # Basic settings
       set  -g mouse             on

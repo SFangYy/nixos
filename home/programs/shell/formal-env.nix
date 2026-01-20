@@ -4,30 +4,21 @@
     sha256 = "1f5d2g1p6nfwycpmrnnmc2xmcszp804adp16knjvdkj8nz36y1fg";
   }) {system = "x86_64-linux";};
 
-  pkgsLegacy = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz";
-    sha256 = "04ffwp2gzq0hhz7siskw6qh9ys8ragp7285vi1zh8xjksxn1msc5";
-  }) {system = "x86_64-linux";};
-
   pkgsLegacy19 = import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz";
     sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
   }) {system = "x86_64-linux";};
-
-  requirementsTxt = ../../../pkgs/external-packages/requirements.txt;
 in {
   home.packages = [
     (pkgsOld.buildFHSEnv {
-      name = "ue";
+      name = "formal";
       targetPkgs = pkgsTarget: (with pkgsTarget; [
         coreutils
         gawk
-        (pkgsOld.lib.hiPrio pkgsLegacy.pkgsStatic.gnugrep)
         gnused
         file
         which
         binutils
-        (pkgsOld.lib.hiPrio pkgsOld.gcc)
         gnumake
 
         # X11 libraries
@@ -71,35 +62,13 @@ in {
         # OpenSSL 1.0.x for legacy EDA tools (libssl.so.10)
         pkgsLegacy19.openssl
 
-        # Tools
-        bc
-        time
-        pkgs.tmux
-
         # Shell
         bash
         pkgs.fish
-
-        # User requested
-        cmake
-        python311
-        pkgs.uv
-        git
-        pkgs.verilator
-        verible
-        pkgs.swig
-        pkgs.gcc.cc.lib
-        (runCommand "gmake-symlink" {} ''
-          mkdir -p $out/bin
-          ln -s ${gnumake}/bin/make $out/bin/gmake
-        '')
       ]);
       profile = ''
-        export VERDI_HOME=$HOME/EDAHome/verdi/W-2024.09-SP1
-        export VCS_HOME=$HOME/EDAHome/vcs/W-2024.09-SP1
-        export UVMC_HOME=$HOME/EDAHome/uvmc
-        export UVM_HOME=$VCS_HOME/etc/uvm
-        export PATH=$VCS_HOME/bin:$VERDI_HOME/bin:$PATH
+        export AVIS_HOME=$HOME/EDAHome/HimaFormal
+        export PATH=$AVIS_HOME/bin:$PATH
 
         # Create symlinks for OpenSSL 1.0 libraries for legacy EDA tools
         # Some tools expect libssl.so.10 which is OpenSSL 1.0.x
@@ -113,30 +82,55 @@ in {
         fi
         export LD_LIBRARY_PATH=$OPENSSL_LEGACY_DIR:$LD_LIBRARY_PATH
 
+        # Set temporary directory for FlexNet license manager (lmgrd)
+        # lmgrd expects /usr/tmp/.flexlm but NixOS doesn't have /usr/tmp
+        export LM_TMP_DIR=$HOME/EDAHome/HimaFormal/tmp
+        mkdir -p $LM_TMP_DIR
+
+        # Set license file path for FlexNet licensing
+        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-30562-2026011520260131.BOSC
+
+        # Create ave symlink for HimaFormal tools
+        # ave is commonly used in examples but the actual command is FormalMC
+        if [ -f "$AVIS_HOME/bin/FormalMC" ] && [ ! -L "$AVIS_HOME/bin/ave" ]; then
+          ln -sf FormalMC $AVIS_HOME/bin/ave
+        fi
+
         # Qt platform settings for GUI applications on Wayland
         export QT_QPA_PLATFORM=xcb
         export QT_XCB_GL_INTEGRATION=xcb_glx
 
-        # Setup uv Python environment
-        export UV_CACHE_DIR=$HOME/.cache/uv
-        export REQUIREMENTS_TXT="${requirementsTxt}"
+        # ============================================================
+        # LICENSE SERVER AUTO-START CONFIGURATION
+        # ============================================================
+        # Set to "true" to auto-start the license server, "false" to disable
+        START_LICENSE_SERVER="true"
 
-        # Auto-setup Python environment if requirements.txt exists
-        if [ -f "$REQUIREMENTS_TXT" ]; then
-          cd $HOME/work
-          if [ ! -d ".venv" ]; then
-            echo "Creating uv virtual environment..."
-            uv venv
-          fi
-          source .venv/bin/activate
+        if [ "$START_LICENSE_SERVER" = "true" ]; then
+          LICENSE_FILE="IC2026-30562-2026011520260131.BOSC"
+          LICENSE_DIR=$HOME/EDAHome/HimaFormal
+          LMGRD_BIN=$LICENSE_DIR/bin/lmgrd
 
-          if [ ! -f ".venv/.installed" ] || [ "$REQUIREMENTS_TXT" -nt ".venv/.installed" ]; then
-            echo "Installing Python dependencies with uv..."
-            uv pip install -r "$REQUIREMENTS_TXT" && touch .venv/.installed
+          # Check if license server is already running
+          if [ -f "$LMGRD_BIN" ] && [ -f "$LICENSE_DIR/$LICENSE_FILE" ]; then
+            if ! pgrep -f "lmgrd.*$LICENSE_FILE" > /dev/null; then
+              echo "Starting license server..."
+              cd $LICENSE_DIR
+              $LMGRD_BIN -c $LICENSE_FILE > /dev/null 2>&1 &
+              sleep 2
+              if pgrep -f "lmgrd.*$LICENSE_FILE" > /dev/null; then
+                echo "License server started successfully."
+              else
+                echo "Warning: Failed to start license server."
+              fi
+            else
+              echo "License server is already running."
+            fi
           fi
         fi
+        # ============================================================
       '';
-      runScript = "bash -c 'cd ~/work; tmux new-session -A -s unitychip fish; exec fish'";
+      runScript = "bash -c 'cd ~/work; exec fish'";
     })
   ];
 }

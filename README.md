@@ -73,6 +73,11 @@ These bindings are configured across various files in `home/programs/coding/nixv
 ### Window Management (窗口管理)
 | Keybinding | Mode | Action | Description |
 | :--- | :--- | :--- | :--- |
+| `<C-w>h` | Normal | - | Focus left window |
+| `<C-w>j` | Normal | - | Focus window below |
+| `<C-w>k` | Normal | - | Focus window above |
+| `<C-w>l` | Normal | - | Focus right window |
+| `<C-w>w` | Normal | - | Cycle through windows |
 | `<C-Up>` | Normal | `resize +2` | Increase window height |
 | `<C-Down>` | Normal | `resize -2` | Decrease window height |
 | `<C-Left>` | Normal | `vertical resize -2` | Decrease window width |
@@ -332,6 +337,11 @@ These bindings are configured across various files in `home/programs/coding/nixv
 ### 窗口管理
 | 快捷键 | 模式 | 动作 | 描述 |
 | :--- | :--- | :--- | :--- |
+| `<C-w>h` | Normal | - | 切换到左窗口 |
+| `<C-w>j` | Normal | - | 切换到下窗口 |
+| `<C-w>k` | Normal | - | 切换到上窗口 |
+| `<C-w>l` | Normal | - | 切换到右窗口 |
+| `<C-w>w` | Normal | - | 在窗口间循环切换 |
 | `<C-Up>` | Normal | `resize +2` | 增加窗口高度 |
 | `<C-Down>` | Normal | `resize -2` | 减少窗口高度 |
 | `<C-Left>` | Normal | `vertical resize -2` | 减少窗口宽度 |
