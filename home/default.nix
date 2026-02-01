@@ -33,12 +33,12 @@
       pay-respects  # Command correction tool (like thefuck)
     ];
 
-    sessionVariables = {
-      all_proxy = "http://127.0.0.1:7890";
-      ALL_PROXY = "http://127.0.0.1:7890";
-      HTTP_PROXY = "http://127.0.0.1:7890";
-      HTTPS_PROXY = "http://127.0.0.1:7890";
-    };
+    # sessionVariables = {
+    #   all_proxy = "http://127.0.0.1:7890";
+    #   ALL_PROXY = "http://127.0.0.1:7890";
+    #   HTTP_PROXY = "http://127.0.0.1:7890";
+    #   HTTPS_PROXY = "http://127.0.0.1:7890";
+    # };
 
     activation = {
       niri-transition =
@@ -96,7 +96,7 @@
         safe = {
           directory = "*";
         };
-        http.proxy = "http://127.0.0.1:7890";
+        # http.proxy = "http://127.0.0.1:7890";
       };
     };
 
@@ -108,6 +108,10 @@
           hostname = "github.com";
           user = "git";
           proxyCommand = "nc -X 5 -x 127.0.0.1:7890 %h %p";
+        };
+        "172.19.20.3" = {
+          hostname = "172.19.20.3";
+          user = "songfangyuan";
         };
       };
     };

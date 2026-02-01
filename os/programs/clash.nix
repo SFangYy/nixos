@@ -10,7 +10,7 @@
   security.wrappers.mihomo = {
     owner = "root";
     group = "root";
-    capabilities = "cap_net_admin,cap_net_bind_service=+ep";
+    capabilities = "cap_net_admin,cap_net_bind_service,cap_dac_override,cap_dac_read_search=+ep";
     source = "${pkgs.mihomo}/bin/mihomo";
   };
 }

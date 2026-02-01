@@ -2,8 +2,7 @@
   pkgs,
   user,
   ...
-}:
-{
+}: {
   imports = [
     ./boot.nix
   ];
@@ -79,11 +78,11 @@
     rtkit.enable = true;
     sudo.extraRules = [
       {
-        users = [ user ];
+        users = [user];
         commands = [
           {
             command = "ALL";
-            options = [ "NOPASSWD" ];
+            options = ["NOPASSWD"];
           }
         ];
       }
@@ -162,13 +161,13 @@
   #     User = "root"; # 服务模式必须 root 运行
   #   };
   # };
-  
+
   systemd.user.services = {
     polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -187,6 +186,5 @@
       enable = true;
       defaultNetwork.settings.dns_enabled = true;
     };
-
   };
 }

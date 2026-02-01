@@ -3,8 +3,7 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   home.packages = with pkgs; [
     zoxide
     gnome-tweaks
@@ -51,6 +50,7 @@
     upower
     rustdesk
     etxlauncher
+    remmina
   ];
   imports = [
     ./eye-candy.nix

@@ -9,11 +9,6 @@
     sha256 = "04ffwp2gzq0hhz7siskw6qh9ys8ragp7285vi1zh8xjksxn1msc5";
   }) {system = "x86_64-linux";};
 
-  pkgsLegacy19 = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz";
-    sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
-  }) {system = "x86_64-linux";};
-
   requirementsTxt = ../../../pkgs/external-packages/requirements.txt;
 in {
   home.packages = [
@@ -68,9 +63,6 @@ in {
         # GLib for Qt and other tools
         glib
 
-        # OpenSSL 1.0.x for legacy EDA tools (libssl.so.10)
-        pkgsLegacy19.openssl
-
         # Tools
         bc
         time
@@ -100,18 +92,6 @@ in {
         export UVMC_HOME=$HOME/EDAHome/uvmc
         export UVM_HOME=$VCS_HOME/etc/uvm
         export PATH=$VCS_HOME/bin:$VERDI_HOME/bin:$PATH
-
-        # Create symlinks for OpenSSL 1.0 libraries for legacy EDA tools
-        # Some tools expect libssl.so.10 which is OpenSSL 1.0.x
-        export OPENSSL_LEGACY_DIR=$HOME/.local/share/openssl-legacy
-        mkdir -p $OPENSSL_LEGACY_DIR
-        if [ ! -L $OPENSSL_LEGACY_DIR/libssl.so.10 ]; then
-          ln -sf ${pkgsLegacy19.openssl.out}/lib/libssl.so.1.0.0 $OPENSSL_LEGACY_DIR/libssl.so.10
-        fi
-        if [ ! -L $OPENSSL_LEGACY_DIR/libcrypto.so.10 ]; then
-          ln -sf ${pkgsLegacy19.openssl.out}/lib/libcrypto.so.1.0.0 $OPENSSL_LEGACY_DIR/libcrypto.so.10
-        fi
-        export LD_LIBRARY_PATH=$OPENSSL_LEGACY_DIR:$LD_LIBRARY_PATH
 
         # Qt platform settings for GUI applications on Wayland
         export QT_QPA_PLATFORM=xcb

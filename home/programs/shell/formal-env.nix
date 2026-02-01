@@ -8,6 +8,9 @@
     url = "https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz";
     sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
   }) {system = "x86_64-linux";};
+
+  # OpenSSL 1.0.x for legacy EDA tools
+  openssl_1_0 = pkgsLegacy19.openssl_1_0_2;
 in {
   home.packages = [
     (pkgsOld.buildFHSEnv {
@@ -60,11 +63,14 @@ in {
         glib
 
         # OpenSSL 1.0.x for legacy EDA tools (libssl.so.10)
-        pkgsLegacy19.openssl
+        openssl_1_0
 
+        python311
+        
         # Shell
         bash
         pkgs.fish
+        pkgs.uv
       ]);
       profile = ''
         export AVIS_HOME=$HOME/EDAHome/HimaFormal
@@ -75,10 +81,10 @@ in {
         export OPENSSL_LEGACY_DIR=$HOME/.local/share/openssl-legacy
         mkdir -p $OPENSSL_LEGACY_DIR
         if [ ! -L $OPENSSL_LEGACY_DIR/libssl.so.10 ]; then
-          ln -sf ${pkgsLegacy19.openssl.out}/lib/libssl.so.1.0.0 $OPENSSL_LEGACY_DIR/libssl.so.10
+          ln -sf ${openssl_1_0.out}/lib/libssl.so.1.0.0 $OPENSSL_LEGACY_DIR/libssl.so.10
         fi
         if [ ! -L $OPENSSL_LEGACY_DIR/libcrypto.so.10 ]; then
-          ln -sf ${pkgsLegacy19.openssl.out}/lib/libcrypto.so.1.0.0 $OPENSSL_LEGACY_DIR/libcrypto.so.10
+          ln -sf ${openssl_1_0.out}/lib/libcrypto.so.1.0.0 $OPENSSL_LEGACY_DIR/libcrypto.so.10
         fi
         export LD_LIBRARY_PATH=$OPENSSL_LEGACY_DIR:$LD_LIBRARY_PATH
 
@@ -88,7 +94,7 @@ in {
         mkdir -p $LM_TMP_DIR
 
         # Set license file path for FlexNet licensing
-        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-30562-2026011520260131.BOSC
+        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-31033-2026012820260228.BOSC
 
         # Create ave symlink for HimaFormal tools
         # ave is commonly used in examples but the actual command is FormalMC
@@ -107,7 +113,7 @@ in {
         START_LICENSE_SERVER="true"
 
         if [ "$START_LICENSE_SERVER" = "true" ]; then
-          LICENSE_FILE="IC2026-30562-2026011520260131.BOSC"
+          LICENSE_FILE="IC2026-31033-2026012820260228.BOSC"
           LICENSE_DIR=$HOME/EDAHome/HimaFormal
           LMGRD_BIN=$LICENSE_DIR/bin/lmgrd
 

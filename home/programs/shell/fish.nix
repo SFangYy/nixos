@@ -35,6 +35,7 @@
         s = "ssh";
         sa = "ssh-add";
         sl = "ssh-add -l";
+        s3 = "ssh songfangyuan@172.19.20.3";
 
         # Others
         vim = "nvim";
@@ -65,6 +66,9 @@
             end
         end
         bind \es __toggle_sudo
+
+
+
       '';
       plugins = with pkgs.fishPlugins; [
         {
