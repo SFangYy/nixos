@@ -65,7 +65,7 @@ in {
         # OpenSSL 1.0.x for legacy EDA tools (libssl.so.10)
         openssl_1_0
 
-        python311
+        python312
         
         # Shell
         bash

@@ -74,7 +74,7 @@ in {
 
         # User requested
         cmake
-        python311
+        python312
         pkgs.uv
         git
         pkgs.verilator
