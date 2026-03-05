@@ -94,7 +94,7 @@ in {
         mkdir -p $LM_TMP_DIR
 
         # Set license file path for FlexNet licensing
-        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-31033-2026012820260228.BOSC
+        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-31331-2026022420260331.BOSC
 
         # Create ave symlink for HimaFormal tools
         # ave is commonly used in examples but the actual command is FormalMC
@@ -113,7 +113,7 @@ in {
         START_LICENSE_SERVER="true"
 
         if [ "$START_LICENSE_SERVER" = "true" ]; then
-          LICENSE_FILE="IC2026-31033-2026012820260228.BOSC"
+          LICENSE_FILE="IC2026-31331-2026022420260331.BOSC"
           LICENSE_DIR=$HOME/EDAHome/HimaFormal
           LMGRD_BIN=$LICENSE_DIR/bin/lmgrd
 
