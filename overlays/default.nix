@@ -18,7 +18,16 @@
         runHook postInstall
       '';
     });
-    inherit (inputs.nixpkgs-wayland.packages.${final.stdenv.hostPlatform.system}) swww;
+    sway-unwrapped =
+      (prev.sway-unwrapped.overrideAttrs (oldAttrs: {
+        src = inputs.scroll;
+        patches = [ ];
+      })).override
+        { inherit (inputs.nixpkgs-wayland.packages.${final.stdenv.hostPlatform.system}) wlroots; };
+    sway = prev.sway.overrideAttrs (oldAttrs: {
+      passthru.providedSessions = [ "scroll" ];
+    });
+    inherit (inputs.awww.packages.${final.stdenv.hostPlatform.system}) awww;
   };
 
   inherit (inputs.niri.overlays) niri;

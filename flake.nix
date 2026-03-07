@@ -46,28 +46,21 @@
     };
 
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-r.url = "github:NixOS/nixpkgs/nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    # niri-unstable = {
-    #   url = "github:YalTeR/niri";
-    #   # url = "github:visualglitch91/niri/feat/blur-lite";
-    #   flake = false;
-    # };
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      # inputs.niri-unstable.follows = "niri-unstable";
-    };
+    niri.url = "github:sodiboo/niri-flake";
     nur.url = "github:nix-community/NUR";
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim.url = "github:nix-community/nixvim/nixos-25.11";
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -84,9 +77,10 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
+    dank-material-shell.url = "github:AvengeMedia/DankMaterialShell";
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.quickshell.follows = "quickshell";
     };
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -97,5 +91,7 @@
       url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kimi-cli.url = "github:MoonshotAI/kimi-cli";
+    awww.url = "git+https://codeberg.org/LGFae/awww";
   };
 }

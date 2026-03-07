@@ -121,13 +121,13 @@
               matches = [
                 { is-focused = true; }
               ];
-              opacity = 0.95;
+              opacity = 0.92;
             }
             {
               matches = [
                 { is-focused = false; }
               ];
-              opacity = 0.85;
+              opacity = 0.75;
             }
             {
               matches = [
@@ -138,7 +138,7 @@
           ];
         layer-rules = [
           {
-            matches = [ { namespace = "swww-daemonbackdrop"; } ];
+            matches = [ { namespace = "awww-daemonbackdrop"; } ];
             place-within-backdrop = true;
           }
           {

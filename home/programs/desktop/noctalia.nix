@@ -10,7 +10,9 @@
   programs.noctalia-shell = {
     colors = with config.lib.stylix.colors.withHashtag; {
       mError = base08;
+      mHover = base0E;
       mOnError = base00;
+      mOnHover = base00;
       mOnPrimary = base00;
       mOnSecondary = base01;
       mOnSurface = base05;
@@ -76,7 +78,7 @@
             {
               id = "Tray";
               drawerEnabled = false;
-              colorizeIcons = true;
+              colorizeIcons = false;
               blacklist = [ ];
             }
             {
@@ -90,8 +92,6 @@
             }
             {
               id = "ControlCenter";
-              customIconPath = "";
-              icon = "";
               useDistroLogo = false;
             }
           ];
@@ -150,9 +150,9 @@
         name = "海淀";
       };
       ui = {
-        fontDefault = "JetBrains Mono";
-        fontFixed = "JetBrains Mono";
-        panelBackgroundOpacity = 0.9;
+        fontDefault = "Hug Me Tight";
+        fontFixed = "Maple Mono";
+        panelBackgroundOpacity = 0.85;
       };
       dock.enabled = false;
       wallpaper.enabled = false;

@@ -20,7 +20,10 @@ let
     inputs.niri.homeModules.niri
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
-    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    ../secrets/age.nix
+    # inputs.mangowc.hmModules.mango
+    inputs.dank-material-shell.homeModules.dank-material-shell
+    inputs.caelestia-shell.homeManagerModules.default
     inputs.noctalia-shell.homeModules.default
   ]
   ++ (builtins.attrValues self.homeManagerModules);

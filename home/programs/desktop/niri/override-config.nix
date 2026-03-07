@@ -5,7 +5,6 @@ let
     # kdl
     ''
       recent-windows {
-          // off
           open-delay-ms 150
 
           highlight {
@@ -36,18 +35,15 @@ let
   finalNiriConfig =
     builtins.replaceStrings
       [
-        # "layout {"
+        "output \"${config.lib.monitors.mainMonitorName}\" {"
       ]
       [
-        # ''
-        #   layout {
-        #       blur {
-        #           on
-        #           passes 2
-        #           radius 5
-        #           noise 0.1
-        #       }
-        # ''
+        ''
+          output "${config.lib.monitors.mainMonitorName}" {
+              hot-corners {
+                  top-right
+              }
+        ''
       ]
       config.programs.niri.finalConfig
     + "\n"
