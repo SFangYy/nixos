@@ -1,6 +1,7 @@
 {
   monitors = {
-    "DP-2" = {
+    # 使用显示器序列号匹配，避免 DP 端口名称变化导致配置失效
+    "Dell Inc. DELL U2720Q G3LCZG3" = {
       scale = 2.0;
       mode = {
         width = 3840;
@@ -13,7 +14,7 @@
       };
       rotation = 270;
     };
-    "DP-4" = {
+    "Dell Inc. DELL U2723QE 6JJBCP3" = {
       isMain = true;
       scale = 2.0;
       mode = {

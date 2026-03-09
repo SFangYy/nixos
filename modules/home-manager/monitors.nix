@@ -9,6 +9,11 @@ let
         description = "Whether the monitor is the main one";
         default = false;
       };
+      match = mkOption {
+        type = nullOr str;
+        description = "Monitor match string (e.g. 'Dell Inc. DELL U2720Q G3LCZG3') for stable identification regardless of DP port changes";
+        default = null;
+      };
       scale = mkOption {
         type = float;
         description = "The scale of the monitor";
