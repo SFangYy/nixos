@@ -51,12 +51,20 @@
     rustdesk
     etxlauncher
     remmina
+    # PiliPlus dependencies
+    mpv
+    libepoxy
+    libayatana-appindicator
+    libayatana-indicator
+    ayatana-ido
+    libdbusmenu
   ];
   imports = [
     ./eye-candy.nix
     ./obs.nix
     ./music.nix
     ./ai.nix
+    ./pilipplus.nix
   ];
   programs.pay-respects.enable = true;
 }

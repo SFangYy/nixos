@@ -3,6 +3,7 @@ pkgs/*.tar.gz
 pkgs/*.tar.bz2
 pkgs/*.tar.xz
 pkgs/*.zip
+pkgs/*.AppImage
 
 # Nix build artifacts
 result
