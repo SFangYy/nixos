@@ -9,6 +9,8 @@ pkgs/*.AppImage
 result
 result-*
 
+.codex 
+
 # Direnv
 .direnv/
 

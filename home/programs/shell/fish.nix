@@ -45,6 +45,7 @@
       shellAliases = {
         "ls" = "exa";
         "l" = "exa -lah --icons=auto";
+        "docker" = "podman";
       };
       shellInit = ''
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"

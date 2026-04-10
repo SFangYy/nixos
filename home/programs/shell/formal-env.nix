@@ -94,7 +94,7 @@ in {
         mkdir -p $LM_TMP_DIR
 
         # Set license file path for FlexNet licensing
-        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-31331-2026022420260331.BOSC
+        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-32269-2026032620260430.BOSC
 
         # Create ave symlink for HimaFormal tools
         # ave is commonly used in examples but the actual command is FormalMC
@@ -113,7 +113,7 @@ in {
         START_LICENSE_SERVER="true"
 
         if [ "$START_LICENSE_SERVER" = "true" ]; then
-          LICENSE_FILE="IC2026-31331-2026022420260331.BOSC"
+          LICENSE_FILE="IC2026-32269-2026032620260430.BOSC"
           LICENSE_DIR=$HOME/EDAHome/HimaFormal
           LMGRD_BIN=$LICENSE_DIR/bin/lmgrd
 
@@ -122,12 +122,13 @@ in {
             if ! pgrep -f "lmgrd.*$LICENSE_FILE" > /dev/null; then
               echo "Starting license server..."
               cd $LICENSE_DIR
-              $LMGRD_BIN -c $LICENSE_FILE > /dev/null 2>&1 &
+              $LMGRD_BIN -c $LICENSE_FILE > $HOME/lmgrd.log 2>&1 &
               sleep 2
               if pgrep -f "lmgrd.*$LICENSE_FILE" > /dev/null; then
                 echo "License server started successfully."
               else
-                echo "Warning: Failed to start license server."
+                echo "Warning: Failed to start license server. Check $HOME/lmgrd.log for details."
+                cat $HOME/lmgrd.log
               fi
             else
               echo "License server is already running."

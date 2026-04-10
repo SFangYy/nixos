@@ -1,4 +1,4 @@
-{ pkgs, lib, writeText, appimage-run, mpv, libepoxy, libayatana-appindicator, libayatana-indicator, ayatana-ido, libdbusmenu }:
+{ config, pkgs, lib, ... }:
 
 let
   pilipplus-launcher = pkgs.writeShellScriptBin "pilipplus" ''
@@ -13,7 +13,7 @@ let
       exit 1
     fi
 
-    export LD_LIBRARY_PATH=${lib.makeLibraryPath [mpv libepoxy libayatana-appindicator libayatana-indicator ayatana-ido libdbusmenu]}:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=${lib.makeLibraryPath [pkgs.mpv pkgs.libepoxy pkgs.libayatana-appindicator pkgs.libayatana-indicator pkgs.ayatana-ido pkgs.libdbusmenu]}:$LD_LIBRARY_PATH
     exec appimage-run "$APPIMAGE_PATH" "$@"
   '';
 

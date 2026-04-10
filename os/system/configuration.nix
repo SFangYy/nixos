@@ -108,6 +108,8 @@
       "video"
       "kvm"
       "davfs2"
+      "podman"
+      "tun"
     ];
   };
 
@@ -132,11 +134,6 @@
       GDK_SCALE = "";
       GDK_DPI_SCALE = "";
       NIRI_CONFIG = "/home/${user}/.config/niri/config-override.kdl";
-      all_proxy = "http://127.0.0.1:7890";
-      ALL_PROXY = "http://127.0.0.1:7890";
-      HTTP_PROXY = "http://127.0.0.1:7890";
-      HTTPS_PROXY = "http://127.0.0.1:7890";
-      no_proxy = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
       NO_PROXY = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
     };
 
@@ -184,6 +181,7 @@
 
     podman = {
       enable = true;
+      dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
   };

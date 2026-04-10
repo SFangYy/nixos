@@ -6,8 +6,16 @@
     obsidian
     brave
     vscode
-    inputs.antigravity-nix.packages.x86_64-linux.default
+    inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-no-fhs
   ];
+
+  # Antigravity proxy configuration
+  xdg.configFile."Antigravity/User/settings.json".text = builtins.toJSON {
+    "workbench.colorTheme" = "Tokyo Night";
+    "http.proxy" = "http://127.0.0.1:7890";
+    "http.proxyStrictSSL" = false;
+    "http.proxySupport" = "on";
+  };
 
   # VSCode keybindings configuration
   xdg.configFile."Code/User/keybindings.json".text = ''

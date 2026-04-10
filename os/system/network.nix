@@ -4,6 +4,7 @@ let
   vmIP = "192.168.122.237";
   vmNetwork = "192.168.122.0/24";
   forwardPorts = [ 5666 4450 5005 5173 4533 ];
+  extraPorts = [ 8765 ];
 in
 {
   # 1. 基础内核转发
@@ -14,7 +15,7 @@ in
   # 2. 开放防火墙端口 (宿主机入口)
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = forwardPorts;
+    allowedTCPPorts = forwardPorts ++ extraPorts;
 
     # 恢复并固定虚拟机的 NAT 出网规则
     extraCommands = ''

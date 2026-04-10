@@ -31,14 +31,18 @@
       fd
       davfs2
       pay-respects  # Command correction tool (like thefuck)
+      netcat-openbsd  # For SSH SOCKS5 proxy (nc -X 5)
+      nmap  # For SSH HTTP proxy (ncat --proxy-type http)
     ];
 
-    # sessionVariables = {
-    #   all_proxy = "http://127.0.0.1:7890";
-    #   ALL_PROXY = "http://127.0.0.1:7890";
-    #   HTTP_PROXY = "http://127.0.0.1:7890";
-    #   HTTPS_PROXY = "http://127.0.0.1:7890";
-    # };
+    sessionVariables = {
+      all_proxy = "http://127.0.0.1:7890";
+      ALL_PROXY = "http://127.0.0.1:7890";
+      HTTP_PROXY = "http://127.0.0.1:7890";
+      HTTPS_PROXY = "http://127.0.0.1:7890";
+      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24";
+      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24";
+    };
 
     activation = {
       niri-transition =
@@ -65,6 +69,24 @@
               run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia-shell.service
             fi
             run --silence ${pkgs.systemd}/bin/systemctl --user start ${config.desktopShell}.service
+          '';
+      fix-ssh-config =
+        lib.hm.dag.entryAfter [ "writeBoundary" ]
+          # bash
+          ''
+            SSH_DIR="${config.home.homeDirectory}/.ssh"
+            HM_SSH_CONFIG="$SSH_DIR/config"
+            TMP_CONFIG="$SSH_DIR/config.hm.tmp"
+
+            mkdir -p "$SSH_DIR"
+            chmod 700 "$SSH_DIR"
+
+            if [ -e "$HM_SSH_CONFIG" ]; then
+              cp "$HM_SSH_CONFIG" "$TMP_CONFIG"
+              rm -f "$HM_SSH_CONFIG"
+              install -m 600 "$TMP_CONFIG" "$HM_SSH_CONFIG"
+              rm -f "$TMP_CONFIG"
+            fi
           '';
     };
   };
@@ -96,7 +118,13 @@
         safe = {
           directory = "*";
         };
-        # http.proxy = "http://127.0.0.1:7890";
+        http = {
+          proxy = "http://127.0.0.1:7890";
+          version = "HTTP/1.1";
+        };
+        https = {
+          proxy = "http://127.0.0.1:7890";
+        };
       };
     };
 
@@ -105,9 +133,13 @@
       enableDefaultConfig = false;
       matchBlocks = {
         "github.com" = {
-          hostname = "github.com";
+          hostname = "ssh.github.com";
+          port = 443;
           user = "git";
-          proxyCommand = "nc -X 5 -x 127.0.0.1:7890 %h %p";
+          # Route SSH through local HTTP proxy to avoid blocked/unstable direct 22.
+          proxyCommand = "${pkgs.nmap}/bin/ncat --proxy 127.0.0.1:7890 --proxy-type http %h %p";
+          serverAliveInterval = 30;
+          serverAliveCountMax = 3;
         };
         "172.19.20.3" = {
           hostname = "172.19.20.3";

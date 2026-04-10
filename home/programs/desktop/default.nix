@@ -19,6 +19,8 @@
     wlsunset
     xwayland-satellite
     wmname
+    grim
+    slurp
     inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
     # RustDesk 鼠标偏移修复脚本
     (writeShellScriptBin "rustdesk-fix" ''

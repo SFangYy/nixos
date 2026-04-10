@@ -39,11 +39,11 @@
 
 stdenv.mkDerivation rec {
   pname = "mihomo-party";
-  version = "1.9.1";
+  version = "1.9.4";
 
   src = fetchurl {
-    url = "https://github.com/mihomo-party-org/clash-party/releases/download/v${version}/clash-party-linux-${version}-amd64.deb";
-    hash = "sha256-SCig+Q2YN3LbThig0kXEG6D/ywz7OvsMfWO0Nf5SDvM=";
+    url = "https://github.com/mihomo-party-org/mihomo-party/releases/download/v${version}/mihomo-party-linux-${version}-amd64.deb";
+    sha256 = "09w1rf9ph2zxwp9fwd32x8vwqipw18ngrlzn39l9zgw22yvch920";
   };
 
   nativeBuildInputs = [
