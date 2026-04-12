@@ -35,7 +35,7 @@ let
       bain
       patchwork
       factoextra
-      umap
+      rPackages.umap
       concaveman
       Rtsne
       see
@@ -48,6 +48,22 @@ let
       vegan
       plotly
       ggiraph
+      caret
+      randomForest
+      ranger
+      doParallel
+      tidyLPA
+      ggpattern
+      kernlab
+      qgraph
+      NetworkComparisonTest
+      rPackages.pls
+      rPackages.MASS
+      igraph
+      ggraph
+      tidygraph
+      corrr
+      relaimpo
       (buildRPackage {
         name = "eegUtils";
         src = fetchFromGitHub {

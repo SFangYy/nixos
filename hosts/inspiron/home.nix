@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   monitors = {
     # 使用显示器序列号匹配，避免 DP 端口名称变化导致配置失效
@@ -29,6 +30,11 @@
       rotation = 0;
       focus-at-startup = true;
     };
+  };
+  stylix.cursor = {
+    package = pkgs.graphite-cursors;
+    name = "graphite-dark";
+    size = 32;
   };
   home.stateVersion = "23.11";
 }

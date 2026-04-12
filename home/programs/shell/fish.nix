@@ -49,8 +49,15 @@
       };
       shellInit = ''
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
+
+        if test -n "$container"
+          export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$HOME/.npm-global/bin:$PATH"
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+        end
+
         set -g fish_color_command = blue --italics
         set -g fish_color_quote = yellow --italics
+        set -g fish_key_bindings fish_vi_key_bindings
       '';
       interactiveShellInit = ''
         # Initialize pay-respects (command correction tool)

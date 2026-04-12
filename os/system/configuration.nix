@@ -72,6 +72,8 @@
     upower.enable = true;
 
     udisks2.enable = true;
+
+    power-profiles-daemon.enable = true;
   };
 
   security = {
@@ -110,6 +112,7 @@
       "davfs2"
       "podman"
       "tun"
+      "input"
     ];
   };
 

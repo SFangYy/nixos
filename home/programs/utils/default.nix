@@ -42,7 +42,6 @@
     nurl
     nix-init
     wl-color-picker
-    (config.lib.misc.addFlags "--wayland-text-input-version=3" "cherry-studio" cherry-studio)
     loupe
     showtime
     nautilus
@@ -58,6 +57,8 @@
     libayatana-indicator
     ayatana-ido
     libdbusmenu
+    android-tools
+    tree-sitter
   ];
   imports = [
     ./eye-candy.nix

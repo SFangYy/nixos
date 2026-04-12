@@ -4,6 +4,53 @@ let
   extraConfig =
     # kdl
     ''
+      blur {
+          passes 3
+          offset 3
+          noise 0.02
+          saturation 1.5
+      }
+      window-rule {
+          background-effect {
+              xray true
+              blur true
+          }
+      }
+      window-rule {
+          match is-floating=true
+          background-effect {
+              xray false
+              blur true
+          }
+      }
+      window-rule {
+          match app-id="ai.moeru.airi"
+          open-floating true
+          background-effect {
+              blur false
+          }
+          border {
+              off
+          }
+          shadow {
+              off
+          }
+      }
+      layer-rule {
+          match namespace="launcher"
+          background-effect {
+              xray false
+              blur true
+          }
+      }
+      layer-rule {
+          match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+          background-effect {
+              xray false
+              blur true
+          }
+      }
+
       recent-windows {
           open-delay-ms 150
 

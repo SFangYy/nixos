@@ -73,6 +73,9 @@ let
     };
 
 in
+let
+  hosts = import ./hosts.nix;
+in
 {
-  flake = import ./hosts.nix |> map mkHost |> builtins.foldl' (x: y: x // y) { };
+  flake = builtins.foldl' (x: y: x // y) { } (map mkHost hosts);
 }

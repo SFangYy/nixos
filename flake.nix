@@ -48,13 +48,19 @@
   inputs = {
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-r.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-r.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-new-libinput.url = "github:skowalak/nixpkgs/libinput-update-1.31.0";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    niri.url = "github:sodiboo/niri-flake";
+    niri = {
+      # Pin niri-flake and its nested Niri sources to avoid GitHub HEAD lookups.
+      url = "github:sodiboo/niri-flake/4f69ab280e9bb34e2c0b67fdfa6f0978a170ef56";
+      inputs.niri-stable.url = "github:YaLTeR/niri/01be0e65f4eb91a9cd624ac0b76aaeab765c7294";
+      inputs.niri-unstable.url = "github:niri-wm/niri/d06dd4b9e60fa07120c217aa095f3ed8caac99f2";
+    };
     nur.url = "github:nix-community/NUR";
     stylix = {
       url = "github:nix-community/stylix";

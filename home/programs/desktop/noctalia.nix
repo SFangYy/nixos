@@ -35,6 +35,8 @@
         outerCorners = true;
         position = "left";
         showOutline = true;
+        marginVertical = 6;
+        marginHorizontal = 6;
         widgets = {
           center = [
             {
@@ -104,45 +106,48 @@
         clipboardWrapText = true;
         position = "top_left";
     };
+      controlCenter.cards = [
+        {
+          enabled = true;
+          id = "profile-card";
+        }
+        {
+          enabled = true;
+          id = "shortcuts-card";
+        }
+        {
+          enabled = true;
+          id = "audio-card";
+        }
+        {
+          enabled = true;
+          id = "brightness-card";
+        }
+        {
+          enabled = true;
+          id = "weather-card";
+        }
+        {
+          enabled = true;
+          id = "media-sysmon-card";
+        }
+      ];
+      idle = {
+        enabled = true;
+        screenOffTimeout = 500;
+        lockTimeout = 560;
+        suspendTimeout = 1800;
+        fadeDuration = 10;
+      };
       colorSchemes = {
         generateTemplatesForPredefined = false;
         useWallpaperColors = false;
       };
       general = {
         avatarImage = "/home/${user}/.face";
-        forceBlackScreenCorners = true;
-        showScreenCorners = true;
+        forceBlackScreenCorners = false;
+        showScreenCorners = false;
       };
-        appLauncher = {
-        };
-        controlCenter = {
-          cards = [
-            {
-              enabled = false;
-              id = "brightness-card";
-            }
-            {
-              enabled = true;
-              id = "weather-card";
-            }
-            {
-              enabled = true;
-              id = "media-sysmon-card";
-            }
-            {
-              enabled = true;
-              id = "audio-card";
-            }
-            {
-              enabled = true;
-              id = "shortcuts-card";
-            }
-            {
-              enabled = true;
-              id = "profile-card";
-            }
-          ];
-        };
         sessionMenu = {
           position = "bottom_left";
         };
@@ -156,6 +161,11 @@
       };
       dock.enabled = false;
       wallpaper.enabled = false;
+      nightLight = {
+        enabled = true;
+        forced = true;
+        nightTemp = "5000";
+      };
       desktopWidgets = {
         editMode = false;
         enabled = true;

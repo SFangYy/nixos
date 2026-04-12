@@ -5,5 +5,6 @@
     nixfmt
     texlab
     nodePackages.prettier
+    julia-bin
   ];
 }

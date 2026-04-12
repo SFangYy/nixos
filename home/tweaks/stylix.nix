@@ -11,12 +11,6 @@ in
     autoEnable = false;
     targets.gtk.enable = true;
     targets.gtk.flatpakSupport.enable = true;
-    polarity = "dark";
-    cursor = {
-      package = pkgs.graphite-cursors;
-      name = "graphite-dark";
-      size = 32;
-    };
     fonts = {
       monospace.name = "JetBrains Mono";
       monospace.package = pkgs.jetbrains-mono;

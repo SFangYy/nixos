@@ -4,5 +4,6 @@
     telegram-desktop
     fractal
     wechat
+    wemeet
   ];
 }
