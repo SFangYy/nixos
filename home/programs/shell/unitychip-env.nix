@@ -26,20 +26,20 @@ in {
         gnumake
 
         # X11 libraries
-        xorg.libX11
-        xorg.libXext
-        xorg.libXt
-        xorg.libXft
-        xorg.libXrender
-        xorg.libXScrnSaver
-        xorg.libXcursor
-        xorg.libXdmcp
-        xorg.libXau
-        xorg.libXi
-        xorg.libXrandr
-        xorg.libSM
-        xorg.libICE
-        xorg.libxcb
+        (if pkgsTarget ? libx11 then pkgsTarget.libx11 else pkgsTarget.xorg.libX11)
+        (if pkgsTarget ? libxext then pkgsTarget.libxext else pkgsTarget.xorg.libXext)
+        (if pkgsTarget ? libxt then pkgsTarget.libxt else pkgsTarget.xorg.libXt)
+        (if pkgsTarget ? libxft then pkgsTarget.libxft else pkgsTarget.xorg.libXft)
+        (if pkgsTarget ? libxrender then pkgsTarget.libxrender else pkgsTarget.xorg.libXrender)
+        (if pkgsTarget ? libxscrnsaver then pkgsTarget.libxscrnsaver else pkgsTarget.xorg.libXScrnSaver)
+        (if pkgsTarget ? libxcursor then pkgsTarget.libxcursor else pkgsTarget.xorg.libXcursor)
+        (if pkgsTarget ? libxdmcp then pkgsTarget.libxdmcp else pkgsTarget.xorg.libXdmcp)
+        (if pkgsTarget ? libxau then pkgsTarget.libxau else pkgsTarget.xorg.libXau)
+        (if pkgsTarget ? libxi then pkgsTarget.libxi else pkgsTarget.xorg.libXi)
+        (if pkgsTarget ? libxrandr then pkgsTarget.libxrandr else pkgsTarget.xorg.libXrandr)
+        (if pkgsTarget ? libsm then pkgsTarget.libsm else pkgsTarget.xorg.libSM)
+        (if pkgsTarget ? libice then pkgsTarget.libice else pkgsTarget.xorg.libICE)
+        (if pkgsTarget ? libxcb then pkgsTarget.libxcb else pkgsTarget.xorg.libxcb)
 
         # OpenGL libraries
         libGL

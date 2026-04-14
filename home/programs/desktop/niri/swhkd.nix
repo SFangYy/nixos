@@ -9,7 +9,6 @@ in
   xdg.configFile."niri/swhkd/niri.swhkdrc".text = config.lib.swhkd.mkSwhkdrc {
     includes = [
       "/home/${user}/.config/swhkd/basic.swhkdrc"
-      "/home/${user}/.config/swhkd/tofi.swhkdrc"
     ];
     keyBindings = [
       {

@@ -55,12 +55,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    niri = {
-      # Pin niri-flake and its nested Niri sources to avoid GitHub HEAD lookups.
-      url = "github:sodiboo/niri-flake/4f69ab280e9bb34e2c0b67fdfa6f0978a170ef56";
-      inputs.niri-stable.url = "github:YaLTeR/niri/01be0e65f4eb91a9cd624ac0b76aaeab765c7294";
-      inputs.niri-unstable.url = "github:niri-wm/niri/d06dd4b9e60fa07120c217aa095f3ed8caac99f2";
-    };
+    niri.url = "git+https://github.com/sodiboo/niri-flake.git";
     nur.url = "github:nix-community/NUR";
     stylix = {
       url = "github:nix-community/stylix";

@@ -25,20 +25,20 @@ in {
         gnumake
 
         # X11 libraries
-        xorg.libX11
-        xorg.libXext
-        xorg.libXt
-        xorg.libXft
-        xorg.libXrender
-        xorg.libXScrnSaver
-        xorg.libXcursor
-        xorg.libXdmcp
-        xorg.libXau
-        xorg.libXi
-        xorg.libXrandr
-        xorg.libSM
-        xorg.libICE
-        xorg.libxcb
+        (if pkgsTarget ? libx11 then pkgsTarget.libx11 else pkgsTarget.xorg.libX11)
+        (if pkgsTarget ? libxext then pkgsTarget.libxext else pkgsTarget.xorg.libXext)
+        (if pkgsTarget ? libxt then pkgsTarget.libxt else pkgsTarget.xorg.libXt)
+        (if pkgsTarget ? libxft then pkgsTarget.libxft else pkgsTarget.xorg.libXft)
+        (if pkgsTarget ? libxrender then pkgsTarget.libxrender else pkgsTarget.xorg.libXrender)
+        (if pkgsTarget ? libxscrnsaver then pkgsTarget.libxscrnsaver else pkgsTarget.xorg.libXScrnSaver)
+        (if pkgsTarget ? libxcursor then pkgsTarget.libxcursor else pkgsTarget.xorg.libXcursor)
+        (if pkgsTarget ? libxdmcp then pkgsTarget.libxdmcp else pkgsTarget.xorg.libXdmcp)
+        (if pkgsTarget ? libxau then pkgsTarget.libxau else pkgsTarget.xorg.libXau)
+        (if pkgsTarget ? libxi then pkgsTarget.libxi else pkgsTarget.xorg.libXi)
+        (if pkgsTarget ? libxrandr then pkgsTarget.libxrandr else pkgsTarget.xorg.libXrandr)
+        (if pkgsTarget ? libsm then pkgsTarget.libsm else pkgsTarget.xorg.libSM)
+        (if pkgsTarget ? libice then pkgsTarget.libice else pkgsTarget.xorg.libICE)
+        (if pkgsTarget ? libxcb then pkgsTarget.libxcb else pkgsTarget.xorg.libxcb)
 
         # OpenGL libraries
         libGL
@@ -76,17 +76,12 @@ in {
         export AVIS_HOME=$HOME/EDAHome/HimaFormal
         export PATH=$AVIS_HOME/bin:$PATH
 
-        # Create symlinks for OpenSSL 1.0 libraries for legacy EDA tools
-        # Some tools expect libssl.so.10 which is OpenSSL 1.0.x
+        # Use OpenSSL 1.0 from Nix store first; keep .so.10 compatibility symlinks.
         export OPENSSL_LEGACY_DIR=$HOME/.local/share/openssl-legacy
         mkdir -p $OPENSSL_LEGACY_DIR
-        if [ ! -L $OPENSSL_LEGACY_DIR/libssl.so.10 ]; then
-          ln -sf ${openssl_1_0.out}/lib/libssl.so.1.0.0 $OPENSSL_LEGACY_DIR/libssl.so.10
-        fi
-        if [ ! -L $OPENSSL_LEGACY_DIR/libcrypto.so.10 ]; then
-          ln -sf ${openssl_1_0.out}/lib/libcrypto.so.1.0.0 $OPENSSL_LEGACY_DIR/libcrypto.so.10
-        fi
-        export LD_LIBRARY_PATH=$OPENSSL_LEGACY_DIR:$LD_LIBRARY_PATH
+        ln -snf ${openssl_1_0.out}/lib/libssl.so.1.0.0 $OPENSSL_LEGACY_DIR/libssl.so.10
+        ln -snf ${openssl_1_0.out}/lib/libcrypto.so.1.0.0 $OPENSSL_LEGACY_DIR/libcrypto.so.10
+        export LD_LIBRARY_PATH=${openssl_1_0.out}/lib:$OPENSSL_LEGACY_DIR:$LD_LIBRARY_PATH
 
         # Set temporary directory for FlexNet license manager (lmgrd)
         # lmgrd expects /usr/tmp/.flexlm but NixOS doesn't have /usr/tmp

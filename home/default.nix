@@ -101,9 +101,13 @@
     };
   };
 
+  # Keep pre-26.05 GTK4 theme behavior explicit to avoid HM legacy-default warning.
+  gtk.gtk4.theme = config.gtk.theme;
+
   programs = {
     git = {
       enable = true;
+      signing.format = "openpgp";
       settings = {
         user = {
           name = "SFangYy";

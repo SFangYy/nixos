@@ -17,7 +17,7 @@
             waybar = "pkill -USR1 .waybar-wrapped";
             dms = "dms ipc call bar toggle";
             caelestia = "echo pass";
-            noctalia-shell = "noctalia-shell ipc call bar toggle";
+            noctalia-shell = "/home/${user}/.nix-profile/bin/noctalia-shell ipc call bar toggle";
           }
           .${config.desktopShell};
       }
@@ -47,17 +47,9 @@
         key = "super + e";
         command = "hexecute";
       }
-    ];
-  };
-  xdg.configFile."swhkd/tofi.swhkdrc".text = config.lib.swhkd.mkSwhkdrc {
-    keyBindings = [
       {
         key = "super + x";
-        command = "/home/${user}/scripts/tofi/powermenu";
-      }
-      {
-        key = "super + shift + p";
-        command = "sh -c $(tofi-drun)";
+        command = "/home/${user}/.nix-profile/bin/noctalia-shell ipc call sessionMenu toggle";
       }
     ];
   };

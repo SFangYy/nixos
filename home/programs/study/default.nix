@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 {
   home.packages = with pkgs; [
     # pspp
@@ -9,13 +9,26 @@
     inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-no-fhs
   ];
 
-  # Antigravity proxy configuration
-  xdg.configFile."Antigravity/User/settings.json".text = builtins.toJSON {
-    "workbench.colorTheme" = "Tokyo Night";
-    "http.proxy" = "http://127.0.0.1:7890";
-    "http.proxyStrictSSL" = false;
-    "http.proxySupport" = "on";
-  };
+  # Keep Antigravity settings writable: seed defaults on first run/migration only.
+  home.activation.antigravitySettingsBootstrap =
+    lib.hm.dag.entryAfter [ "writeBoundary" ]
+      ''
+        AG_SETTINGS="$HOME/.config/Antigravity/User/settings.json"
+        mkdir -p "$(dirname "$AG_SETTINGS")"
+
+        if [ ! -e "$AG_SETTINGS" ] || [ -L "$AG_SETTINGS" ]; then
+          rm -f "$AG_SETTINGS"
+          cat > "$AG_SETTINGS" <<'EOF'
+{
+  "workbench.colorTheme": "Tokyo Night",
+  "http.proxy": "http://127.0.0.1:7890",
+  "http.proxyStrictSSL": false,
+  "http.proxySupport": "on"
+}
+EOF
+          chmod 644 "$AG_SETTINGS"
+        fi
+      '';
 
   # VSCode keybindings configuration
   xdg.configFile."Code/User/keybindings.json".text = ''

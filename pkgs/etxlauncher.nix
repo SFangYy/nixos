@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, unzip, makeWrapper, autoPatchelfHook, glib, nss, nspr, gtk2, gtk3, atk, at-spi2-atk, cups, dbus, libdrm, expat, alsa-lib, xorg, libxkbcommon, mesa }:
+{ stdenv, lib, fetchurl, unzip, makeWrapper, autoPatchelfHook, glib, nss, nspr, gtk2, gtk3, atk, at-spi2-atk, cups, dbus, libdrm, expat, alsa-lib, libx11, libxext, libxtst, libxrender, libxi, libxcursor, libxdamage, libxfixes, libxcomposite, libxrandr, libxcb, libxkbcommon, mesa }:
 
 stdenv.mkDerivation rec {
   pname = "etxlauncher";
@@ -25,17 +25,17 @@ stdenv.mkDerivation rec {
     alsa-lib
     libxkbcommon
     mesa
-    xorg.libX11
-    xorg.libXext
-    xorg.libXtst
-    xorg.libXrender
-    xorg.libXi
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXfixes
-    xorg.libXcomposite
-    xorg.libXrandr
-    xorg.libxcb
+    libx11
+    libxext
+    libxtst
+    libxrender
+    libxi
+    libxcursor
+    libxdamage
+    libxfixes
+    libxcomposite
+    libxrandr
+    libxcb
   ];
 
   sourceRoot = "etxlauncher_12";

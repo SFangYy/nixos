@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./tofi.nix
     ./fonts.nix
     ./mako.nix
     ./niri

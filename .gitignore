@@ -26,3 +26,5 @@ result-*
 *.tmp
 *.bak
 *.log
+
+tenda/*

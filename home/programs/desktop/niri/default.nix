@@ -55,13 +55,14 @@
             "/home/${user}/scripts/quick-note"
           ];
           "Mod+D".action = spawn [
-            "sh"
-            "-c"
-            "$(tofi-run)"
+            "noctalia-shell"
+            "ipc"
+            "call"
+            "launcher"
+            "toggle"
           ];
           "Mod+O".action = spawn "obsidian";
           "Mod+B".action = spawn "brave";
-          "Mod+Shift+C".action = spawn "/home/${user}/scripts/tofi/colorscheme";
         };
         window-rules =
           let

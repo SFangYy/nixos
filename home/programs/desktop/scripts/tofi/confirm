@@ -1,5 +1,0 @@
-#!/bin/sh
-
-. ~/scripts/tofi/config
-
-printf "yes\nno" | tofi_full $1
