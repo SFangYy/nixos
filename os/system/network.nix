@@ -16,16 +16,13 @@ in
   networking.firewall = {
     enable = true;
     allowedTCPPorts = forwardPorts ++ extraPorts;
+  };
 
-    # 恢复并固定虚拟机的 NAT 出网规则
-    extraCommands = ''
-      # 允许虚拟机访问外网的 NAT 规则 (如果 Libvirt 没自动创建)
-      iptables -t nat -A POSTROUTING -s ${vmNetwork} ! -d ${vmNetwork} -j MASQUERADE
-
-      # 允许转发虚拟机的流量
-      iptables -I FORWARD 1 -s ${vmNetwork} -i virbr0 -j ACCEPT
-      iptables -I FORWARD 1 -d ${vmNetwork} -o virbr0 -m state --state RELATED,ESTABLISHED -j ACCEPT
-    '';
+  # 优雅的声明式 NAT: 将 vmNetwork 的流量通过系统的主力联网网卡放出
+  networking.nat = {
+    enable = true;
+    internalIPs = [ "${vmNetwork}" ];
+    internalInterfaces = [ "virbr0" ];
   };
 
   # 3. 使用 socat 进行端口映射

@@ -8,10 +8,10 @@
   ];
 
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   time = {
     timeZone = "Asia/Shanghai";
-    hardwareClockInLocalTime = true;
   };
 
   i18n = {
