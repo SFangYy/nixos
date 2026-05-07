@@ -26,5 +26,6 @@ result-*
 *.tmp
 *.bak
 *.log
+docs/IC2026_FORMAL.BOSC
 
 tenda/*

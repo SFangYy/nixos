@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
   programs = {
     zoxide = {
@@ -9,9 +14,9 @@
       enable = true;
       shellAbbrs = {
         # Nix
-        nixu = "nh os switch --ask";
+        nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
         homeu = "nh home switch --ask";
-        nixc = "doas systemctl start nh-clean.service";
+        nixc = "sudo systemctl start nh-clean.service";
 
         # Git
         g = "git";
@@ -30,7 +35,7 @@
         ".." = "cd ..";
         "..." = "cd ../..";
         md = "mkdir -p";
-        
+
         # SSH
         s = "ssh";
         sa = "ssh-add";
@@ -90,6 +95,9 @@
       ];
       functions = {
         fish_greeting = "";
+        fnos = ''
+          /home/${config.home.username}/scripts/mount-fnos $argv
+        '';
       };
     };
   };

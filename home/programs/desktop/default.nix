@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./fonts.nix
     ./mako.nix
@@ -37,6 +38,9 @@
     source = ./scripts;
     recursive = true;
   };
-  home.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk3";
+  home.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "gtk3";
+    STEAM_FORCE_DESKTOPUI_SCALING = "2";
+  };
   services.wl-clip-persist.enable = true;
 }

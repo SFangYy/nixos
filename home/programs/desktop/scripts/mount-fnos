@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+mount_point="$HOME/work/fnos"
+remote_url="http://192.168.122.237:5005"
+
+mkdir -p "$mount_point"
+
+if mountpoint -q "$mount_point"; then
+    echo "fnos is already mounted at $mount_point"
+    exit 0
+fi
+
+exec sudo mount -t davfs -o "uid=$(id -u),gid=users,rw,_netdev" "$remote_url" "$mount_point"

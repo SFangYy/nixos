@@ -2,7 +2,8 @@
   pkgs,
   user,
   ...
-}: {
+}:
+{
   imports = [
     ./boot.nix
   ];
@@ -80,11 +81,11 @@
     rtkit.enable = true;
     sudo.extraRules = [
       {
-        users = [user];
+        users = [ user ];
         commands = [
           {
             command = "ALL";
-            options = ["NOPASSWD"];
+            options = [ "NOPASSWD" ];
           }
         ];
       }
@@ -134,8 +135,6 @@
 
     variables = {
       EDITOR = "lvim";
-      GDK_SCALE = "";
-      GDK_DPI_SCALE = "";
       NIRI_CONFIG = "/home/${user}/.config/niri/config-override.kdl";
       NO_PROXY = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
     };
@@ -165,9 +164,9 @@
   systemd.user.services = {
     polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";

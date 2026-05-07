@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+{config, lib, pkgs, ...}: let
   pkgsOld = import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz";
     sha256 = "1f5d2g1p6nfwycpmrnnmc2xmcszp804adp16knjvdkj8nz36y1fg";
@@ -11,7 +11,97 @@
 
   # OpenSSL 1.0.x for legacy EDA tools
   openssl_1_0 = pkgsLegacy19.openssl_1_0_2;
+
+  fixedLicenseFile = "IC2026_FORMAL.BOSC";
+  fixedLicenseSource = "${config.home.homeDirectory}/.config/nixos/docs/${fixedLicenseFile}";
+  formalHome = "${config.home.homeDirectory}/EDAHome/HimaFormal";
+  formalLicensePath = "${formalHome}/${fixedLicenseFile}";
+  formalLicenseServer = pkgs.writeShellScript "formal-license-server" ''
+    set -euo pipefail
+
+    LICENSE_FILE=${lib.escapeShellArg formalLicensePath}
+    LICENSE_DIR=${lib.escapeShellArg formalHome}
+    LMGRD_BIN="$LICENSE_DIR/bin/lmgrd"
+    LOG_FILE="$HOME/lmgrd.log"
+    STARTUP_PID=""
+
+    mkdir -p "$LICENSE_DIR/tmp"
+
+    if [ ! -x "$LMGRD_BIN" ]; then
+      echo "formal license server binary not found: $LMGRD_BIN" >&2
+      exit 1
+    fi
+
+    if [ ! -f "$LICENSE_FILE" ]; then
+      echo "formal license file missing: $LICENSE_FILE" >&2
+      exit 1
+    fi
+
+    cleanup() {
+      pkill -f "$LMGRD_BIN -c $LICENSE_FILE" >/dev/null 2>&1 || true
+      if [ -n "$STARTUP_PID" ] && kill -0 "$STARTUP_PID" >/dev/null 2>&1; then
+        kill "$STARTUP_PID" >/dev/null 2>&1 || true
+      fi
+    }
+
+    trap cleanup INT TERM EXIT
+
+    cd "$LICENSE_DIR"
+    "$LMGRD_BIN" -c "$LICENSE_FILE" >> "$LOG_FILE" 2>&1 &
+    STARTUP_PID=$!
+    sleep 2
+
+    if pgrep -f "lmgrd.*$LICENSE_FILE" >/dev/null 2>&1; then
+      echo "formal license server started."
+    elif wait "$STARTUP_PID"; then
+      echo "formal license server exited immediately."
+      exit 1
+    else
+      echo "formal license server failed to start. Check $LOG_FILE." >&2
+      exit 1
+    fi
+
+    while pgrep -f "lmgrd.*$LICENSE_FILE" >/dev/null 2>&1; do
+      sleep 5
+    done
+
+    echo "formal license server stopped unexpectedly. Check $LOG_FILE." >&2
+    exit 1
+  '';
 in {
+  home.activation.formalLicenseLink = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    mkdir -p ${lib.escapeShellArg formalHome}
+    if [ ! -f ${lib.escapeShellArg fixedLicenseSource} ]; then
+      echo "formal license file missing: ${fixedLicenseFile}" >&2
+      exit 1
+    fi
+
+    ln -sfn ${lib.escapeShellArg fixedLicenseSource} ${lib.escapeShellArg formalLicensePath}
+    ln -sfn ${lib.escapeShellArg formalLicensePath} ${lib.escapeShellArg "${formalHome}/current-license.BOSC"}
+  '';
+
+  systemd.user.services.formal-license-server = {
+    Unit = {
+      Description = "HimaFormal license server";
+      After = [ "default.target" ];
+      PartOf = [ "default.target" ];
+      StartLimitIntervalSec = 60;
+      StartLimitBurst = 3;
+      X-Restart-Triggers = [
+        formalLicenseServer
+        fixedLicenseSource
+      ];
+    };
+    Install.WantedBy = [ "default.target" ];
+    Service = {
+      Type = "simple";
+      ExecStart = "${formalLicenseServer}";
+      Restart = "on-failure";
+      RestartSec = 3;
+      TimeoutStopSec = 10;
+    };
+  };
+
   home.packages = [
     (pkgsOld.buildFHSEnv {
       name = "formal";
@@ -88,8 +178,9 @@ in {
         export LM_TMP_DIR=$HOME/EDAHome/HimaFormal/tmp
         mkdir -p $LM_TMP_DIR
 
-        # Set license file path for FlexNet licensing
-        export LM_LICENSE_FILE=$HOME/EDAHome/HimaFormal/IC2026-32269-2026032620260430.BOSC
+        # Use the fixed license file managed in docs/IC2026_FORMAL.BOSC.
+        export FORMAL_LICENSE_FILE=${formalLicensePath}
+        export LM_LICENSE_FILE=$FORMAL_LICENSE_FILE
 
         # Create ave symlink for HimaFormal tools
         # ave is commonly used in examples but the actual command is FormalMC
@@ -100,37 +191,6 @@ in {
         # Qt platform settings for GUI applications on Wayland
         export QT_QPA_PLATFORM=xcb
         export QT_XCB_GL_INTEGRATION=xcb_glx
-
-        # ============================================================
-        # LICENSE SERVER AUTO-START CONFIGURATION
-        # ============================================================
-        # Set to "true" to auto-start the license server, "false" to disable
-        START_LICENSE_SERVER="true"
-
-        if [ "$START_LICENSE_SERVER" = "true" ]; then
-          LICENSE_FILE="IC2026-32269-2026032620260430.BOSC"
-          LICENSE_DIR=$HOME/EDAHome/HimaFormal
-          LMGRD_BIN=$LICENSE_DIR/bin/lmgrd
-
-          # Check if license server is already running
-          if [ -f "$LMGRD_BIN" ] && [ -f "$LICENSE_DIR/$LICENSE_FILE" ]; then
-            if ! pgrep -f "lmgrd.*$LICENSE_FILE" > /dev/null; then
-              echo "Starting license server..."
-              cd $LICENSE_DIR
-              $LMGRD_BIN -c $LICENSE_FILE > $HOME/lmgrd.log 2>&1 &
-              sleep 2
-              if pgrep -f "lmgrd.*$LICENSE_FILE" > /dev/null; then
-                echo "License server started successfully."
-              else
-                echo "Warning: Failed to start license server. Check $HOME/lmgrd.log for details."
-                cat $HOME/lmgrd.log
-              fi
-            else
-              echo "License server is already running."
-            fi
-          fi
-        fi
-        # ============================================================
       '';
       runScript = "bash -c 'cd ~/work; exec fish'";
     })

@@ -22,4 +22,5 @@
     };
   };
   environment.variables.NH_FLAKE = "/home/${user}/.config/nixos";
+  environment.sessionVariables.NH_ELEVATION_STRATEGY = "sudo";
 }
