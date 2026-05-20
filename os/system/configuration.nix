@@ -135,7 +135,7 @@
 
     variables = {
       EDITOR = "lvim";
-      NIRI_CONFIG = "/home/${user}/.config/niri/config-override.kdl";
+      NIRI_CONFIG = "/home/${user}/.config/niri/config.kdl";
       NO_PROXY = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
     };
 

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 with config.lib.stylix.colors.withHashtag;
 let
   extraConfig =
@@ -61,5 +61,8 @@ let
     + extraConfig;
 in
 {
+  xdg.configFile.niri-config.enable = lib.mkForce false;
+
+  home.file.".config/niri/config.kdl".text = finalNiriConfig;
   home.file.".config/niri/config-override.kdl".text = finalNiriConfig;
 }

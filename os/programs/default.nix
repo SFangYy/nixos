@@ -1,3 +1,4 @@
+{ inputs, pkgs, ... }:
 {
   imports = [
     ./basic.nix
@@ -7,5 +8,9 @@
     ./swhkd.nix
     ./tuigreet.nix
     ./clash.nix
+  ];
+
+  services.displayManager.sessionPackages = [
+    pkgs.halley
   ];
 }

@@ -36,7 +36,6 @@
           keyboard.xkb.options = "caps:escape,ctrl:swap_lalt_lctl";
         };
         environment = {
-          DISPLAY = ":0";
           XIM = "fcitx";
           GTK_IM_MODULE = "fcitx";
           QT_IM_MODULE = "fcitx";

@@ -96,11 +96,7 @@ git diff --name-only --diff-filter=U
 冲突文件会出现如下标记：
 
 ```text
-<<<<<<< HEAD
-你的改动
-=======
 upstream 的改动
->>>>>>> upstream/main
 ```
 
 处理方式：

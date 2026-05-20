@@ -88,8 +88,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hexecute.url = "github:ThatOtherAndrew/Hexecute";
-    antigravity-nix = {
-      url = "git+https://github.com/jacopone/antigravity-nix.git";
+    antigravity-flake = {
+      url = "github:Hy4ri/antigravity-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     kimi-cli.url = "github:MoonshotAI/kimi-cli";

@@ -6,7 +6,7 @@
     obsidian
     brave
     vscode
-    inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-no-fhs
+    inputs.antigravity-flake.packages.${pkgs.system}.antigravity-fhs
   ];
 
   # Keep Antigravity settings writable: seed defaults on first run/migration only.

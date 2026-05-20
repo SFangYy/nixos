@@ -43,6 +43,9 @@
         s3 = "ssh songfangyuan@172.19.20.3";
 
         # Others
+        # nixu = "nh os switch --ask --impure";
+        # homeu = "nh home switch --ask --impure";
+        # nixc = "doas systemctl start nh-clean.service";
         vim = "nvim";
         n = "nvim";
         vi = "nvim";

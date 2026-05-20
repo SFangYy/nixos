@@ -5,7 +5,7 @@
     codex
     nixfmt
     texlab
-    nodePackages.prettier
+    prettier
     julia-bin
   ];
 }

@@ -47,7 +47,7 @@
     nautilus
     gnome-disk-utility
     upower
-    rustdesk
+    # rustdesk
     etxlauncher
     remmina
     # PiliPlus dependencies
@@ -59,6 +59,7 @@
     libdbusmenu
     android-tools
     tree-sitter
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.agenix
   ];
   imports = [
     ./eye-candy.nix

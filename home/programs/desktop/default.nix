@@ -33,6 +33,8 @@
       export QT_SCALE_FACTOR=1.5
       exec rustdesk "$@"
     '')
+    inputs.hexecute.packages.${system}.default
+    halley
   ];
   home.file."scripts" = {
     source = ./scripts;
