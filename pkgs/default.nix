@@ -2,6 +2,7 @@
 {
   swhkd = pkgs.callPackage ./swhkd.nix { };
   hugmetight-font = pkgs.callPackage ./fonts/hugmetight.nix { };
+  ttf-wps-fonts = pkgs.callPackage ./fonts/ttf-wps-fonts.nix { };
   custom-colorschemes = pkgs.callPackage ./customColorSchemes { };
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
   wechat = pkgs.callPackage ./wechat.nix { };

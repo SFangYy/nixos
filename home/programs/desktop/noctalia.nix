@@ -60,7 +60,7 @@
             {
               id = "Workspace";
               labelMode = "none";
-              hideUnoccupied = false;
+              hideUnoccupied = true;
             }
             {
               id = "MediaMini";
