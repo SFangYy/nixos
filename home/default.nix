@@ -40,8 +40,8 @@
       ALL_PROXY = "http://127.0.0.1:7890";
       HTTP_PROXY = "http://127.0.0.1:7890";
       HTTPS_PROXY = "http://127.0.0.1:7890";
-      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24";
-      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24";
+      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
+      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
     };
 
     activation = {
@@ -112,19 +112,19 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "github.com" = {
-          hostname = "ssh.github.com";
-          port = 443;
-          user = "git";
+          HostName = "ssh.github.com";
+          Port = 443;
+          User = "git";
           # Route SSH through local HTTP proxy to avoid blocked/unstable direct 22.
-          proxyCommand = "${pkgs.nmap}/bin/ncat --proxy 127.0.0.1:7890 --proxy-type http %h %p";
-          serverAliveInterval = 30;
-          serverAliveCountMax = 3;
+          ProxyCommand = "${pkgs.nmap}/bin/ncat --proxy 127.0.0.1:7890 --proxy-type http %h %p";
+          ServerAliveInterval = 30;
+          ServerAliveCountMax = 3;
         };
         "172.19.20.3" = {
-          hostname = "172.19.20.3";
-          user = "songfangyuan";
+          HostName = "172.19.20.3";
+          User = "songfangyuan";
         };
       };
     };
