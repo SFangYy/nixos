@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# set -euo pipefail # Do not use -e because we want to handle errors manually
+
+pid_file="${XDG_RUNTIME_DIR:-/tmp}/wf-recorder.pid"
+log_file="${XDG_RUNTIME_DIR:-/tmp}/wf-recorder.log"
+
+# Function to send notifications
+notify() {
+  notify-send "Screen Recorder" "$1"
+}
+
+if [[ -f "$pid_file" ]]; then
+  pid="$(cat "$pid_file")"
+  if kill -0 "$pid" 2>/dev/null; then
+    kill -INT "$pid"
+    rm -f "$pid_file"
+    notify "Screen recording stopped"
+    exit 0
+  fi
+  rm -f "$pid_file"
+fi
+
+recording_dir="${XDG_VIDEOS_DIR:-$HOME/Videos}/Recordings"
+mkdir -p "$recording_dir"
+
+# Ensure dependencies are available
+if ! command -v slurp >/dev/null || ! command -v wf-recorder >/dev/null; then
+  notify "Error: slurp or wf-recorder not found"
+  exit 1
+fi
+
+geometry="$(slurp)"
+if [[ -z "$geometry" ]]; then
+  exit 0
+fi
+
+output_file="$recording_dir/recording-$(date +%Y%m%d-%H%M%S).mp4"
+
+echo "Starting recording: $output_file" > "$log_file"
+wf-recorder -g "$geometry" -f "$output_file" >>"$log_file" 2>&1 &
+record_pid=$!
+
+# Wait a bit to see if it fails immediately
+sleep 0.5
+if ! kill -0 $record_pid 2>/dev/null; then
+  notify "Error: wf-recorder failed to start. Check $log_file"
+  exit 1
+fi
+
+echo "$record_pid" > "$pid_file"
+notify "Screen recording started"

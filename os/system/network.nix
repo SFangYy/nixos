@@ -3,8 +3,9 @@
 let
   vmIP = "192.168.122.237";
   vmNetwork = "192.168.122.0/24";
+  waydroidNetwork = "192.168.240.0/24";
   forwardPorts = [ 5666 4450 5005 5173 4533 ];
-  extraPorts = [ 8765 ];
+  extraPorts = [ 8765 8766 8800 53317 ];
 in
 {
   # 1. 基础内核转发
@@ -13,16 +14,19 @@ in
   };
 
   # 2. 开放防火墙端口 (宿主机入口)
+  networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = forwardPorts ++ extraPorts;
+    allowedUDPPorts = [ 53317 ]; # LocalSend
+    trustedInterfaces = [ "waydroid0" ];
   };
 
-  # 优雅的声明式 NAT: 将 vmNetwork 的流量通过系统的主力联网网卡放出
+  # 声明式 NAT: 为 libvirt 和 waydroid 的内部网段都提供出站转发
   networking.nat = {
     enable = true;
-    internalIPs = [ "${vmNetwork}" ];
-    internalInterfaces = [ "virbr0" ];
+    internalIPs = [ vmNetwork waydroidNetwork ];
+    internalInterfaces = [ "virbr0" "waydroid0" ];
   };
 
   # 3. 使用 socat 进行端口映射

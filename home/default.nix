@@ -85,7 +85,7 @@
   };
 
   # Keep pre-26.05 GTK4 theme behavior explicit to avoid HM legacy-default warning.
-  gtk.gtk4.theme = config.gtk.theme;
+  gtk.gtk4.theme = lib.mkDefault config.gtk.theme;
 
   programs = {
     git = {

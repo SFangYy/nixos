@@ -1,205 +1,127 @@
-# Waydroid Extras Script
+# Waydroid 集成方案
 
-Script to add GApps and other stuff to Waydroid!
+当前阶段只做第一步：
 
-# Installation/Usage
+1. 安装并启用 Waydroid。
+2. 首次初始化时使用带 Google Apps 的 Android 13 镜像。
+3. 安装 `casualsnek/waydroid_script` 里的 `Install libhoudini arm translation`。
 
-## Interactive terminal interface
+其余内容先不做。
 
-```
-git clone https://github.com/casualsnek/waydroid_script
-cd waydroid_script
-python3 -m venv venv
-venv/bin/pip install -r requirements.txt
-sudo venv/bin/python3 main.py
-```
+## 现状判断
 
-![image-20230430013103883](assets/img/README/image-20230430013103883.png)
+当前仓库有几个适合接入 Waydroid 的点：
 
-![image-20230430013119763](assets/img/README/image-20230430013119763.png)
+* 系统配置集中在 `os/system/configuration.nix`。
+* 主机配置很薄，`hosts/inspiron/os.nix` 只负责主机名和硬件导入。
+* 桌面脚本通过 Home Manager 暴露到 `~/scripts`，见 `home/programs/desktop/default.nix`。
+* 当前用户已经在 `adbuser`、`video`、`kvm` 等组里，这对 Waydroid/ADB 侧是有利的。
 
-![image-20230430013148814](assets/img/README/image-20230430013148814.png)
+这意味着最合适的做法不是把所有内容堆进 `hosts/inspiron/os.nix`，而是新增独立模块。
 
+## 已落地的结构
 
+当前仓库已按下面的结构接入：
 
-## Command Line
+* `os/programs/waydroid.nix`
+  启用 Waydroid，并安装 `waydroid`、`android-tools`、`lzip`、`python3`、`git`。
+* `home/programs/desktop/waydroid.nix`
+  提供两个用户命令：
+  * `waydroid-init-gapps`
+  * `waydroid-install-libhoudini`
+
+导入点：
+
+* 在 `os/programs/default.nix` 中导入 `./waydroid.nix`
+* 在 `home/programs/desktop/default.nix` 中导入 `./waydroid.nix`
+
+## 关键边界
+
+NixOS 自带的 Waydroid 模块只有：
+
+* `virtualisation.waydroid.enable`
+* `virtualisation.waydroid.package`
+
+它没有“声明式指定 Android 13 / GAPPS 镜像”的选项。
+
+所以“安装 Android 13 GApps 版本”这一步不能单靠 Nix 模块完成，而是需要在系统启用后显式执行：
 
 ```bash
-git clone https://github.com/casualsnek/waydroid_script
-cd waydroid_script
-python3 -m venv venv
-venv/bin/pip install -r requirements.txt
-# install something
-sudo venv/bin/python3 main.py install {gapps, magisk, libndk, libhoudini, nodataperm, smartdock, microg, mitm}
-# uninstall something
-sudo venv/bin/python3 main.py uninstall {gapps, magisk, libndk, libhoudini, nodataperm, smartdock, microg}
-# get Android device ID
-sudo venv/bin/python3 main.py certified
-# some hacks
-sudo venv/bin/python3 main.py hack {nodataperm, hidestatusbar}
+sudo waydroid init -s GAPPS
 ```
 
-## Dependencies
+Waydroid 当前官方镜像基线本身就是 Android 13，因此这里用 `GAPPS` 初始化即可满足“Android 13 + Google Apps”的目标。
 
-"lzip" is required for this script to work, install it using your distribution's package manager:
-### Arch, Manjaro and EndeavourOS based distributions:
-	sudo pacman -S lzip
-### Debian and Ubuntu based distributions:
-	sudo apt install lzip
-### RHEL, Fedora and Rocky based distributions:
-	sudo dnf install lzip
-### openSUSE based distributions:
-	sudo zypper install lzip
+## 需要执行的命令
 
-## Install OpenGapps
+配置切换完成后，按下面顺序执行。
 
-![](assets/1.png)
+### 1. 应用配置
 
-Open terminal and switch to the directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install gapps
-
-Then launch waydroid with:
-
-    waydroid show-full-ui
-
-After waydroid has finished booting, open terminal and switch to directory where "main.py" is located then run:
-
-    sudo python3 main.py google
-Copy the returned numeric ID, then open ["https://google.com/android/uncertified/?pli=1"](https://google.com/android/uncertified/?pli=1). Enter the ID and register it. Wait 10-20 minutes for device to get registered. Then clear Google Play Service's cache and try logging in!
-
-
-## Install Magisk
-
-![](assets/2.png)
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install magisk
-
-Magisk will be installed on next boot! 
-
-Zygisk and modules like LSPosed should work now.
-
-If you want to update Magisk, Please use `Direct Install into system partition` or run this sript again.
-
-This script only focuses on Magisk installation, if you need more management, please check https://github.com/nitanmarcel/waydroid-magisk
-
-## Install libndk arm translation 
-
-libndk_translation from guybrush firmware. 
-
-libndk seems to have better performance than libhoudini on AMD.
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install libndk
-
-## Install libhoudini arm translation
-
-Intel's libhoudini for intel/AMD x86 CPU, pulled from Microsoft's WSA 11 image
-
-houdini version: 11.0.1b_y.38765.m
-
-houdini64 version: 11.0.1b_z.38765.m
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install libhoudini
-
-## Integrate Widevine DRM (L3)
-
-![](assets/3.png)
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install widevine
-
-## Install Smart Dock
-
-![](assets/4.png)
-![](assets/5.png)
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install smartdock
-
-## Install a self-signed CA certificate
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-    sudo venv/bin/python3 main.py install mitm --ca-cert mycert.pem
-
-## Granting full permission for apps data (HACK)
-
-
-This is a temporary hack to combat against the apps permission issue on Android 11. Whenever an app is open it will always enable a property (persist.sys.nodataperm) to make it execute a script to grant the data full permissions (777). The **correct** way is to use `sdcardfs` or `esdfs`, both need to recompile the kernel or WayDroid image.
-
-Arknights, PUNISHING: GRAY RAVEN and other games won't freeze on the black screen.
-
-![](assets/6.png)
-
-Open terminal and switch to directory where "main.py" is located then run:
-
-```
-sudo venv/bin/python3 main.py hack nodataperm
-```
-**WARNING**: Tested on `lineage-18.1-20230128-VANILLA-waydroid_x86_64.img`. This script will replace `/system/framework/service.jar`, which may prevent WayDroid from booting. If so, run `sudo venv/bin/python3 main.py uninstall nodataperm` to remove it.
-
-
-Or you can run the following commands directly in `sudo waydroid shell`. In this way, every time a new game is installed, you need to run it again, but it's much less risky.
-
-```
-chmod 777 -R /sdcard/Android
-chmod 777 -R /data/media/0/Android 
-chmod 777 -R /sdcard/Android/data
-chmod 777 -R /data/media/0/Android/obb 
-chmod 777 -R /mnt/*/*/*/*/Android/data
-chmod 777 -R /mnt/*/*/*/*/Android/obb
+```bash
+nh os switch
+home-manager switch --flake .#sfangyy@inspiron
 ```
 
-- https://github.com/supremegamers/device_generic_common/commit/2d47891376c96011b2ee3c1ccef61cb48e15aed6  
-- https://github.com/supremegamers/android_frameworks_base/commit/24a08bf800b2e461356a9d67d04572bb10b0e819
+### 2. 初始化 Android 13 GApps 镜像
 
-## Install microG, Aurora Store and Aurora Droid
-
-![](assets/7.png)
-
-```
-sudo venv/bin/python3 main.py install microg
+```bash
+waydroid-init-gapps
 ```
 
-## Hide Status Bar
-Before
-![Before](assets/8.png)
+这个命令会：
 
-After
-![After](assets/9.png)
+* 启用并启动 `waydroid-container`
+* 若 Waydroid 尚未初始化，则执行 `sudo waydroid init -s GAPPS`
+* 如果已初始化，则不会重复执行
 
+如需重装成别的镜像，先手动清掉：
+
+```bash
+sudo rm -rf /var/lib/waydroid
 ```
-sudo venv/bin/python3 main.py hack hidestatusbar
+
+然后重新运行 `waydroid-init-gapps`。
+
+### 3. 启动 Waydroid
+
+```bash
+waydroid show-full-ui
 ```
 
+### 4. 安装 `libhoudini`
 
-## Get Android ID for device registration
+```bash
+waydroid-install-libhoudini
+```
 
-You need to register you device with its it before being able to use gapps, this will print out your Android ID which you can use for device registration required for Google apps:
-Open terminal and switch to directory where "main.py" is located then run:
+这个命令会：
 
-    sudo venv/bin/python3 main.py certified
+* 在 `~/.local/share/waydroid-extra-scripts` 下拉取 `casualsnek/waydroid_script`
+* 自动创建 Python venv
+* 自动安装 `requirements.txt`
+* 执行 `sudo venv/bin/python3 main.py install libhoudini`
 
-Star this repository if you find this useful, if you encounter problem create an issue on GitHub!
+## 后续项
 
-## Error handling  
+这一步有几个明确风险：
 
-- Magisk installed: N/A
+* `libhoudini` 不是 Nix 声明式配置，而是对 Waydroid 镜像做后处理。
+* 首次运行 `waydroid-install-libhoudini` 需要联网拉取 GitHub 仓库和 Python 依赖。
+* 如果你的当前内核缺少 binder/binderfs，Waydroid 会在服务启动阶段失败，这不是脚本问题。
 
-Check [waydroid-magisk](https://github.com/nitanmarcel/waydroid-magisk)
+建议先验证：
 
-## Credits
-- [WayDroid](https://github.com/waydroid/waydroid)
-- [Magisk Delta](https://huskydg.github.io/magisk-files/)
-- [microG Project](https://microg.org)
-- [Open GApps](https://opengapps.org)
-- [Smart Dock](https://github.com/axel358/smartdock)
-- [wd-scripts](https://github.com/electrikjesus/wd-scripts/)
+```bash
+systemctl status waydroid-container
+waydroid status
+```
+
+## 风险点
+
+后续如果这一步稳定，再继续补：
+
+* `microg`
+* `magisk`
+* `nodataperm`
+* 统一的 `waydroid-log` / `waydroid-shell` / `waydroid-extras`

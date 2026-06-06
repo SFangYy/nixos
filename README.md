@@ -36,6 +36,7 @@ These bindings are configured in `home/programs/desktop/niri/swhkd.nix`.
 | `Super + Alt + {h, j, k, l}` | `move-floating-window` | Move floating window precisely |
 | **Utilities** | | |
 | `Super + n` | `nautilus` | Open File Manager (Nautilus) |
+| `[Super/Alt] + [Alt/Super] + r` | *Script* | Toggle area screen recording |
 | `Super + s` | `screenshot` | Take an area screenshot |
 | `Ctrl + Super + s` | `screenshot-screen` | Take a full screen screenshot |
 | `Alt + Super + s` | `screenshot-window` | Take a window screenshot |
@@ -300,6 +301,7 @@ These bindings are configured across various files in `home/programs/coding/nixv
 | `Super + Alt + {h, j, k, l}` | `move-floating-window` | 精确移动悬浮窗口 |
 | **实用工具** | | |
 | `Super + n` | `nautilus` | 打开文件管理器 (Nautilus) |
+| `[Super/Alt] + [Alt/Super] + r` | *Script* | 开始/停止区域录屏 |
 | `Super + s` | `screenshot` | 区域截图 |
 | `Ctrl + Super + s` | `screenshot-screen` | 全屏截图 |
 | `Alt + Super + s` | `screenshot-window` | 窗口截图 |

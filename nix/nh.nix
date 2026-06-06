@@ -12,7 +12,7 @@
     package = inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.nh;
     clean = {
       enable = true;
-      dates = "3 days";
+      dates = "daily";
       extraArgs =
         let
           numColorschemes = builtins.length self.homeConfigurations."${user}@${host}".config.colorSchemes;

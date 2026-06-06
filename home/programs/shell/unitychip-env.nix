@@ -66,6 +66,7 @@ in {
         # Tools
         bc
         time
+        lcov
         pkgs.tmux
 
         # Shell

@@ -49,7 +49,9 @@
     upower
     # rustdesk
     etxlauncher
+    xunlei-uos
     remmina
+    localsend
     # PiliPlus dependencies
     mpv
     libepoxy

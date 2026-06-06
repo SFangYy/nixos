@@ -24,7 +24,7 @@
   in ''
     if [ -f "${tokenPath}" ]; then
       echo "access-tokens = github.com=$(cat "${tokenPath}")" > "${confPath}"
-      chmod 400 "${confPath}"
+      chmod 444 "${confPath}"
     fi
   '';
 

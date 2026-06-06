@@ -9,6 +9,7 @@
     ./mako.nix
     ./niri
     ./swhkd.nix
+    ./waydroid.nix
     # ./dms.nix
     ./noctalia.nix
   ];
@@ -21,6 +22,7 @@
     wmname
     grim
     slurp
+    wf-recorder
     inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
     # RustDesk 鼠标偏移修复脚本
     (writeShellScriptBin "rustdesk-fix" ''

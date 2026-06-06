@@ -47,6 +47,10 @@ in
       (niriAction "super + {_, shift +} {minus, equal}" "set-{column\\-width, window\\-height} \"{\\-, +}10%\"")
       (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x \\-10, y +10, y \\-10, x +10}")
       {
+        key = "{super + alt, alt + super} + r";
+        command = "bash /home/${user}/scripts/record-screen-toggle";
+      }
+      {
         key = "super + s";
         command = "grim -g \"$(slurp)\" - | wl-copy";
       }
