@@ -22,7 +22,10 @@
       enable = config.desktopShell == "dms";
       systemd.enable = config.desktopShell == "dms";
     };
-    programs.noctalia-shell.enable = config.desktopShell == "noctalia-shell";
+    programs.noctalia = {
+      enable = config.desktopShell == "noctalia-shell";
+      systemd.enable = config.desktopShell == "noctalia-shell";
+    };
     home.packages = lib.mkIf (config.desktopShell == "noctalia-shell") [
       inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];

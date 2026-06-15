@@ -23,7 +23,8 @@ in
       (niriAction "super + w" "close-window")
       (niriAction "super + shift + a" "toggle-overview")
       (niriAction "super + t" "toggle-column-tabbed-display")
-      (niriAction "super + {left, down, up, right}" "focus-column-{left, down, up, right}")
+      (niriAction "super + {left, right}" "focus-column-{left, right}")
+      (niriAction "super + {down, up}" "focus-window-{down, up}")
       (niriAction "super + {h, l}" "focus-column-or-monitor-{left, right}")
       (niriAction "super + {j, k}" "focus-window-or-workspace-{down, up}")
       (niriAction "super + shift + h" "move-column-left-or-to-monitor-left")
@@ -36,7 +37,8 @@ in
       (niriAction "super + shift + ctrl + {h, j, k, l}" "move-window-to-monitor-{left, down, up, right}")
       (niriAction "super + shift + space" "toggle-window-floating")
       (niriAction "super + space" "switch-focus-between-floating-and-tiling")
-      (niriAction "super + {_, shift +} {1-9}" "{focus\\-workspace, move\\-window\\-to\\-workspace} {1-9}")
+      (niriAction "super + {1-9}" "focus-workspace {1-9}")
+      (niriAction "super + shift + {1-9}" "move-window-to-workspace {1-9}")
       (niriAction "super + comma" "consume-window-into-column")
       (niriAction "super + period" "expel-window-from-column")
       (niriAction "super + r" "switch-preset-column-width")
@@ -44,8 +46,9 @@ in
       (niriAction "super + shift + f" "fullscreen-window")
       (niriAction "super + ctrl + f" "toggle-windowed-fullscreen")
       (niriAction "super + c" "center-column")
-      (niriAction "super + {_, shift +} {minus, equal}" "set-{column\\-width, window\\-height} \"{\\-, +}10%\"")
-      (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x \\-10, y +10, y \\-10, x +10}")
+      (niriAction "super + {minus, equal}" "set-column-width \"{-10%, +10%}\"")
+      (niriAction "super + shift + {minus, equal}" "set-window-height \"{-10%, +10%}\"")
+      (niriAction "super + alt + {h, j, k, l}" "move-floating-window -{x -10, y +10, y -10, x +10}")
       {
         key = "{super + alt, alt + super} + r";
         command = "bash /home/${user}/scripts/record-screen-toggle";

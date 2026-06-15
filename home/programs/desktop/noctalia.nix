@@ -1,14 +1,12 @@
 {
   config,
   user,
-  inputs,
-  pkgs,
-  lib,
   ...
 }:
 {
-  programs.noctalia-shell = {
-    colors = with config.lib.stylix.colors.withHashtag; {
+  programs.noctalia = {
+    settings = {
+      colors = with config.lib.stylix.colors.withHashtag; {
       mError = base08;
       mHover = base0E;
       mOnError = base00;
@@ -25,8 +23,7 @@
       mSurface = base01;
       mSurfaceVariant = base01;
       mTeritiary = base0C;
-    };
-    settings = {
+      };
       setupCompleted = true;
       bar = {
         density = "comfortable";
@@ -180,36 +177,6 @@
         ];
       };
     };
-  };
-
-  systemd.user.services = lib.mkIf (config.desktopShell == "noctalia-shell") {
-    noctalia-shell =
-      let
-        noctaliaPackage = inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        noctaliaConfig = "/home/${user}/.config/noctalia/gui-settings.json";
-      in
-      {
-        Unit = {
-          After = [ "graphical-session.target" ];
-          PartOf = [ "graphical-session.target" ];
-          StartLimitIntervalSec = 60;
-          StartLimitBurst = 3;
-          X-Restart-Triggers = [
-            noctaliaPackage
-            noctaliaConfig
-          ];
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-        Service = {
-          ExecStart = "${noctaliaPackage}/bin/noctalia-shell";
-          Restart = "on-failure";
-          RestartSec = 3;
-          TimeoutStartSec = 10;
-          TimeoutStopSec = 5;
-          Environment = [
-            "NOCTALIA_SETTINGS_FALLBACK=${noctaliaConfig}"
-          ];
-        };
-      };
+    validateConfig = false;
   };
 }

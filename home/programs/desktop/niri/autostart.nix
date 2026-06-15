@@ -9,23 +9,29 @@ let
   niri-autostart = pkgs.writeShellApplication {
     name = "niri-autostart";
     runtimeInputs = with pkgs; [
+      swhkd
+      niri
       awww
       mihomo-party
       wlsunset
       systemd
       killall
       waycorner
+      coreutils
+      findutils
+      jq
+      gnused
     ];
     extraShellCheckFlags = [ ];
     bashOptions = [ ];
     text =
       # bash
       ''
-        killall swhkd
-        killall swhks
+        /run/wrappers/bin/doas killall swhkd || true
+        killall swhks || true
         swhks &
-        doas swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
-        awww kill
+        /run/wrappers/bin/doas swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
+        awww kill || true
         # awww-daemon --namespace "background" &
         awww-daemon --namespace "backdrop" &
         # awww restore --namespace "background"

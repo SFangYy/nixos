@@ -29,11 +29,24 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
+
+    inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        fcitx5-gtk
+        libsForQt5.fcitx5-qt
+        qt6Packages.fcitx5-chinese-addons
+        fcitx5-rime
+        fcitx5-pinyin-moegirl
+        fcitx5-pinyin-zhwiki
+      ];
+    };
   };
 
   services = {
     displayManager.gdm.enable = false;
-    # desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = true;
 
     xserver = {
       enable = true;
@@ -140,9 +153,8 @@
     };
 
     sessionVariables = {
-      XMODIFIERS = "@im=fcitx";
       SDL_IM_MODULE = "fcitx";
-      GLFW_IM_MODULE = "ibus";
+      GLFW_IM_MODULE = "fcitx";
       QT_SCALE_FACTOR_ROUNDING_POLICY = "round";
       GSK_RENDERER = "vulkan";
       NIXOS_OZONE_WL = "1";

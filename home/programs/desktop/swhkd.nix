@@ -17,7 +17,7 @@
             waybar = "pkill -USR1 .waybar-wrapped";
             dms = "dms ipc call bar toggle";
             caelestia = "echo pass";
-            noctalia-shell = "/home/${user}/.nix-profile/bin/noctalia-shell ipc call bar toggle";
+            noctalia-shell = "/home/${user}/.nix-profile/bin/noctalia ipc call bar toggle";
           }
           .${config.desktopShell};
       }
@@ -49,7 +49,7 @@
       }
       {
         key = "super + x";
-        command = "/home/${user}/.nix-profile/bin/noctalia-shell ipc call sessionMenu toggle";
+        command = "/home/${user}/.nix-profile/bin/noctalia ipc call sessionMenu toggle";
       }
     ];
   };
