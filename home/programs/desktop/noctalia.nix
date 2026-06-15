@@ -5,25 +5,55 @@
 }:
 {
   programs.noctalia = {
-    settings = {
-      colors = with config.lib.stylix.colors.withHashtag; {
-      mError = base08;
-      mHover = base0E;
-      mOnError = base00;
-      mOnHover = base00;
+    systemd.enable = true;
+    customPalettes.stylix.dark = with config.lib.stylix.colors.withHashtag; {
+      mPrimary = base0D;
       mOnPrimary = base00;
-      mOnSecondary = base01;
+      mSecondary = base0E;
+      mOnSecondary = base00;
+      mTertiary = base0C;
+      mOnTertiary = base00;
+      mError = base08;
+      mOnError = base00;
+      mSurface = base00;
       mOnSurface = base05;
-      mOnSurfaceVariant = base07;
-      mOnTeritiary = base00;
-      mOutline = base02;
-      mPrimary = base0B;
-      mSecondary = base0A;
-      mShadow = "#000000";
-      mSurface = base01;
+      mHover = base0C;
+      mOnHover = base00;
       mSurfaceVariant = base01;
-      mTeritiary = base0C;
+      mOnSurfaceVariant = base04;
+      mOutline = base03;
+      mShadow = base00;
+
+      terminal = {
+        foreground = base05;
+        background = base00;
+        cursor = base05;
+        cursorText = base00;
+        selectionFg = base05;
+        selectionBg = base02;
+        normal = {
+          black = base00;
+          red = base08;
+          green = base0B;
+          yellow = base0A;
+          blue = base0D;
+          magenta = base0E;
+          cyan = base0C;
+          white = base05;
+        };
+        bright = {
+          black = base03;
+          red = base08;
+          green = base0B;
+          yellow = base0A;
+          blue = base0D;
+          magenta = base0E;
+          cyan = base0C;
+          white = base07;
+        };
       };
+    };
+    settings = {
       setupCompleted = true;
       bar = {
         density = "comfortable";
@@ -100,7 +130,7 @@
         enableClipPreview = true;
         clipboardWrapText = true;
         position = "top_left";
-    };
+      };
       colorSchemes = {
         generateTemplatesForPredefined = false;
         useWallpaperColors = false;
@@ -110,39 +140,37 @@
         forceBlackScreenCorners = true;
         showScreenCorners = true;
       };
-        appLauncher = {
-        };
-        controlCenter = {
-          cards = [
-            {
-              enabled = false;
-              id = "brightness-card";
-            }
-            {
-              enabled = true;
-              id = "weather-card";
-            }
-            {
-              enabled = true;
-              id = "media-sysmon-card";
-            }
-            {
-              enabled = true;
-              id = "audio-card";
-            }
-            {
-              enabled = true;
-              id = "shortcuts-card";
-            }
-            {
-              enabled = true;
-              id = "profile-card";
-            }
-          ];
-        };
-        sessionMenu = {
-          position = "bottom_left";
-        };
+      controlCenter = {
+        cards = [
+          {
+            enabled = false;
+            id = "brightness-card";
+          }
+          {
+            enabled = true;
+            id = "weather-card";
+          }
+          {
+            enabled = true;
+            id = "media-sysmon-card";
+          }
+          {
+            enabled = true;
+            id = "audio-card";
+          }
+          {
+            enabled = true;
+            id = "shortcuts-card";
+          }
+          {
+            enabled = true;
+            id = "profile-card";
+          }
+        ];
+      };
+      sessionMenu = {
+        position = "bottom_left";
+      };
       location = {
         name = "海淀";
       };

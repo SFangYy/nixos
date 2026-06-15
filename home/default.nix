@@ -62,6 +62,16 @@
               install -m 600 "$TMP_CONFIG" "$HM_SSH_CONFIG"
               rm -f "$TMP_CONFIG"
             fi
+            if ${pkgs.systemd}/bin/systemctl --user is-active dms.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop dms.service
+            fi
+            if ${pkgs.systemd}/bin/systemctl --user is-active caelestia.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop caelestia.service
+            fi
+            if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service; then
+              run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia.service
+            fi
+            run --silence ${pkgs.systemd}/bin/systemctl --user start ${config.desktopShell}.service
           '';
     };
 

@@ -62,6 +62,7 @@
     android-tools
     tree-sitter
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.agenix
+    evtest
   ];
   imports = [
     ./eye-candy.nix

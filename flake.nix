@@ -55,7 +55,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    niri.url = "git+https://github.com/sodiboo/niri-flake.git";
+    niri-unstable = {
+      # url = "github:JustinSpedding/niri/up-down-keybinds";
+      # url = "github:Atan-D-RP4/niri/feat/layer-anims";
+      url = "github:niri-wm/niri";
+      flake = false;
+    };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.niri-unstable.follows = "niri-unstable";
+    };
     nur.url = "github:nix-community/NUR";
     stylix = {
       url = "github:nix-community/stylix";
@@ -94,5 +103,6 @@
     };
     kimi-cli.url = "github:MoonshotAI/kimi-cli";
     awww.url = "git+https://codeberg.org/LGFae/awww";
+    waydeeper.url = "github:EdenQwQ/waydeeper";
   };
 }

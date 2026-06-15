@@ -5,10 +5,13 @@
   ...
 }:
 {
-  programs.gemini-cli = {
+  programs.antigravity-cli = {
     enable = true;
   };
   programs.claude-code = {
+    enable = true;
+  };
+  programs.pi-coding-agent = {
     enable = true;
   };
   home.sessionVariables = {
