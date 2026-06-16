@@ -1,0 +1,4 @@
+binds {
+    Mod+Plus { set-column-width "+10%"; }
+    Mod+Minus { set-column-width "-10%"; }
+}

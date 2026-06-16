@@ -103,23 +103,21 @@ let
     };
 
   byName = lib.listToAttrs (map (w: lib.nameValuePair w.name (mkWallpaper w)) wallpapers);
-in
-{
-  inherit byName;
-
-  inherit wallpapers;
 
   all = stdenvNoCC.mkDerivation {
     name = "wallpapers";
     phases = [ "installPhase" ];
-    installPhase = ''
-      mkdir -p $out
-    ''
-    + (
-      lib.mapAttrsToList (name: path: "ln -s ${path} $out/${name}") byName |> lib.concatStringsSep "\n"
-    );
+    installPhase =
+      ''
+        mkdir -p $out
+      ''
+      + (lib.mapAttrsToList (name: path: "ln -s ${path} $out/${name}") byName |> lib.concatStringsSep "\n");
     meta = {
       description = "My wallpapers";
     };
+    passthru = {
+      inherit byName wallpapers;
+    };
   };
-}
+in
+all

@@ -71,7 +71,7 @@
             if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service; then
               run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia.service
             fi
-            run --silence ${pkgs.systemd}/bin/systemctl --user start ${config.desktopShell}.service
+            run --silence ${pkgs.systemd}/bin/systemctl --user start ${if config.desktopShell == "noctalia-shell" then "noctalia" else config.desktopShell}.service || true
           '';
     };
 

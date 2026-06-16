@@ -34,6 +34,5 @@ in {
   home.packages = [ pilipplus-launcher ];
   xdg.dataFile = {
     "applications/pilipplus.desktop".source = desktopFile;
-    "icons/hicolor/512x512/apps/piliplus.png".source = ./piliplus.png;
   };
 }

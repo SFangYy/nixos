@@ -19,7 +19,7 @@
           enable = true;
           options.extraArguments = "--shadow-arguments '80x50+0+0'";
         };
-        vignette.enable = true;
+        vignette.enable = false;
       };
     }
     {

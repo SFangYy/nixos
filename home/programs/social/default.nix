@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    telegram-desktop
+    # telegram-desktop
     fractal
     wechat
     wemeet

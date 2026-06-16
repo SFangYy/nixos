@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     # pspp
-    zotero
+    # zotero
     obsidian
     brave
     vscode

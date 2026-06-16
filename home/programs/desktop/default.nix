@@ -8,7 +8,6 @@
     ./fonts.nix
     ./mako.nix
     ./niri
-    ./swhkd.nix
     ./waydroid.nix
     # ./dms.nix
     ./noctalia.nix

@@ -55,18 +55,18 @@ let
   src = fetchurl {
     url =
       {
-        x86_64-linux = "https://web.archive.org/web/20241107191621/https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
-        aarch64-linux = "https://web.archive.org/web/20241107192345/https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_arm64.AppImage";
-        x86_64-darwin = "https://web.archive.org/web/20241107193311/https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_x86_64.dmg";
-        aarch64-darwin = "http://web.archive.org/web/20241107194014/https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_arm64.dmg";
+        x86_64-linux = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
+        aarch64-linux = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_arm64.AppImage";
+        x86_64-darwin = "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_x86_64.dmg";
+        aarch64-darwin = "https://dldir1v6.qq.com/weixin/Universal/Mac/WeChatMac_arm64.dmg";
       }
       .${system};
     hash =
       {
-        x86_64-linux = "sha256-aleVKrsZsM6k4vbIc79pJ2DmV+hGvUPkOTmiDqCquUE=";
-        aarch64-linux = "sha256-7xLL7r/xFK2qr7oyTnG5+nioZCKRZVgNMhU44RD2Zu4=";
-        x86_64-darwin = "sha256-IMG3By5CnZOwxjOyIUG79XZ8g1HrYY2GkuvUd4Ekpqs=";
-        aarch64-darwin = "sha256-1ocgPaOOn+FntBCuVcKsFJanhCKgQH3lqRuGsfOvp2c=";
+        x86_64-linux = "sha256-vTTkuFm1LhAqVvuynIfYdROPf19nfCQIOGhw6Z+dOeo=";
+        aarch64-linux = "sha256-OTh4hLeBfbF4bLFyByCIPUxa5OCUMbOjIvEt0qQIHE4=";
+        x86_64-darwin = "sha256-We+pyfSHDyplxcgMSdkpH9w6f92sgiG3XHi3yGN6DfA=";
+        aarch64-darwin = "sha256-uoCWwHoIiloi/bq6zDN6F6CkED0aTWeEWeyVbTcNboc=";
       }
       .${system};
   };

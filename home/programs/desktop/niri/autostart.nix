@@ -9,7 +9,6 @@ let
   niri-autostart = pkgs.writeShellApplication {
     name = "niri-autostart";
     runtimeInputs = with pkgs; [
-      swhkd
       niri
       awww
       mihomo-party
@@ -27,10 +26,6 @@ let
     text =
       # bash
       ''
-        /run/wrappers/bin/doas killall swhkd || true
-        killall swhks || true
-        swhks &
-        /run/wrappers/bin/doas swhkd -c ~/.config/niri/swhkd/niri.swhkdrc &
         awww kill || true
         # awww-daemon --namespace "background" &
         awww-daemon --namespace "backdrop" &

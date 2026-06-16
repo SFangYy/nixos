@@ -10,8 +10,6 @@
     ./animations.nix
     ./waybar.nix
     ./autostart.nix
-    ./override-config.nix
-    ./swhkd.nix
   ];
 
   programs.niri = {
@@ -46,22 +44,132 @@
           background-color = base01;
         }) config.monitors;
         binds = with config.lib.niri.actions; {
-          "Mod+Return".action = spawn "kitty";
-          "Mod+Shift+Return".action = spawn [
+          "Super+Return".action = spawn "kitty";
+          "Super+Shift+Return".action = spawn [
             "kitty"
             "--app-id"
             "floating-terminal"
             "/home/${user}/scripts/quick-note"
           ];
-          "Mod+D".action = spawn [
+          "Super+D".action = spawn [
             "noctalia-shell"
             "ipc"
             "call"
             "launcher"
             "toggle"
           ];
-          "Mod+O".action = spawn "obsidian";
-          "Mod+B".action = spawn "brave";
+          "Super+O".action = spawn "obsidian";
+          "Super+B".action = spawn "brave";
+
+          # --- Migrated from swhkd ---
+          "Super+Q".action = close-window;
+          "Super+W".action = close-window;
+          "Super+Shift+A".action = toggle-overview;
+          "Super+T".action = toggle-column-tabbed-display;
+
+          "Super+Left".action = focus-column-left;
+          "Super+Right".action = focus-column-right;
+          "Super+Down".action = focus-window-down;
+          "Super+Up".action = focus-window-up;
+          "Super+H".action = focus-column-or-monitor-left;
+          "Super+L".action = focus-column-or-monitor-right;
+          "Super+J".action = focus-window-or-workspace-down;
+          "Super+K".action = focus-window-or-workspace-up;
+
+          "Super+Shift+H".action = move-column-left-or-to-monitor-left;
+          "Super+Shift+L".action = move-column-right-or-to-monitor-right;
+          "Super+Shift+J".action = move-window-down-or-to-workspace-down;
+          "Super+Shift+K".action = move-window-up-or-to-workspace-up;
+
+          "Super+Ctrl+Left".action = focus-monitor-left;
+          "Super+Ctrl+Down".action = focus-monitor-down;
+          "Super+Ctrl+Up".action = focus-monitor-up;
+          "Super+Ctrl+Right".action = focus-monitor-right;
+          "Super+Ctrl+H".action = focus-monitor-left;
+          "Super+Ctrl+J".action = focus-monitor-down;
+          "Super+Ctrl+K".action = focus-monitor-up;
+          "Super+Ctrl+L".action = focus-monitor-right;
+
+          "Super+Shift+Ctrl+Left".action = move-window-to-monitor-left;
+          "Super+Shift+Ctrl+Down".action = move-window-to-monitor-down;
+          "Super+Shift+Ctrl+Up".action = move-window-to-monitor-up;
+          "Super+Shift+Ctrl+Right".action = move-window-to-monitor-right;
+          "Super+Shift+Ctrl+H".action = move-window-to-monitor-left;
+          "Super+Shift+Ctrl+J".action = move-window-to-monitor-down;
+          "Super+Shift+Ctrl+K".action = move-window-to-monitor-up;
+          "Super+Shift+Ctrl+L".action = move-window-to-monitor-right;
+
+          "Super+Shift+Space".action = toggle-window-floating;
+          "Super+Space".action = switch-focus-between-floating-and-tiling;
+
+          "Super+1".action = { focus-workspace = 1; };
+          "Super+2".action = { focus-workspace = 2; };
+          "Super+3".action = { focus-workspace = 3; };
+          "Super+4".action = { focus-workspace = 4; };
+          "Super+5".action = { focus-workspace = 5; };
+          "Super+6".action = { focus-workspace = 6; };
+          "Super+7".action = { focus-workspace = 7; };
+          "Super+8".action = { focus-workspace = 8; };
+          "Super+9".action = { focus-workspace = 9; };
+
+          "Super+Shift+1".action = { move-column-to-workspace = 1; };
+          "Super+Shift+2".action = { move-column-to-workspace = 2; };
+          "Super+Shift+3".action = { move-column-to-workspace = 3; };
+          "Super+Shift+4".action = { move-column-to-workspace = 4; };
+          "Super+Shift+5".action = { move-column-to-workspace = 5; };
+          "Super+Shift+6".action = { move-column-to-workspace = 6; };
+          "Super+Shift+7".action = { move-column-to-workspace = 7; };
+          "Super+Shift+8".action = { move-column-to-workspace = 8; };
+          "Super+Shift+9".action = { move-column-to-workspace = 9; };
+
+          "Super+Comma".action = consume-window-into-column;
+          "Super+Period".action = expel-window-from-column;
+          "Super+R".action = switch-preset-column-width;
+          "Super+F".action = maximize-column;
+          "Super+Shift+F".action = fullscreen-window;
+          "Super+Ctrl+F".action = toggle-windowed-fullscreen;
+          "Super+C".action = center-column;
+
+          "Super+Minus".action = { set-column-width = "-10%"; };
+          "Super+Equal".action = { set-column-width = "+10%"; };
+          "Super+Shift+Minus".action = { set-window-height = "-10%"; };
+          "Super+Shift+Equal".action = { set-window-height = "+10%"; };
+
+          "Super+Alt+H".action = spawn "niri" "msg" "action" "move-floating-window" "-x" "-10";
+          "Super+Alt+J".action = spawn "niri" "msg" "action" "move-floating-window" "-y" "10";
+          "Super+Alt+K".action = spawn "niri" "msg" "action" "move-floating-window" "-y" "-10";
+          "Super+Alt+L".action = spawn "niri" "msg" "action" "move-floating-window" "-x" "10";
+
+          "Super+Alt+R".action = spawn "bash" "/home/${user}/scripts/record-screen-toggle";
+
+          "Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy";
+          "Ctrl+Super+S".action = spawn "sh" "-c" "grim - | wl-copy";
+          "Alt+Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp -f '%o')\" - | wl-copy";
+
+          "Super+Alt+M".action = set-dynamic-cast-monitor;
+          "Super+Alt+W".action = set-dynamic-cast-window;
+          "Super+Alt+N".action = clear-dynamic-cast-target;
+
+          "Super+N".action = spawn "nautilus";
+          "Super+Ctrl+C".action = spawn "sh" "-c" "niri msg pick-color | grep Hex | sd 'Hex: ' '' | sd '\\n' '' | wl-copy";
+
+          # --- Migrated from basic.swhkdrc ---
+          "Super+Alt+C".action = spawn "wl-color-picker";
+          "Super+Shift+B".action = spawn "noctalia" "msg" "bar-toggle";
+          "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+          "XF86AudioMicMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+          "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
+          "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-";
+          "Super+Shift+S".action = spawn "wshowkeys" "-a" "bottom" "-a" "right" "-F" "Comic Code 30" "-b" "${base00}aa" "-f" "${base0E}ee" "-s" "${base0F}ee" "-t" "1";
+          "Super+E".action = spawn "hexecute";
+          "Super+X".action = spawn "/home/${user}/.nix-profile/bin/noctalia" "ipc" "call" "sessionMenu" "toggle";
+
+          "Super+Shift+W".action = spawn "sh" "-c" (
+            if config.desktopShell == "caelestia" then
+              "/home/${user}/scripts/change-wal-niri && caelestia wallpaper -f ~/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${config.lib.monitors.mainMonitorName}-file) && caelestia scheme set -n dynamic -m dark"
+            else
+              "/home/${user}/scripts/change-wal-niri"
+          );
         };
         window-rules =
           let
@@ -97,7 +205,7 @@
             }
             {
               matches = [ { app-id = "mihomo-party"; } ];
-              open-on-workspace = "8";
+              open-on-workspace = "proxy";
             }
             {
               matches = [ { app-id = "brave"; } ];
@@ -176,14 +284,14 @@
             open-on-output = mainMonitorName;
             name = "music";
           };
+          "5" = { };
+          "6" = { };
+          "7" = { };
           "8" = {
             open-on-output = mainMonitorName;
             name = "proxy";
           };
-        };
-        xwayland-satellite = {
-          enable = true;
-          path = lib.getExe pkgs.xwayland-satellite;
+          "9" = { };
         };
         overview = {
           zoom = 0.36;
@@ -235,4 +343,42 @@
         };
       };
   };
+
+  xdg.configFile.niri-config =
+    let
+      extraConfig =
+        # kdl
+        ''
+          window-rule {
+              match app-id="ai.moeru.airi"
+              open-floating true
+              border {
+                  off
+              }
+              shadow {
+                  off
+              }
+          }
+        '';
+      finalNiriConfig =
+        builtins.replaceStrings
+          [
+            "output \"${config.lib.monitors.mainMonitorName}\" {"
+          ]
+          [
+            ''
+              output "${config.lib.monitors.mainMonitorName}" {
+                  hot-corners {
+                      top-right
+                  }
+            ''
+          ]
+          config.programs.niri.finalConfig
+        + "\n"
+        + extraConfig;
+    in
+    {
+      enable = lib.mkForce true;
+      text = lib.mkForce finalNiriConfig;
+    };
 }

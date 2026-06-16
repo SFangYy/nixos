@@ -6,7 +6,6 @@
     ./niri.nix
     ./steam.nix
     ./waydroid.nix
-    ./swhkd.nix
     ./tuigreet.nix
     ./clash.nix
   ];
