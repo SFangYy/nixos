@@ -144,6 +144,8 @@
       polkit
       polkit_gnome
       nodejs
+      efibootmgr
+      pciutils
     ];
 
     variables = {

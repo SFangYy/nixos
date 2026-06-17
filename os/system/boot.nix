@@ -17,6 +17,8 @@
         enable = true;
         configurationLimit = 5;
         graceful = true;
+        consoleMode = "max";
+        editor = false;
       };
       grub = {
         enable = false;
@@ -34,7 +36,10 @@
         '';
         default = 0;
       };
-      efi.efiSysMountPoint = "/boot";
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
     };
     plymouth.enable = true;
   };
