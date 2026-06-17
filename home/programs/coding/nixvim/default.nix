@@ -10,7 +10,7 @@
     ./plugins
   ];
 
-  stylix.targets.nixvim.enable = true;
+  stylix.targets.nixvim.enable = lib.mkDefault (config.stylix.enable or false);
 
   programs.nixvim = {
     enable = true;
@@ -29,19 +29,21 @@
       have_nerd_font = true;
     };
 
-    highlightOverride = with config.lib.stylix.colors.withHashtag; {
-      CursorLineNr = {
-        bg = base01;
-        fg = base06;
-      };
-      Comment.italic = true;
-      Comment.fg = base03;
-      Boolean.italic = true;
-      Boolean.fg = base0E;
-      String.italic = true;
-      String.fg = base0B;
-      StatusLine.bg = base00;
-    };
+    highlightOverride = lib.mkIf (config.stylix.enable or false) (
+      with config.lib.stylix.colors.withHashtag; {
+        CursorLineNr = {
+          bg = base01;
+          fg = base06;
+        };
+        Comment.italic = true;
+        Comment.fg = base03;
+        Boolean.italic = true;
+        Boolean.fg = base0E;
+        String.italic = true;
+        String.fg = base0B;
+        StatusLine.bg = base00;
+      }
+    );
 
     opts = {
       mouse = "a";

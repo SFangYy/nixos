@@ -13,11 +13,6 @@
     fish = {
       enable = true;
       shellAbbrs = {
-        # Nix
-        nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
-        homeu = "nh home switch --ask";
-        nixc = "sudo systemctl start nh-clean.service";
-
         # Git
         g = "git";
         ga = "git add";
@@ -42,14 +37,15 @@
         sl = "ssh-add -l";
         s3 = "ssh songfangyuan@172.19.20.3";
 
-        # Others
-        # nixu = "nh os switch --ask --impure";
-        # homeu = "nh home switch --ask --impure";
-        # nixc = "doas systemctl start nh-clean.service";
         vim = "nvim";
         n = "nvim";
         vi = "nvim";
-      };
+      } // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
+        # NixOS Specific
+        nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
+        homeu = "nh home switch --ask";
+        nixc = "sudo systemctl start nh-clean.service";
+      });
       shellAliases = {
         "ls" = "exa";
         "l" = "exa -lah --icons=auto";
@@ -60,16 +56,20 @@
 
         if test -n "$container"
           export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$HOME/.npm-global/bin:$PATH"
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+          if test -f /home/linuxbrew/.linuxbrew/bin/brew
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+          end
         end
 
-        set -g fish_color_command = blue --italics
-        set -g fish_color_quote = yellow --italics
+        set -g fish_color_command blue --italics
+        set -g fish_color_quote yellow --italics
         set -g fish_key_bindings fish_vi_key_bindings
       '';
       interactiveShellInit = ''
         # Initialize pay-respects (command correction tool)
-        pay-respects fish --alias | source
+        if type -q pay-respects
+          pay-respects fish --alias | source
+        end
 
         # Toggle sudo with Alt+s
         function __toggle_sudo
@@ -82,9 +82,6 @@
             end
         end
         bind \es __toggle_sudo
-
-
-
       '';
       plugins = with pkgs.fishPlugins; [
         {
