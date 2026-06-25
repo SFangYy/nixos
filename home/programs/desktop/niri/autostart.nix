@@ -11,7 +11,6 @@ let
     runtimeInputs = with pkgs; [
       niri
       awww
-      mihomo-party
       wlsunset
       systemd
       killall
@@ -31,7 +30,6 @@ let
         awww-daemon --namespace "backdrop" &
         # awww restore --namespace "background"
         awww restore --namespace "backdrop"
-        mihomo-party &
         wlsunset -s 00:00 -S 00:00 -t 5000 -T 5001 &
         sleep 0.2
       ''

@@ -151,7 +151,14 @@
     variables = {
       EDITOR = "lvim";
       NIRI_CONFIG = "/home/${user}/.config/niri/config.kdl";
-      NO_PROXY = "127.0.0.1,localhost,192.168.122.237,192.168.122.0/24";
+      ALL_PROXY = "http://127.0.0.1:7890";
+      HTTP_PROXY = "http://127.0.0.1:7890";
+      HTTPS_PROXY = "http://127.0.0.1:7890";
+      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
+      all_proxy = "http://127.0.0.1:7890";
+      http_proxy = "http://127.0.0.1:7890";
+      https_proxy = "http://127.0.0.1:7890";
+      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
     };
 
     sessionVariables = {

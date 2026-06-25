@@ -13,8 +13,6 @@
   ];
 
   programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
     settings =
       with config.lib.stylix.colors.withHashtag;
       let

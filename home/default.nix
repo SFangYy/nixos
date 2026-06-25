@@ -35,15 +35,6 @@
       nmap  # For SSH HTTP proxy (ncat --proxy-type http)
     ];
 
-    sessionVariables = {
-      all_proxy = "http://127.0.0.1:7890";
-      ALL_PROXY = "http://127.0.0.1:7890";
-      HTTP_PROXY = "http://127.0.0.1:7890";
-      HTTPS_PROXY = "http://127.0.0.1:7890";
-      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
-      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
-    };
-
     activation = {
       fix-ssh-config =
         lib.hm.dag.entryAfter [ "writeBoundary" ]
@@ -156,5 +147,4 @@
     home-manager.enable = true;
   };
 
-  nix.package = pkgs.nix;
 }

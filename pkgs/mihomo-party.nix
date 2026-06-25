@@ -99,7 +99,8 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/share/applications/mihomo-party.desktop \
       --replace "/opt/clash-party/mihomo-party" "$out/bin/mihomo-party"
 
-    # Create symlink to bin if it doesn't exist
+    # Create symlinks in PATH; configuration storage is redirected by the
+    # system-level ~/.config/mihomo-party symlink instead.
     mkdir -p $out/bin
     ln -s "$out/opt/clash-party/mihomo-party" $out/bin/mihomo-party
     ln -s "$out/opt/clash-party/mihomo-party" $out/bin/clash-party

@@ -76,7 +76,7 @@ let
         }
     )
     // {
-      polarity = forceOrDefault polarity;
+      polarity = lib.mkForce polarity;
     };
 
   buildSpecialisation =

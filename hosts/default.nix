@@ -10,13 +10,11 @@ let
     ../nix
     inputs.stylix.nixosModules.stylix
     inputs.niri.nixosModules.niri
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   sharedHomeModules = [
     ../home
-    ../nix/nixpkgs.nix
-    inputs.stylix.homeModules.stylix
-    inputs.niri.homeModules.niri
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
@@ -49,7 +47,31 @@ let
             ;
         }
         // extraOSArgs;
-        modules = extraOSModules ++ sharedOSModules;
+        modules =
+          extraOSModules
+          ++ sharedOSModules
+          ++ [
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    nixpkgs
+                    self
+                    host
+                    user
+                    ;
+                }
+                // extraHomeArgs;
+                sharedModules = sharedHomeModules;
+                users.${user} = {
+                  imports = extraHomeModules;
+                };
+              };
+            }
+          ];
       };
 
       homeConfigurations."${user}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
@@ -68,7 +90,11 @@ let
             ;
         }
         // extraHomeArgs;
-        modules = extraHomeModules ++ sharedHomeModules;
+        modules = extraHomeModules ++ sharedHomeModules ++ [
+          ../nix/nixpkgs.nix
+          inputs.stylix.homeModules.stylix
+          inputs.niri.homeModules.niri
+        ];
       };
     };
 
