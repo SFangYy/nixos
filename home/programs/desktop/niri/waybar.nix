@@ -141,7 +141,7 @@ in
     ".config/waybar/config.jsonc".text =
       let
         otherMonitorsConfig =
-          map (
+          builtins.concatStringsSep "\n" (map (
             name:
             # json
             ''
@@ -159,8 +159,7 @@ in
                 ],
                 ${moduleConfiguration}
               },
-            '') config.lib.monitors.otherMonitorsNames
-          |> builtins.concatStringsSep "\n";
+            '') config.lib.monitors.otherMonitorsNames);
       in
       # json
       ''
@@ -192,9 +191,9 @@ in
       '';
     ".config/waybar/colors.css".text =
       # css
-      (builtins.mapAttrs (name: value: "@define-color ${name} ${value};") colors)
-      |> builtins.attrValues
-      |> builtins.concatStringsSep "\n";
+      builtins.concatStringsSep "\n" (
+        builtins.attrValues (builtins.mapAttrs (name: value: "@define-color ${name} ${value};") colors)
+      );
     ".config/waybar/tray.css".text =
       # css
       ''

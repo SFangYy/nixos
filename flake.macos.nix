@@ -11,20 +11,32 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... }: 
+  outputs = { self, nixpkgs, home-manager, nixvim, ... }@inputs: 
     let
       system = "aarch64-darwin"; # Apple Silicon 使用 aarch64-darwin, Intel 使用 x86_64-darwin
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
-      homeConfigurations."yourname" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."fy" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          nixvim.homeManagerModules.nixvim
+          inputs.stylix.homeModules.stylix
+          nixvim.homeModules.nixvim
           ./macos-home.nix
         ];
-        extraSpecialArgs = { inherit self; };
+        extraSpecialArgs = {
+          inherit self inputs;
+          user = "fy";
+          host = "macos";
+        };
       };
     };
 }

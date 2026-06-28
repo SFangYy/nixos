@@ -40,14 +40,17 @@
         vim = "nvim";
         n = "nvim";
         vi = "nvim";
-      } // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
+      } // (if pkgs.stdenv.isLinux then {
         # NixOS Specific
         nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
         nixc = "sudo systemctl start nh-clean.service";
+      } else {
+        # macOS Specific
+        homeu = "home-manager switch --flake .#fy";
       });
       shellAliases = {
-        "ls" = "exa";
-        "l" = "exa -lah --icons=auto";
+        "ls" = "eza";
+        "l" = "eza -lah --icons=auto";
         "docker" = "podman";
       };
       shellInit = ''
@@ -95,7 +98,7 @@
       functions = {
         fish_greeting = "";
         fnos = ''
-          /home/${config.home.username}/scripts/mount-fnos $argv
+          ${config.home.homeDirectory}/scripts/mount-fnos $argv
         '';
       };
     };

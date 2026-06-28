@@ -115,7 +115,7 @@
       endwise.enable = true;
       markdown-preview.enable = true;
     };
-    extraPlugins = with pkgs.vimPlugins; [
+    extraPlugins = with pkgs.vimPlugins; lib.optionals pkgs.stdenv.isLinux [
       fcitx-vim
     ];
   };

@@ -8,16 +8,42 @@
       ...
     }@inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
       imports = [
         ./hosts
         inputs.treefmt-nix.flakeModule
         { _module.args = { inherit inputs self nixpkgs; }; }
+        {
+          options.flake.homeConfigurations = inputs.nixpkgs.lib.mkOption {
+            type = inputs.nixpkgs.lib.types.attrsOf inputs.nixpkgs.lib.types.raw;
+            default = { };
+          };
+        }
       ];
       flake = {
         homeManagerModules = import ./modules/home-manager;
         overlays = import ./overlays { inherit inputs self; };
         templates = import ./templates;
+        homeConfigurations."fy" = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import inputs.nixpkgs {
+            system = "aarch64-darwin";
+            overlays = builtins.attrValues self.overlays;
+            config.allowUnfree = true;
+          };
+          modules = [
+            inputs.stylix.homeModules.stylix
+            inputs.nixvim.homeModules.nixvim
+            ./macos-home.nix
+          ];
+          extraSpecialArgs = {
+            inherit self inputs;
+            user = "fy";
+            host = "macos";
+          };
+        };
       };
       perSystem =
         { pkgs, ... }:

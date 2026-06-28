@@ -111,7 +111,7 @@ let
       ''
         mkdir -p $out
       ''
-      + (lib.mapAttrsToList (name: path: "ln -s ${path} $out/${name}") byName |> lib.concatStringsSep "\n");
+      + (lib.concatStringsSep "\n" (lib.mapAttrsToList (name: path: "ln -s ${path} $out/${name}") byName));
     meta = {
       description = "My wallpapers";
     };

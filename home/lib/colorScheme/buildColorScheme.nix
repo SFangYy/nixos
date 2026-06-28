@@ -71,8 +71,13 @@ let
             base16Scheme = forceOrDefault "${hellwalToBase16 colorScheme}";
           }
       else
+        let
+          customPath = ../../../pkgs/customColorSchemes/colorSchemes + "/${name}.yaml";
+        in
         {
-          base16Scheme = forceOrDefault "${pkgs.base16-schemes}/share/themes/${name}.yaml";
+          base16Scheme = forceOrDefault (
+            if builtins.pathExists customPath then customPath else "${pkgs.base16-schemes}/share/themes/${name}.yaml"
+          );
         }
     )
     // {
