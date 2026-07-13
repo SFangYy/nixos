@@ -74,7 +74,11 @@
 
     gvfs.enable = true;
 
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      openFirewall = true;
+      settings.X11Forwarding = true;
+    };
 
     # dae = {
     #   enable = true;
@@ -146,6 +150,7 @@
       nodejs
       efibootmgr
       pciutils
+      xorg.xauth
     ];
 
     variables = {

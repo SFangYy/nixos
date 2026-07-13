@@ -60,7 +60,6 @@ Waydroid 当前官方镜像基线本身就是 Android 13，因此这里用 `GAPP
 
 ```bash
 nh os switch
-home-manager switch --flake .#sfangyy@inspiron
 ```
 
 ### 2. 初始化 Android 13 GApps 镜像

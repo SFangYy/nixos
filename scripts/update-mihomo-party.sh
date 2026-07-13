@@ -91,4 +91,4 @@ echo
 echo "Next steps:"
 echo "  1) git diff -- $PKG_FILE"
 echo "  2) nix build .#mihomo-party"
-echo "  3) home-manager switch / nixos-rebuild switch"
+echo "  3) nixos-rebuild switch"

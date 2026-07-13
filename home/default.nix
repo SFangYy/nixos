@@ -36,6 +36,18 @@
     ];
 
     activation = {
+      ensure-xauthority =
+        lib.hm.dag.entryAfter [ "writeBoundary" ]
+          ''
+            XAUTHORITY_FILE="${config.home.homeDirectory}/.Xauthority"
+
+            if [ ! -e "$XAUTHORITY_FILE" ]; then
+              install -m 600 /dev/null "$XAUTHORITY_FILE"
+            else
+              chmod 600 "$XAUTHORITY_FILE"
+            fi
+          '';
+
       fix-ssh-config =
         lib.hm.dag.entryAfter [ "writeBoundary" ]
           # bash

@@ -67,10 +67,7 @@
       bash = ["shfmt"];
     };
 
-    format_on_save = {
-      timeout_ms = 600; # 格式化超时时间（毫秒）
-      lsp_fallback = true; # 如果没有可用的格式化器，使用 LSP 格式化
-    };
+    format_on_save = null;
   };
   };
 }

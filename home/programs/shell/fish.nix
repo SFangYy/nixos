@@ -43,7 +43,6 @@
       } // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
         # NixOS Specific
         nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
-        homeu = "nh home switch --ask";
         nixc = "sudo systemctl start nh-clean.service";
       });
       shellAliases = {

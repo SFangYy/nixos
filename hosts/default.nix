@@ -74,28 +74,6 @@ let
           ];
       };
 
-      homeConfigurations."${user}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          overlays = builtins.attrValues self.overlays;
-          config.allowUnfree = true;
-        };
-        extraSpecialArgs = {
-          inherit
-            inputs
-            nixpkgs
-            self
-            host
-            user
-            ;
-        }
-        // extraHomeArgs;
-        modules = extraHomeModules ++ sharedHomeModules ++ [
-          ../nix/nixpkgs.nix
-          inputs.stylix.homeModules.stylix
-          inputs.niri.homeModules.niri
-        ];
-      };
     };
 
 in

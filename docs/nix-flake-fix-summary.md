@@ -2,7 +2,7 @@
 
 ## 问题
 
-运行 `nh home switch --ask` 时遇到两个错误：
+运行 `nh os switch --ask` 时遇到两个错误：
 
 1. **flake.lock JSON 语法错误** - Git 合并冲突标记残留在文件中
 2. **GitHub API 限流** - HTTP 403 错误，无法更新 flake inputs

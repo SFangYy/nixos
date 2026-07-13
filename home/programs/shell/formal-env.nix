@@ -37,8 +37,18 @@
       exit 1
     fi
 
+    # Refresh the whole FlexNet stack after a license update. Reusing the same
+    # license path means old lmgrd/vendor-daemon processes will not pick up new
+    # contents on their own.
+    stop_existing_license_stack() {
+      pkill -f "$LMGRD_BIN" >/dev/null 2>&1 || true
+      pkill -f "$LICENSE_DIR/.*/empyrean" >/dev/null 2>&1 || true
+      pkill -f "$LICENSE_DIR/.*/lmgrd" >/dev/null 2>&1 || true
+      sleep 1
+    }
+
     cleanup() {
-      pkill -f "$LMGRD_BIN -c $LICENSE_FILE" >/dev/null 2>&1 || true
+      stop_existing_license_stack
       if [ -n "$STARTUP_PID" ] && kill -0 "$STARTUP_PID" >/dev/null 2>&1; then
         kill "$STARTUP_PID" >/dev/null 2>&1 || true
       fi
@@ -47,6 +57,7 @@
     trap cleanup INT TERM EXIT
 
     cd "$LICENSE_DIR"
+    stop_existing_license_stack
     "$LMGRD_BIN" -c "$LICENSE_FILE" >> "$LOG_FILE" 2>&1 &
     STARTUP_PID=$!
     sleep 2
@@ -78,6 +89,10 @@ in {
 
     ln -sfn ${lib.escapeShellArg fixedLicenseSource} ${lib.escapeShellArg formalLicensePath}
     ln -sfn ${lib.escapeShellArg formalLicensePath} ${lib.escapeShellArg "${formalHome}/current-license.BOSC"}
+
+    if command -v systemctl >/dev/null 2>&1; then
+      systemctl --user try-restart formal-license-server.service >/dev/null 2>&1 || true
+    fi
   '';
 
   systemd.user.services.formal-license-server = {

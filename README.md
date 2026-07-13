@@ -258,7 +258,7 @@ These bindings are configured across various files in `home/programs/coding/nixv
 
 - **Directory Navigation**: Use `z <directory>` to jump to frequently used directories (powered by `zoxide`).
 - **Abbreviations**:
-    - **Nix**: `nixu` (OS update), `homeu` (Home update), `nixc` (Clean).
+    - **Nix**: `nixu` (OS update), `nixc` (Clean).
     - **Git**: `g` (git), `ga` (add), `gc` (commit), `gp` (push), `gl` (pull), `gst` (status), `gd` (diff), `gb` (branch), `gco` (checkout).
     - **General**: `n`, `vim`, `vi` (all alias to `nvim`).
 
@@ -537,7 +537,6 @@ These bindings are configured across various files in `home/programs/coding/nixv
 - **目录跳转 (Zoxide)**: 使用 `z <目录名>` 智能跳转到常用目录。
 - **系统管理 (Nix)**:
     - `nixu`: 系统更新 (`nh os switch`)
-    - `homeu`: 用户配置更新 (`nh home switch`)
     - `nixc`: 清理垃圾 (`nh clean`)
 - **Git 操作**:
     - `g` (git), `ga` (add), `gc` (commit -m)

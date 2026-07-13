@@ -19,6 +19,7 @@
     htop
     gparted
     gimp3
+    gtkwave
     inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.kdePackages.kdenlive
     # tesseract # ocr
     # marp-cli
