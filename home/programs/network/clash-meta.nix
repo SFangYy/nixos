@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    clash-meta
     mihomo
+    clash-verge-rev
   ];
 }

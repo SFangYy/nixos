@@ -90,6 +90,7 @@ let
               hot-corners {
                   top-right
               }
+              focus-at-startup
         ''
       ]
       config.programs.niri.finalConfig

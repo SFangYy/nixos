@@ -188,5 +188,7 @@
     };
 
     oci-containers.backend = "docker";
+
+    waydroid.enable = true;
   };
 }

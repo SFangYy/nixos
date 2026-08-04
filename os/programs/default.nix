@@ -6,11 +6,13 @@
     ./niri.nix
     ./swhkd.nix
     ./matlab.nix
-    ./tuigreet.nix
+    # ./tuigreet.nix
     # ./cosmic.nix
   ];
 
   services.displayManager.sessionPackages = [
     pkgs.halley
   ];
+
+  programs.steam.enable = true;
 }
