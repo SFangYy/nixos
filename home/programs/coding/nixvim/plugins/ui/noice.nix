@@ -3,7 +3,7 @@
     plugins.noice.enable = true;
     plugins.noice.lazyLoad = {
       settings = {
-        event = ["User CookLazy"];
+        event = [ "User CookLazy" ];
       };
     };
     plugins.notify = {
@@ -15,7 +15,7 @@
     };
     plugins.notify.lazyLoad = {
       settings = {
-        event = ["User CookLazy"];
+        event = [ "User CookLazy" ];
       };
     };
     plugins.noice.settings = {

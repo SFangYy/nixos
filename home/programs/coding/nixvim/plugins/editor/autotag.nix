@@ -4,7 +4,13 @@
     plugins.ts-autotag.lazyLoad = {
       enable = true;
       settings = {
-        ft = ["html" "xml" "vue" "javascriptreact" "typescriptreact"];
+        ft = [
+          "html"
+          "xml"
+          "vue"
+          "javascriptreact"
+          "typescriptreact"
+        ];
       };
     };
     plugins.ts-autotag.settings = {

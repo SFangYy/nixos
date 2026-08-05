@@ -12,10 +12,10 @@
 
 当前仓库有几个适合接入 Waydroid 的点：
 
-* 系统配置集中在 `os/system/configuration.nix`。
-* 主机配置很薄，`hosts/inspiron/os.nix` 只负责主机名和硬件导入。
-* 桌面脚本通过 Home Manager 暴露到 `~/scripts`，见 `home/programs/desktop/default.nix`。
-* 当前用户已经在 `adbuser`、`video`、`kvm` 等组里，这对 Waydroid/ADB 侧是有利的。
+- 系统配置集中在 `os/system/configuration.nix`。
+- 主机配置很薄，`hosts/inspiron/os.nix` 只负责主机名和硬件导入。
+- 桌面脚本通过 Home Manager 暴露到 `~/scripts`，见 `home/programs/desktop/default.nix`。
+- 当前用户已经在 `adbuser`、`video`、`kvm` 等组里，这对 Waydroid/ADB 侧是有利的。
 
 这意味着最合适的做法不是把所有内容堆进 `hosts/inspiron/os.nix`，而是新增独立模块。
 
@@ -23,24 +23,24 @@
 
 当前仓库已按下面的结构接入：
 
-* `os/programs/waydroid.nix`
+- `os/programs/waydroid.nix`
   启用 Waydroid，并安装 `waydroid`、`android-tools`、`lzip`、`python3`、`git`。
-* `home/programs/desktop/waydroid.nix`
+- `home/programs/desktop/waydroid.nix`
   提供两个用户命令：
-  * `waydroid-init-gapps`
-  * `waydroid-install-libhoudini`
+  - `waydroid-init-gapps`
+  - `waydroid-install-libhoudini`
 
 导入点：
 
-* 在 `os/programs/default.nix` 中导入 `./waydroid.nix`
-* 在 `home/programs/desktop/default.nix` 中导入 `./waydroid.nix`
+- 在 `os/programs/default.nix` 中导入 `./waydroid.nix`
+- 在 `home/programs/desktop/default.nix` 中导入 `./waydroid.nix`
 
 ## 关键边界
 
 NixOS 自带的 Waydroid 模块只有：
 
-* `virtualisation.waydroid.enable`
-* `virtualisation.waydroid.package`
+- `virtualisation.waydroid.enable`
+- `virtualisation.waydroid.package`
 
 它没有“声明式指定 Android 13 / GAPPS 镜像”的选项。
 
@@ -70,9 +70,9 @@ waydroid-init-gapps
 
 这个命令会：
 
-* 启用并启动 `waydroid-container`
-* 若 Waydroid 尚未初始化，则执行 `sudo waydroid init -s GAPPS`
-* 如果已初始化，则不会重复执行
+- 启用并启动 `waydroid-container`
+- 若 Waydroid 尚未初始化，则执行 `sudo waydroid init -s GAPPS`
+- 如果已初始化，则不会重复执行
 
 如需重装成别的镜像，先手动清掉：
 
@@ -96,18 +96,18 @@ waydroid-install-libhoudini
 
 这个命令会：
 
-* 在 `~/.local/share/waydroid-extra-scripts` 下拉取 `casualsnek/waydroid_script`
-* 自动创建 Python venv
-* 自动安装 `requirements.txt`
-* 执行 `sudo venv/bin/python3 main.py install libhoudini`
+- 在 `~/.local/share/waydroid-extra-scripts` 下拉取 `casualsnek/waydroid_script`
+- 自动创建 Python venv
+- 自动安装 `requirements.txt`
+- 执行 `sudo venv/bin/python3 main.py install libhoudini`
 
 ## 后续项
 
 这一步有几个明确风险：
 
-* `libhoudini` 不是 Nix 声明式配置，而是对 Waydroid 镜像做后处理。
-* 首次运行 `waydroid-install-libhoudini` 需要联网拉取 GitHub 仓库和 Python 依赖。
-* 如果你的当前内核缺少 binder/binderfs，Waydroid 会在服务启动阶段失败，这不是脚本问题。
+- `libhoudini` 不是 Nix 声明式配置，而是对 Waydroid 镜像做后处理。
+- 首次运行 `waydroid-install-libhoudini` 需要联网拉取 GitHub 仓库和 Python 依赖。
+- 如果你的当前内核缺少 binder/binderfs，Waydroid 会在服务启动阶段失败，这不是脚本问题。
 
 建议先验证：
 
@@ -120,7 +120,7 @@ waydroid status
 
 后续如果这一步稳定，再继续补：
 
-* `microg`
-* `magisk`
-* `nodataperm`
-* 统一的 `waydroid-log` / `waydroid-shell` / `waydroid-extras`
+- `microg`
+- `magisk`
+- `nodataperm`
+- 统一的 `waydroid-log` / `waydroid-shell` / `waydroid-extras`

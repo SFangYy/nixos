@@ -1,40 +1,41 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, autoPatchelfHook
-, wrapGAppsHook3
-, nss
-, nspr
-, alsa-lib
-, openssl
-, webkitgtk
-, udev
-, libglvnd
-, mesa
-, glib
-, gtk3
-, libX11
-, libXcomposite
-, libXdamage
-, libXext
-, libXfixes
-, libXrandr
-, libxcb
-, libdrm
-, cups
-, atk
-, pango
-, cairo
-, gdk-pixbuf
-, freetype
-, fontconfig
-, dbus
-, expat
-, libxkbcommon
-, zlib
-, libXScrnSaver
-, libXtst
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  wrapGAppsHook3,
+  nss,
+  nspr,
+  alsa-lib,
+  openssl,
+  webkitgtk,
+  udev,
+  libglvnd,
+  mesa,
+  glib,
+  gtk3,
+  libX11,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libxcb,
+  libdrm,
+  cups,
+  atk,
+  pango,
+  cairo,
+  gdk-pixbuf,
+  freetype,
+  fontconfig,
+  dbus,
+  expat,
+  libxkbcommon,
+  zlib,
+  libXScrnSaver,
+  libXtst,
 }:
 
 stdenv.mkDerivation rec {
@@ -94,7 +95,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     cp -r usr/* $out
     cp -r opt $out
-    
+
     # Fix Exec in desktop file
     substituteInPlace $out/share/applications/mihomo-party.desktop \
       --replace "/opt/clash-party/mihomo-party" "$out/bin/mihomo-party"

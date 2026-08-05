@@ -42,7 +42,11 @@
     exec = "env DISPLAY=:0 steam -cef-disable-gpu %U";
     icon = "steam";
     terminal = false;
-    categories = [ "Network" "FileTransfer" "Game" ];
+    categories = [
+      "Network"
+      "FileTransfer"
+      "Game"
+    ];
     mimeType = [
       "x-scheme-handler/steam"
       "x-scheme-handler/steamlink"

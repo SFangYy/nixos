@@ -13,11 +13,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... }: 
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixvim,
+      ...
+    }:
     let
       system = "aarch64-darwin"; # Apple Silicon 使用 aarch64-darwin, Intel 使用 x86_64-darwin
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    in
+    {
       homeConfigurations."yourname" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [

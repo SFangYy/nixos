@@ -58,15 +58,15 @@
     };
 
     keymaps = [
-    {
-      mode = ["n"];
-      key = "<leader>e";
-      action = "<cmd>Neotree toggle reveal_force_cwd<cr>";
-      options = {
-        silent = true;
-        desc = "Open/Close Neotree";
-      };
-    }
-  ];
+      {
+        mode = [ "n" ];
+        key = "<leader>e";
+        action = "<cmd>Neotree toggle reveal_force_cwd<cr>";
+        options = {
+          silent = true;
+          desc = "Open/Close Neotree";
+        };
+      }
+    ];
   };
 }

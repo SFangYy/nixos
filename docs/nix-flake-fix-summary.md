@@ -35,6 +35,7 @@ nix flake lock
 ### 3. 更新 flake.lock
 
 成功更新后，新增/更新了多个 inputs：
+
 - `awww` - 新增
 - `caelestia-shell` - 新增
 - `dank-material-shell` - 替换 `dankMaterialShell`

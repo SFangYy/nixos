@@ -17,11 +17,20 @@
   networking.firewall = {
     allowedTCPPorts = [ 27036 ];
     allowedTCPPortRanges = [
-      { from = 27015; to = 27030; } # Steam 登录 / 内容服务器
+      {
+        from = 27015;
+        to = 27030;
+      } # Steam 登录 / 内容服务器
     ];
-    allowedUDPPorts = [ 4380 27036 ];
+    allowedUDPPorts = [
+      4380
+      27036
+    ];
     allowedUDPPortRanges = [
-      { from = 27000; to = 27100; } # Steam datagram relay / P2P
+      {
+        from = 27000;
+        to = 27100;
+      } # Steam datagram relay / P2P
     ];
   };
 }

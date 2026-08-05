@@ -3,7 +3,8 @@
   config,
   inputs,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     gnome-tweaks
     networkmanagerapplet

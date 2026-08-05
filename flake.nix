@@ -33,7 +33,7 @@
             settings.global.excludes = [ "*.age" ];
             settings.formatter = {
               jsonc = {
-                command = "${pkgs.nodePackages.prettier}/bin/prettier";
+                command = "${pkgs.prettier}/bin/prettier";
                 includes = [ "*.jsonc" ];
               };
               scripts = {
@@ -88,10 +88,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell.url = "github:AvengeMedia/DankMaterialShell";
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
-      inputs.quickshell.follows = "quickshell";
-    };
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -3,14 +3,19 @@
   user,
   lib,
   ...
-}: {
+}:
+{
   programs.clash-verge = {
     enable = false;
     package = pkgs.clash-verge-rev;
     tunMode = true;
   };
 
-  networking.firewall.trustedInterfaces = ["Mihomo" "mihomo" "tun0"];
+  networking.firewall.trustedInterfaces = [
+    "Mihomo"
+    "mihomo"
+    "tun0"
+  ];
 
   environment.systemPackages = with pkgs; [
     mihomo
@@ -21,7 +26,10 @@
     description = "Mihomo Party";
     wantedBy = [ "graphical-session.target" ];
     wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" "network.target" ];
+    after = [
+      "graphical-session.target"
+      "network.target"
+    ];
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.mihomo-party}/bin/mihomo-party";
@@ -85,7 +93,7 @@
   #};
 
   # 创建 tun 组并添加用户，用于 TUN 设备访问权限
-  users.groups.tun = {};
+  users.groups.tun = { };
 
   # Allow mihomo to run with elevated permissions for TUN mode
   security.wrappers.mihomo = {
@@ -98,8 +106,8 @@
   # TUN 模式需要的服务配置
   systemd.services.mihomo-tun-setup = {
     description = "Setup TUN device for mihomo";
-    wantedBy = ["multi-user.target"];
-    after = ["network.target"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;

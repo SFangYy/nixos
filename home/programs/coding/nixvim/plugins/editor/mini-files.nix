@@ -14,28 +14,28 @@
       };
     };
     keymaps = [
-    {
-      mode = "n";
-      action.__raw = ''
-        function()
-          local ok, _ = pcall(require, "mini.files")
-          if not ok then
-            vim.notify(
-              "mini-files 未加载，请检查插件是否启用",
-              vim.log.levels.WARN,
-              { title = "mini-files" }
-            )
-            return
+      {
+        mode = "n";
+        action.__raw = ''
+          function()
+            local ok, _ = pcall(require, "mini.files")
+            if not ok then
+              vim.notify(
+                "mini-files 未加载，请检查插件是否启用",
+                vim.log.levels.WARN,
+                { title = "mini-files" }
+              )
+              return
+            end
+            MiniFiles.open()
           end
-          MiniFiles.open()
-        end
-      '';
-      key = "-";
-      options = {
-        silent = true;
-        desc = "快捷文件操作";
-      };
-    }
-  ];
+        '';
+        key = "-";
+        options = {
+          silent = true;
+          desc = "快捷文件操作";
+        };
+      }
+    ];
   };
 }

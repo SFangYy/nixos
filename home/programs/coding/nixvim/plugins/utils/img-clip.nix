@@ -4,7 +4,7 @@
     plugins.img-clip.lazyLoad = {
       enable = true;
       settings = {
-        event = ["User LazyFile"];
+        event = [ "User LazyFile" ];
       };
     };
   };

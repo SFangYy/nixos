@@ -8,7 +8,15 @@
           "InsertEnter"
           "CmdlineEnter"
         ];
-        cmd = ["AvanteFocus" "AvanteRefresh" "AvanteToggle" "AvanteModels" "AvanteAsk" "AvanteEdit" "AvanteStop"];
+        cmd = [
+          "AvanteFocus"
+          "AvanteRefresh"
+          "AvanteToggle"
+          "AvanteModels"
+          "AvanteAsk"
+          "AvanteEdit"
+          "AvanteStop"
+        ];
       };
     };
     plugins.avante.settings = {

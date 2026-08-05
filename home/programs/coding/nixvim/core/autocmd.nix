@@ -45,7 +45,11 @@
     {
       desc = "部分文档文件开启自动软换行";
       event = "FileType";
-      pattern = ["markdown" "md" "text"];
+      pattern = [
+        "markdown"
+        "md"
+        "text"
+      ];
       callback = {
         __raw = ''
           function()
@@ -126,7 +130,11 @@
     {
       desc = "mini-indentscope排除首页的缩进线";
       event = "FileType";
-      pattern = ["dashboard" "alpha" "snacks_dashboard"];
+      pattern = [
+        "dashboard"
+        "alpha"
+        "snacks_dashboard"
+      ];
       once = true;
       callback = {
         __raw = ''
@@ -165,7 +173,10 @@
 
     {
       desc = "自定义事件LazyFile";
-      event = ["BufReadPost" "BufNewFile"];
+      event = [
+        "BufReadPost"
+        "BufNewFile"
+      ];
       once = true;
       callback = {
         __raw = ''

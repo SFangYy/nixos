@@ -15,12 +15,12 @@ NOTE_FILE="$HOME/work/$VAULT_NAME/$DAILY_REL_PATH/$DATE.md"
 if [ ! -f "$NOTE_FILE" ]; then
     echo "Daily note for $DATE not found."
     echo "Requesting Obsidian to create it via Advanced URI..."
-    
+
     # Call Obsidian to create the daily note (apply templates, etc.)
     xdg-open "obsidian://advanced-uri?vault=$VAULT_NAME&daily=true" > /dev/null 2>&1
-    
+
     echo "Waiting for file creation..."
-    
+
     # Wait for the file to appear (timeout after ~10 seconds)
     for i in $(seq 1 20); do
         if [ -f "$NOTE_FILE" ]; then

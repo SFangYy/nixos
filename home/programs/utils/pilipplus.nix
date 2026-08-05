@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   pilipplus-launcher = pkgs.writeShellScriptBin "pilipplus" ''
@@ -13,7 +18,16 @@ let
       exit 1
     fi
 
-    export LD_LIBRARY_PATH=${lib.makeLibraryPath [pkgs.mpv pkgs.libepoxy pkgs.libayatana-appindicator pkgs.libayatana-indicator pkgs.ayatana-ido pkgs.libdbusmenu]}:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=${
+      lib.makeLibraryPath [
+        pkgs.mpv
+        pkgs.libepoxy
+        pkgs.libayatana-appindicator
+        pkgs.libayatana-indicator
+        pkgs.ayatana-ido
+        pkgs.libdbusmenu
+      ]
+    }:$LD_LIBRARY_PATH
     exec appimage-run "$APPIMAGE_PATH" "$@"
   '';
 
@@ -30,7 +44,8 @@ let
     MimeType=x-scheme-handler/bili;
   '';
 
-in {
+in
+{
   home.packages = [ pilipplus-launcher ];
   xdg.dataFile = {
     "applications/pilipplus.desktop".source = desktopFile;

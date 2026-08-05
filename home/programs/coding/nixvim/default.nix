@@ -30,7 +30,8 @@
     };
 
     highlightOverride = lib.mkIf (config.stylix.enable or false) (
-      with config.lib.stylix.colors.withHashtag; {
+      with config.lib.stylix.colors.withHashtag;
+      {
         CursorLineNr = {
           bg = base01;
           fg = base06;
@@ -56,7 +57,10 @@
       listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
       inccommand = "split";
       spell = true;
-      spelllang = [ "en_us" "cjk" ];
+      spelllang = [
+        "en_us"
+        "cjk"
+      ];
       spellsuggest = "best,4";
     };
     keymaps = [

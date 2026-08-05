@@ -29,23 +29,21 @@
       eza
       fd
       davfs2
-      pay-respects  # Command correction tool (like thefuck)
-      netcat-openbsd  # For SSH SOCKS5 proxy (nc -X 5)
-      nmap  # For SSH HTTP proxy (ncat --proxy-type http)
+      pay-respects # Command correction tool (like thefuck)
+      netcat-openbsd # For SSH SOCKS5 proxy (nc -X 5)
+      nmap # For SSH HTTP proxy (ncat --proxy-type http)
     ];
 
     activation = {
-      ensure-xauthority =
-        lib.hm.dag.entryAfter [ "writeBoundary" ]
-          ''
-            XAUTHORITY_FILE="${config.home.homeDirectory}/.Xauthority"
+      ensure-xauthority = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        XAUTHORITY_FILE="${config.home.homeDirectory}/.Xauthority"
 
-            if [ ! -e "$XAUTHORITY_FILE" ]; then
-              install -m 600 /dev/null "$XAUTHORITY_FILE"
-            else
-              chmod 600 "$XAUTHORITY_FILE"
-            fi
-          '';
+        if [ ! -e "$XAUTHORITY_FILE" ]; then
+          install -m 600 /dev/null "$XAUTHORITY_FILE"
+        else
+          chmod 600 "$XAUTHORITY_FILE"
+        fi
+      '';
 
       fix-ssh-config =
         lib.hm.dag.entryAfter [ "writeBoundary" ]
@@ -64,16 +62,10 @@
               install -m 600 "$TMP_CONFIG" "$HM_SSH_CONFIG"
               rm -f "$TMP_CONFIG"
             fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active dms.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop dms.service
-            fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active caelestia.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop caelestia.service
-            fi
             if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service; then
               run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia.service
             fi
-            run --silence ${pkgs.systemd}/bin/systemctl --user start ${if config.desktopShell == "noctalia-shell" then "noctalia" else config.desktopShell}.service || true
+            run --silence ${pkgs.systemd}/bin/systemctl --user start noctalia.service || true
           '';
     };
 

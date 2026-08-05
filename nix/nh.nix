@@ -15,7 +15,9 @@
       dates = "daily";
       extraArgs =
         let
-          numColorschemes = builtins.length self.nixosConfigurations.${host}.config.home-manager.users.${user}.colorSchemes;
+          numColorschemes =
+            builtins.length
+              self.nixosConfigurations.${host}.config.home-manager.users.${user}.colorSchemes;
           numToKeep = numColorschemes * 2 |> toString;
         in
         "--keep ${numToKeep}";

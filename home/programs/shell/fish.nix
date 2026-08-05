@@ -51,7 +51,8 @@
         vim = "nvim";
         n = "nvim";
         vi = "nvim";
-      } // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
+      }
+      // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
         # NixOS Specific
         nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
         nixc = "sudo systemctl start nh-clean.service";

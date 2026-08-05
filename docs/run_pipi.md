@@ -3,6 +3,7 @@
 在 NixOS 上运行 AppImage 有时会比较复杂，因为 NixOS 独特的系统设计，它不遵循大多数 Linux 应用程序所期望的传统文件系统层次结构标准（FHS）。
 
 `PiliPlus_linux_2.0.1+4775_amd64.AppImage` 这个程序需要在 NixOS 上满足两个条件才能正确运行：
+
 1.  一个名为 `appimage-run` 的包装工具，用于创建一个兼容的运行环境。
 2.  一系列该 AppImage 缺失但又是必需的依赖库，这些库需要由 Nix 系统提供。
 
@@ -12,13 +13,13 @@
 
 经过一系列的排查，我们发现需要通过 Nix 安装以下软件包来满足此应用程序的全部依赖：
 
-*   `appimage-run`
-*   `mpv`
-*   `libepoxy`
-*   `libayatana-appindicator`
-*   `libayatana-indicator`
-*   `ayatana-ido`
-*   `libdbusmenu`
+- `appimage-run`
+- `mpv`
+- `libepoxy`
+- `libayatana-appindicator`
+- `libayatana-indicator`
+- `ayatana-ido`
+- `libdbusmenu`
 
 ## 一次性运行命令
 
@@ -47,7 +48,7 @@ nix-shell -p appimage-run mpv libepoxy libayatana-appindicator libayatana-indica
     nix-shell -p appimage-run mpv libepoxy libayatana-appindicator libayatana-indicator ayatana-ido libdbusmenu --run '
       # 手动设置 LD_LIBRARY_PATH，强制链接器在 Nix store 中查找所有必需的库
       export LD_LIBRARY_PATH=$(nix-build --no-out-link "<nixpkgs>" -A mpv)/lib:$(nix-build --no-out-link "<nixpkgs>" -A libepoxy)/lib:$(nix-build --no-out-link "<nixpkgs>" -A libayatana-appindicator)/lib:$(nix-build --no-out-link "<nixpkgs>" -A libayatana-indicator)/lib:$(nix-build --no-out-link "<nixpkgs>" -A ayatana-ido)/lib:$(nix-build --no-out-link "<nixpkgs>" -A libdbusmenu)/lib:$LD_LIBRARY_PATH;
-      
+
       # 使用 appimage-run 启动 AppImage
       appimage-run ./PiliPlus_linux_2.0.1+4775_amd64.AppImage
     '
@@ -55,6 +56,7 @@ nix-shell -p appimage-run mpv libepoxy libayatana-appindicator libayatana-indica
 
 2.  **让脚本文件可执行**：
     在终端中运行以下命令：
+
     ```bash
     chmod +x run-piliplus.sh
     ```

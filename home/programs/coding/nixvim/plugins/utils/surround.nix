@@ -4,7 +4,7 @@
     plugins.nvim-surround.lazyLoad = {
       enable = true;
       settings = {
-        event = ["User LazyFile"];
+        event = [ "User LazyFile" ];
       };
     };
   };

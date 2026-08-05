@@ -4,7 +4,7 @@
 # 它提供了一个简单的倒计时定时器和任务管理功能，所有内容显示在一个浮动窗口中
 # 如果你不需要可以更换为其他GitHub插件或者删除该文件("which-key.nix"与"autocmd.nix"中的相关设置也应该删除)
 # 该插件，使用neovim提供的api不依赖其他插件，因为功能简单所以我没有编写太多的人性化服务与防呆设计所以该插件能用但不是很好用。
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.nixvim = {
     extraPlugins = [
       (pkgs.vimUtils.buildVimPlugin {
@@ -56,78 +56,78 @@
     '';
 
     keymaps = [
-    {
-      mode = "n";
-      key = "<leader>os";
-      action = "<cmd>ObsessToggle<cr>";
-      options = {
-        silent = true;
-        desc = "切换窗口";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>oc";
-      action = "<cmd>ObsessClose<cr>";
-      options = {
-        silent = true;
-        desc = "注销";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>oo";
-      action = "<cmd>ObsessTimer<cr>";
-      options = {
-        silent = true;
-        desc = "设置定时器(分)";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>ol";
-      action = "<cmd>ObsessTimerSec<cr>";
-      options = {
-        silent = true;
-        desc = "设置定时器(秒)";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>oa";
-      action = "<cmd>ObsessTaskAdd<cr>";
-      options = {
-        silent = true;
-        desc = "添加任务";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>ot";
-      action = "<cmd>ObsessTaskDone<cr>";
-      options = {
-        silent = true;
-        desc = "切换任务状态";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>od";
-      action = "<cmd>ObsessTaskDel<cr>";
-      options = {
-        silent = true;
-        desc = "删除任务";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>oe";
-      action = "<cmd>ObsessTaskClear<cr>";
-      options = {
-        silent = true;
-        desc = "清空任务列表";
-      };
-    }
-  ];
+      {
+        mode = "n";
+        key = "<leader>os";
+        action = "<cmd>ObsessToggle<cr>";
+        options = {
+          silent = true;
+          desc = "切换窗口";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>oc";
+        action = "<cmd>ObsessClose<cr>";
+        options = {
+          silent = true;
+          desc = "注销";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>oo";
+        action = "<cmd>ObsessTimer<cr>";
+        options = {
+          silent = true;
+          desc = "设置定时器(分)";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>ol";
+        action = "<cmd>ObsessTimerSec<cr>";
+        options = {
+          silent = true;
+          desc = "设置定时器(秒)";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>oa";
+        action = "<cmd>ObsessTaskAdd<cr>";
+        options = {
+          silent = true;
+          desc = "添加任务";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>ot";
+        action = "<cmd>ObsessTaskDone<cr>";
+        options = {
+          silent = true;
+          desc = "切换任务状态";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>od";
+        action = "<cmd>ObsessTaskDel<cr>";
+        options = {
+          silent = true;
+          desc = "删除任务";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>oe";
+        action = "<cmd>ObsessTaskClear<cr>";
+        options = {
+          silent = true;
+          desc = "清空任务列表";
+        };
+      }
+    ];
   };
 }

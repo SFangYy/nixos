@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.nixvim = {
     plugins.treesitter = {
       enable = true;
@@ -41,7 +41,7 @@
       enable = true;
       settings = {
         # event = ["FileType"];
-        event = ["User LazyFile"];
+        event = [ "User LazyFile" ];
       };
     };
   };
