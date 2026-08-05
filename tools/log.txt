@@ -1,0 +1,178 @@
+
+===== basic identity and environment =====
+date: Wed Jul 22 09:36:27 AM CST 2026
+user: uid=1000(sfangyy) gid=100(users) groups=100(users),1(wheel),26(video),31(davfs2),57(networkmanager),67(libvirtd),174(input),302(kvm),983(tun),984(podman)
+HOME=/home/sfangyy
+SHELL=/run/current-system/sw/bin/fish
+PATH=/home/sfangyy/.local/bin:/home/sfangyy/.juliaup/bin:/home/sfangyy/.local/bin:/run/wrappers/bin:/home/sfangyy/.local/share/flatpak/exports/bin:/var/lib/flatpak/exports/bin:/home/sfangyy/.nix-profile/bin:/nix/profile/bin:/home/sfangyy/.local/state/nix/profile/bin:/etc/profiles/per-user/sfangyy/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin
+PWD=/home/sfangyy/Documents/200-Work/220-EnvTools/nixos/tools
+
+===== home directory ownership and write test =====
++ ls -ld /home/sfangyy
+drwx------ 55 sfangyy users 4096 Jul 22 09:35 /home/sfangyy
+shell reports: HOME is writable
+create test: OK (VS Code Server can create files under HOME)
+
+===== filesystem mount status =====
++ findmnt -T /home/sfangyy -o TARGET,SOURCE,FSTYPE,OPTIONS
+TARGET SOURCE         FSTYPE OPTIONS
+/      /dev/nvme0n1p2 ext4   rw,relatime
+
+===== disk and inode usage =====
++ df -h /home/sfangyy /tmp
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p2  468G  337G  108G  76% /
+/dev/nvme0n1p2  468G  337G  108G  76% /
++ df -ih /home/sfangyy /tmp
+Filesystem     Inodes IUsed IFree IUse% Mounted on
+/dev/nvme0n1p2    30M  4.1M   26M   14% /
+/dev/nvme0n1p2    30M  4.1M   26M   14% /
+
+===== NixOS and nix-ld =====
++ nixos-version
+26.11.20260614.8cbc2e9 (Zokor)
++ nixos-option programs.nix-ld.enable
+nix-ld executable: not found in PATH
+
+===== required commands =====
+bash     /run/current-system/sw/bin/bash
+sh       /run/current-system/sw/bin/sh
+tar      /run/current-system/sw/bin/tar
+gzip     /run/current-system/sw/bin/gzip
+curl     /run/current-system/sw/bin/curl
+wget     /run/current-system/sw/bin/wget
+
+===== default shell and non-interactive shell output =====
+sfangyy:x:1000:100:Eden Lee:/home/sfangyy:/run/current-system/sw/bin/fish
+-- bash --
+bash start
+bash end
+-- fish --
+fish start
+fish end
+
+===== VS Code Server files and processes =====
+/home/sfangyy/.vscode-server does not exist
+no VS Code Server process found
+
+===== shell startup files (first 160 lines) =====
+--- /home/sfangyy/.config/fish/config.fish
+# ~/.config/fish/config.fish: DO NOT EDIT -- this file has been generated
+# automatically by home-manager.
+
+# Only execute this file once per shell.
+set -q __fish_home_manager_config_sourced; and exit
+set -g __fish_home_manager_config_sourced 1
+
+source /nix/store/33271k3l81nrilzyp5mybxpacav9c7p1-hm-session-vars.fish/etc/profile.d/hm-session-vars.fish
+
+# Source handler functions
+
+export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
+
+if test -n "$container"
+    export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$HOME/.npm-global/bin:$PATH"
+    if test -f /home/linuxbrew/.linuxbrew/bin/brew
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+    end
+end
+
+set -g fish_color_command blue --italics
+set -g fish_color_quote yellow --italics
+set -g fish_key_bindings fish_vi_key_bindings
+
+status is-login; and begin
+
+    # Login shell initialisation
+
+end
+
+status is-interactive; and begin
+
+    # Abbreviations
+    abbr --add -- .. 'cd ..'
+    abbr --add -- ... 'cd ../..'
+    abbr --add -- g git
+    abbr --add -- ga 'git add'
+    abbr --add -- gb 'git branch'
+    abbr --add -- gc 'git commit -m'
+    abbr --add -- gcl 'git clone'
+    abbr --add -- gco 'git checkout'
+    abbr --add -- gd 'git diff'
+    abbr --add -- gl 'git pull'
+    abbr --add -- glog 'git log --oneline --graph --decorate'
+    abbr --add -- gp 'git push'
+    abbr --add -- gst 'git status'
+    abbr --add -- md 'mkdir -p'
+    abbr --add -- n nvim
+    abbr --add -- nixc 'sudo systemctl start nh-clean.service'
+    abbr --add -- nixu 'NH_ELEVATION_STRATEGY=sudo nh os switch --ask'
+    abbr --add -- s ssh
+    abbr --add -- s3 'ssh songfangyuan@172.19.20.3'
+    abbr --add -- sa ssh-add
+    abbr --add -- sl 'ssh-add -l'
+    abbr --add -- vi nvim
+    abbr --add -- vim nvim
+
+    # Aliases
+    alias docker podman
+    alias l 'exa -lah --icons=auto'
+    alias ls exa
+
+    # Interactive shell initialisation
+    # Initialize pay-respects (command correction tool)
+    if type -q pay-respects
+        pay-respects fish --alias | source
+    end
+
+    # Toggle sudo with Alt+s
+    function __toggle_sudo
+        set -l cmd (commandline)
+        [ -z "$cmd" ] && set cmd $history[1]
+        if string match -q "sudo *" "$cmd"
+            commandline -r (string replace -r '^sudo ' "" "$cmd")
+        else
+            commandline -r "sudo $cmd"
+        end
+    end
+    bind \es __toggle_sudo
+
+    /nix/store/rm4j8cv6xnmwc6ys4zdfpwamkmn8g1cd-zoxide-0.9.9/bin/zoxide init fish | source
+
+    if test "$TERM" != dumb
+        /nix/store/2iyzhxjwbpir2n2xaqgq14v8455kbrri-starship-1.25.1/bin/starship init fish | source
+
+    end
+
+    /nix/store/f52h3wql7bxfn4nrps0gg8g9fgljb8b2-pay-respects-0.8.8/bin/pay-respects fish --alias | source
+
+    function __fish_command_not_found_handler --on-event fish_command_not_found
+        /nix/store/jmf35wf7l2gmh8rx65q7pah38m1s555x-command-not-found $argv
+    end
+
+    if set -q KITTY_INSTALLATION_DIR
+        set --global KITTY_SHELL_INTEGRATION no-rc
+        source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
+        set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
+    end
+
+    # add completions generated by Home Manager to $fish_complete_path
+    begin
+        set -l joined (string join " " $fish_complete_path)
+        set -l prev_joined (string replace --regex "[^\s]*generated_completions.*" "" $joined)
+        set -l post_joined (string replace $prev_joined "" $joined)
+        set -l prev (string split " " (string trim $prev_joined))
+        set -l post (string split " " (string trim $post_joined))
+        set fish_complete_path $prev "/home/sfangyy/.local/share/fish/home-manager/generated_completions" $post
+    end
+
+end
+
+===== interpretation =====
+Look for these results:
+  - create test FAILED with "Read-only file system": the actual HOME filesystem is read-only.
+  - HOME is writable but default shell is fish: test with bash as the login shell; VS Code Remote-SSH expects POSIX shell behavior.
+  - nix-ld is false/not found, or logs mention ld-linux/shared libraries: enable programs.nix-ld.enable and rebuild.
+  - ~/.vscode-server does not exist: installation failed before Server startup; inspect the VS Code Remote-SSH trace log and shell output.
+
+Diagnostic complete. No NixOS or Home Manager configuration was changed.

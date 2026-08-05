@@ -85,8 +85,6 @@
     #   configFile = "/home/${user}/.config/dae/config.dae";
     # };
 
-    flatpak.enable = true;
-
     upower.enable = true;
 
     udisks2.enable = true;
@@ -117,7 +115,10 @@
   documentation.man.generateCaches = true;
 
   users.users.${user} = {
-    shell = pkgs.fish;
+    # VS Code Remote-SSH executes POSIX shell startup scripts on the remote
+    # host. Keep the login shell POSIX-compatible; fish can still be launched
+    # from interactive terminals via the user's shell configuration.
+    shell = pkgs.bashInteractive;
     isNormalUser = true;
     description = "Eden Lee";
     extraGroups = [

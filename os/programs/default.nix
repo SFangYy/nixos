@@ -4,7 +4,7 @@
     ./basic.nix
     ./doas.nix
     ./niri.nix
-    ./steam.nix
+    # ./steam.nix
     ./waydroid.nix
     ./tuigreet.nix
     ./clash.nix

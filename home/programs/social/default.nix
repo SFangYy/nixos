@@ -1,9 +1,7 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     # telegram-desktop
-    fractal
-    wechat
     wemeet
   ];
 }

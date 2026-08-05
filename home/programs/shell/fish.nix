@@ -6,6 +6,17 @@
 }:
 {
   programs = {
+    bash = {
+      enable = true;
+
+      # Keep the login shell POSIX-compatible for SSH/VS Code Remote-SSH.
+      # Only interactive bash sessions are replaced by fish.
+      initExtra = ''
+        if [[ $- == *i* ]] && command -v fish >/dev/null 2>&1; then
+          exec fish
+        fi
+      '';
+    };
     zoxide = {
       enable = true;
       enableFishIntegration = true;
@@ -53,6 +64,13 @@
       shellInit = ''
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
 
+        # The formal FHS environment exports its dedicated picker wrapper.
+        # Re-prepend it after the user-local PATH setup above so a globally
+        # installed picker cannot shadow the formal-specific version.
+        if test -n "$FORMAL_PICKER_BIN"
+          set -gx PATH "$FORMAL_PICKER_BIN" $PATH
+        end
+
         if test -n "$container"
           export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$HOME/.npm-global/bin:$PATH"
           if test -f /home/linuxbrew/.linuxbrew/bin/brew
@@ -94,6 +112,18 @@
       ];
       functions = {
         fish_greeting = "";
+        codex-api = ''
+          set -l codex_home "$HOME/.codex-api"
+          command mkdir -p -- "$codex_home"; or return
+          set -lx CODEX_HOME "$codex_home"
+          command codex $argv
+        '';
+        codex-auth = ''
+          set -l codex_home "$HOME/.codex-auth"
+          command mkdir -p -- "$codex_home"; or return
+          set -lx CODEX_HOME "$codex_home"
+          command codex $argv
+        '';
         fnos = ''
           /home/${config.home.username}/scripts/mount-fnos $argv
         '';

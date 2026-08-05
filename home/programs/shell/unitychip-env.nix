@@ -33,6 +33,8 @@
     libselinux
     pcre2
     libsepol
+    ncurses5
+    gmp
     xorg.libX11
     xorg.libXcomposite
     xorg.libXcursor
@@ -123,6 +125,7 @@ in {
         glibc
         libxcrypt
         ncurses5
+        gmp
         libxcrypt-legacy
         krb5
         dbus
@@ -147,7 +150,6 @@ in {
         bc
         time
         lcov
-        pkgs.tmux
 
         # Shell
         bash
@@ -158,7 +160,8 @@ in {
         python312
         pkgs.uv
         git
-        pkgs.verilator
+        # Keep generated picker code compatible with the Verilator 5.018 API.
+        pkgsOld.verilator
         verible
         pkgs.swig
         pkgs.gcc.cc.lib
@@ -213,7 +216,7 @@ in {
           fi
         fi
       '';
-      runScript = "bash -c 'cd ~/work; tmux new-session -A -s unitychip fish; exec fish'";
+      runScript = "bash -c 'cd ~/work; exec fish'";
     })
   ];
 }

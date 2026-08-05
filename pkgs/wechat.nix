@@ -63,7 +63,7 @@ let
       .${system};
     hash =
       {
-        x86_64-linux = "sha256-vTTkuFm1LhAqVvuynIfYdROPf19nfCQIOGhw6Z+dOeo=";
+        x86_64-linux = "sha256-RX26ArkbAxzdRBLu4HT7v/udnQax5Q/Bgi00hw4RSZA=";
         aarch64-linux = "sha256-OTh4hLeBfbF4bLFyByCIPUxa5OCUMbOjIvEt0qQIHE4=";
         x86_64-darwin = "sha256-We+pyfSHDyplxcgMSdkpH9w6f92sgiG3XHi3yGN6DfA=";
         aarch64-darwin = "sha256-uoCWwHoIiloi/bq6zDN6F6CkED0aTWeEWeyVbTcNboc=";

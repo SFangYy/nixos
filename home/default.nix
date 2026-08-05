@@ -25,7 +25,6 @@
 
       # utils
       ripgrep
-      zoxide
       fzf
       eza
       fd

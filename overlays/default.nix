@@ -28,6 +28,9 @@
       passthru.providedSessions = [ "scroll" ];
     });
     inherit (inputs.awww.packages.${final.stdenv.hostPlatform.system}) awww;
+    # fish 4.8 removed create_manpage_completions.py, which nixpkgs' generic
+    # fish-completions hook still invokes for packages with man pages.
+    fish = inputs.nixpkgs-stable.legacyPackages.${final.stdenv.hostPlatform.system}.fish;
     libfprint = prev.libfprint.overrideAttrs (oldAttrs: {
       src = final.fetchFromGitLab {
         domain = "gitlab.freedesktop.org";
@@ -36,6 +39,10 @@
         rev = "d79f157282085738ea8ffbe8c2ae96fb8b3ad831";
         hash = "sha256-Ek5MxO+XgTeJ1wty0+WiMf1PUKJTyo/TjIgjWQV8wt8=";
       };
+      # This support is already present in the pinned upstream source.
+      patches = builtins.filter (
+        patch: !(final.lib.hasInfix "focal-077a-079a" (builtins.baseNameOf (toString patch)))
+      ) oldAttrs.patches;
     });
   };
 

@@ -16,6 +16,21 @@
   fixedLicenseSource = "${config.home.homeDirectory}/.config/nixos/docs/${fixedLicenseFile}";
   formalHome = "${config.home.homeDirectory}/EDAHome/HimaFormal";
   formalLicensePath = "${formalHome}/${fixedLicenseFile}";
+  formalPicker = pkgs.writeShellScriptBin "picker" ''
+    set -euo pipefail
+
+    pickerRoot="/home/${config.home.username}/work/test/formal_picker"
+    pickerBin="$pickerRoot/build/bin/picker"
+
+    if [ ! -x "$pickerBin" ]; then
+      echo "formal picker is not built: $pickerBin" >&2
+      echo "Build it with: cd $pickerRoot && make" >&2
+      exit 127
+    fi
+
+    export LD_LIBRARY_PATH="$pickerRoot/build/lib:$pickerRoot/dependence/xcomm/build/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+    exec "$pickerBin" "$@"
+  '';
   formalLicenseServer = pkgs.writeShellScript "formal-license-server" ''
     set -euo pipefail
 
@@ -127,7 +142,10 @@ in {
         file
         which
         binutils
+        # Keep the C++ compiler and libstdc++ ABI consistent inside the FHS env.
+        (pkgsOld.lib.hiPrio pkgsOld.gcc)
         gnumake
+        time
 
         # X11 libraries
         (if pkgsTarget ? libx11 then pkgsTarget.libx11 else pkgsTarget.xorg.libX11)
@@ -171,6 +189,16 @@ in {
         openssl_1_0
 
         python312
+
+        # Build and language-binding tools
+        cmake
+        # Keep generated picker code compatible with the Verilator 5.018 API.
+        pkgsOld.verilator
+        pkgs.swig
+        # Verilator FST tracing compiles fstcpp_writer.cpp, which needs lz4.h.
+        pkgs.lz4
+        pkgs.lz4.dev
+        formalPicker
         
         # Shell
         bash
@@ -179,7 +207,11 @@ in {
       ]);
       profile = ''
         export AVIS_HOME=$HOME/EDAHome/HimaFormal
-        export PATH=$AVIS_HOME/bin:$PATH
+        # Prefer the formal environment's toolchain over host/user binaries.
+        # In particular, the host /usr/bin/swig may be 3.x, while formal
+        # requires the Nix-provided SWIG 4.x.
+        export FORMAL_PICKER_BIN=${formalPicker}/bin
+        export PATH=$FORMAL_PICKER_BIN:${pkgs.swig}/bin:${pkgsOld.verilator}/bin:${pkgs.cmake}/bin:$AVIS_HOME/bin:$PATH
 
         # Use OpenSSL 1.0 from Nix store first; keep .so.10 compatibility symlinks.
         export OPENSSL_LEGACY_DIR=$HOME/.local/share/openssl-legacy

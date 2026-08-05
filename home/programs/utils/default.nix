@@ -5,7 +5,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    zoxide
     gnome-tweaks
     networkmanagerapplet
     wayland-logout
@@ -47,30 +46,29 @@
     showtime
     nautilus
     gnome-disk-utility
-    upower
     # rustdesk
     etxlauncher
-    xunlei-uos
+    # xunlei-uos
     remmina
     localsend
     # PiliPlus dependencies
-    mpv
-    libepoxy
-    libayatana-appindicator
-    libayatana-indicator
-    ayatana-ido
-    libdbusmenu
-    android-tools
+    #mpv
+    #libepoxy
+    #libayatana-appindicator
+    #libayatana-indicator
+    #ayatana-ido
+    #libdbusmenu
+    #android-tools
     tree-sitter
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.agenix
     evtest
   ];
   imports = [
     ./eye-candy.nix
-    ./obs.nix
+    #./obs.nix
     ./music.nix
     ./ai.nix
-    ./pilipplus.nix
+    #./pilipplus.nix
   ];
   programs.pay-respects.enable = true;
 }

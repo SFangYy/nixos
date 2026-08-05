@@ -13,7 +13,6 @@
   networking.firewall.trustedInterfaces = ["Mihomo" "mihomo" "tun0"];
 
   environment.systemPackages = with pkgs; [
-    clash-meta
     mihomo
     mihomo-party
   ];
