@@ -184,9 +184,9 @@
 
           "Super+Alt+R".action = spawn "bash" "/home/${user}/scripts/record-screen-toggle";
 
-          "Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy";
+          "Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp)\" - | satty --filename -";
           "Ctrl+Super+S".action = spawn "sh" "-c" "grim - | wl-copy";
-          "Alt+Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp -f '%o')\" - | wl-copy";
+          "Alt+Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp -f '%o')\" - | satty --filename -";
 
           "Super+Alt+M".action = set-dynamic-cast-monitor;
           "Super+Alt+W".action = set-dynamic-cast-window;

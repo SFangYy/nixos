@@ -21,9 +21,10 @@
     wmname
     grim
     slurp
+    satty
     wf-recorder
     inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
-    halley
+    # halley
   ];
   home.file."scripts" = {
     source = ./scripts;
