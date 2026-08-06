@@ -89,7 +89,7 @@
 
     udisks2.enable = true;
 
-    power-profiles-daemon.enable = true;
+    tuned.enable = true;
   };
 
   security = {

@@ -13,4 +13,6 @@
   services.displayManager.sessionPackages = [
     pkgs.halley
   ];
+
+  programs.steam.enable = true;
 }

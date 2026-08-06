@@ -581,26 +581,6 @@
         "type": "github"
       }
     },
-    "nil": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1765326831,
-        "narHash": "sha256-18j8X2Nbe0Wg1+7YrWRlYzmjZ5Wq0NCVwJHJlBIw/dc=",
-        "owner": "oxalica",
-        "repo": "nil",
-        "rev": "504599f7e555a249d6754698473124018b80d121",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "nil",
-        "type": "github"
-      }
-    },
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -1205,7 +1185,6 @@
         "home-manager": "home-manager_2",
         "kimi-cli": "kimi-cli",
         "nh": "nh",
-        "nil": "nil",
         "niri": "niri",
         "niri-unstable": "niri-unstable",
         "nixd": "nixd",

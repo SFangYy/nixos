@@ -61,6 +61,7 @@
         "ls" = "exa";
         "l" = "exa -lah --icons=auto";
         "docker" = "podman";
+        "analyze" = "ls *.Rmd | fzf | xargs -I {} R -e \"rmarkdown::render('{}', quiet = FALSE)\"";
       };
       shellInit = ''
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
