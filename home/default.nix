@@ -9,7 +9,6 @@
   imports = [
     ./lib
     ./programs
-    ./tweaks
     ./services/webdav.nix
   ];
 
@@ -45,31 +44,13 @@
         fi
       '';
 
-      fix-ssh-config =
-        lib.hm.dag.entryAfter [ "writeBoundary" ]
-          # bash
-          ''
-            SSH_DIR="${config.home.homeDirectory}/.ssh"
-            HM_SSH_CONFIG="$SSH_DIR/config"
-            TMP_CONFIG="$SSH_DIR/config.hm.tmp"
-
-            mkdir -p "$SSH_DIR"
-            chmod 700 "$SSH_DIR"
-
-            if [ -e "$HM_SSH_CONFIG" ]; then
-              cp "$HM_SSH_CONFIG" "$TMP_CONFIG"
-              rm -f "$HM_SSH_CONFIG"
-              install -m 600 "$TMP_CONFIG" "$HM_SSH_CONFIG"
-              rm -f "$TMP_CONFIG"
-            fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia.service
-            fi
-            run --silence ${pkgs.systemd}/bin/systemctl --user start noctalia.service || true
-          '';
+      restart-noctalia =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service &>/dev/null; then
+            run --silence ${pkgs.systemd}/bin/systemctl --user restart noctalia.service || true
+          fi
+        '';
     };
-
-    file.".ssh/config".force = true;
   };
 
   i18n.inputMethod = {

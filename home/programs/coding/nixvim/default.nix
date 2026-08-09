@@ -10,7 +10,9 @@
     ./plugins
   ];
 
-  stylix.targets.nixvim.enable = lib.mkDefault (config.stylix.enable or false);
+  # Keep Nixvim theme highlights in this module; Stylix's generated target
+  # currently pulls an invalid base16-schemes derivation during evaluation.
+  stylix.targets.nixvim.enable = false;
 
   programs.nixvim = {
     enable = true;

@@ -18,8 +18,6 @@ let
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
     ../secrets/age.nix
-    # inputs.dank-material-shell.homeModules.dank-material-shell
-    # inputs.caelestia-shell.homeManagerModules.default
     inputs.noctalia-shell.homeModules.default
   ]
   ++ (builtins.attrValues self.homeManagerModules);
@@ -54,6 +52,7 @@ let
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                backupFileExtension = "backup";
                 extraSpecialArgs = {
                   inherit
                     inputs
@@ -81,10 +80,6 @@ let
       user = "sfangyy";
       extraOSModules = [ ./inspiron/os.nix ];
       extraHomeModules = [ ./inspiron/home.nix ];
-      extraHomeArgs = {
-        nixosVersion = "unstable";
-        homeManagerVersion = "master";
-      };
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKqbqHz5O4f6nBoki57c6hekVqUiO4hvSb9k771i61YS";
     }
   ];

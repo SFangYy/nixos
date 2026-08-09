@@ -44,17 +44,7 @@ let
         |> builtins.concatLists
         |> builtins.concatStringsSep "\n"
       )
-      + "\n"
-      + (
-        if config.desktopShell == "caelestia" then
-          # bash
-          ''
-            caelestia wallpaper -f "/home/${user}/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${config.lib.monitors.mainMonitorName}-file)"
-            caelestia scheme set -n dynamic -m dark
-          ''
-        else
-          ""
-      );
+      + "\n";
   };
 in
 {

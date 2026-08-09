@@ -6,8 +6,6 @@
     ./terminal
     ./utils
     ./browser
-    ./documents
-    ./study
-    ./social
+    ./apps
   ];
 }

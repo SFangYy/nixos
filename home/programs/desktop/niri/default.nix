@@ -58,6 +58,7 @@
           ];
           "Super+O".action = spawn "obsidian";
           "Super+B".action = spawn "brave";
+          "Super+Shift+M".action = spawn "switch-to-macos";
 
           # --- Migrated from swhkd ---
           "Super+Q".action = close-window;
@@ -216,12 +217,7 @@
             spawn "/home/${user}/.nix-profile/bin/noctalia" "ipc" "call" "sessionMenu"
               "toggle";
 
-          "Super+Shift+W".action = spawn "sh" "-c" (
-            if config.desktopShell == "caelestia" then
-              "/home/${user}/scripts/change-wal-niri && caelestia wallpaper -f ~/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${config.lib.monitors.mainMonitorName}-file) && caelestia scheme set -n dynamic -m dark"
-            else
-              "/home/${user}/scripts/change-wal-niri"
-          );
+          "Super+Shift+W".action = spawn "sh" "-c" "/home/${user}/scripts/change-wal-niri";
         };
         window-rules =
           let

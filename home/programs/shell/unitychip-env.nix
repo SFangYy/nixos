@@ -200,6 +200,18 @@ in
         export UVM_HOME=$VCS_HOME/etc/uvm
         export PATH=$VCS_HOME/bin:$PATH
 
+        # Picker installs its Python bindings as support files rather than as a
+        # package in each virtual environment. Make them importable inside the
+        # UE development shell while leaving the rest of the user session
+        # untouched.
+        export PICKER_PYTHON_SUPPORT=$HOME/.local/share/picker/python
+        if [ -d "$PICKER_PYTHON_SUPPORT/xspcomm" ]; then
+          case ":''${PYTHONPATH-}:" in
+            *":$PICKER_PYTHON_SUPPORT:"*) ;;
+            *) export PYTHONPATH="$PICKER_PYTHON_SUPPORT''${PYTHONPATH:+:$PYTHONPATH}" ;;
+          esac
+        fi
+
         # Do not set a global LD_LIBRARY_PATH in the shell. Mixing old FHS
         # runtime libs into every command breaks newer host tools like swig and
         # flatpak. Only Verdi itself gets the extra loader path.

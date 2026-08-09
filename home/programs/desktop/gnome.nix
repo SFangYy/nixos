@@ -2,8 +2,6 @@
 {
   home.packages = with pkgs.gnomeExtensions; [
     user-themes
-    blur-my-shell
-    desktop-cube
     kimpanel
   ];
   dconf.settings = {
@@ -11,12 +9,8 @@
       disable-user-extensions = false;
       enabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "blur-my-shell@aunetx"
         "kimpanel@kde.org"
       ];
-    };
-    "org/gnome/mutter" = {
-      "experimental-features" = [ "scale-monitor-framebuffer" ];
     };
     "org/gnome/desktop/wm/keybindings" = {
       "close" = [ "<Super>q" ];

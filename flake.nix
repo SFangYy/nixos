@@ -15,7 +15,7 @@
         { _module.args = { inherit inputs self nixpkgs; }; }
       ];
       flake = {
-        homeManagerModules = import ./modules/home-manager;
+        homeManagerModules = import ./home/modules;
         overlays = import ./overlays { inherit inputs self; };
         templates = import ./templates;
       };
@@ -47,9 +47,7 @@
 
   inputs = {
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-r.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-new-libinput.url = "github:skowalak/nixpkgs/libinput-update-1.31.0";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,19 +69,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim.url = "github:nix-community/nixvim/nixos-25.11";
-    nixd = {
-      url = "github:nix-community/nixd";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nh.url = "github:nix-community/nh";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     agenix.url = "github:ryantm/agenix";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dank-material-shell.url = "github:AvengeMedia/DankMaterialShell";
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -93,8 +81,6 @@
       url = "github:Hy4ri/antigravity-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kimi-cli.url = "github:MoonshotAI/kimi-cli";
     awww.url = "git+https://codeberg.org/LGFae/awww";
-    waydeeper.url = "github:EdenQwQ/waydeeper";
   };
 }

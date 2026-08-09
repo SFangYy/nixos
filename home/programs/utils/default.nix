@@ -66,10 +66,9 @@
   ];
   imports = [
     ./eye-candy.nix
-    #./obs.nix
     ./music.nix
     ./ai.nix
-    #./pilipplus.nix
+    ./display.nix
   ];
   programs.pay-respects.enable = true;
 }
