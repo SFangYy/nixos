@@ -4,7 +4,7 @@
     plugins.aerial.lazyLoad = {
       enable = true;
       settings = {
-        event = ["LspAttach"];
+        event = [ "LspAttach" ];
       };
     };
     plugins.aerial.settings = {
@@ -32,15 +32,15 @@
     };
 
     keymaps = [
-    # 打开/关闭符号面板
-    {
-      action = "<cmd>AerialToggle<cr>";
-      key = "<leader>cs";
-      options = {
-        silent = true;
-        desc = "切换符号面板(Aerial)";
-      };
-    }
-  ];
+      # 打开/关闭符号面板
+      {
+        action = "<cmd>AerialToggle<cr>";
+        key = "<leader>cs";
+        options = {
+          silent = true;
+          desc = "切换符号面板(Aerial)";
+        };
+      }
+    ];
   };
 }

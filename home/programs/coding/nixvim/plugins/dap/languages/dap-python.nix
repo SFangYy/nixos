@@ -3,8 +3,8 @@
 {
   programs.nixvim = {
     plugins.dap-python.enable = true;
-    extraPython3Packages = p:
-      with p; [
+    extraPython3Packages =
+      p: with p; [
         debugpy
       ];
   };

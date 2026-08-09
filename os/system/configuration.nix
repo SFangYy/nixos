@@ -4,10 +4,6 @@
   ...
 }:
 {
-  imports = [
-    ./boot.nix
-  ];
-
   networking.networkmanager.enable = true;
   systemd.services.NetworkManager-wait-online.enable = false;
 
@@ -56,7 +52,7 @@
     };
 
     fprintd = {
-      enable = true;
+      enable = false;
     };
 
     printing.enable = true;
@@ -85,13 +81,11 @@
     #   configFile = "/home/${user}/.config/dae/config.dae";
     # };
 
-    flatpak.enable = true;
-
     upower.enable = true;
 
     udisks2.enable = true;
 
-    power-profiles-daemon.enable = true;
+    tuned.enable = true;
   };
 
   security = {
@@ -113,11 +107,17 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  hardware.i2c.enable = true;
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
-  documentation.man.generateCaches = true;
+  documentation.man.cache.enable = true;
 
   users.users.${user} = {
-    shell = pkgs.fish;
+    # VS Code Remote-SSH executes POSIX shell startup scripts on the remote
+    # host. Keep the login shell POSIX-compatible; fish can still be launched
+    # from interactive terminals via the user's shell configuration.
+    shell = pkgs.bashInteractive;
     isNormalUser = true;
     description = "Eden Lee";
     extraGroups = [
@@ -131,6 +131,7 @@
       "podman"
       "tun"
       "input"
+      "i2c"
     ];
   };
 
@@ -150,7 +151,8 @@
       nodejs
       efibootmgr
       pciutils
-      xorg.xauth
+      xauth
+      ddcutil
     ];
 
     variables = {
@@ -159,11 +161,11 @@
       ALL_PROXY = "http://127.0.0.1:7890";
       HTTP_PROXY = "http://127.0.0.1:7890";
       HTTPS_PROXY = "http://127.0.0.1:7890";
-      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
+      NO_PROXY = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24";
       all_proxy = "http://127.0.0.1:7890";
       http_proxy = "http://127.0.0.1:7890";
       https_proxy = "http://127.0.0.1:7890";
-      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24,steampowered.com,steamcontent.com,steamgames.com,steamstatic.com,akamaihd.net,steamserver.net";
+      no_proxy = "127.0.0.1,localhost,::1,192.168.122.237,192.168.122.0/24";
     };
 
     sessionVariables = {

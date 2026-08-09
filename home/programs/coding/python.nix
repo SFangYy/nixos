@@ -8,6 +8,5 @@
     python3Packages.matplotlib
     python3Packages.pandas
     black
-    conda
   ];
 }

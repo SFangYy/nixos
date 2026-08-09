@@ -10,7 +10,9 @@
     ./plugins
   ];
 
-  stylix.targets.nixvim.enable = lib.mkDefault (config.stylix.enable or false);
+  # Keep Nixvim theme highlights in this module; Stylix's generated target
+  # currently pulls an invalid base16-schemes derivation during evaluation.
+  stylix.targets.nixvim.enable = false;
 
   programs.nixvim = {
     enable = true;
@@ -30,7 +32,8 @@
     };
 
     highlightOverride = lib.mkIf (config.stylix.enable or false) (
-      with config.lib.stylix.colors.withHashtag; {
+      with config.lib.stylix.colors.withHashtag;
+      {
         CursorLineNr = {
           bg = base01;
           fg = base06;
@@ -56,7 +59,10 @@
       listchars.__raw = "{ tab = '» ', trail = '·', nbsp = '␣' }";
       inccommand = "split";
       spell = true;
-      spelllang = [ "en_us" "cjk" ];
+      spelllang = [
+        "en_us"
+        "cjk"
+      ];
       spellsuggest = "best,4";
     };
     keymaps = [

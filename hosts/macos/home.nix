@@ -4,10 +4,10 @@
   home.stateVersion = "23.11";
 
   imports = [
-    ./home/programs/shell/fish.nix
-    ./home/programs/shell/starship.nix
-    ./home/programs/terminal/tmux.nix
-    ./home/programs/coding/nixvim
+    ../../home/programs/shell/fish.nix
+    ../../home/programs/shell/starship.nix
+    ../../home/programs/terminal/tmux.nix
+    ../../home/programs/coding/nixvim
   ];
 
   stylix = {
@@ -47,6 +47,15 @@
       source ~/.orbstack/shell/init.zsh 2>/dev/null || :
     '';
     initContent = ''
+      if [[ -z "$DISPLAY" ]]; then
+        launchd_display="$(/bin/launchctl getenv DISPLAY 2>/dev/null)"
+        if [[ -n "$launchd_display" ]]; then
+          export DISPLAY="$launchd_display"
+        elif [[ -x /opt/X11/bin/Xquartz ]]; then
+          export DISPLAY=:0
+        fi
+      fi
+
       if [[ $- == *i* ]] && [[ -x "$HOME/.nix-profile/bin/fish" && -z "$IN_FISH" ]]; then
         export IN_FISH=1
         exec "$HOME/.nix-profile/bin/fish" -l
@@ -62,6 +71,14 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.symbols-only
   ];
+
+  # 启用 yazi 终端文件管理器及 shell 集成
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+    shellWrapperName = "y";
+  };
 
   programs.home-manager.enable = true;
 }

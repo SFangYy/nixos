@@ -1,4 +1,9 @@
-{ inputs, config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 {
   imports = [ inputs.agenix.nixosModules.default ];
 
@@ -18,15 +23,17 @@
   };
 
   # Generate /etc/nix/access-tokens.conf from the decrypted secret
-  system.activationScripts.nix-access-tokens = let
-    tokenPath = config.age.secrets.github_token.path;
-    confPath = "/etc/nix/access-tokens.conf";
-  in ''
-    if [ -f "${tokenPath}" ]; then
-      echo "access-tokens = github.com=$(cat "${tokenPath}")" > "${confPath}"
-      chmod 444 "${confPath}"
-    fi
-  '';
+  system.activationScripts.nix-access-tokens =
+    let
+      tokenPath = config.age.secrets.github_token.path;
+      confPath = "/etc/nix/access-tokens.conf";
+    in
+    ''
+      if [ -f "${tokenPath}" ]; then
+        echo "access-tokens = github.com=$(cat "${tokenPath}")" > "${confPath}"
+        chmod 444 "${confPath}"
+      fi
+    '';
 
   nix.extraOptions = ''
     !include /etc/nix/access-tokens.conf

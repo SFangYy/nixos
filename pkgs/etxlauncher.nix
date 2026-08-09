@@ -1,4 +1,36 @@
-{ stdenv, lib, fetchurl, unzip, makeWrapper, autoPatchelfHook, glib, nss, nspr, gtk2, gtk3, atk, at-spi2-atk, cups, dbus, libdrm, expat, alsa-lib, libx11, libxext, libxtst, libxrender, libxi, libxcursor, libxdamage, libxfixes, libxcomposite, libxrandr, libxcb, libxkbcommon, mesa }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  autoPatchelfHook,
+  glib,
+  nss,
+  nspr,
+  gtk2,
+  gtk3,
+  atk,
+  at-spi2-atk,
+  cups,
+  dbus,
+  libdrm,
+  expat,
+  alsa-lib,
+  libx11,
+  libxext,
+  libxtst,
+  libxrender,
+  libxi,
+  libxcursor,
+  libxdamage,
+  libxfixes,
+  libxcomposite,
+  libxrandr,
+  libxcb,
+  libxkbcommon,
+  mesa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "etxlauncher";
@@ -9,7 +41,11 @@ stdenv.mkDerivation rec {
     sha256 = "0c8qybkqil8rpykh47ll5fnk8qckkcdk9y7m1drx50ha7y1bgni3";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+    autoPatchelfHook
+  ];
   buildInputs = [
     glib
     nss

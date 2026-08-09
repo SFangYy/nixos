@@ -30,51 +30,51 @@
       };
     };
     keymaps = [
-    {
-      mode = "n";
-      key = "<leader>tt";
-      action = "<cmd>ToggleTerm<cr>";
-      options = {
-        silent = true;
-        desc = "启用终端";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>tv";
-      action = "<cmd>ToggleTerm direction=vertical<cr>";
-      options = {
-        silent = true;
-        desc = "切换垂直终端窗口";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>th";
-      action = "<cmd>ToggleTerm direction=horizontal<cr>";
-      options = {
-        silent = true;
-        desc = "切换水平终端窗口";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>tf";
-      action = "<cmd>ToggleTerm direction=float<cr>";
-      options = {
-        silent = true;
-        desc = "切换浮动终端窗口";
-      };
-    }
-    {
-      mode = "t";
-      key = "<esc>";
-      action = "<C-\\><C-n>";
-      options = {
-        silent = true;
-        desc = "终端退到Normal模式";
-      };
-    }
-  ];
+      {
+        mode = "n";
+        key = "<leader>tt";
+        action = "<cmd>ToggleTerm<cr>";
+        options = {
+          silent = true;
+          desc = "启用终端";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>tv";
+        action = "<cmd>ToggleTerm direction=vertical<cr>";
+        options = {
+          silent = true;
+          desc = "切换垂直终端窗口";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>th";
+        action = "<cmd>ToggleTerm direction=horizontal<cr>";
+        options = {
+          silent = true;
+          desc = "切换水平终端窗口";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>tf";
+        action = "<cmd>ToggleTerm direction=float<cr>";
+        options = {
+          silent = true;
+          desc = "切换浮动终端窗口";
+        };
+      }
+      {
+        mode = "t";
+        key = "<esc>";
+        action = "<C-\\><C-n>";
+        options = {
+          silent = true;
+          desc = "终端退到Normal模式";
+        };
+      }
+    ];
   };
 }

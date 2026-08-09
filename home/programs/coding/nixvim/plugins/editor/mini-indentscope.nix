@@ -4,7 +4,7 @@
     plugins.mini-indentscope.lazyLoad = {
       enable = true;
       settings = {
-        event = ["InsertEnter"];
+        event = [ "InsertEnter" ];
       };
     };
     plugins.mini-indentscope.settings = {

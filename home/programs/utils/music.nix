@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     go-musicfox
     # fum
-    lmms
   ];
   xdg.configFile."go-musicfox/go-musicfox.ini".text =
     # ini

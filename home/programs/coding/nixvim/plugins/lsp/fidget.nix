@@ -1,10 +1,10 @@
-{lib, ...}: {
+{ lib, ... }: {
   programs.nixvim = {
     plugins.fidget.enable = true;
     plugins.fidget.lazyLoad = {
       enable = true;
       settings = {
-        event = ["LspAttach"];
+        event = [ "LspAttach" ];
       };
     };
     plugins.fidget.settings = {
@@ -24,7 +24,7 @@
             return msg.lsp_client.name
           end
         '';
-        ignore = []; # 要忽略的 LSP 服务器列表
+        ignore = [ ]; # 要忽略的 LSP 服务器列表
 
         display = {
           render_limit = 8; # 同时显示最大消息数
@@ -32,7 +32,7 @@
           done_icon = "✔ ";
           done_style = "DiagnosticOk";
           progress_ttl.__raw = "math.huge";
-          progress_icon = ["dots"];
+          progress_icon = [ "dots" ];
           progress_style = "DiagnosticInfo";
           group_style = "LspInfo";
           icon_style = "Keyword";

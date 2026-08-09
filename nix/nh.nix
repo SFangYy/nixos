@@ -24,7 +24,7 @@
               builtins.length self.homeConfigurations.${user}.config.colorSchemes
             else
               1;
-          numToKeep = toString (numColorschemes * 2);
+          numToKeep = numColorschemes * 2 |> toString;
         in
         "--keep ${numToKeep}";
     };

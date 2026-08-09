@@ -6,6 +6,17 @@
 }:
 {
   programs = {
+    bash = {
+      enable = true;
+
+      # Keep the login shell POSIX-compatible for SSH/VS Code Remote-SSH.
+      # Only interactive bash sessions are replaced by fish.
+      initExtra = ''
+        if [[ $- == *i* ]] && command -v fish >/dev/null 2>&1; then
+          exec fish
+        fi
+      '';
+    };
     zoxide = {
       enable = true;
       enableFishIntegration = true;
@@ -40,26 +51,51 @@
         vim = "nvim";
         n = "nvim";
         vi = "nvim";
-      } // (if pkgs.stdenv.isLinux then {
-        # NixOS Specific
-        nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
-        nixc = "sudo systemctl start nh-clean.service";
-      } else {
-        # macOS Specific
-        homeu = "home-manager switch --flake .#fy";
-      });
+      }
+      // (
+        if pkgs.stdenv.isLinux then
+          {
+            # NixOS Specific
+            nixu = "NH_ELEVATION_STRATEGY=sudo nh os switch --ask";
+            nixc = "sudo systemctl start nh-clean.service";
+          }
+        else
+          {
+            # macOS Specific
+            homeu = "home-manager switch --flake .#fy";
+          }
+      );
       shellAliases = {
         "ls" = "eza";
         "l" = "eza -lah --icons=auto";
         "docker" = "podman";
+        "analyze" = "ls *.Rmd | fzf | xargs -I {} R -e \"rmarkdown::render('{}', quiet = FALSE)\"";
       };
       shellInit = ''
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
+
+        # The formal FHS environment exports its dedicated picker wrapper.
+        # Re-prepend it after the user-local PATH setup above so a globally
+        # installed picker cannot shadow the formal-specific version.
+        if test -n "$FORMAL_PICKER_BIN"
+          set -gx PATH "$FORMAL_PICKER_BIN" $PATH
+        end
 
         if test -n "$container"
           export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$HOME/.npm-global/bin:$PATH"
           if test -f /home/linuxbrew/.linuxbrew/bin/brew
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+          end
+        end
+
+        if test (uname) = Darwin
+          if not set -q DISPLAY
+            set -l launchd_display (/bin/launchctl getenv DISPLAY 2>/dev/null)
+            if test -n "$launchd_display"
+              set -x DISPLAY "$launchd_display"
+            else if test -x /opt/X11/bin/Xquartz
+              set -x DISPLAY :0
+            end
           end
         end
 
@@ -97,6 +133,18 @@
       ];
       functions = {
         fish_greeting = "";
+        codex-api = ''
+          set -l codex_home "$HOME/.codex-api"
+          command mkdir -p -- "$codex_home"; or return
+          set -lx CODEX_HOME "$codex_home"
+          command codex $argv
+        '';
+        codex-auth = ''
+          set -l codex_home "$HOME/.codex-auth"
+          command mkdir -p -- "$codex_home"; or return
+          set -lx CODEX_HOME "$codex_home"
+          command codex $argv
+        '';
         fnos = ''
           ${config.home.homeDirectory}/scripts/mount-fnos $argv
         '';

@@ -8,7 +8,7 @@
       };
       # enableTelescope = true;
       settings = {
-        excludeDirs = [];
+        excludeDirs = [ ];
         use_lsp = true;
         # 即将废弃
         # detection_methods = [

@@ -19,7 +19,7 @@
       web-devicons.lazyLoad = {
         enable = true;
         settings = {
-          event = ["User CookLazy"];
+          event = [ "User CookLazy" ];
         };
       };
     };

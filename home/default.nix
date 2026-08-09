@@ -9,7 +9,6 @@
   imports = [
     ./lib
     ./programs
-    ./tweaks
     ./services/webdav.nix
   ];
 
@@ -25,60 +24,33 @@
 
       # utils
       ripgrep
-      zoxide
       fzf
       eza
       fd
       davfs2
-      pay-respects  # Command correction tool (like thefuck)
-      netcat-openbsd  # For SSH SOCKS5 proxy (nc -X 5)
-      nmap  # For SSH HTTP proxy (ncat --proxy-type http)
+      pay-respects # Command correction tool (like thefuck)
+      netcat-openbsd # For SSH SOCKS5 proxy (nc -X 5)
+      nmap # For SSH HTTP proxy (ncat --proxy-type http)
     ];
 
     activation = {
-      ensure-xauthority =
-        lib.hm.dag.entryAfter [ "writeBoundary" ]
-          ''
-            XAUTHORITY_FILE="${config.home.homeDirectory}/.Xauthority"
+      ensure-xauthority = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        XAUTHORITY_FILE="${config.home.homeDirectory}/.Xauthority"
 
-            if [ ! -e "$XAUTHORITY_FILE" ]; then
-              install -m 600 /dev/null "$XAUTHORITY_FILE"
-            else
-              chmod 600 "$XAUTHORITY_FILE"
-            fi
-          '';
+        if [ ! -e "$XAUTHORITY_FILE" ]; then
+          install -m 600 /dev/null "$XAUTHORITY_FILE"
+        else
+          chmod 600 "$XAUTHORITY_FILE"
+        fi
+      '';
 
-      fix-ssh-config =
-        lib.hm.dag.entryAfter [ "writeBoundary" ]
-          # bash
-          ''
-            SSH_DIR="${config.home.homeDirectory}/.ssh"
-            HM_SSH_CONFIG="$SSH_DIR/config"
-            TMP_CONFIG="$SSH_DIR/config.hm.tmp"
-
-            mkdir -p "$SSH_DIR"
-            chmod 700 "$SSH_DIR"
-
-            if [ -e "$HM_SSH_CONFIG" ]; then
-              cp "$HM_SSH_CONFIG" "$TMP_CONFIG"
-              rm -f "$HM_SSH_CONFIG"
-              install -m 600 "$TMP_CONFIG" "$HM_SSH_CONFIG"
-              rm -f "$TMP_CONFIG"
-            fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active dms.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop dms.service
-            fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active caelestia.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop caelestia.service
-            fi
-            if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service; then
-              run --silence ${pkgs.systemd}/bin/systemctl --user stop noctalia.service
-            fi
-            run --silence ${pkgs.systemd}/bin/systemctl --user start ${if config.desktopShell == "noctalia-shell" then "noctalia" else config.desktopShell}.service || true
-          '';
+      restart-noctalia =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service &>/dev/null; then
+            run --silence ${pkgs.systemd}/bin/systemctl --user restart noctalia.service || true
+          fi
+        '';
     };
-
-    file.".ssh/config".force = true;
   };
 
   i18n.inputMethod = {

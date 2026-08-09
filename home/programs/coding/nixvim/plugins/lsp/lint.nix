@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.nixvim = {
     extraPackages = [
       pkgs.eslint_d
@@ -7,17 +7,20 @@
     plugins.lint.lazyLoad = {
       enable = true;
       settings = {
-        event = ["User CookLazy"];
+        event = [ "User CookLazy" ];
       };
     };
     plugins.lint.lintersByFt = {
-      javascript = ["eslint_d"];
-      typescript = ["eslint_d"];
-      javascriptreact = ["eslint_d"];
-      typescriptreact = ["eslint_d"];
+      javascript = [ "eslint_d" ];
+      typescript = [ "eslint_d" ];
+      javascriptreact = [ "eslint_d" ];
+      typescriptreact = [ "eslint_d" ];
     };
     plugins.lint.autoCmd = {
-      event = ["BufWritePost" "InsertLeave"];
+      event = [
+        "BufWritePost"
+        "InsertLeave"
+      ];
       callback = {
         __raw = ''
           function()

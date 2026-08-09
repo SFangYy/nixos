@@ -76,7 +76,7 @@ let
         "format-linked": "{ifname} (No IP) 󱚵",
         "format-disconnected": "<span size='13000' foreground='#${base06}'> </span>Disconnected",
         "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
-        "on-click": "kitty --class nmtui,nmtui --title=nmtui -o remember_window_size=no -o initial_window_width=400 -o initial_window_height=400 -e doas nmtui"
+        "on-click": "kitty --class nmtui,nmtui --title=nmtui -o remember_window_size=no -o initial_window_width=400 -o initial_window_height=400 -e sudo nmtui"
       },
       "pulseaudio": {
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",

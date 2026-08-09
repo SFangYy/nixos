@@ -4,7 +4,7 @@
     plugins.dressing.lazyLoad = {
       enable = true;
       settings = {
-        event = ["User LazyFile"];
+        event = [ "User LazyFile" ];
       };
     };
     plugins.dressing.settings = {
@@ -12,7 +12,7 @@
         enabled = false;
       };
       select = {
-        enabled = false; #禁用选择框美化
+        enabled = false; # 禁用选择框美化
       };
     };
   };

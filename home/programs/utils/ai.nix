@@ -11,9 +11,6 @@
   programs.claude-code = {
     enable = true;
   };
-  programs.pi-coding-agent = {
-    enable = true;
-  };
   home.sessionVariables = {
     #GEMINI_API_KEY = "$(cat ${config.age.secrets.gemini_token.path})";
     #ANTHROPIC_AUTH_TOKEN = "$(cat ${config.age.secrets.anyrouter_token.path})";
@@ -21,9 +18,8 @@
     #SILICONFLOW_API_KEY = "$(cat ${config.age.secrets.siliconflow_token.path})";
   };
   home.packages = with pkgs; [
-    nur.repos.charmbracelet.crush
-    opencode
     codex
     gitingest
+    pi-coding-agent
   ];
 }

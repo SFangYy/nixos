@@ -107,11 +107,12 @@ let
   all = stdenvNoCC.mkDerivation {
     name = "wallpapers";
     phases = [ "installPhase" ];
-    installPhase =
-      ''
-        mkdir -p $out
-      ''
-      + (lib.concatStringsSep "\n" (lib.mapAttrsToList (name: path: "ln -s ${path} $out/${name}") byName));
+    installPhase = ''
+      mkdir -p $out
+    ''
+    + (
+      lib.mapAttrsToList (name: path: "ln -s ${path} $out/${name}") byName |> lib.concatStringsSep "\n"
+    );
     meta = {
       description = "My wallpapers";
     };

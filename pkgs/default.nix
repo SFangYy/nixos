@@ -4,7 +4,7 @@
   ttf-wps-fonts = pkgs.callPackage ./fonts/ttf-wps-fonts.nix { };
   custom-colorschemes = pkgs.callPackage ./customColorSchemes { };
   wallpapers = pkgs.callPackage ./wallpapers.nix { };
-  wechat = pkgs.callPackage ./wechat.nix { };
+  wechat = pkgs.wechat;
   mihomo-party = pkgs.callPackage ./mihomo-party.nix { };
   etxlauncher = pkgs.callPackage ./etxlauncher.nix { };
   # maple-mono-variable = pkgs.callPackage ./maple-mono-variable.nix { };

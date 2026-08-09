@@ -6,7 +6,7 @@
     };
     plugins.nvim-ufo.lazyLoad = {
       settings = {
-        event = ["User LazyFile"];
+        event = [ "User LazyFile" ];
       };
     };
     plugins.nvim-ufo.setupLspCapabilities = true;
@@ -59,48 +59,48 @@
     };
 
     keymaps = [
-    {
-      action.__raw = ''
-        function()
-          require("ufo").openAllFolds()
-        end
-      '';
-      key = "zR";
-      options = {
-        silent = true;
-        desc = "打开全部代码";
-      };
-      mode = "n";
-    }
-    {
-      action.__raw = ''
-        function()
-          require("ufo").closeAllFolds()
-        end
-      '';
-      key = "zM";
-      options = {
-        silent = true;
-        desc = "折叠全部代码";
-      };
-      mode = "n";
-    }
-    {
-      action.__raw = ''
-        function()
-          local winid = require("ufo").peekFoldedLinesUnderCursor()
-          if not winid then
-        	  vim.lsp.buf.hover()
+      {
+        action.__raw = ''
+          function()
+            require("ufo").openAllFolds()
           end
-        end
-      '';
-      key = "K";
-      options = {
-        silent = true;
-        desc = "查看折叠代码";
-      };
-      mode = "n";
-    }
-  ];
+        '';
+        key = "zR";
+        options = {
+          silent = true;
+          desc = "打开全部代码";
+        };
+        mode = "n";
+      }
+      {
+        action.__raw = ''
+          function()
+            require("ufo").closeAllFolds()
+          end
+        '';
+        key = "zM";
+        options = {
+          silent = true;
+          desc = "折叠全部代码";
+        };
+        mode = "n";
+      }
+      {
+        action.__raw = ''
+          function()
+            local winid = require("ufo").peekFoldedLinesUnderCursor()
+            if not winid then
+          	  vim.lsp.buf.hover()
+            end
+          end
+        '';
+        key = "K";
+        options = {
+          silent = true;
+          desc = "查看折叠代码";
+        };
+        mode = "n";
+      }
+    ];
   };
 }

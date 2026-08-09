@@ -58,6 +58,7 @@
           ];
           "Super+O".action = spawn "obsidian";
           "Super+B".action = spawn "brave";
+          "Super+Shift+M".action = spawn "switch-to-macos";
 
           # --- Migrated from swhkd ---
           "Super+Q".action = close-window;
@@ -100,25 +101,61 @@
           "Super+Shift+Space".action = toggle-window-floating;
           "Super+Space".action = switch-focus-between-floating-and-tiling;
 
-          "Super+1".action = { focus-workspace = 1; };
-          "Super+2".action = { focus-workspace = 2; };
-          "Super+3".action = { focus-workspace = 3; };
-          "Super+4".action = { focus-workspace = 4; };
-          "Super+5".action = { focus-workspace = 5; };
-          "Super+6".action = { focus-workspace = 6; };
-          "Super+7".action = { focus-workspace = 7; };
-          "Super+8".action = { focus-workspace = 8; };
-          "Super+9".action = { focus-workspace = 9; };
+          "Super+1".action = {
+            focus-workspace = 1;
+          };
+          "Super+2".action = {
+            focus-workspace = 2;
+          };
+          "Super+3".action = {
+            focus-workspace = 3;
+          };
+          "Super+4".action = {
+            focus-workspace = 4;
+          };
+          "Super+5".action = {
+            focus-workspace = 5;
+          };
+          "Super+6".action = {
+            focus-workspace = 6;
+          };
+          "Super+7".action = {
+            focus-workspace = 7;
+          };
+          "Super+8".action = {
+            focus-workspace = 8;
+          };
+          "Super+9".action = {
+            focus-workspace = 9;
+          };
 
-          "Super+Shift+1".action = { move-column-to-workspace = 1; };
-          "Super+Shift+2".action = { move-column-to-workspace = 2; };
-          "Super+Shift+3".action = { move-column-to-workspace = 3; };
-          "Super+Shift+4".action = { move-column-to-workspace = 4; };
-          "Super+Shift+5".action = { move-column-to-workspace = 5; };
-          "Super+Shift+6".action = { move-column-to-workspace = 6; };
-          "Super+Shift+7".action = { move-column-to-workspace = 7; };
-          "Super+Shift+8".action = { move-column-to-workspace = 8; };
-          "Super+Shift+9".action = { move-column-to-workspace = 9; };
+          "Super+Shift+1".action = {
+            move-column-to-workspace = 1;
+          };
+          "Super+Shift+2".action = {
+            move-column-to-workspace = 2;
+          };
+          "Super+Shift+3".action = {
+            move-column-to-workspace = 3;
+          };
+          "Super+Shift+4".action = {
+            move-column-to-workspace = 4;
+          };
+          "Super+Shift+5".action = {
+            move-column-to-workspace = 5;
+          };
+          "Super+Shift+6".action = {
+            move-column-to-workspace = 6;
+          };
+          "Super+Shift+7".action = {
+            move-column-to-workspace = 7;
+          };
+          "Super+Shift+8".action = {
+            move-column-to-workspace = 8;
+          };
+          "Super+Shift+9".action = {
+            move-column-to-workspace = 9;
+          };
 
           "Super+Comma".action = consume-window-into-column;
           "Super+Period".action = expel-window-from-column;
@@ -128,10 +165,18 @@
           "Super+Ctrl+F".action = toggle-windowed-fullscreen;
           "Super+C".action = center-column;
 
-          "Super+Minus".action = { set-column-width = "-10%"; };
-          "Super+Equal".action = { set-column-width = "+10%"; };
-          "Super+Shift+Minus".action = { set-window-height = "-10%"; };
-          "Super+Shift+Equal".action = { set-window-height = "+10%"; };
+          "Super+Minus".action = {
+            set-column-width = "-10%";
+          };
+          "Super+Equal".action = {
+            set-column-width = "+10%";
+          };
+          "Super+Shift+Minus".action = {
+            set-window-height = "-10%";
+          };
+          "Super+Shift+Equal".action = {
+            set-window-height = "+10%";
+          };
 
           "Super+Alt+H".action = spawn "niri" "msg" "action" "move-floating-window" "-x" "-10";
           "Super+Alt+J".action = spawn "niri" "msg" "action" "move-floating-window" "-y" "10";
@@ -140,16 +185,18 @@
 
           "Super+Alt+R".action = spawn "bash" "/home/${user}/scripts/record-screen-toggle";
 
-          "Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy";
+          "Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp)\" - | satty --filename -";
           "Ctrl+Super+S".action = spawn "sh" "-c" "grim - | wl-copy";
-          "Alt+Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp -f '%o')\" - | wl-copy";
+          "Alt+Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp -f '%o')\" - | satty --filename -";
 
           "Super+Alt+M".action = set-dynamic-cast-monitor;
           "Super+Alt+W".action = set-dynamic-cast-window;
           "Super+Alt+N".action = clear-dynamic-cast-target;
 
           "Super+N".action = spawn "nautilus";
-          "Super+Ctrl+C".action = spawn "sh" "-c" "niri msg pick-color | grep Hex | sd 'Hex: ' '' | sd '\\n' '' | wl-copy";
+          "Super+Ctrl+C".action =
+            spawn "sh" "-c"
+              "niri msg pick-color | grep Hex | sd 'Hex: ' '' | sd '\\n' '' | wl-copy";
 
           # --- Migrated from basic.swhkdrc ---
           "Super+Alt+C".action = spawn "wl-color-picker";
@@ -158,16 +205,19 @@
           "XF86AudioMicMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
           "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
           "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-";
-          "Super+Shift+S".action = spawn "wshowkeys" "-a" "bottom" "-a" "right" "-F" "Comic Code 30" "-b" "${base00}aa" "-f" "${base0E}ee" "-s" "${base0F}ee" "-t" "1";
+          "Super+Shift+S".action =
+            spawn "wshowkeys" "-a" "bottom" "-a" "right" "-F" "Comic Code 30" "-b" "${base00}aa" "-f"
+              "${base0E}ee"
+              "-s"
+              "${base0F}ee"
+              "-t"
+              "1";
           "Super+E".action = spawn "hexecute";
-          "Super+X".action = spawn "/home/${user}/.nix-profile/bin/noctalia" "ipc" "call" "sessionMenu" "toggle";
+          "Super+X".action =
+            spawn "/home/${user}/.nix-profile/bin/noctalia" "ipc" "call" "sessionMenu"
+              "toggle";
 
-          "Super+Shift+W".action = spawn "sh" "-c" (
-            if config.desktopShell == "caelestia" then
-              "/home/${user}/scripts/change-wal-niri && caelestia wallpaper -f ~/Pictures/Wallpapers/generated/$(cat ~/Pictures/Wallpapers/${config.lib.monitors.mainMonitorName}-file) && caelestia scheme set -n dynamic -m dark"
-            else
-              "/home/${user}/scripts/change-wal-niri"
-          );
+          "Super+Shift+W".action = spawn "sh" "-c" "/home/${user}/scripts/change-wal-niri";
         };
         window-rules =
           let

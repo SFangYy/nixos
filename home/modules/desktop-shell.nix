@@ -18,10 +18,6 @@
       enable = config.desktopShell == "waybar";
       systemd.enable = config.desktopShell == "waybar";
     };
-    programs.dank-material-shell = {
-      enable = config.desktopShell == "dms";
-      systemd.enable = config.desktopShell == "dms";
-    };
     programs.noctalia = {
       enable = config.desktopShell == "noctalia-shell";
       systemd.enable = config.desktopShell == "noctalia-shell";

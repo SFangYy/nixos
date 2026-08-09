@@ -1,13 +1,19 @@
-{config, lib, pkgs, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   pkgsOld = import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz";
     sha256 = "1f5d2g1p6nfwycpmrnnmc2xmcszp804adp16knjvdkj8nz36y1fg";
-  }) {system = "x86_64-linux";};
+  }) { system = "x86_64-linux"; };
 
   pkgsLegacy19 = import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz";
     sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
-  }) {system = "x86_64-linux";};
+  }) { system = "x86_64-linux"; };
 
   # OpenSSL 1.0.x for legacy EDA tools
   openssl_1_0 = pkgsLegacy19.openssl_1_0_2;
@@ -16,6 +22,21 @@
   fixedLicenseSource = "${config.home.homeDirectory}/.config/nixos/docs/${fixedLicenseFile}";
   formalHome = "${config.home.homeDirectory}/EDAHome/HimaFormal";
   formalLicensePath = "${formalHome}/${fixedLicenseFile}";
+  formalPicker = pkgs.writeShellScriptBin "picker" ''
+    set -euo pipefail
+
+    pickerRoot="/home/${config.home.username}/work/test/formal_picker"
+    pickerBin="$pickerRoot/build/bin/picker"
+
+    if [ ! -x "$pickerBin" ]; then
+      echo "formal picker is not built: $pickerBin" >&2
+      echo "Build it with: cd $pickerRoot && make" >&2
+      exit 127
+    fi
+
+    export LD_LIBRARY_PATH="$pickerRoot/build/lib:$pickerRoot/dependence/xcomm/build/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+    exec "$pickerBin" "$@"
+  '';
   formalLicenseServer = pkgs.writeShellScript "formal-license-server" ''
     set -euo pipefail
 
@@ -79,8 +100,9 @@
     echo "formal license server stopped unexpectedly. Check $LOG_FILE." >&2
     exit 1
   '';
-in {
-  home.activation.formalLicenseLink = lib.hm.dag.entryAfter ["writeBoundary"] ''
+in
+{
+  home.activation.formalLicenseLink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${lib.escapeShellArg formalHome}
     if [ ! -f ${lib.escapeShellArg fixedLicenseSource} ]; then
       echo "formal license file missing: ${fixedLicenseFile}" >&2
@@ -120,66 +142,85 @@ in {
   home.packages = [
     (pkgsOld.buildFHSEnv {
       name = "formal";
-      targetPkgs = pkgsTarget: (with pkgsTarget; [
-        coreutils
-        gawk
-        gnused
-        file
-        which
-        binutils
-        gnumake
+      targetPkgs =
+        pkgsTarget:
+        (with pkgsTarget; [
+          coreutils
+          gawk
+          gnused
+          file
+          which
+          binutils
+          # Keep the C++ compiler and libstdc++ ABI consistent inside the FHS env.
+          (pkgsOld.lib.hiPrio pkgsOld.gcc)
+          gnumake
+          time
 
-        # X11 libraries
-        (if pkgsTarget ? libx11 then pkgsTarget.libx11 else pkgsTarget.xorg.libX11)
-        (if pkgsTarget ? libxext then pkgsTarget.libxext else pkgsTarget.xorg.libXext)
-        (if pkgsTarget ? libxt then pkgsTarget.libxt else pkgsTarget.xorg.libXt)
-        (if pkgsTarget ? libxft then pkgsTarget.libxft else pkgsTarget.xorg.libXft)
-        (if pkgsTarget ? libxrender then pkgsTarget.libxrender else pkgsTarget.xorg.libXrender)
-        (if pkgsTarget ? libxscrnsaver then pkgsTarget.libxscrnsaver else pkgsTarget.xorg.libXScrnSaver)
-        (if pkgsTarget ? libxcursor then pkgsTarget.libxcursor else pkgsTarget.xorg.libXcursor)
-        (if pkgsTarget ? libxdmcp then pkgsTarget.libxdmcp else pkgsTarget.xorg.libXdmcp)
-        (if pkgsTarget ? libxau then pkgsTarget.libxau else pkgsTarget.xorg.libXau)
-        (if pkgsTarget ? libxi then pkgsTarget.libxi else pkgsTarget.xorg.libXi)
-        (if pkgsTarget ? libxrandr then pkgsTarget.libxrandr else pkgsTarget.xorg.libXrandr)
-        (if pkgsTarget ? libsm then pkgsTarget.libsm else pkgsTarget.xorg.libSM)
-        (if pkgsTarget ? libice then pkgsTarget.libice else pkgsTarget.xorg.libICE)
-        (if pkgsTarget ? libxcb then pkgsTarget.libxcb else pkgsTarget.xorg.libxcb)
+          # X11 libraries
+          (if pkgsTarget ? libx11 then pkgsTarget.libx11 else pkgsTarget.xorg.libX11)
+          (if pkgsTarget ? libxext then pkgsTarget.libxext else pkgsTarget.xorg.libXext)
+          (if pkgsTarget ? libxt then pkgsTarget.libxt else pkgsTarget.xorg.libXt)
+          (if pkgsTarget ? libxft then pkgsTarget.libxft else pkgsTarget.xorg.libXft)
+          (if pkgsTarget ? libxrender then pkgsTarget.libxrender else pkgsTarget.xorg.libXrender)
+          (if pkgsTarget ? libxscrnsaver then pkgsTarget.libxscrnsaver else pkgsTarget.xorg.libXScrnSaver)
+          (if pkgsTarget ? libxcursor then pkgsTarget.libxcursor else pkgsTarget.xorg.libXcursor)
+          (if pkgsTarget ? libxdmcp then pkgsTarget.libxdmcp else pkgsTarget.xorg.libXdmcp)
+          (if pkgsTarget ? libxau then pkgsTarget.libxau else pkgsTarget.xorg.libXau)
+          (if pkgsTarget ? libxi then pkgsTarget.libxi else pkgsTarget.xorg.libXi)
+          (if pkgsTarget ? libxrandr then pkgsTarget.libxrandr else pkgsTarget.xorg.libXrandr)
+          (if pkgsTarget ? libsm then pkgsTarget.libsm else pkgsTarget.xorg.libSM)
+          (if pkgsTarget ? libice then pkgsTarget.libice else pkgsTarget.xorg.libICE)
+          (if pkgsTarget ? libxcb then pkgsTarget.libxcb else pkgsTarget.xorg.libxcb)
 
-        # OpenGL libraries
-        libGL
-        libGLU
-        libdrm
+          # OpenGL libraries
+          libGL
+          libGLU
+          libdrm
 
-        # Fonts
-        fontconfig
-        freetype
+          # Fonts
+          fontconfig
+          freetype
 
-        # Common libraries
-        zlib
-        zlib.dev
-        glibc
-        libxcrypt
-        ncurses5
-        libxcrypt-legacy
-        elfutils
-        tcsh
+          # Common libraries
+          zlib
+          zlib.dev
+          glibc
+          libxcrypt
+          ncurses5
+          libxcrypt-legacy
+          elfutils
+          tcsh
 
-        # GLib for Qt and other tools
-        glib
+          # GLib for Qt and other tools
+          glib
 
-        # OpenSSL 1.0.x for legacy EDA tools (libssl.so.10)
-        openssl_1_0
+          # OpenSSL 1.0.x for legacy EDA tools (libssl.so.10)
+          openssl_1_0
 
-        python312
-        
-        # Shell
-        bash
-        pkgs.fish
-        pkgs.uv
-      ]);
+          python312
+
+          # Build and language-binding tools
+          cmake
+          # Keep generated picker code compatible with the Verilator 5.018 API.
+          pkgsOld.verilator
+          pkgs.swig
+          # Verilator FST tracing compiles fstcpp_writer.cpp, which needs lz4.h.
+          pkgs.lz4
+          pkgs.lz4.dev
+          formalPicker
+
+          # Shell
+          bash
+          pkgs.fish
+          pkgs.uv
+        ]);
       profile = ''
         export AVIS_HOME=$HOME/EDAHome/HimaFormal
-        export PATH=$AVIS_HOME/bin:$PATH
+        # Prefer the formal environment's toolchain over host/user binaries.
+        # In particular, the host /usr/bin/swig may be 3.x, while formal
+        # requires the Nix-provided SWIG 4.x.
+        export FORMAL_PICKER_BIN=${formalPicker}/bin
+        export PATH=$FORMAL_PICKER_BIN:${pkgs.swig}/bin:${pkgsOld.verilator}/bin:${pkgs.cmake}/bin:$AVIS_HOME/bin:$PATH
 
         # Use OpenSSL 1.0 from Nix store first; keep .so.10 compatibility symlinks.
         export OPENSSL_LEGACY_DIR=$HOME/.local/share/openssl-legacy

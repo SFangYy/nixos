@@ -5,7 +5,7 @@
     };
     plugins.rainbow-delimiters.lazyLoad = {
       settings = {
-        event = ["User CookLazy"];
+        event = [ "User CookLazy" ];
       };
     };
     # plugins.rainbow-delimiters.strategy = {
