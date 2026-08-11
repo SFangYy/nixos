@@ -25,6 +25,7 @@
 
       # Basic settings
       set  -g mouse             on
+      set  -g set-clipboard     on
       set  -g focus-events      off
       setw -g aggressive-resize off
       setw -g clock-mode-style  12

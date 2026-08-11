@@ -1,14 +1,15 @@
+{ host ? "", lib, ... }:
 {
   imports = [
     ./editor
     ./ui
-    ./lsp
     ./utils
-    ./dap
-    ./ai
     ./git
     ./snippets
-    #./github # 安装github上的插件(含有配置示例)
+  ] ++ lib.optionals (host != "macos") [
+    ./lsp
+    ./dap
+    ./ai
   ];
 
   programs.nixvim = {
