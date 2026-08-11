@@ -30,6 +30,7 @@
     slurp
     satty
     wf-recorder
+    kando
     inputs.hexecute.packages.${pkgs.stdenv.hostPlatform.system}.default
     # halley
   ];

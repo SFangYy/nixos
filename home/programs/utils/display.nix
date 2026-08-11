@@ -17,23 +17,20 @@ let
             done
         fi
 
-        # 2. 对 AUX / DP / i2c 总线（例如 i2c-12, i2c-13, i2c-14）进行补漏切换，确保双显示器都能切到
-        for bus in 12 13 14; do
-            if [ -e "/dev/i2c-$bus" ]; then
-                echo "尝试对 I2C 总线 /dev/i2c-$bus 发送切换指令..."
-                ${pkgs.ddcutil}/bin/ddcutil setvcp 60 "$VCP_CODE" --bus "$bus" --force-slave-address 2>/dev/null || true
-            fi
-        done
     else
         echo "[Warning] ddcutil 未在 PATH 中"
     fi
 
     if command -v solaar &>/dev/null; then
         echo "正在将罗技设备切换至 Easy-Switch 通道 $SOLAAR_HOST ..."
-        # 使用 timeout 2 防止无设备连接时阻塞卡住
-        ${pkgs.coreutils}/bin/timeout 2 ${pkgs.solaar}/bin/solaar config mouse change-host "$SOLAAR_HOST" &>/dev/null || \
-        ${pkgs.coreutils}/bin/timeout 2 ${pkgs.solaar}/bin/solaar config "MX Master 3S" &>/dev/null || \
-        ${pkgs.coreutils}/bin/timeout 2 ${pkgs.solaar}/bin/solaar config 1 change-host "$SOLAAR_HOST" &>/dev/null || true
+        # 可用 SOLAAR_DEVICE 覆盖；名称只需是设备名称的唯一子串。
+        SOLAAR_DEVICE="''${SOLAAR_DEVICE:-MX Master 4}"
+        if ${pkgs.coreutils}/bin/timeout 10 ${pkgs.solaar}/bin/solaar config "$SOLAAR_DEVICE" change-host "$SOLAAR_HOST" >/dev/null 2>&1; then
+            echo "罗技设备 '$SOLAAR_DEVICE' 已切换至 Easy-Switch 通道 $SOLAAR_HOST。"
+        else
+            echo "[Error] 未能切换罗技设备 '$SOLAAR_DEVICE' 至 Easy-Switch 通道 $SOLAAR_HOST。"
+            echo "请运行: solaar show"
+        fi
     else
         echo "[Warning] solaar 未在 PATH 中"
     fi
@@ -44,4 +41,14 @@ in
     switchToMacos
     pkgs.solaar
   ];
+
+  # Divert the MX Master 4 Haptic button and show the custom Kando menu.
+  xdg.configFile."solaar/rules.yaml".text = ''
+    %YAML 1.3
+    ---
+    - Rule:
+        - Key: [Haptic, pressed]
+        - Execute: ["${pkgs.kando}/bin/kando", "--menu", "My Config"]
+    ...
+  '';
 }

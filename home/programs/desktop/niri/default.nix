@@ -102,59 +102,59 @@
           "Super+Space".action = switch-focus-between-floating-and-tiling;
 
           "Super+1".action = {
-            focus-workspace = 1;
+            focus-workspace = "coding";
           };
           "Super+2".action = {
-            focus-workspace = 2;
+            focus-workspace = "browsing";
           };
           "Super+3".action = {
-            focus-workspace = 3;
+            focus-workspace = "terminal";
           };
           "Super+4".action = {
-            focus-workspace = 4;
+            focus-workspace = "reading";
           };
           "Super+5".action = {
-            focus-workspace = 5;
+            focus-workspace = "music";
           };
           "Super+6".action = {
-            focus-workspace = 6;
+            focus-workspace = "proxy";
           };
           "Super+7".action = {
-            focus-workspace = 7;
+            focus-workspace = "general";
           };
           "Super+8".action = {
-            focus-workspace = 8;
+            focus-workspace = "reference";
           };
           "Super+9".action = {
-            focus-workspace = 9;
+            focus-workspace = "scratch";
           };
 
           "Super+Shift+1".action = {
-            move-column-to-workspace = 1;
+            move-column-to-workspace = "coding";
           };
           "Super+Shift+2".action = {
-            move-column-to-workspace = 2;
+            move-column-to-workspace = "browsing";
           };
           "Super+Shift+3".action = {
-            move-column-to-workspace = 3;
+            move-column-to-workspace = "terminal";
           };
           "Super+Shift+4".action = {
-            move-column-to-workspace = 4;
+            move-column-to-workspace = "reading";
           };
           "Super+Shift+5".action = {
-            move-column-to-workspace = 5;
+            move-column-to-workspace = "music";
           };
           "Super+Shift+6".action = {
-            move-column-to-workspace = 6;
+            move-column-to-workspace = "proxy";
           };
           "Super+Shift+7".action = {
-            move-column-to-workspace = 7;
+            move-column-to-workspace = "general";
           };
           "Super+Shift+8".action = {
-            move-column-to-workspace = 8;
+            move-column-to-workspace = "reference";
           };
           "Super+Shift+9".action = {
-            move-column-to-workspace = 9;
+            move-column-to-workspace = "scratch";
           };
 
           "Super+Comma".action = consume-window-into-column;
@@ -256,6 +256,13 @@
               open-on-workspace = "proxy";
             }
             {
+              matches = [
+                { app-id = "menu.kando.Kando"; }
+                { app-id = "kando"; }
+              ];
+              open-floating = true;
+            }
+            {
               matches = [ { app-id = "brave"; } ];
               open-on-workspace = "browsing";
             }
@@ -326,20 +333,32 @@
           };
           "3" = {
             open-on-output = builtins.head otherMonitorsNames;
-            name = "reading";
+            name = "terminal";
           };
           "4" = {
-            open-on-output = mainMonitorName;
+            open-on-output = builtins.head otherMonitorsNames;
+            name = "reading";
+          };
+          "5" = {
+            open-on-output = builtins.head otherMonitorsNames;
             name = "music";
           };
-          "5" = { };
-          "6" = { };
-          "7" = { };
-          "8" = {
-            open-on-output = mainMonitorName;
+          "6" = {
+            open-on-output = builtins.head otherMonitorsNames;
             name = "proxy";
           };
-          "9" = { };
+          "7" = {
+            open-on-output = mainMonitorName;
+            name = "general";
+          };
+          "8" = {
+            open-on-output = mainMonitorName;
+            name = "reference";
+          };
+          "9" = {
+            open-on-output = mainMonitorName;
+            name = "scratch";
+          };
         };
         overview = {
           zoom = 0.36;
