@@ -32,6 +32,21 @@
       rotation = 0;
       focus-at-startup = true;
     };
+    # RTK Type-C 扩展屏，放在主 Dell 正下方，水平居中
+    # 3840x2400 @ 2.5 -> 逻辑 1536x960；Dell 底边 y=1080，居中 x=1080+(1920-1536)/2=1272
+    "Invalid Vendor Codename - RTK Type_C demoset-1" = {
+      scale = 2.5;
+      mode = {
+        width = 3840;
+        height = 2400;
+        refresh = 59.999;
+      };
+      position = {
+        x = 1272;
+        y = 1080;
+      };
+      rotation = 0;
+    };
   };
   stylix.cursor = {
     package = pkgs.graphite-cursors;
