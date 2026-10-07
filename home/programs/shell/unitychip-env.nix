@@ -172,6 +172,12 @@ in
           python312
           pkgs.uv
           git
+
+          # FM-Agent runtime and plugin tooling
+          bun
+          unzip
+          curl
+
           # Keep generated picker code compatible with the Verilator 5.018 API.
           pkgsOld.verilator
           verible

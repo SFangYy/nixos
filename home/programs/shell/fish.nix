@@ -102,11 +102,27 @@
         set -g fish_color_command blue --italics
         set -g fish_color_quote yellow --italics
         set -g fish_key_bindings fish_vi_key_bindings
+
+        # Vi mode tuning: raise the escape timeout so Esc reliably enters
+        # normal mode over SSH/tmux, and shape the cursor per vi mode.
+        set -g fish_escape_delay_ms 300
+        set -g fish_cursor_default block blink
+        set -g fish_cursor_insert line blink
+        set -g fish_cursor_visual block
+        set -g fish_cursor_replace_one underscore blink
       '';
       interactiveShellInit = ''
         # Initialize pay-respects (command correction tool)
         if type -q pay-respects
           pay-respects fish --alias | source
+        end
+
+        # fzf.fish: rebind away from fish defaults. File search moves from
+        # Ctrl+f (accepts autosuggestions) to Ctrl+t; git log moves from
+        # Ctrl+l (clear screen) to Alt+l. Unspecified bindings keep defaults
+        # (Ctrl+r history, Ctrl+g git status, Ctrl+v variables).
+        if functions -q fzf_configure_bindings
+          fzf_configure_bindings --directory=\ct --git_log=\el
         end
 
         # Toggle sudo with Alt+s
@@ -130,6 +146,17 @@
           name = "pisces";
           src = pisces.src;
         }
+        {
+          name = "fzf-fish";
+          src = fzf-fish.src;
+        }
+        {
+          # Colorize interactive output of systemctl, journalctl, ping, ...
+          # Wrappers defined at conf.d time are overridden by the later
+          # `ls`/`docker` aliases in config.fish, so eza/podman still win.
+          name = "grc";
+          src = grc.src;
+        }
       ];
       functions = {
         fish_greeting = "";
@@ -148,7 +175,31 @@
         fnos = ''
           ${config.home.homeDirectory}/scripts/mount-fnos $argv
         '';
+        # Toggle terminal proxies. git/ssh already route via 127.0.0.1:7890;
+        # this covers curl/pip/go and other tools that read the environment.
+        proxy = ''
+          if test "$argv" = off
+            set -e http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY
+            echo "proxy off"
+          else
+            set -gx http_proxy http://127.0.0.1:7890
+            set -gx https_proxy http://127.0.0.1:7890
+            set -gx all_proxy socks5://127.0.0.1:7890
+            echo "proxy on"
+          end
+        '';
       };
+    };
+
+    # Multi-shell completion engine: structured Tab completions for hundreds
+    # of commands layered on top of fish's native completions.
+    carapace.enable = true;
+
+    # Auto-load .envrc on cd; nix-direnv caches `use flake` dev shells so
+    # re-entering a project is instant.
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
   programs.man.generateCaches = false;

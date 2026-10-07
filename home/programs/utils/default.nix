@@ -19,7 +19,6 @@
       ps.collection-bibtexextra
       ps.ctex
     ]))
-    biber
     # typst
     dust
     killall
@@ -36,7 +35,6 @@
     # nom
     yad
     # pcmanfm
-    yazi
     # ydotool
     jq
     # scrcpy
@@ -79,5 +77,12 @@
     ./music.nix
     ./display.nix
   ];
+  # TUI file manager. The HM wrapper ships the `y` function so quitting
+  # drops the calling shell into the directory browsed in yazi.
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.pay-respects.enable = true;
 }

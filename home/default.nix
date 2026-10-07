@@ -27,6 +27,8 @@
       fzf
       eza
       fd
+      bat # cat clone with syntax highlighting; powers fzf.fish previews
+      grc # output colorizer for systemctl/ping/ip/...; wired via the fish plugin
       davfs2
       pay-respects # Command correction tool (like thefuck)
       netcat-openbsd # For SSH SOCKS5 proxy (nc -X 5)
@@ -110,6 +112,12 @@
         "172.19.20.3" = {
           HostName = "172.19.20.3";
           User = "songfangyuan";
+        };
+        # Global defaults, applied last (ssh uses first value per directive).
+        "*" = {
+          ServerAliveInterval = 30;
+          ServerAliveCountMax = 4;
+          TCPKeepAlive = "yes";
         };
       };
     };

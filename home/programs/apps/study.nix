@@ -9,7 +9,7 @@
     obsidian
     brave
     vscode
-    inputs.antigravity-flake.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-fhs
+    #inputs.antigravity-flake.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-fhs
   ];
 
   home.activation.antigravitySettingsBootstrap = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
