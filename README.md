@@ -1,16 +1,21 @@
 # Keybindings Reference
 
-This document summarizes the keybindings for the **Niri** window manager and **NixVim** (Neovim) configuration found in this project.
+This document summarizes the keybindings for the **Niri** window manager,
+**NixVim** (Neovim), **tmux**, and the interactive shell configuration found
+in this project.
 
 ## Niri Window Manager
 
-These bindings are configured in `home/programs/desktop/niri/swhkd.nix`.
+These bindings are configured in `home/programs/desktop/niri/default.nix`.
+
+The keyboard layout maps `Caps Lock` to `Escape` and swaps the left `Ctrl` and
+left `Alt` keys. The table below uses the logical modifier names from the Niri
+configuration.
 
 | Keybinding                            | Action                                     | Description                                          |
 | :------------------------------------ | :----------------------------------------- | :--------------------------------------------------- |
 | **Window Management**                 |                                            |                                                      |
-| `Super + q`                           | `quit`                                     | Quit Niri                                            |
-| `Super + w`                           | `close-window`                             | Close the focused window                             |
+| `Super + q` / `Super + w`             | `close-window`                             | Close the focused window                             |
 | `Super + Shift + w`                   | _Script_                                   | Change wallpaper/theme (runs `change-wal-niri`)      |
 | `Super + Shift + a`                   | `toggle-overview`                          | Toggle the window overview                           |
 | `Super + t`                           | `toggle-column-tabbed-display`             | Toggle tabbed display for the column                 |
@@ -27,24 +32,39 @@ These bindings are configured in `home/programs/desktop/niri/swhkd.nix`.
 | `Super + [Shift +] =`                 | `set-column-width "+10%"`                  | Increase column width (Shift: window height)         |
 | **Navigation**                        |                                            |                                                      |
 | `Super + {h, j, k, l}`                | `focus-*`                                  | Focus column/monitor (h/l) or window/workspace (j/k) |
-| `Super + {Left, Down, Up, Right}`     | `focus-column-*`                           | Focus column in direction                            |
+| `Super + {Left, Right}`               | `focus-column-*`                           | Focus the column to the left or right                |
+| `Super + {Down, Up}`                  | `focus-window-*`                           | Focus the window below or above                      |
 | `Super + Shift + {h, j, k, l}`        | `move-*`                                   | Move column/window in direction                      |
-| `Super + Ctrl + {h, j, k, l}`         | `focus-monitor-*`                          | Focus monitor in direction                           |
-| `Super + Shift + Ctrl + {h, j, k, l}` | `move-window-to-monitor-*`                 | Move window to monitor in direction                  |
-| `Super + [Shift +] 1-9`               | `focus/move-to-workspace`                  | Focus or move window to workspace 1-9                |
+| `Super + Ctrl + {arrows/h/j/k/l}`     | `focus-monitor-*`                          | Focus monitor in direction                           |
+| `Super + Shift + Ctrl + {arrows/h/j/k/l}` | `move-window-to-monitor-*`             | Move window to monitor in direction                  |
+| `Super + 1-9`                         | `focus-workspace`                          | Focus the corresponding named workspace              |
+| `Super + Shift + 1-9`                 | `move-column-to-workspace`                 | Move the current column to that workspace            |
 | **Floating Windows**                  |                                            |                                                      |
 | `Super + Alt + {h, j, k, l}`          | `move-floating-window`                     | Move floating window precisely                       |
 | **Utilities**                         |                                            |                                                      |
-| `Super + n`                           | `nautilus`                                 | Open File Manager (Nautilus)                         |
-| `[Super/Alt] + [Alt/Super] + r`       | _Script_                                   | Toggle area screen recording                         |
-| `Super + s`                           | `screenshot`                               | Take an area screenshot                              |
-| `Ctrl + Super + s`                    | `screenshot-screen`                        | Take a full screen screenshot                        |
-| `Alt + Super + s`                     | `screenshot-window`                        | Take a window screenshot                             |
+| `Super + Return`                      | `kitty`                                    | Open a terminal                                      |
+| `Super + Shift + Return`              | _Script_                                   | Open the floating quick-note terminal                |
+| `Super + d`                           | `noctalia`                                 | Toggle the application launcher                      |
+| `Super + {o, b, n, e}`                | _Application_                              | Open Obsidian, Brave, Nautilus, or Hexecute          |
+| `Super + x`                           | `noctalia`                                 | Toggle the session menu                              |
+| `Super + Shift + b`                   | `noctalia`                                 | Toggle the status bar                                |
+| `Super + Shift + m`                   | `switch-to-macos`                          | Run the macOS switching script                       |
+| `Super + Alt + r`                     | _Script_                                   | Toggle screen recording                              |
+| `Super + s`                           | `grim`, `wl-copy`, `satty`                 | Select an area, copy it, then open Satty              |
+| `Super + Ctrl + s`                    | `grim`, `wl-copy`                          | Copy a full-desktop screenshot                       |
+| `Super + Alt + s`                     | `grim`, `satty`                            | Select an output and open its screenshot in Satty    |
+| `Super + Shift + s`                   | `wshowkeys`                                | Toggle on-screen key display                         |
 | `Super + Ctrl + c`                    | _Script_                                   | Pick color and copy Hex code to clipboard            |
+| `Super + Alt + c`                     | `wl-color-picker`                          | Open the color picker                                |
+| Audio media keys                      | `wpctl`                                    | Change volume or toggle speaker/microphone mute      |
 | **Screencasting**                     |                                            |                                                      |
 | `Super + Alt + m`                     | `set-dynamic-cast-monitor`                 | Set monitor for dynamic cast                         |
 | `Super + Alt + w`                     | `set-dynamic-cast-window`                  | Set window for dynamic cast                          |
 | `Super + Alt + n`                     | `clear-dynamic-cast-target`                | Clear dynamic cast target                            |
+
+Named workspaces: `1` coding, `2` browsing, `3` terminal, `4` reading, `5`
+music, `6` proxy, `7` general, `8` reference, and `9` scratch. Workspace 5
+opens on the main Dell U2723QE output.
 
 ---
 
@@ -270,9 +290,89 @@ These bindings are configured across various files in `home/programs/coding/nixv
 
 ---
 
+## tmux
+
+The tmux configuration is defined in `home/programs/terminal/tmux.nix` and is
+shared by NixOS and macOS. The prefix key is `Ctrl + w`.
+
+Because Neovim and Fish also use `Ctrl + w`, press `Ctrl + w` twice to send a
+literal `Ctrl + w` to the program inside the active pane. For example, a
+Neovim window command becomes `Ctrl + w`, `Ctrl + w`, then `h/j/k/l`.
+
+### Panes and Windows
+
+| Keybinding                 | Action                                                 |
+| :------------------------- | :----------------------------------------------------- |
+| `Ctrl + w`, `h/j/k/l`      | Focus the pane in the selected direction               |
+| `Ctrl + w`, `s`, `h/j/k/l` | Split toward the selected direction                    |
+| `Ctrl + w`, `Arrow key`    | Resize the active pane by five cells                   |
+| `Ctrl + w`, `c`            | Create a window in the active pane's current directory |
+| `Ctrl + w`, `t`, `n`       | Create a window in the active pane's current directory |
+| `Ctrl + w`, `t`, `h/l`     | Select the previous/next window                        |
+| `Ctrl + w`, `r`            | Rename the current window                              |
+| `Ctrl + w`, `R`            | Reload the tmux configuration                          |
+| `Ctrl + w`, `Ctrl + w`     | Send a literal `Ctrl + w` to the active program        |
+
+New panes and windows inherit the active pane's working directory. Windows and
+panes are numbered from 1, and window numbers are compacted after a window is
+closed.
+
+### Copy Mode and Mouse
+
+| Keybinding             | Action                                       |
+| :--------------------- | :------------------------------------------- |
+| Mouse wheel in a shell | Enter copy mode and scroll terminal history  |
+| Mouse wheel in a TUI   | Forward scrolling to Neovim, Yazi, etc.      |
+| `Ctrl + w`, `b`        | Enter copy mode and search backward for `@`  |
+| `v`                    | Begin a selection in copy mode               |
+| `Ctrl + v`             | Toggle rectangular selection                 |
+| `y`                    | Copy the selection and stay at this position |
+| `Y`                    | Copy from the cursor to the end of the line  |
+| `q` / `Escape`         | Leave copy mode                              |
+| `H/L`                  | Move to the start/end of the line            |
+| `J/K`                  | Move five lines down/up                      |
+| `B/W`                  | Move five words backward/forward             |
+| `-` / `=`              | Go to the previous/next search match         |
+
+Mouse selection and copy mode use tmux's clipboard integration. Kitty receives
+copied text through OSC 52, so the same configuration also works over SSH and
+on macOS without hard-coded Wayland clipboard commands. Keyboard and mouse
+copies stay at the current history position; press `q` or `Escape`, or scroll
+back to the bottom, to return to live output.
+
+### Applying Changes
+
+Run `nixu` to apply the NixOS configuration. Most tmux changes can then be
+loaded with `Ctrl + w`, `R`. Changes to server-wide terminal capabilities are
+best applied by restarting the tmux server after saving all work:
+
+```bash
+tmux kill-server
+tmux
+```
+
+`tmux kill-server` ends every tmux session owned by the current user.
+
+---
+
 ## Shell (Fish & Zoxide)
 
+Configured in `home/programs/shell/fish.nix`.
+
 - **Directory Navigation**: Use `z <directory>` to jump to frequently used directories (powered by `zoxide`).
+- **Fuzzy Finding** (`fzf.fish` plugin — previews rendered by `bat`, file listing by `fd`. `Ctrl+t`/`Alt+l` were chosen over fzf.fish's defaults so fish's `Ctrl+f` autosuggestion-accept and `Ctrl+l` clear-screen keep working):
+  - `Ctrl + t` — search files under the current directory, insert the selected path
+  - `Ctrl + r` — search command history with live preview
+  - `Alt + l` — search git commits (previews the diff)
+  - `Ctrl + g` — search files changed in the git worktree
+  - `Ctrl + v` — search environment variables
+- **Vi Mode**: `Esc` enters normal mode; the cursor shape follows the mode (block in normal/visual, line in insert). `fish_escape_delay_ms` is raised to 300 ms so `Esc` stays reliable over SSH/tmux.
+- **direnv + nix-direnv**: auto-loads `.envrc` when entering a directory. Put `use flake` in a project's `.envrc` and run `direnv allow` once to activate its Nix dev shell; nix-direnv caches the result so re-entry is instant.
+- **Carapace**: completion engine layered on fish's native `Tab` completions, adding structured argument completions for hundreds of commands (flags, enum values, package names, ...).
+- **grc**: colorizes output of common commands (`systemctl`, `journalctl`, `ping`, `ip`, `df`, `diff`, `mount`, `docker`, ...). Interactive sessions only — pipes and scripts are unaffected.
+- **yazi** (TUI file manager): launch with `y` — quitting drops the shell into the directory you browsed.
+- **bat**: `cat` clone with syntax highlighting; also the preview pager behind `fzf.fish`.
+- **Proxy toggle**: `proxy` / `proxy on` exports `http_proxy`/`https_proxy`/`all_proxy` to `127.0.0.1:7890`; `proxy off` unsets them. (git/SSH proxies are configured separately and always on.)
 - **Abbreviations**:
   - **Nix**: `nixu` (OS update), `nixc` (Clean).
   - **Git**: `g` (git), `ga` (add), `gc` (commit), `gp` (push), `gl` (pull), `gst` (status), `gd` (diff), `gb` (branch), `gco` (checkout).
@@ -282,17 +382,20 @@ These bindings are configured across various files in `home/programs/coding/nixv
 
 # 快捷键参考 (中文版)
 
-本文档总结了本项目中 **Niri** 窗口管理器和 **NixVim** (Neovim) 配置的快捷键。
+本文档总结了本项目中 **Niri** 窗口管理器、**NixVim** (Neovim)、**tmux**
+以及交互式 Shell 配置的快捷键。
 
 ## Niri 窗口管理器
 
-这些快捷键在 `home/programs/desktop/niri/swhkd.nix` 中配置。
+这些快捷键在 `home/programs/desktop/niri/default.nix` 中配置。
+
+键盘布局将 `Caps Lock` 映射为 `Escape`，并交换左 `Ctrl` 和左 `Alt`。下表使用
+Niri 配置中的逻辑修饰键名称。
 
 | 快捷键                                | 动作                                       | 描述                                     |
 | :------------------------------------ | :----------------------------------------- | :--------------------------------------- |
 | **窗口管理**                          |                                            |                                          |
-| `Super + q`                           | `quit`                                     | 退出 Niri                                |
-| `Super + w`                           | `close-window`                             | 关闭当前窗口                             |
+| `Super + q` / `Super + w`             | `close-window`                             | 关闭当前窗口                             |
 | `Super + Shift + w`                   | _Script_                                   | 更改壁纸/主题 (运行 `change-wal-niri`)   |
 | `Super + Shift + a`                   | `toggle-overview`                          | 切换窗口概览                             |
 | `Super + t`                           | `toggle-column-tabbed-display`             | 切换当前列的标签式显示                   |
@@ -309,24 +412,39 @@ These bindings are configured across various files in `home/programs/coding/nixv
 | `Super + [Shift +] =`                 | `set-column-width "+10%"`                  | 增加列宽 (Shift: 窗口高度)               |
 | **导航**                              |                                            |                                          |
 | `Super + {h, j, k, l}`                | `focus-*`                                  | 聚焦列/显示器 (h/l) 或 窗口/工作区 (j/k) |
-| `Super + {Left, Down, Up, Right}`     | `focus-column-*`                           | 按方向聚焦列                             |
+| `Super + {Left, Right}`               | `focus-column-*`                           | 聚焦左侧或右侧列                         |
+| `Super + {Down, Up}`                  | `focus-window-*`                           | 聚焦下方或上方窗口                       |
 | `Super + Shift + {h, j, k, l}`        | `move-*`                                   | 按方向移动列/窗口                        |
-| `Super + Ctrl + {h, j, k, l}`         | `focus-monitor-*`                          | 按方向聚焦显示器                         |
-| `Super + Shift + Ctrl + {h, j, k, l}` | `move-window-to-monitor-*`                 | 将窗口移动到指定方向的显示器             |
-| `Super + [Shift +] 1-9`               | `focus/move-to-workspace`                  | 聚焦或移动窗口到工作区 1-9               |
+| `Super + Ctrl + {方向键/h/j/k/l}`     | `focus-monitor-*`                          | 按方向聚焦显示器                         |
+| `Super + Shift + Ctrl + {方向键/h/j/k/l}` | `move-window-to-monitor-*`             | 将窗口移动到指定方向的显示器             |
+| `Super + 1-9`                         | `focus-workspace`                          | 聚焦对应的命名工作区                     |
+| `Super + Shift + 1-9`                 | `move-column-to-workspace`                 | 将当前整列移至对应工作区                 |
 | **悬浮窗口**                          |                                            |                                          |
 | `Super + Alt + {h, j, k, l}`          | `move-floating-window`                     | 精确移动悬浮窗口                         |
 | **实用工具**                          |                                            |                                          |
-| `Super + n`                           | `nautilus`                                 | 打开文件管理器 (Nautilus)                |
-| `[Super/Alt] + [Alt/Super] + r`       | _Script_                                   | 开始/停止区域录屏                        |
-| `Super + s`                           | `screenshot`                               | 区域截图                                 |
-| `Ctrl + Super + s`                    | `screenshot-screen`                        | 全屏截图                                 |
-| `Alt + Super + s`                     | `screenshot-window`                        | 窗口截图                                 |
+| `Super + Return`                      | `kitty`                                    | 打开终端                                 |
+| `Super + Shift + Return`              | _Script_                                   | 打开浮动快速笔记终端                     |
+| `Super + d`                           | `noctalia`                                 | 打开或关闭应用启动器                     |
+| `Super + {o, b, n, e}`                | _Application_                              | 打开 Obsidian、Brave、Nautilus 或 Hexecute |
+| `Super + x`                           | `noctalia`                                 | 打开或关闭会话菜单                       |
+| `Super + Shift + b`                   | `noctalia`                                 | 显示或隐藏状态栏                         |
+| `Super + Shift + m`                   | `switch-to-macos`                          | 运行 macOS 切换脚本                      |
+| `Super + Alt + r`                     | _Script_                                   | 开始或停止录屏                           |
+| `Super + s`                           | `grim`, `wl-copy`, `satty`                 | 框选区域、复制截图，然后进入 Satty 标注  |
+| `Super + Ctrl + s`                    | `grim`, `wl-copy`                          | 截取完整桌面并复制到剪贴板               |
+| `Super + Alt + s`                     | `grim`, `satty`                            | 选择一台显示器并在 Satty 中打开完整截图  |
+| `Super + Shift + s`                   | `wshowkeys`                                | 显示屏幕按键提示                         |
 | `Super + Ctrl + c`                    | _Script_                                   | 取色并复制 Hex 代码到剪贴板              |
+| `Super + Alt + c`                     | `wl-color-picker`                          | 打开颜色选择器                           |
+| 音频媒体键                            | `wpctl`                                    | 调节音量或切换扬声器/麦克风静音          |
 | **投屏 (Screencasting)**              |                                            |                                          |
 | `Super + Alt + m`                     | `set-dynamic-cast-monitor`                 | 设置动态投屏监视器                       |
 | `Super + Alt + w`                     | `set-dynamic-cast-window`                  | 设置动态投屏窗口                         |
 | `Super + Alt + n`                     | `clear-dynamic-cast-target`                | 清除动态投屏目标                         |
+
+命名工作区依次为：`1` coding、`2` browsing、`3` terminal、`4` reading、`5`
+music、`6` proxy、`7` general、`8` reference、`9` scratch。其中工作区 5
+固定在主显示器 Dell U2723QE 上。
 
 ---
 
@@ -550,6 +668,67 @@ These bindings are configured across various files in `home/programs/coding/nixv
 
 ---
 
+## tmux
+
+tmux 配置位于 `home/programs/terminal/tmux.nix`，由 NixOS 和 macOS 共用。
+前缀键（Prefix）是 `Ctrl + w`。
+
+由于 Neovim 和 Fish 同样会使用 `Ctrl + w`，需要连续按两次 `Ctrl + w`，才能向
+当前窗格中的程序发送一个原始的 `Ctrl + w`。例如，在 Neovim 中执行窗口移动时，
+依次按 `Ctrl + w`、`Ctrl + w`，再按 `h/j/k/l`。
+
+### 窗格和窗口
+
+| 快捷键                     | 操作                          |
+| :------------------------- | :---------------------------- |
+| `Ctrl + w`，`h/j/k/l`      | 向指定方向切换窗格            |
+| `Ctrl + w`，`s`，`h/j/k/l` | 向指定方向创建分屏            |
+| `Ctrl + w`，方向键         | 将当前窗格调整五个单元        |
+| `Ctrl + w`，`c`            | 在当前目录中新建窗口          |
+| `Ctrl + w`，`t`，`n`       | 在当前目录中新建窗口          |
+| `Ctrl + w`，`t`，`h/l`     | 切换到上一个/下一个窗口       |
+| `Ctrl + w`，`r`            | 重命名当前窗口                |
+| `Ctrl + w`，`R`            | 重新加载 tmux 配置            |
+| `Ctrl + w`，`Ctrl + w`     | 向当前程序发送原始 `Ctrl + w` |
+
+新窗格和窗口会继承当前窗格的工作目录。窗口和窗格编号均从 1 开始；关闭窗口后，
+tmux 会自动整理窗口编号。
+
+### 复制模式和鼠标
+
+| 快捷键                  | 操作                               |
+| :---------------------- | :--------------------------------- |
+| 在普通 Shell 中滚动滚轮 | 进入复制模式并滚动终端历史         |
+| 在 TUI 程序中滚动滚轮   | 将滚轮事件交给 Neovim、Yazi 等程序 |
+| `Ctrl + w`，`b`         | 进入复制模式并向后搜索 `@`         |
+| `v`                     | 在复制模式中开始选择               |
+| `Ctrl + v`              | 切换矩形选择                       |
+| `y`                     | 复制选中内容并停留在当前位置       |
+| `Y`                     | 从光标处复制到行尾                 |
+| `q` / `Escape`          | 退出复制模式                       |
+| `H/L`                   | 移动到行首/行尾                    |
+| `J/K`                   | 向下/向上移动五行                  |
+| `B/W`                   | 向后/向前移动五个单词              |
+| `-` / `=`               | 跳转到上一个/下一个搜索结果        |
+
+鼠标选择和复制模式使用 tmux 的剪贴板集成。Kitty 通过 OSC 52 接收复制内容，因此
+不需要硬编码 `wl-copy`，同一套配置也适用于 SSH 和 macOS。通过键盘或鼠标复制后
+都会停留在当前历史位置；按 `q` 或 `Escape`，或者滚动回终端底部，即可返回实时输出。
+
+### 应用配置
+
+使用 `nixu` 应用 NixOS 配置。大部分 tmux 改动可以随后通过 `Ctrl + w`、`R` 重新
+加载。涉及 server 级终端能力的改动，建议保存所有工作后重启 tmux server：
+
+```bash
+tmux kill-server
+tmux
+```
+
+`tmux kill-server` 会结束当前用户的全部 tmux 会话。
+
+---
+
 ## Shell (Fish & Zoxide)
 
 ### 常用快捷键 (Fish Built-ins)
@@ -564,12 +743,25 @@ These bindings are configured across various files in `home/programs/coding/nixv
 | `Ctrl + u`    | 删除光标前的所有内容 (Clear to Start)     |
 | `Ctrl + k`    | 删除光标后的所有内容 (Clear to End)       |
 | `Ctrl + l`    | 清屏 (Clear Screen)                       |
+| `Ctrl + t`    | fzf 搜索当前目录文件并插入路径 (fzf.fish) |
+| `Ctrl + r`    | fzf 模糊搜索历史命令，带预览 (fzf.fish)   |
+| `Alt + l`     | fzf 搜索 git 提交记录，预览 diff (fzf.fish) |
+| `Ctrl + g`    | fzf 搜索 git 改动文件 (fzf.fish)          |
+| `Ctrl + v`    | fzf 搜索环境变量 (fzf.fish)               |
+| `Esc`         | 进入 Vi 普通模式（光标形状随模式切换）    |
 | `Alt + ← / →` | 移动到上/下一个访问的目录 (Prev/Next Dir) |
 | `Tab`         | 自动补全 (Autocomplete)                   |
 
 ### 命令缩写 (Abbreviations) & 工具
 
 - **目录跳转 (Zoxide)**: 使用 `z <目录名>` 智能跳转到常用目录。
+- **模糊查找 (fzf.fish)**: `fzf` + `fd` + `bat` 组合，键位见上表，均有高亮预览。
+- **环境自动加载 (direnv + nix-direnv)**: 进入含 `.envrc` 的目录时自动加载环境。在项目 `.envrc` 里写 `use flake` 并执行一次 `direnv allow`，即可自动进入该项目的 Nix 开发环境；nix-direnv 有缓存，二次进入即时生效。
+- **补全引擎 (Carapace)**: 在 fish 原生 `Tab` 补全之上，为数百个命令提供结构化补全（参数、枚举值、包名等）。
+- **输出上色 (grc)**: 自动为 `systemctl`、`journalctl`、`ping`、`ip`、`df`、`diff`、`docker` 等命令的输出上色；仅作用于交互会话，管道和脚本不受影响。
+- **文件管理 (yazi)**: TUI 文件管理器，用 `y` 启动，退出时 shell 自动 cd 到浏览过的目录。
+- **语法高亮 cat (bat)**: `bat <文件>` 带语法高亮与行号，也是 fzf 预览的后端。
+- **代理开关 (proxy 函数)**: `proxy` / `proxy on` 导出 `http_proxy`/`https_proxy`/`all_proxy` 指向 `127.0.0.1:7890`，`proxy off` 取消。git/SSH 的代理是独立配置，始终生效。
 - **系统管理 (Nix)**:
   - `nixu`: 系统更新 (`nh os switch`)
   - `nixc`: 清理垃圾 (`nh clean`)
