@@ -25,7 +25,7 @@
       input = {
         focus-follows-mouse.enable = false;
         touchpad.natural-scroll = false;
-        keyboard.xkb.options = "caps:escape,ctrl:swap_lalt_lctl";
+        keyboard.xkb.options = "caps:escape";
       };
       environment = {
         XIM = "fcitx";
