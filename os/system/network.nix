@@ -15,6 +15,7 @@ let
     5005
     5173
     4533
+    8830
   ];
   extraPorts = [
     8765
@@ -35,7 +36,10 @@ in
     enable = true;
     allowedTCPPorts = forwardPorts ++ extraPorts;
     allowedUDPPorts = [ 53317 ]; # LocalSend
-    trustedInterfaces = [ "waydroid0" ];
+    trustedInterfaces = [
+      "virbr0"
+      "waydroid0"
+    ];
   };
 
   # 声明式 NAT: 为 libvirt 和 waydroid 的内部网段都提供出站转发
