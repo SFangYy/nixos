@@ -1,0 +1,8 @@
+keys:
+  - &personal age1dhp5jlzdygztf8yskwrqrj72uswc5cyxxynah3mwvw4sk4cpveuqp8mjec
+
+creation_rules:
+  - path_regex: home/programs/llm/secrets\.yaml$
+    key_groups:
+      - age:
+          - *personal

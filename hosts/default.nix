@@ -17,6 +17,7 @@ let
     ../home
     inputs.nixvim.homeModules.nixvim
     inputs.agenix.homeManagerModules.default
+    inputs.sops-nix.homeManagerModules.sops
     ../secrets/age.nix
     inputs.noctalia-shell.homeModules.default
   ]

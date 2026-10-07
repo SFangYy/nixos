@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  programs.llmMemory.enable = true;
+
   monitors = {
     # 使用显示器序列号匹配，避免 DP 端口名称变化导致配置失效
     "Dell Inc. DELL U2720Q G3LCZG3" = {

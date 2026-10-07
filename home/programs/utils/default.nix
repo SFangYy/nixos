@@ -13,6 +13,13 @@
     sd
     socat
     pandoc
+    (texliveSmall.withPackages (ps: [
+      ps.scheme-medium
+      ps.collection-latexextra
+      ps.collection-bibtexextra
+      ps.ctex
+    ]))
+    biber
     # typst
     dust
     killall
@@ -62,12 +69,14 @@
     #android-tools
     tree-sitter
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.agenix
+    age
+    sops
+    openssl
     evtest
   ];
   imports = [
     ./eye-candy.nix
     ./music.nix
-    ./ai.nix
     ./display.nix
   ];
   programs.pay-respects.enable = true;

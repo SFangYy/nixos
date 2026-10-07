@@ -4,6 +4,7 @@
     ./shell
     ./coding
     ./terminal
+    ./llm
     ./utils
     ./browser
     ./apps
