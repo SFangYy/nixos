@@ -19,7 +19,8 @@ let
     inputs.agenix.homeManagerModules.default
     inputs.sops-nix.homeManagerModules.sops
     ../secrets/age.nix
-    inputs.noctalia-shell.homeModules.default
+    # programs.noctalia now ships with home-manager upstream; importing
+    # noctalia-shell's module would declare the same options twice.
   ]
   ++ (builtins.attrValues self.homeManagerModules);
 

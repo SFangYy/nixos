@@ -1,6 +1,4 @@
 {
-  inputs,
-  pkgs,
   config,
   lib,
   ...
@@ -18,12 +16,10 @@
       enable = config.desktopShell == "waybar";
       systemd.enable = config.desktopShell == "waybar";
     };
+    # HM's module installs noctalia from nixpkgs by default.
     programs.noctalia = {
       enable = config.desktopShell == "noctalia-shell";
       systemd.enable = config.desktopShell == "noctalia-shell";
     };
-    home.packages = lib.mkIf (config.desktopShell == "noctalia-shell") [
-      inputs.noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
   };
 }

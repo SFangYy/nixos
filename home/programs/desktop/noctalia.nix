@@ -205,6 +205,7 @@
         ];
       };
     };
-    validateConfig = false;
+    # HM's module renamed validateConfig -> checkConfig
+    checkConfig = false;
   };
 }

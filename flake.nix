@@ -102,10 +102,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia-shell = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     hexecute.url = "github:ThatOtherAndrew/Hexecute";
     antigravity-flake = {
       url = "github:Hy4ri/antigravity-flake";
