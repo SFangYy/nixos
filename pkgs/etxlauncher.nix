@@ -10,6 +10,8 @@
   nspr,
   gtk2,
   gtk3,
+  gdk-pixbuf,
+  krb5,
   atk,
   at-spi2-atk,
   cups,
@@ -52,6 +54,8 @@ stdenv.mkDerivation rec {
     nspr
     gtk2
     gtk3
+    gdk-pixbuf
+    krb5
     atk
     at-spi2-atk
     cups
