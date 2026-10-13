@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -22,20 +23,22 @@
     owner = "root";
   };
 
-  # Generate /etc/nix/access-tokens.conf from the decrypted secret
-  system.activationScripts.nix-access-tokens =
-    let
-      tokenPath = config.age.secrets.github_token.path;
-      confPath = "/etc/nix/access-tokens.conf";
-    in
-    ''
-      if [ -f "${tokenPath}" ]; then
-        echo "access-tokens = github.com=$(cat "${tokenPath}")" > "${confPath}"
-        chmod 444 "${confPath}"
-      fi
-    '';
-
-  nix.extraOptions = ''
-    !include /etc/nix/access-tokens.conf
+  # The daemon receives a credential; clients use a private home config.
+  # Plaintext never enters a public include file, the Nix store or argv.
+  systemd.services.nix-daemon.serviceConfig = {
+    LoadCredential = "github-token:${config.age.secrets.github_token.path}";
+    # This service extends the package's unit; reset its original ExecStart.
+    ExecStart = lib.mkForce [
+      ""
+      (pkgs.writeShellScript "nix-daemon-with-token" ''
+        token="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/github-token")"
+        export NIX_CONFIG="''${NIX_CONFIG:+$NIX_CONFIG
+        }access-tokens = github.com=$token"
+        exec ${config.nix.package}/bin/nix-daemon --daemon
+      '')
+    ];
+  };
+  system.activationScripts.removePublicGithubToken.text = ''
+    rm -f /etc/nix/access-tokens.conf
   '';
 }

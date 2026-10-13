@@ -84,7 +84,7 @@
           email = "sfangyy@163.com";
         };
         safe = {
-          directory = "*";
+          directory = [ "${config.home.homeDirectory}/work/XSV/*" ];
         };
         http = {
           proxy = "http://127.0.0.1:7890";

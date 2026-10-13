@@ -95,7 +95,11 @@
         users = [ user ];
         commands = [
           {
-            command = "ALL";
+            command = "/run/current-system/sw/bin/nixos-rebuild";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "/run/current-system/sw/bin/systemctl start nh-clean.service";
             options = [ "NOPASSWD" ];
           }
         ];
