@@ -109,7 +109,6 @@
   hardware.bluetooth.powerOnBoot = true;
   hardware.i2c.enable = true;
   hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
 
   documentation.man.cache.enable = true;
 

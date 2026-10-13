@@ -15,66 +15,6 @@
     "children": [
       {
         "type": "submenu",
-        "name": "设备切换",
-        "icon": "devices",
-        "iconTheme": "material-symbols-rounded",
-        "children": [
-          {
-            "type": "button",
-            "name": "切换鼠标和显示器到 Mac",
-            "icon": "laptop_mac",
-            "iconTheme": "material-symbols-rounded",
-            "selectWorkflow": {
-              "quickSelectKey": "M",
-              "actions": [
-                {
-                  "type": "close-menu"
-                },
-                {
-                  "type": "execute-command",
-                  "command": "@ACTIONS@ switch-macos",
-                  "detached": true,
-                  "isolated": false
-                }
-              ]
-            }
-          },
-          {
-            "type": "button",
-            "name": "查看鼠标通道",
-            "icon": "mouse",
-            "iconTheme": "material-symbols-rounded",
-            "selectWorkflow": {
-              "quickSelectKey": "S",
-              "actions": [
-                {
-                  "type": "close-menu"
-                },
-                {
-                  "type": "execute-command",
-                  "command": "@ACTIONS@ switch-status",
-                  "detached": true,
-                  "isolated": false
-                }
-              ]
-            }
-          }
-        ],
-        "activateWorkflow": {
-          "quickSelectKey": "Backspace",
-          "actions": [
-            {
-              "type": "close-submenu"
-            }
-          ]
-        },
-        "openWorkflow": {
-          "quickSelectKey": "D",
-          "actions": []
-        }
-      },
-      {
-        "type": "submenu",
         "name": "笔记与终端",
         "icon": "edit_note",
         "iconTheme": "material-symbols-rounded",
@@ -151,7 +91,8 @@
         "openWorkflow": {
           "quickSelectKey": "N",
           "actions": []
-        }
+        },
+        "angle": 0
       },
       {
         "type": "submenu",
@@ -311,27 +252,8 @@
         "openWorkflow": {
           "quickSelectKey": "W",
           "actions": []
-        }
-      },
-      {
-        "type": "button",
-        "name": "区域截图与标注",
-        "icon": "screenshot_region",
-        "iconTheme": "material-symbols-rounded",
-        "selectWorkflow": {
-          "quickSelectKey": "S",
-          "actions": [
-            {
-              "type": "close-menu"
-            },
-            {
-              "type": "execute-command",
-              "command": "@ACTIONS@ screenshot",
-              "detached": true,
-              "isolated": false
-            }
-          ]
-        }
+        },
+        "angle": 60
       },
       {
         "type": "submenu",
@@ -431,7 +353,29 @@
         "openWorkflow": {
           "quickSelectKey": "A",
           "actions": []
-        }
+        },
+        "angle": 120
+      },
+      {
+        "type": "button",
+        "name": "切换到 Mac",
+        "icon": "laptop_mac",
+        "iconTheme": "material-symbols-rounded",
+        "selectWorkflow": {
+          "quickSelectKey": "M",
+          "actions": [
+            {
+              "type": "close-menu"
+            },
+            {
+              "type": "execute-command",
+              "command": "@ACTIONS@ switch-macos",
+              "detached": true,
+              "isolated": false
+            }
+          ]
+        },
+        "angle": 180
       },
       {
         "type": "submenu",
@@ -515,7 +459,29 @@
         "openWorkflow": {
           "quickSelectKey": "L",
           "actions": []
-        }
+        },
+        "angle": 240
+      },
+      {
+        "type": "button",
+        "name": "区域截图与标注",
+        "icon": "screenshot_region",
+        "iconTheme": "material-symbols-rounded",
+        "selectWorkflow": {
+          "quickSelectKey": "S",
+          "actions": [
+            {
+              "type": "close-menu"
+            },
+            {
+              "type": "execute-command",
+              "command": "@ACTIONS@ screenshot",
+              "detached": true,
+              "isolated": false
+            }
+          ]
+        },
+        "angle": 300
       }
     ]
   },

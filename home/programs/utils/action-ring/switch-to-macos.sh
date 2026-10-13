@@ -11,7 +11,7 @@ case "${1:-}" in
   --dry-run) dry_run=true; shift ;;
   --mouse-only) mode=mouse; shift ;;
   --display-only) mode=display; shift ;;
-  --status) exec solaar config "${SOLAAR_DEVICE:-MX Master 4}" change-host ;;
+  --status) exec switch-mouse-host --device "${SOLAAR_DEVICE:-MX Master 4}" --status ;;
 esac
 vcp=${1:-0x1b}
 host=${2:-2}
@@ -21,7 +21,7 @@ if [[ $# -gt 2 || ! $vcp =~ ^(0[xX][[:xdigit:]]+|[0-9]+)$ || ! $host =~ ^[123]$ 
   exit 2
 fi
 if $dry_run; then
-  printf '1. solaar config %q change-host %q (timeout %ss)\n' "$device" "$host" "${SOLAAR_TIMEOUT:-30}"
+  printf '1. switch-mouse-host --device %q --host %q (timeout %ss, verify source departure)\n' "$device" "$host" "${SOLAAR_TIMEOUT:-30}"
   printf '2. ddcutil setvcp 60 %q for each detected display I2C bus\n' "$vcp"
   exit 0
 fi
@@ -60,8 +60,8 @@ fi
 # destination computer accepted the Bluetooth connection.
 if [[ $mode != display ]]; then
   echo "Sending Easy-Switch host $host to $device ..."
-  if timeout "${SOLAAR_TIMEOUT:-30}" solaar config "$device" change-host "$host"; then
-    echo "鼠标切换命令已发送至通道 $host。"
+  if timeout "${SOLAAR_TIMEOUT:-30}" switch-mouse-host --device "$device" --host "$host"; then
+    echo "鼠标已离开原主机，或设备已确认选择通道 $host。"
   else
     status=$?
     fail "鼠标切换失败（退出码 $status）；显示器未切换。可用 --display-only 单独切屏。"

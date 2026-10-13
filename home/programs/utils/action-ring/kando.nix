@@ -44,6 +44,9 @@ let
       ''
             mkdir -p $out/bin
         cp -rs ${pkgs.kando}/share $out/share
+        # Store directories are read-only; make only the cloned directories
+        # writable, without following their symlinked files into the store.
+        find $out/share -type d -exec chmod u+w {} +
         # Node resolves symlinked entrypoints to their original directory. Keep
         # this entrypoint local so its native_modules path uses the fixed addon.
         unlink $out/share/kando/resources/app/.webpack/main/index.js

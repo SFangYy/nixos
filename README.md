@@ -449,9 +449,12 @@ music、`6` proxy、`7` general、`8` reference、`9` scratch。其中工作区 
 ### MX Master 4 Action Ring
 
 配置集中在 `home/programs/utils/action-ring/`。Haptic 按键由 Solaar
-接管并打开 Kando 的 `My Config` 菜单；Niri 自启动也在该模块中定义。
+接管并打开 Kando 的 `My Config` 菜单；Kando 与 Solaar 的 systemd
+用户服务也在该模块中定义，随图形会话启动。
 菜单包含设备切换、EIOTO 笔记与终端、窗口与工作区、区域截图标注、
 音量与麦克风，以及原有 Meta+Shift 宏和 RoleInfo 提示词。
+顶层条目按固定角度递增排列，均匀分布在圆环四周；正下方 `180°`
+是“切换到 Mac”一级按钮，无需打开子菜单。
 窗口操作直接使用 Niri IPC，无需依赖通用桌面快捷键。
 `Kando Menu` 的透明窗口固定从屏幕左上角 `(0,0)` 展开，关闭焦点框、
 边框和阴影；圆盘本身仍跟随鼠标位置。这是 Kando 在 Niri 下的定位要求，
@@ -468,7 +471,9 @@ pointer-enter 标志，导致静止鼠标定位超时。`kando.nix` 使用官方
 否则下次激活会恢复受管理菜单。
 
 `switch-to-macos [VCP] [host]` 默认使用 USB-C 输入 `0x1b` 和鼠标通道 2。
-先检测显示器总线，再发送鼠标切换命令，最后按稳定 I2C 总线号切屏。
+先检测显示器总线，再直接使用 Solaar 的 HID++ 库切换鼠标并核实
+源连接状态，最后按稳定 I2C 总线号切屏。鼠标仍处于原通道才重试，
+最多三次；连接状态不明时不盲目重试。
 鼠标失败时停止切屏，并发出通知。执行日志保存在
 `~/.local/state/action-ring/switch-to-macos.log`（遵循 `XDG_STATE_HOME`）。
 
@@ -482,7 +487,8 @@ switch-to-macos --display-only  # 仅切屏，可用于鼠标已经切走的情�
 当前鼠标配对是 1=inspiron、2=MacBook Air、3=Steam Deck；Solaar CLI
 使用 1 起算的通道号，HID++ 内部编号则是 0 起算。`SOLAAR_DEVICE`
 可覆盖设备名称，`SOLAAR_TIMEOUT` 可覆盖 30 秒超时。鼠标 `CHANGE_HOST`
-没有确认回复，命令成功只表示已发送，目标 Mac 仍需开启蓝牙并保留配对。
+没有确认回复；工具核实已离开源主机或设备选择了目标通道，但目标 Mac
+仍需开启蓝牙并保留配对，不能将源端离线当成 Mac 已接受连接。
 鼠标底部按钮选择通道 1 可回到 NixOS。macOS 的 `switch-to-nixos`
 仍只负责切屏，鼠标需在 Mac 端单独切换。
 
