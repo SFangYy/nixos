@@ -1,14 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
-  pkgsOld = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz";
-    sha256 = "1f5d2g1p6nfwycpmrnnmc2xmcszp804adp16knjvdkj8nz36y1fg";
-  }) { system = "x86_64-linux"; };
+  pkgsOld = import inputs.nixpkgs-eda-23 { system = "x86_64-linux"; };
 
-  pkgsLegacy = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz";
-    sha256 = "04ffwp2gzq0hhz7siskw6qh9ys8ragp7285vi1zh8xjksxn1msc5";
-  }) { system = "x86_64-linux"; };
+  pkgsLegacy = import inputs.nixpkgs-eda-21 { system = "x86_64-linux"; };
 
   requirementsTxt = ../../../pkgs/external-packages/requirements.txt;
   ueRuntimeLibs =

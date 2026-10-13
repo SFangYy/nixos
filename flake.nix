@@ -46,9 +46,15 @@
         };
       };
       perSystem =
-        { pkgs, ... }:
+        { pkgs, system, ... }:
         {
-          packages = import ./pkgs { inherit pkgs; };
+          _module.args.pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          packages = pkgs.lib.filterAttrs (
+            _: package: pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package
+          ) (import ./pkgs { inherit pkgs; });
           treefmt = {
             projectRootFile = "flake.nix";
             programs.nixfmt.enable = true;
@@ -73,6 +79,19 @@
 
   inputs = {
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # Legacy EDA runtimes have independent, visible lock entries.
+    nixpkgs-eda-23 = {
+      url = "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz";
+      flake = false;
+    };
+    nixpkgs-eda-21 = {
+      url = "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz";
+      flake = false;
+    };
+    nixpkgs-eda-19 = {
+      url = "https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz";
+      flake = false;
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";

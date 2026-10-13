@@ -2,18 +2,13 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
-  pkgsOld = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz";
-    sha256 = "1f5d2g1p6nfwycpmrnnmc2xmcszp804adp16knjvdkj8nz36y1fg";
-  }) { system = "x86_64-linux"; };
+  pkgsOld = import inputs.nixpkgs-eda-23 { system = "x86_64-linux"; };
 
-  pkgsLegacy19 = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz";
-    sha256 = "157c64220lf825ll4c0cxsdwg7cxqdx4z559fdp7kpz0g6p8fhhr";
-  }) { system = "x86_64-linux"; };
+  pkgsLegacy19 = import inputs.nixpkgs-eda-19 { system = "x86_64-linux"; };
 
   # OpenSSL 1.0.x for legacy EDA tools
   openssl_1_0 = pkgsLegacy19.openssl_1_0_2;
