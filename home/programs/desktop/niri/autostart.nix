@@ -51,7 +51,5 @@ in
 {
   programs.niri.settings.spawn-at-startup = [
     { command = [ "${niri-autostart}/bin/niri-autostart" ]; }
-    { command = [ "${pkgs.solaar}/bin/solaar" "--window" "hide" ]; }
-    { command = [ "${pkgs.kando}/bin/kando" ]; }
   ];
 }

@@ -76,6 +76,7 @@
     ./eye-candy.nix
     ./music.nix
     ./display.nix
+    ./action-ring
   ];
   # TUI file manager. The HM wrapper ships the `y` function so quitting
   # drops the calling shell into the directory browsed in yazi.

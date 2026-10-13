@@ -1,0 +1,5 @@
+--- a/src/main/backends/linux/wlroots/native/Native.cpp
++++ b/src/main/backends/linux/wlroots/native/Native.cpp
+@@ -739 +739 @@
+-  mData.mPointerEventReceived = false;
++  // Do not discard pointer-enter received during the xdg-output roundtrip.

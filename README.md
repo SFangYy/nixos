@@ -446,6 +446,51 @@ Niri 配置中的逻辑修饰键名称。
 music、`6` proxy、`7` general、`8` reference、`9` scratch。其中工作区 5
 固定在主显示器 Dell U2723QE 上。
 
+### MX Master 4 Action Ring
+
+配置集中在 `home/programs/utils/action-ring/`。Haptic 按键由 Solaar
+接管并打开 Kando 的 `My Config` 菜单；Niri 自启动也在该模块中定义。
+菜单包含设备切换、EIOTO 笔记与终端、窗口与工作区、区域截图标注、
+音量与麦克风，以及原有 Meta+Shift 宏和 RoleInfo 提示词。
+窗口操作直接使用 Niri IPC，无需依赖通用桌面快捷键。
+`Kando Menu` 的透明窗口固定从屏幕左上角 `(0,0)` 展开，关闭焦点框、
+边框和阴影；圆盘本身仍跟随鼠标位置。这是 Kando 在 Niri 下的定位要求，
+不是将圆盘固定在屏幕角落。
+Kando 3.0.0 的 Wayland 原生模块在获取屏幕信息后会错误清除已经收到的
+pointer-enter 标志，导致静止鼠标定位超时。`kando.nix` 使用官方包的源码，
+只重编译并替换修补后的 `NativeWLR.node`，其余文件和 Electron 启动器
+继续复用官方包。该补丁仅应用于 3.0.0；升级后需确认上游是否已修复。
+
+`menu.json` 是受管理菜单的源文件。Home Manager 激活时只更新
+`My Config`，保留其他菜单及全局设置，并将旧菜单备份到
+`~/.config/kando/backups/menus-before-action-ring-*.json`。运行时文件保持
+可写，便于 Kando 编辑；要永久保留 GUI 修改，需要同步回仓库源文件，
+否则下次激活会恢复受管理菜单。
+
+`switch-to-macos [VCP] [host]` 默认使用 USB-C 输入 `0x1b` 和鼠标通道 2。
+先检测显示器总线，再发送鼠标切换命令，最后按稳定 I2C 总线号切屏。
+鼠标失败时停止切屏，并发出通知。执行日志保存在
+`~/.local/state/action-ring/switch-to-macos.log`（遵循 `XDG_STATE_HOME`）。
+
+```bash
+switch-to-macos --dry-run       # 预览，不改变设备
+switch-to-macos --status        # 读取鼠标配对通道与当前连接
+switch-to-macos --mouse-only    # 仅将鼠标切到 Mac
+switch-to-macos --display-only  # 仅切屏，可用于鼠标已经切走的情况
+```
+
+当前鼠标配对是 1=inspiron、2=MacBook Air、3=Steam Deck；Solaar CLI
+使用 1 起算的通道号，HID++ 内部编号则是 0 起算。`SOLAAR_DEVICE`
+可覆盖设备名称，`SOLAAR_TIMEOUT` 可覆盖 30 秒超时。鼠标 `CHANGE_HOST`
+没有确认回复，命令成功只表示已发送，目标 Mac 仍需开启蓝牙并保留配对。
+鼠标底部按钮选择通道 1 可回到 NixOS。macOS 的 `switch-to-nixos`
+仍只负责切屏，鼠标需在 Mac 端单独切换。
+
+2026-10-13 排查时，原命令 `solaar config 'MX Master 4' change-host 2`
+在 3.6 秒内成功，随后鼠标在 NixOS 离线；Bolt 接收器直接连接电脑 USB。
+原组合流程失败尚未复现，因此没有将通道号、接收器拓扑或 10 秒超时
+认定为根因。新流程补充顺序控制和错误日志，便于后续核实。
+
 ---
 
 ## Vim / Neovim (NixVim)

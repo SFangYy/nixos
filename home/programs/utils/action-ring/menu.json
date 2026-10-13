@@ -1,0 +1,532 @@
+{
+  "root": {
+    "type": "root",
+    "name": "My Config",
+    "icon": "apps",
+    "iconTheme": "material-symbols-rounded",
+    "activateWorkflow": {
+      "quickSelectKey": "Backspace",
+      "actions": [
+        {
+          "type": "close-menu"
+        }
+      ]
+    },
+    "children": [
+      {
+        "type": "submenu",
+        "name": "设备切换",
+        "icon": "devices",
+        "iconTheme": "material-symbols-rounded",
+        "children": [
+          {
+            "type": "button",
+            "name": "切换鼠标和显示器到 Mac",
+            "icon": "laptop_mac",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "M",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ switch-macos",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "查看鼠标通道",
+            "icon": "mouse",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "S",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ switch-status",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          }
+        ],
+        "activateWorkflow": {
+          "quickSelectKey": "Backspace",
+          "actions": [
+            {
+              "type": "close-submenu"
+            }
+          ]
+        },
+        "openWorkflow": {
+          "quickSelectKey": "D",
+          "actions": []
+        }
+      },
+      {
+        "type": "submenu",
+        "name": "笔记与终端",
+        "icon": "edit_note",
+        "iconTheme": "material-symbols-rounded",
+        "children": [
+          {
+            "type": "button",
+            "name": "打开 EIOTO",
+            "icon": "menu_book",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "O",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ obsidian",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "打开今日日记",
+            "icon": "note_add",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "N",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ daily-note",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "终端",
+            "icon": "terminal",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "T",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ terminal",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          }
+        ],
+        "activateWorkflow": {
+          "quickSelectKey": "Backspace",
+          "actions": [
+            {
+              "type": "close-submenu"
+            }
+          ]
+        },
+        "openWorkflow": {
+          "quickSelectKey": "N",
+          "actions": []
+        }
+      },
+      {
+        "type": "submenu",
+        "name": "窗口与工作区",
+        "icon": "select_window",
+        "iconTheme": "material-symbols-rounded",
+        "children": [
+          {
+            "type": "button",
+            "name": "工作区总览",
+            "icon": "overview",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "O",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ overview",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "全屏切换",
+            "icon": "fullscreen",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "F",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ fullscreen",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "浮动切换",
+            "icon": "picture_in_picture",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "T",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ floating",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "聚焦左侧",
+            "icon": "arrow_back",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "L",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ focus-left",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "聚焦右侧",
+            "icon": "arrow_forward",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "R",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ focus-right",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "上一工作区",
+            "icon": "arrow_upward",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "U",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ workspace-up",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "下一工作区",
+            "icon": "arrow_downward",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "D",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ workspace-down",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          }
+        ],
+        "activateWorkflow": {
+          "quickSelectKey": "Backspace",
+          "actions": [
+            {
+              "type": "close-submenu"
+            }
+          ]
+        },
+        "openWorkflow": {
+          "quickSelectKey": "W",
+          "actions": []
+        }
+      },
+      {
+        "type": "button",
+        "name": "区域截图与标注",
+        "icon": "screenshot_region",
+        "iconTheme": "material-symbols-rounded",
+        "selectWorkflow": {
+          "quickSelectKey": "S",
+          "actions": [
+            {
+              "type": "close-menu"
+            },
+            {
+              "type": "execute-command",
+              "command": "@ACTIONS@ screenshot",
+              "detached": true,
+              "isolated": false
+            }
+          ]
+        }
+      },
+      {
+        "type": "submenu",
+        "name": "音量与麦克风",
+        "icon": "volume_up",
+        "iconTheme": "material-symbols-rounded",
+        "children": [
+          {
+            "type": "button",
+            "name": "扬声器静音",
+            "icon": "volume_off",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "S",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ audio-mute",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "麦克风静音",
+            "icon": "mic_off",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "M",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ mic-mute",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "音量 +5%",
+            "icon": "volume_up",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "U",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ volume-up",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "name": "音量 -5%",
+            "icon": "volume_down",
+            "iconTheme": "material-symbols-rounded",
+            "selectWorkflow": {
+              "quickSelectKey": "D",
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-command",
+                  "command": "@ACTIONS@ volume-down",
+                  "detached": true,
+                  "isolated": false
+                }
+              ]
+            }
+          }
+        ],
+        "activateWorkflow": {
+          "quickSelectKey": "Backspace",
+          "actions": [
+            {
+              "type": "close-submenu"
+            }
+          ]
+        },
+        "openWorkflow": {
+          "quickSelectKey": "A",
+          "actions": []
+        }
+      },
+      {
+        "type": "submenu",
+        "name": "原有快捷操作",
+        "icon": "keyboard",
+        "iconTheme": "material-symbols-rounded",
+        "children": [
+          {
+            "type": "button",
+            "name": "原有 Meta+Shift 宏",
+            "icon": "macro-item.svg",
+            "iconTheme": "kando",
+            "selectWorkflow": {
+              "actions": [
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "execute-macro",
+                  "macro": [
+                    {
+                      "type": "keyDown",
+                      "key": "MetaLeft",
+                      "delay": 10
+                    },
+                    {
+                      "type": "keyDown",
+                      "key": "ShiftLeft",
+                      "delay": 10
+                    },
+                    {
+                      "type": "keyUp",
+                      "key": "MetaLeft",
+                      "delay": 10
+                    },
+                    {
+                      "type": "keyUp",
+                      "key": "ShiftLeft",
+                      "delay": 10
+                    }
+                  ]
+                }
+              ],
+              "quickSelectKey": "M"
+            }
+          },
+          {
+            "type": "button",
+            "name": "粘贴 RoleInfo 提示词",
+            "icon": "text-item.svg",
+            "iconTheme": "kando",
+            "selectWorkflow": {
+              "quickSelectKey": "P",
+              "actions": [
+                {
+                  "type": "inhibit-shortcuts"
+                },
+                {
+                  "type": "close-menu"
+                },
+                {
+                  "type": "set-clipboard",
+                  "text": "请通过工具RoleInfo获取你的角色信息和基本指导，然后完成任务。请使用工具ReadTextFile读取文件。你需要在当前工作目录进行文件操作，不要超出该目录。"
+                },
+                {
+                  "type": "simulate-hotkey",
+                  "hotkey": "ControlLeft+KeyV"
+                }
+              ]
+            }
+          }
+        ],
+        "activateWorkflow": {
+          "quickSelectKey": "Backspace",
+          "actions": [
+            {
+              "type": "close-submenu"
+            }
+          ]
+        },
+        "openWorkflow": {
+          "quickSelectKey": "L",
+          "actions": []
+        }
+      }
+    ]
+  },
+  "shortcut": "",
+  "shortcutID": "",
+  "useFixedPosition": false,
+  "fixedMenuPosition": {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "anchored": false,
+  "hoverMode": false,
+  "tags": []
+}
