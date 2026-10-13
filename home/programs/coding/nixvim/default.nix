@@ -4,19 +4,52 @@
   lib,
   ...
 }:
+let
+  palette = lib.genAttrs [
+    "base00"
+    "base01"
+    "base02"
+    "base03"
+    "base04"
+    "base05"
+    "base06"
+    "base07"
+    "base08"
+    "base09"
+    "base0A"
+    "base0B"
+    "base0C"
+    "base0D"
+    "base0E"
+    "base0F"
+  ] (name: config.lib.stylix.colors.withHashtag.${name});
+in
 {
   imports = [
     ./core
     ./plugins
   ];
 
-  # Keep Nixvim theme highlights in this module; Stylix's generated target
-  # currently pulls an invalid base16-schemes derivation during evaluation.
+  # Use Stylix's resolved palette directly, avoiding the generated target's
+  # additional scheme derivation while still applying a complete colorscheme.
   stylix.targets.nixvim.enable = false;
 
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
+    colorscheme = lib.mkIf (config.stylix.enable or false) "stylix";
+    extraFiles."colors/stylix.lua".text = lib.mkIf (config.stylix.enable or false) ''
+      local palette = vim.json.decode([=[${builtins.toJSON palette}]=])
+      require('base16-colorscheme').setup(palette)
+      vim.g.colors_name = 'stylix'
+      -- Nixvim derives BAT_THEME from the name, but this theme is nvim-only.
+      vim.env.BAT_THEME = nil
+    '';
+    colorschemes.base16 = lib.mkIf (config.stylix.enable or false) {
+      enable = true;
+      colorscheme = palette;
+      setUpBar = true;
+    };
     performance.combinePlugins = {
       enable = false;
       standalonePlugins = [
@@ -49,6 +82,8 @@
     );
 
     opts = {
+      background = lib.mkIf (config.stylix.enable or false) config.stylix.polarity;
+      termguicolors = true;
       mouse = "a";
       showmode = false;
       breakindent = true;
@@ -121,8 +156,10 @@
       endwise.enable = true;
       markdown-preview.enable = true;
     };
-    extraPlugins = with pkgs.vimPlugins; lib.optionals pkgs.stdenv.isLinux [
-      fcitx-vim
-    ];
+    extraPlugins =
+      with pkgs.vimPlugins;
+      lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+        fcitx-vim
+      ];
   };
 }

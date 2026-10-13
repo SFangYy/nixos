@@ -164,7 +164,7 @@
     ];
 
     variables = {
-      EDITOR = "lvim";
+      EDITOR = "nvim";
       NIRI_CONFIG = "/home/${user}/.config/niri/config.kdl";
       ALL_PROXY = "http://127.0.0.1:7890";
       HTTP_PROXY = "http://127.0.0.1:7890";
