@@ -55,6 +55,39 @@
           packages = pkgs.lib.filterAttrs (
             _: package: pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package
           ) (import ./pkgs { inherit pkgs; });
+          checks = {
+            config-tools =
+              pkgs.runCommand "nixos-config-tools-tests"
+                {
+                  nativeBuildInputs = [
+                    (pkgs.python3.withPackages (ps: [ ps.pyyaml ]))
+                    pkgs.bash
+                    pkgs.coreutils
+                    pkgs.findutils
+                  ];
+                }
+                ''
+                  export NIXOS_CONFIG_ROOT=${./.}
+                  export PYTHONDONTWRITEBYTECODE=1
+                  python3 -m unittest discover -s ${./tests} -v
+                  touch $out
+                '';
+          }
+          // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+            mouse-switch-imports =
+              pkgs.runCommand "mouse-switch-imports"
+                {
+                  nativeBuildInputs = [
+                    (import ./home/programs/utils/action-ring/switch-mouse-host.nix { inherit pkgs; })
+                  ];
+                }
+                ''
+                  export HOME="$TMPDIR/home"
+                  mkdir -p "$HOME"
+                  switch-mouse-host --help > /dev/null
+                  touch $out
+                '';
+          };
           treefmt = {
             projectRootFile = "flake.nix";
             programs.nixfmt.enable = true;

@@ -23,6 +23,10 @@ result-*
 .DS_Store
 
 # Temporary files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
 *.tmp
 *.bak
 *.log
