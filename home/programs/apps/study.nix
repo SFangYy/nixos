@@ -12,6 +12,34 @@
     #inputs.antigravity-flake.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-fhs
   ];
 
+  # Nixpkgs runs Obsidian through Electron, so its GUI cannot register the
+  # executable itself. Expose the bundled official CLI under its expected name
+  # while keeping desktop launches on the original Nixpkgs wrapper.
+  home.file.".local/bin/obsidian" = lib.mkIf pkgs.stdenv.isLinux {
+    executable = true;
+    text = ''
+      #!${pkgs.bash}/bin/bash
+      if [[ $# -eq 0 ]]; then
+        exec ${pkgs.obsidian}/bin/obsidian "$@"
+      fi
+      case "$1" in
+        --help|--version)
+          command="help"
+          [[ "$1" == --version ]] && command="version"
+          shift
+          exec ${pkgs.obsidian}/bin/obsidian-cli "$command" "$@"
+          ;;
+        --*|obsidian://*)
+          exec ${pkgs.obsidian}/bin/obsidian "$@"
+          ;;
+      esac
+      if [[ -e "$1" ]]; then
+        exec ${pkgs.obsidian}/bin/obsidian "$@"
+      fi
+      exec ${pkgs.obsidian}/bin/obsidian-cli "$@"
+    '';
+  };
+
   home.activation.antigravitySettingsBootstrap = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     AG_SETTINGS="$HOME/.config/Antigravity/User/settings.json"
     mkdir -p "$(dirname "$AG_SETTINGS")"
