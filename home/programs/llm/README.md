@@ -24,3 +24,9 @@ SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt" \
 Do not enable the module until `secrets.yaml` has been encrypted and added to Git. Flakes only see tracked files when they evaluate the repository.
 
 The service runs as a user systemd service on `127.0.0.1:4000` and uses the project repository's non-secret `config/litellm.yaml`.
+
+The startup wrapper checks for Python 3.13 and discovers the engine cache from
+the installed Prisma client, so a client upgrade does not leave stale revision
+paths in the Nix configuration. Missing engines fail with a regeneration hint.
+PostgreSQL uses the local Unix socket with peer authentication instead of a TCP
+`trust` rule; ownership is ensured after the database role exists.

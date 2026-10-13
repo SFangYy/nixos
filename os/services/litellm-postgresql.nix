@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   users.users.sfangyy.extraGroups = [ "postgres" ];
 
@@ -11,13 +16,13 @@
         name = "sfangyy";
       }
     ];
-    initialScript = ./litellm-postgresql-init.sql;
     settings = {
       listen_addresses = lib.mkForce "127.0.0.1";
       port = 5432;
     };
-    authentication = lib.mkAfter ''
-      host litellm sfangyy 127.0.0.1/32 trust
-    '';
   };
+  # Apply ownership after the module has ensured the role/database exist.
+  systemd.services.postgresql.postStart = lib.mkAfter ''
+    ${config.services.postgresql.package}/bin/psql -d postgres -f ${./litellm-postgresql-init.sql}
+  '';
 }
