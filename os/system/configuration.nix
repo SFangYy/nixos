@@ -128,7 +128,6 @@
       "video"
       "kvm"
       "davfs2"
-      "podman"
       "docker"
       "tun"
       "input"
@@ -215,14 +214,8 @@
   virtualisation = {
     libvirtd.enable = true;
 
-    # UCSwarm 的 process/swarm 后端依赖真实 Docker Swarm API(docker
-    # service/stack),podman 不支持。podman 保留用于 rootless 容器,但其
-    # docker 垫片必须关掉,否则 bin/docker 与真实 Docker client 冲突。
+    # UCSwarm's service/stack backend requires the real Docker Swarm API.
     docker.enable = true;
 
-    podman = {
-      enable = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
   };
 }

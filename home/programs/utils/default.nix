@@ -71,6 +71,7 @@
     sops
     openssl
     evtest
+    etcd # UCSwarm process backend (make start_all BACKEND=process)
   ];
   imports = [
     ./eye-candy.nix

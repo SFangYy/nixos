@@ -4,7 +4,26 @@ let
 
   pkgsLegacy = import inputs.nixpkgs-eda-21 { system = "x86_64-linux"; };
 
-  requirementsTxt = ../../../pkgs/external-packages/requirements.txt;
+  # Pin the schema-compatible etcd runtime for UCSwarm in UE only.
+  ueEtcd = pkgs.stdenvNoCC.mkDerivation {
+    pname = "ue-etcd";
+    version = "3.7.2";
+    src = pkgs.fetchurl {
+      url = "https://github.com/etcd-io/etcd/releases/download/v3.7.2/etcd-v3.7.2-linux-amd64.tar.gz";
+      hash = "sha256-OjZ5vFGk7p0wvM6h2nzU/mLG/B0soSVQaNLFO/MCYTU=";
+    };
+    dontConfigure = true;
+    dontBuild = true;
+    installPhase = ''
+      runHook preInstall
+      install -Dm755 etcd "$out/bin/etcd"
+      install -Dm755 etcdctl "$out/bin/etcdctl"
+      install -Dm755 etcdutl "$out/bin/etcdutl"
+      runHook postInstall
+    '';
+    meta.platforms = [ "x86_64-linux" ];
+  };
+
   ueRuntimeLibs =
     with pkgsOld;
     [
@@ -122,6 +141,9 @@ in
           # Common libraries
           zlib
           zlib.dev
+          # Verilator FST tracing compiles and links against external LZ4.
+          (pkgs.lib.getDev pkgs.lz4)
+          (pkgs.lib.getLib pkgs.lz4)
           libxml2
           expat
           harfbuzz
@@ -153,6 +175,7 @@ in
           glib
 
           # Tools
+          (pkgs.lib.hiPrio ueEtcd)
           bc
           time
           lcov
@@ -172,8 +195,8 @@ in
           unzip
           curl
 
-          # Keep generated picker code compatible with the Verilator 5.018 API.
-          pkgsOld.verilator
+          # Use the selected current Verilator with its FST development dependencies.
+          pkgs.verilator
           verible
           pkgs.swig
           pkgs.gcc.cc.lib
@@ -194,6 +217,14 @@ in
           '')
         ]);
       profile = ''
+        # Keep the platform launcher independent of the host's older etcd.
+        export ETCD_BIN=${ueEtcd}/bin/etcd
+        export PATH=${ueEtcd}/bin:$PATH
+
+        # Export compiler paths so managed process workers inherit FST dependencies.
+        export CPATH=${pkgs.lib.getDev pkgs.lz4}/include''${CPATH:+:$CPATH}
+        export LIBRARY_PATH=${pkgs.lib.getLib pkgs.lz4}/lib''${LIBRARY_PATH:+:$LIBRARY_PATH}
+
         export VERDI_HOME=$HOME/EDAHome/verdi/W-2024.09-SP1
         export VCS_HOME=$HOME/EDAHome/vcs/W-2024.09-SP1
         export UVMC_HOME=$HOME/EDAHome/uvmc
@@ -223,22 +254,14 @@ in
 
         # Setup uv Python environment
         export UV_CACHE_DIR=$HOME/.cache/uv
-        export REQUIREMENTS_TXT="${requirementsTxt}"
-
-        # Auto-setup Python environment if requirements.txt exists
-        if [ -f "$REQUIREMENTS_TXT" ]; then
-          cd $HOME/work
-          if [ ! -d ".venv" ]; then
-            echo "Creating uv virtual environment..."
-            uv venv
-          fi
-          source .venv/bin/activate
-
-          if [ ! -f ".venv/.installed" ] || [ "$REQUIREMENTS_TXT" -nt ".venv/.installed" ]; then
-            echo "Installing Python dependencies with uv..."
-            uv pip install -r "$REQUIREMENTS_TXT" && touch .venv/.installed
-          fi
-        fi
+        export UCAGENT_ROOT=/home/sfangyy/work/XSV/repos/UCAgent
+        export UCAGENT_PYTHON=${pkgs.python313}/bin/python3
+        export UCAGENT_WHEEL_RPATH="${pkgs.lib.getLib pkgs.stdenv.cc.cc}/lib64:${pkgs.lib.getLib pkgs.stdenv.cc.cc}/lib:${pkgs.lib.getLib pkgs.zlib}/lib"
+        export UCAGENT_PATCHELF=${pkgs.patchelf}/bin/patchelf
+        source ${./prepare-ucagent-env.sh} || {
+          echo "UCAgent environment preparation failed; refusing to use a stale installation." >&2
+          exit 1
+        }
       '';
       runScript = "bash -c 'cd ~/work; exec fish'";
     })

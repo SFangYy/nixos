@@ -68,7 +68,6 @@
       shellAliases = {
         "ls" = "eza";
         "l" = "eza -lah --icons=auto";
-        "docker" = "podman";
         "analyze" = "ls *.Rmd | fzf | xargs -I {} R -e \"rmarkdown::render('{}', quiet = FALSE)\"";
       };
       shellInit = ''
@@ -153,7 +152,7 @@
         {
           # Colorize interactive output of systemctl, journalctl, ping, ...
           # Wrappers defined at conf.d time are overridden by the later
-          # `ls`/`docker` aliases in config.fish, so eza/podman still win.
+          # `ls` alias in config.fish, so eza still wins.
           name = "grc";
           src = grc.src;
         }
