@@ -160,17 +160,10 @@
       ];
       functions = {
         fish_greeting = "";
+        # codex: default ChatGPT login profile; codex-api: API key profile.
+        # Both run in ~/.codex so session history stays shared.
         codex-api = ''
-          set -l codex_home "$HOME/.codex-api"
-          command mkdir -p -- "$codex_home"; or return
-          set -lx CODEX_HOME "$codex_home"
-          command codex $argv
-        '';
-        codex-auth = ''
-          set -l codex_home "$HOME/.codex-auth"
-          command mkdir -p -- "$codex_home"; or return
-          set -lx CODEX_HOME "$codex_home"
-          command codex $argv
+          command codex --profile api $argv
         '';
         fnos = ''
           ${config.home.homeDirectory}/scripts/mount-fnos $argv
