@@ -2,6 +2,7 @@
   pkgs,
   user,
   lib,
+  config,
   ...
 }:
 {
@@ -22,7 +23,42 @@
     mihomo-party
   ];
 
+  # A separate loopback-only core gives the daemon a proxy before login. The
+  # desktop application's ports, controller and TUN never collide with it.
+  services.mihomo = {
+    enable = true;
+    configFile = "/var/lib/mihomo-party/work/config.yaml";
+  };
+  systemd.services.mihomo = {
+    unitConfig.ConditionPathExists = "/var/lib/mihomo-party/work/config.yaml";
+    serviceConfig = {
+      ExecStartPre = pkgs.writeShellScript "prepare-mihomo-nix" ''
+        ${pkgs.python3.withPackages (ps: [ ps.pyyaml ])}/bin/python3 \
+          ${./prepare-mihomo-nix.py} "$CREDENTIALS_DIRECTORY/config.yaml" \
+          /var/lib/private/mihomo/nix-config.yaml \
+          --assets /var/lib/mihomo-party/work
+      '';
+      ExecStart = lib.mkForce "${config.services.mihomo.package}/bin/mihomo -d /var/lib/private/mihomo -f /var/lib/private/mihomo/nix-config.yaml";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+  };
+  systemd.paths.mihomo-nix-config = {
+    wantedBy = [ "multi-user.target" ];
+    pathConfig = {
+      PathChanged = "/var/lib/mihomo-party/work/config.yaml";
+      Unit = "mihomo-nix-reload.service";
+    };
+  };
+  systemd.services.mihomo-nix-reload = {
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/systemctl try-restart mihomo.service";
+    };
+  };
+
   systemd.user.services.mihomo-party = {
+    restartIfChanged = false;
     description = "Mihomo Party";
     wantedBy = [ "graphical-session.target" ];
     wants = [ "graphical-session.target" ];
@@ -35,6 +71,7 @@
       ExecStart = "${pkgs.mihomo-party}/bin/mihomo-party";
       Restart = "on-failure";
       RestartSec = 2;
+      UMask = "0077";
     };
   };
 
@@ -118,10 +155,9 @@
   # Polkit rule to allow mihomo-party to manage network interfaces
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
-      if ((action.id == "org.freedesktop.policykit.exec" ||
-           action.id == "org.freedesktop.NetworkManager.settings.modify.system" ||
+      if ((action.id == "org.freedesktop.NetworkManager.settings.modify.system" ||
            action.id == "org.freedesktop.NetworkManager.network-control") &&
-          subject.isInGroup("wheel")) {
+          subject.active && subject.local && subject.isInGroup("wheel")) {
         return polkit.Result.YES;
       }
     });
