@@ -84,6 +84,7 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    shellWrapperName = "y";
   };
 
   programs.pay-respects.enable = true;

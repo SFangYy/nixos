@@ -17,6 +17,8 @@
     };
   };
 
+  # Keep an active login session while updating compositor packages.
+  systemd.services.greetd.stopIfChanged = false;
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";

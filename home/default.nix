@@ -46,12 +46,6 @@
         fi
       '';
 
-      restart-noctalia =
-        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          if ${pkgs.systemd}/bin/systemctl --user is-active noctalia.service &>/dev/null; then
-            run --silence ${pkgs.systemd}/bin/systemctl --user restart noctalia.service || true
-          fi
-        '';
     };
   };
 

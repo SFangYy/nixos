@@ -15,7 +15,7 @@
   # Nixpkgs runs Obsidian through Electron, so its GUI cannot register the
   # executable itself. Expose the bundled official CLI under its expected name
   # while keeping desktop launches on the original Nixpkgs wrapper.
-  home.file.".local/bin/obsidian" = lib.mkIf pkgs.stdenv.isLinux {
+  home.file.".local/bin/obsidian" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     executable = true;
     text = ''
       #!${pkgs.bash}/bin/bash
@@ -33,7 +33,7 @@
           exec ${pkgs.obsidian}/bin/obsidian "$@"
           ;;
       esac
-      if [[ -e "$1" ]]; then
+      if [[ "$1" == /* || "$1" == ./* || "$1" == ../* ]]; then
         exec ${pkgs.obsidian}/bin/obsidian "$@"
       fi
       exec ${pkgs.obsidian}/bin/obsidian-cli "$@"
@@ -50,7 +50,7 @@
     {
       "workbench.colorTheme": "Tokyo Night",
       "http.proxy": "http://127.0.0.1:7890",
-      "http.proxyStrictSSL": false,
+      "http.proxyStrictSSL": true,
       "http.proxySupport": "on"
     }
     EOF
