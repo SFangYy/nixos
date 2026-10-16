@@ -40,9 +40,9 @@
         })
         config.monitors;
       binds = with config.lib.niri.actions; {
-        "Super+Return".action = spawn "kitty";
+        "Super+Return".action = spawn "${config.programs.kitty.package}/bin/kitty";
         "Super+Shift+Return".action = spawn [
-          "kitty"
+          "${config.programs.kitty.package}/bin/kitty"
           "--app-id"
           "floating-terminal"
           "/home/${user}/scripts/quick-note"

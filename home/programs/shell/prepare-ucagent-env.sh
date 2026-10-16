@@ -9,16 +9,40 @@ prepare_ucagent_env() {
   if [[ ! -x "$venv/bin/python" ]]; then
     uv venv --python "${UCAGENT_PYTHON:-python3}" "$venv" || return 1
   fi
+
   local fingerprint installed
   fingerprint=$({
     sha256sum "$UCAGENT_ROOT/requirements.txt" "$UCAGENT_ROOT/pyproject.toml"
-    "$venv/bin/python" --version
+    "$venv/bin/python" - <<'PY'
+import sys
+print(sys.implementation.cache_tag)
+print(sys.version_info[:3])
+PY
   } | sha256sum | cut -d ' ' -f1)
   installed=$(cat "$venv/.ucagent-dependencies.sha256" 2>/dev/null || true)
   if [[ "$fingerprint" != "$installed" ]]; then
-    uv pip install --python "$venv/bin/python" -e "$UCAGENT_ROOT" || return 1
+    local requirements_file="$UCAGENT_ROOT/requirements.txt"
+    local local_toffee="$HOME/work/XSV/repos/toffee"
+    local local_toffee_test="$HOME/work/XSV/repos/toffee-test"
+    local temp_requirements=""
+    if [[ -d "$local_toffee" && -d "$local_toffee_test" ]]; then
+      temp_requirements=$(mktemp "${TMPDIR:-/tmp}/ucagent-requirements.XXXXXX") || return 1
+      sed \
+        -e "s#^pytoffee@.*#${local_toffee}#" \
+        -e "s#^toffee-test@.*#${local_toffee_test}#" \
+        "$requirements_file" > "$temp_requirements"
+      requirements_file="$temp_requirements"
+      trap 'rm -f -- "${temp_requirements:-}"' RETURN
+    fi
+    if [[ -n "$temp_requirements" ]]; then
+      uv pip install --python "$venv/bin/python" -r "$requirements_file" || return 1
+      uv pip install --python "$venv/bin/python" -e "$UCAGENT_ROOT" --no-deps || return 1
+    else
+      uv pip install --python "$venv/bin/python" -e "$UCAGENT_ROOT" || return 1
+    fi
     printf '%s\n' "$fingerprint" > "$venv/.ucagent-dependencies.sha256"
   fi
+
   local rpath_fingerprint sofile failed=0
   rpath_fingerprint=$(printf '%s' "$fingerprint:${UCAGENT_WHEEL_RPATH:-}" | sha256sum | cut -d ' ' -f1)
   if [[ -n "${UCAGENT_WHEEL_RPATH:-}" && "$rpath_fingerprint" != "$(cat "$venv/.ucagent-rpath.sha256" 2>/dev/null || true)" ]]; then
