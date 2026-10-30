@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 let
   pkgsOld = import inputs.nixpkgs-eda-23 { system = "x86_64-linux"; };
 
@@ -80,7 +84,10 @@ let
   ueVerdiBundledLibraryPath = "$VERDI_HOME/platform/linux64/lib/tbb:$VERDI_HOME/platform/linux64/lib/Qt5/lib:$VERDI_HOME/platform/linux64/lib/zebu:$VERDI_HOME/etc/lib/libstdc++/linux64";
 in
 {
-  home.packages = [
+  # System-wide UnityChip EDA environment so every local account (including
+  # the shared `eda` account) enters the same FHS shell. A home-manager
+  # package would only be visible to its own user.
+  environment.systemPackages = [
     (pkgsOld.buildFHSEnv {
       name = "ue";
       targetPkgs =
@@ -186,6 +193,10 @@ in
 
           # User requested
           cmake
+          pkg-config
+          bison
+          flex
+          gperf
           python312
           pkgs.uv
           git
@@ -204,6 +215,7 @@ in
             mkdir -p $out/bin
             ln -s ${gnumake}/bin/make $out/bin/gmake
           '')
+          (writeShellScriptBin "ue-setup-python" (builtins.readFile ./setup-eda-python.sh))
           (writeShellScriptBin "verdi" ''
             exec env \
               PATH="$VERDI_HOME/bin:$PATH" \
@@ -222,20 +234,40 @@ in
         export PATH=${ueEtcd}/bin:$PATH
 
         # Export compiler paths so managed process workers inherit FST dependencies.
-        export CPATH=${pkgs.lib.getDev pkgs.lz4}/include''${CPATH:+:$CPATH}
-        export LIBRARY_PATH=${pkgs.lib.getLib pkgs.lz4}/lib''${LIBRARY_PATH:+:$LIBRARY_PATH}
+        export CPATH=${pkgs.lib.getDev pkgs.lz4}/include:${pkgs.lib.getDev pkgs.zlib}/include''${CPATH:+:$CPATH}
+        export LIBRARY_PATH=${pkgs.lib.getLib pkgs.lz4}/lib:${pkgs.lib.getLib pkgs.zlib}/lib''${LIBRARY_PATH:+:$LIBRARY_PATH}
 
-        export VERDI_HOME=$HOME/EDAHome/verdi/W-2024.09-SP1
-        export VCS_HOME=$HOME/EDAHome/vcs/W-2024.09-SP1
-        export UVMC_HOME=$HOME/EDAHome/uvmc
-        export UVM_HOME=$VCS_HOME/etc/uvm
-        export PATH=$VCS_HOME/bin:$PATH
+        # EDA installs are shared under /opt/eda so every account sees the
+        # same VCS/Verdi. Fall back to a per-user install until the shared
+        # tree exists; UE_EDA_ROOT wins when a user wants a private one.
+        export UE_EDA_ROOT="''${UE_EDA_ROOT:-/opt/eda}"
+        if [ ! -d "$UE_EDA_ROOT/vcs" ] && [ -d "$HOME/EDAHome/vcs" ]; then
+          export UE_EDA_ROOT="$HOME/EDAHome"
+        fi
+        export VERDI_HOME="''${VERDI_HOME:-$UE_EDA_ROOT/verdi/W-2024.09-SP1}"
+        export VCS_HOME="''${VCS_HOME:-$UE_EDA_ROOT/vcs/W-2024.09-SP1}"
+        export UVMC_HOME="''${UVMC_HOME:-$UE_EDA_ROOT/uvmc}"
+        export UVM_HOME="''${UVM_HOME:-$VCS_HOME/etc/uvm}"
+        export PATH="$VCS_HOME/bin:$HOME/.local/bin:$PATH"
+
+        # Keep binary, templates, headers and xspcomm from the same installation.
+        export PICKER_PREFIX="''${PICKER_PREFIX:-$HOME/.local}"
+        if [ ! -x "$PICKER_PREFIX/bin/picker" ] && [ -x "$UE_EDA_ROOT/picker/bin/picker" ]; then
+          export PICKER_PREFIX="$UE_EDA_ROOT/picker"
+        fi
+        export PATH="$PICKER_PREFIX/bin:$PATH"
+        export CMAKE_PREFIX_PATH="$PICKER_PREFIX''${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}"
+
+        # Site-specific license server/file settings stay outside the Nix store.
+        if [ -r /etc/eda/license.sh ]; then
+          . /etc/eda/license.sh
+        fi
 
         # Picker installs its Python bindings as support files rather than as a
         # package in each virtual environment. Make them importable inside the
         # UE development shell while leaving the rest of the user session
         # untouched.
-        export PICKER_PYTHON_SUPPORT=$HOME/.local/share/picker/python
+        export PICKER_PYTHON_SUPPORT="$PICKER_PREFIX/share/picker/python"
         if [ -d "$PICKER_PYTHON_SUPPORT/xspcomm" ]; then
           case ":''${PYTHONPATH-}:" in
             *":$PICKER_PYTHON_SUPPORT:"*) ;;
@@ -253,17 +285,44 @@ in
         export QT_XCB_GL_INTEGRATION=xcb_glx
 
         # Setup uv Python environment
-        export UV_CACHE_DIR=$HOME/.cache/uv
-        export UCAGENT_ROOT=/home/sfangyy/work/XSV/repos/UCAgent
-        export UCAGENT_PYTHON=${pkgs.python313}/bin/python3
+        export UV_CACHE_DIR="''${UV_CACHE_DIR:-$HOME/.cache/uv}"
+        # A dedicated Python 3.12 environment for the shared EDA account.
+        # Setup is explicit: entering UE never installs packages over the network.
+        export UE_PYTHON=${pkgs.python312}/bin/python3
+        # Keep the UE Python environment beside the work tree so it is the
+        # same environment used by Picker/CMake and visible as
+        # $HOME/work/.venv (override with UE_PYTHON_ENV when needed).
+        export UE_PYTHON_ENV="''${UE_PYTHON_ENV:-$HOME/work/.venv}"
+        if [ -f "$UE_PYTHON_ENV/bin/activate" ]; then
+          . "$UE_PYTHON_ENV/bin/activate"
+        fi
+
+        # UCAgent is optional: accounts without a checkout just get the plain
+        # VCS/Verdi tooling. The preparation script skips cleanly in that case
+        # and still refuses to run against a broken checkout.
+        export UCAGENT_ROOT="''${UCAGENT_ROOT:-$HOME/work/XSV/repos/UCAgent}"
+        # Picker's Python bindings and the VCS Python extension are built for
+        # Python 3.12 in this UE. Keep UCAgent on the same ABI; using Python
+        # 3.13 here creates a second UCAgent venv and makes `which ucagent`
+        # disagree with the interpreter used by Picker/CMake.
+        export UCAGENT_PYTHON="''${UCAGENT_PYTHON:-$UE_PYTHON}"
         export UCAGENT_WHEEL_RPATH="${pkgs.lib.getLib pkgs.stdenv.cc.cc}/lib64:${pkgs.lib.getLib pkgs.stdenv.cc.cc}/lib:${pkgs.lib.getLib pkgs.zlib}/lib"
         export UCAGENT_PATCHELF=${pkgs.patchelf}/bin/patchelf
-        source ${./prepare-ucagent-env.sh} || {
-          echo "UCAgent environment preparation failed; refusing to use a stale installation." >&2
-          exit 1
-        }
+        if [ "''${USER:-}" != eda ] || [ "''${UCAGENT_REQUIRED:-}" = 1 ]; then
+          source ${./prepare-ucagent-env.sh} || {
+            echo "UCAgent environment preparation failed; refusing to use a stale installation." >&2
+            exit 1
+          }
+        fi
       '';
-      runScript = "bash -c 'cd ~/work; exec fish'";
+      # Accounts without a ~/work directory still get a usable shell.
+      runScript = pkgs.writeShellScript "ue-shell" ''
+        if [ "$#" -gt 0 ]; then
+          exec "$@"
+        fi
+        cd "$HOME/work" 2>/dev/null || cd "$HOME"
+        exec fish
+      '';
     })
   ];
 }

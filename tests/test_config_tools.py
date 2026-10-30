@@ -167,6 +167,7 @@ if sys.argv[1] == 'venv':
         uv.chmod(0o755)
         env = os.environ | {
             "PATH": str(tools) + ":" + os.environ["PATH"],
+            "HOME": str(self.root),
             "UCAGENT_ROOT": str(project),
             "TRACE": str(trace),
             "UCAGENT_WHEEL_RPATH": "",
@@ -176,7 +177,7 @@ if sys.argv[1] == 'venv':
             "-c",
             'source "$1"',
             "bash",
-            str(ROOT / "home/programs/shell/prepare-ucagent-env.sh"),
+            str(ROOT / "os/system/prepare-ucagent-env.sh"),
         ]
         subprocess.run(command, env=env, check=True)
         subprocess.run(command, env=env, check=True)
