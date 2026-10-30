@@ -9,7 +9,6 @@
       "console=tty1"
     ];
     consoleLogLevel = 0;
-    initrd.verbose = false;
     loader = {
       systemd-boot = {
         enable = true;
