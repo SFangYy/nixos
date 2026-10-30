@@ -12,6 +12,26 @@
       # Keep the login shell POSIX-compatible for SSH/VS Code Remote-SSH.
       # Only interactive bash sessions are replaced by fish.
       initExtra = ''
+        # Desktop-launched terminals can inherit an incomplete PATH even when
+        # NixOS profile initialization is marked done. Append missing profile
+        # directories so existing development environment priorities survive.
+        if [[ -d /run/current-system/sw/bin ]]; then
+          for nix_profile_bin in \
+            "$HOME/.local/bin" \
+            /run/wrappers/bin \
+            "$HOME/.nix-profile/bin" \
+            "''${XDG_STATE_HOME:-$HOME/.local/state}/nix/profile/bin" \
+            "/etc/profiles/per-user/$USER/bin" \
+            /nix/var/nix/profiles/default/bin \
+            /run/current-system/sw/bin; do
+            case ":$PATH:" in
+              *":$nix_profile_bin:"*) ;;
+              *) export PATH="''${PATH:+$PATH:}$nix_profile_bin" ;;
+            esac
+          done
+          unset nix_profile_bin
+        fi
+
         if [[ $- == *i* ]] && command -v fish >/dev/null 2>&1; then
           exec fish
         fi
@@ -159,10 +179,18 @@
       ];
       functions = {
         fish_greeting = "";
-        # codex: default ChatGPT login profile; codex-api: API key profile.
-        # Both run in ~/.codex so session history stays shared.
+        # Default config uses API; auth.config.toml selects ChatGPT login.
+        # Keep shared sessions and bypass the failing proxy only for this API host.
+        codex = ''
+          set -lx NO_PROXY "$NO_PROXY,api.kxyai.top"
+          set -lx no_proxy "$no_proxy,api.kxyai.top"
+          command codex $argv
+        '';
         codex-api = ''
-          command codex --profile api $argv
+          codex $argv
+        '';
+        codex-auth = ''
+          command codex --profile auth $argv
         '';
         fnos = ''
           ${config.home.homeDirectory}/scripts/mount-fnos $argv
