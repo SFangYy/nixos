@@ -16,8 +16,13 @@ let
     5173
     4533
   ];
+  # UCSwarm gateway and the explicitly exposed UCAgent waveform/CMD API.
+  # Keep other backend services and etcd on loopback; do not open a port range.
+  ucswarmTCPPorts = [
+    8830
+    18867
+  ];
   extraPorts = [
-    8830 # UCSwarm runs on the host, not in the VM.
     8765
     8766
     8800
@@ -34,7 +39,7 @@ in
   networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = forwardPorts ++ extraPorts;
+    allowedTCPPorts = forwardPorts ++ ucswarmTCPPorts ++ extraPorts;
     allowedUDPPorts = [ 53317 ]; # LocalSend
     trustedInterfaces = [
       "virbr0"
