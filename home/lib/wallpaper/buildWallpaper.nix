@@ -71,14 +71,13 @@ let
         { inherit path; }
       else
         {
-          path =
-            lib.attrsets.foldlAttrs (
-              acc: effectName: effectOptions:
-              applyEffect {
-                inherit name;
-                path = acc;
-              } effectName effectOptions
-            ) path (lib.attrsets.filterAttrs (_: v: v.enable == true) effects);
+          path = lib.attrsets.foldlAttrs (
+            acc: effectName: effectOptions:
+            applyEffect {
+              inherit name;
+              path = acc;
+            } effectName effectOptions
+          ) path (lib.attrsets.filterAttrs (_: v: v.enable == true) effects);
         }
     );
 

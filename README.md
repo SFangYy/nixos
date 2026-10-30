@@ -12,55 +12,55 @@ The keyboard layout maps `Caps Lock` to `Escape` and swaps the left `Ctrl` and
 left `Alt` keys. The table below uses the logical modifier names from the Niri
 configuration.
 
-| Keybinding                            | Action                                     | Description                                          |
-| :------------------------------------ | :----------------------------------------- | :--------------------------------------------------- |
-| **Window Management**                 |                                            |                                                      |
-| `Super + q` / `Super + w`             | `close-window`                             | Close the focused window                             |
-| `Super + Shift + w`                   | _Script_                                   | Change wallpaper/theme (runs `change-wal-niri`)      |
-| `Super + Shift + a`                   | `toggle-overview`                          | Toggle the window overview                           |
-| `Super + t`                           | `toggle-column-tabbed-display`             | Toggle tabbed display for the column                 |
-| `Super + Shift + Space`               | `toggle-window-floating`                   | Toggle floating state for the window                 |
-| `Super + Space`                       | `switch-focus-between-floating-and-tiling` | Switch focus between floating/tiling                 |
-| `Super + f`                           | `maximize-column`                          | Maximize the current column                          |
-| `Super + Shift + f`                   | `fullscreen-window`                        | Toggle fullscreen for the window                     |
-| `Super + Ctrl + f`                    | `toggle-windowed-fullscreen`               | Toggle windowed fullscreen                           |
-| `Super + c`                           | `center-column`                            | Center the current column                            |
-| `Super + Comma`                       | `consume-window-into-column`               | Consume window into current column                   |
-| `Super + Period`                      | `expel-window-from-column`                 | Expel window from current column                     |
-| `Super + r`                           | `switch-preset-column-width`               | Switch between preset column widths                  |
-| `Super + [Shift +] -`                 | `set-column-width "-10%"`                  | Decrease column width (Shift: window height)         |
-| `Super + [Shift +] =`                 | `set-column-width "+10%"`                  | Increase column width (Shift: window height)         |
-| **Navigation**                        |                                            |                                                      |
-| `Super + {h, j, k, l}`                | `focus-*`                                  | Focus column/monitor (h/l) or window/workspace (j/k) |
-| `Super + {Left, Right}`               | `focus-column-*`                           | Focus the column to the left or right                |
-| `Super + {Down, Up}`                  | `focus-window-*`                           | Focus the window below or above                      |
-| `Super + Shift + {h, j, k, l}`        | `move-*`                                   | Move column/window in direction                      |
-| `Super + Ctrl + {arrows/h/j/k/l}`     | `focus-monitor-*`                          | Focus monitor in direction                           |
-| `Super + Shift + Ctrl + {arrows/h/j/k/l}` | `move-window-to-monitor-*`             | Move window to monitor in direction                  |
-| `Super + 1-9`                         | `focus-workspace`                          | Focus the corresponding named workspace              |
-| `Super + Shift + 1-9`                 | `move-column-to-workspace`                 | Move the current column to that workspace            |
-| **Floating Windows**                  |                                            |                                                      |
-| `Super + Alt + {h, j, k, l}`          | `move-floating-window`                     | Move floating window precisely                       |
-| **Utilities**                         |                                            |                                                      |
-| `Super + Return`                      | `kitty`                                    | Open a terminal                                      |
-| `Super + Shift + Return`              | _Script_                                   | Open the floating quick-note terminal                |
-| `Super + d`                           | `noctalia`                                 | Toggle the application launcher                      |
-| `Super + {o, b, n, e}`                | _Application_                              | Open Obsidian, Brave, Nautilus, or Hexecute          |
-| `Super + x`                           | `noctalia`                                 | Toggle the session menu                              |
-| `Super + Shift + b`                   | `noctalia`                                 | Toggle the status bar                                |
-| `Super + Shift + m`                   | `switch-to-macos`                          | Run the macOS switching script                       |
-| `Super + Alt + r`                     | _Script_                                   | Toggle screen recording                              |
-| `Super + s`                           | `grim`, `wl-copy`, `satty`                 | Select an area, copy it, then open Satty              |
-| `Super + Ctrl + s`                    | `grim`, `wl-copy`                          | Copy a full-desktop screenshot                       |
-| `Super + Alt + s`                     | `grim`, `satty`                            | Select an output and open its screenshot in Satty    |
-| `Super + Shift + s`                   | `wshowkeys`                                | Toggle on-screen key display                         |
-| `Super + Ctrl + c`                    | _Script_                                   | Pick color and copy Hex code to clipboard            |
-| `Super + Alt + c`                     | `wl-color-picker`                          | Open the color picker                                |
-| Audio media keys                      | `wpctl`                                    | Change volume or toggle speaker/microphone mute      |
-| **Screencasting**                     |                                            |                                                      |
-| `Super + Alt + m`                     | `set-dynamic-cast-monitor`                 | Set monitor for dynamic cast                         |
-| `Super + Alt + w`                     | `set-dynamic-cast-window`                  | Set window for dynamic cast                          |
-| `Super + Alt + n`                     | `clear-dynamic-cast-target`                | Clear dynamic cast target                            |
+| Keybinding                                | Action                                     | Description                                          |
+| :---------------------------------------- | :----------------------------------------- | :--------------------------------------------------- |
+| **Window Management**                     |                                            |                                                      |
+| `Super + q` / `Super + w`                 | `close-window`                             | Close the focused window                             |
+| `Super + Shift + w`                       | _Script_                                   | Change wallpaper/theme (runs `change-wal-niri`)      |
+| `Super + Shift + a`                       | `toggle-overview`                          | Toggle the window overview                           |
+| `Super + t`                               | `toggle-column-tabbed-display`             | Toggle tabbed display for the column                 |
+| `Super + Shift + Space`                   | `toggle-window-floating`                   | Toggle floating state for the window                 |
+| `Super + Space`                           | `switch-focus-between-floating-and-tiling` | Switch focus between floating/tiling                 |
+| `Super + f`                               | `maximize-column`                          | Maximize the current column                          |
+| `Super + Shift + f`                       | `fullscreen-window`                        | Toggle fullscreen for the window                     |
+| `Super + Ctrl + f`                        | `toggle-windowed-fullscreen`               | Toggle windowed fullscreen                           |
+| `Super + c`                               | `center-column`                            | Center the current column                            |
+| `Super + Comma`                           | `consume-window-into-column`               | Consume window into current column                   |
+| `Super + Period`                          | `expel-window-from-column`                 | Expel window from current column                     |
+| `Super + r`                               | `switch-preset-column-width`               | Switch between preset column widths                  |
+| `Super + [Shift +] -`                     | `set-column-width "-10%"`                  | Decrease column width (Shift: window height)         |
+| `Super + [Shift +] =`                     | `set-column-width "+10%"`                  | Increase column width (Shift: window height)         |
+| **Navigation**                            |                                            |                                                      |
+| `Super + {h, j, k, l}`                    | `focus-*`                                  | Focus column/monitor (h/l) or window/workspace (j/k) |
+| `Super + {Left, Right}`                   | `focus-column-*`                           | Focus the column to the left or right                |
+| `Super + {Down, Up}`                      | `focus-window-*`                           | Focus the window below or above                      |
+| `Super + Shift + {h, j, k, l}`            | `move-*`                                   | Move column/window in direction                      |
+| `Super + Ctrl + {arrows/h/j/k/l}`         | `focus-monitor-*`                          | Focus monitor in direction                           |
+| `Super + Shift + Ctrl + {arrows/h/j/k/l}` | `move-window-to-monitor-*`                 | Move window to monitor in direction                  |
+| `Super + 1-9`                             | `focus-workspace`                          | Focus the corresponding named workspace              |
+| `Super + Shift + 1-9`                     | `move-column-to-workspace`                 | Move the current column to that workspace            |
+| **Floating Windows**                      |                                            |                                                      |
+| `Super + Alt + {h, j, k, l}`              | `move-floating-window`                     | Move floating window precisely                       |
+| **Utilities**                             |                                            |                                                      |
+| `Super + Return`                          | `kitty`                                    | Open a terminal                                      |
+| `Super + Shift + Return`                  | _Script_                                   | Open the floating quick-note terminal                |
+| `Super + d`                               | `noctalia`                                 | Toggle the application launcher                      |
+| `Super + {o, b, n, e}`                    | _Application_                              | Open Obsidian, Brave, Nautilus, or Hexecute          |
+| `Super + x`                               | `noctalia`                                 | Toggle the session menu                              |
+| `Super + Shift + b`                       | `noctalia`                                 | Toggle the status bar                                |
+| `Super + Shift + m`                       | `switch-to-macos`                          | Run the macOS switching script                       |
+| `Super + Alt + r`                         | _Script_                                   | Toggle screen recording                              |
+| `Super + s`                               | `grim`, `wl-copy`, `satty`                 | Select an area, copy it, then open Satty             |
+| `Super + Ctrl + s`                        | `grim`, `wl-copy`                          | Copy a full-desktop screenshot                       |
+| `Super + Alt + s`                         | `grim`, `satty`                            | Select an output and open its screenshot in Satty    |
+| `Super + Shift + s`                       | `wshowkeys`                                | Toggle on-screen key display                         |
+| `Super + Ctrl + c`                        | _Script_                                   | Pick color and copy Hex code to clipboard            |
+| `Super + Alt + c`                         | `wl-color-picker`                          | Open the color picker                                |
+| Audio media keys                          | `wpctl`                                    | Change volume or toggle speaker/microphone mute      |
+| **Screencasting**                         |                                            |                                                      |
+| `Super + Alt + m`                         | `set-dynamic-cast-monitor`                 | Set monitor for dynamic cast                         |
+| `Super + Alt + w`                         | `set-dynamic-cast-window`                  | Set window for dynamic cast                          |
+| `Super + Alt + n`                         | `clear-dynamic-cast-target`                | Clear dynamic cast target                            |
 
 Named workspaces: `1` coding, `2` browsing, `3` terminal, `4` reading, `5`
 music, `6` proxy, `7` general, `8` reference, and `9` scratch. Workspace 5
@@ -392,55 +392,55 @@ Configured in `home/programs/shell/fish.nix`.
 键盘布局将 `Caps Lock` 映射为 `Escape`，并交换左 `Ctrl` 和左 `Alt`。下表使用
 Niri 配置中的逻辑修饰键名称。
 
-| 快捷键                                | 动作                                       | 描述                                     |
-| :------------------------------------ | :----------------------------------------- | :--------------------------------------- |
-| **窗口管理**                          |                                            |                                          |
-| `Super + q` / `Super + w`             | `close-window`                             | 关闭当前窗口                             |
-| `Super + Shift + w`                   | _Script_                                   | 更改壁纸/主题 (运行 `change-wal-niri`)   |
-| `Super + Shift + a`                   | `toggle-overview`                          | 切换窗口概览                             |
-| `Super + t`                           | `toggle-column-tabbed-display`             | 切换当前列的标签式显示                   |
-| `Super + Shift + Space`               | `toggle-window-floating`                   | 切换窗口悬浮状态                         |
-| `Super + Space`                       | `switch-focus-between-floating-and-tiling` | 在悬浮和平铺窗口间切换焦点               |
-| `Super + f`                           | `maximize-column`                          | 最大化当前列                             |
-| `Super + Shift + f`                   | `fullscreen-window`                        | 切换窗口全屏                             |
-| `Super + Ctrl + f`                    | `toggle-windowed-fullscreen`               | 切换窗口化全屏                           |
-| `Super + c`                           | `center-column`                            | 居中当前列                               |
-| `Super + Comma (,)`                   | `consume-window-into-column`               | 将窗口吸入当前列                         |
-| `Super + Period (.)`                  | `expel-window-from-column`                 | 将窗口从当前列排出                       |
-| `Super + r`                           | `switch-preset-column-width`               | 切换预设列宽                             |
-| `Super + [Shift +] -`                 | `set-column-width "-10%"`                  | 减小列宽 (Shift: 窗口高度)               |
-| `Super + [Shift +] =`                 | `set-column-width "+10%"`                  | 增加列宽 (Shift: 窗口高度)               |
-| **导航**                              |                                            |                                          |
-| `Super + {h, j, k, l}`                | `focus-*`                                  | 聚焦列/显示器 (h/l) 或 窗口/工作区 (j/k) |
-| `Super + {Left, Right}`               | `focus-column-*`                           | 聚焦左侧或右侧列                         |
-| `Super + {Down, Up}`                  | `focus-window-*`                           | 聚焦下方或上方窗口                       |
-| `Super + Shift + {h, j, k, l}`        | `move-*`                                   | 按方向移动列/窗口                        |
-| `Super + Ctrl + {方向键/h/j/k/l}`     | `focus-monitor-*`                          | 按方向聚焦显示器                         |
-| `Super + Shift + Ctrl + {方向键/h/j/k/l}` | `move-window-to-monitor-*`             | 将窗口移动到指定方向的显示器             |
-| `Super + 1-9`                         | `focus-workspace`                          | 聚焦对应的命名工作区                     |
-| `Super + Shift + 1-9`                 | `move-column-to-workspace`                 | 将当前整列移至对应工作区                 |
-| **悬浮窗口**                          |                                            |                                          |
-| `Super + Alt + {h, j, k, l}`          | `move-floating-window`                     | 精确移动悬浮窗口                         |
-| **实用工具**                          |                                            |                                          |
-| `Super + Return`                      | `kitty`                                    | 打开终端                                 |
-| `Super + Shift + Return`              | _Script_                                   | 打开浮动快速笔记终端                     |
-| `Super + d`                           | `noctalia`                                 | 打开或关闭应用启动器                     |
-| `Super + {o, b, n, e}`                | _Application_                              | 打开 Obsidian、Brave、Nautilus 或 Hexecute |
-| `Super + x`                           | `noctalia`                                 | 打开或关闭会话菜单                       |
-| `Super + Shift + b`                   | `noctalia`                                 | 显示或隐藏状态栏                         |
-| `Super + Shift + m`                   | `switch-to-macos`                          | 运行 macOS 切换脚本                      |
-| `Super + Alt + r`                     | _Script_                                   | 开始或停止录屏                           |
-| `Super + s`                           | `grim`, `wl-copy`, `satty`                 | 框选区域、复制截图，然后进入 Satty 标注  |
-| `Super + Ctrl + s`                    | `grim`, `wl-copy`                          | 截取完整桌面并复制到剪贴板               |
-| `Super + Alt + s`                     | `grim`, `satty`                            | 选择一台显示器并在 Satty 中打开完整截图  |
-| `Super + Shift + s`                   | `wshowkeys`                                | 显示屏幕按键提示                         |
-| `Super + Ctrl + c`                    | _Script_                                   | 取色并复制 Hex 代码到剪贴板              |
-| `Super + Alt + c`                     | `wl-color-picker`                          | 打开颜色选择器                           |
-| 音频媒体键                            | `wpctl`                                    | 调节音量或切换扬声器/麦克风静音          |
-| **投屏 (Screencasting)**              |                                            |                                          |
-| `Super + Alt + m`                     | `set-dynamic-cast-monitor`                 | 设置动态投屏监视器                       |
-| `Super + Alt + w`                     | `set-dynamic-cast-window`                  | 设置动态投屏窗口                         |
-| `Super + Alt + n`                     | `clear-dynamic-cast-target`                | 清除动态投屏目标                         |
+| 快捷键                                    | 动作                                       | 描述                                       |
+| :---------------------------------------- | :----------------------------------------- | :----------------------------------------- |
+| **窗口管理**                              |                                            |                                            |
+| `Super + q` / `Super + w`                 | `close-window`                             | 关闭当前窗口                               |
+| `Super + Shift + w`                       | _Script_                                   | 更改壁纸/主题 (运行 `change-wal-niri`)     |
+| `Super + Shift + a`                       | `toggle-overview`                          | 切换窗口概览                               |
+| `Super + t`                               | `toggle-column-tabbed-display`             | 切换当前列的标签式显示                     |
+| `Super + Shift + Space`                   | `toggle-window-floating`                   | 切换窗口悬浮状态                           |
+| `Super + Space`                           | `switch-focus-between-floating-and-tiling` | 在悬浮和平铺窗口间切换焦点                 |
+| `Super + f`                               | `maximize-column`                          | 最大化当前列                               |
+| `Super + Shift + f`                       | `fullscreen-window`                        | 切换窗口全屏                               |
+| `Super + Ctrl + f`                        | `toggle-windowed-fullscreen`               | 切换窗口化全屏                             |
+| `Super + c`                               | `center-column`                            | 居中当前列                                 |
+| `Super + Comma (,)`                       | `consume-window-into-column`               | 将窗口吸入当前列                           |
+| `Super + Period (.)`                      | `expel-window-from-column`                 | 将窗口从当前列排出                         |
+| `Super + r`                               | `switch-preset-column-width`               | 切换预设列宽                               |
+| `Super + [Shift +] -`                     | `set-column-width "-10%"`                  | 减小列宽 (Shift: 窗口高度)                 |
+| `Super + [Shift +] =`                     | `set-column-width "+10%"`                  | 增加列宽 (Shift: 窗口高度)                 |
+| **导航**                                  |                                            |                                            |
+| `Super + {h, j, k, l}`                    | `focus-*`                                  | 聚焦列/显示器 (h/l) 或 窗口/工作区 (j/k)   |
+| `Super + {Left, Right}`                   | `focus-column-*`                           | 聚焦左侧或右侧列                           |
+| `Super + {Down, Up}`                      | `focus-window-*`                           | 聚焦下方或上方窗口                         |
+| `Super + Shift + {h, j, k, l}`            | `move-*`                                   | 按方向移动列/窗口                          |
+| `Super + Ctrl + {方向键/h/j/k/l}`         | `focus-monitor-*`                          | 按方向聚焦显示器                           |
+| `Super + Shift + Ctrl + {方向键/h/j/k/l}` | `move-window-to-monitor-*`                 | 将窗口移动到指定方向的显示器               |
+| `Super + 1-9`                             | `focus-workspace`                          | 聚焦对应的命名工作区                       |
+| `Super + Shift + 1-9`                     | `move-column-to-workspace`                 | 将当前整列移至对应工作区                   |
+| **悬浮窗口**                              |                                            |                                            |
+| `Super + Alt + {h, j, k, l}`              | `move-floating-window`                     | 精确移动悬浮窗口                           |
+| **实用工具**                              |                                            |                                            |
+| `Super + Return`                          | `kitty`                                    | 打开终端                                   |
+| `Super + Shift + Return`                  | _Script_                                   | 打开浮动快速笔记终端                       |
+| `Super + d`                               | `noctalia`                                 | 打开或关闭应用启动器                       |
+| `Super + {o, b, n, e}`                    | _Application_                              | 打开 Obsidian、Brave、Nautilus 或 Hexecute |
+| `Super + x`                               | `noctalia`                                 | 打开或关闭会话菜单                         |
+| `Super + Shift + b`                       | `noctalia`                                 | 显示或隐藏状态栏                           |
+| `Super + Shift + m`                       | `switch-to-macos`                          | 运行 macOS 切换脚本                        |
+| `Super + Alt + r`                         | _Script_                                   | 开始或停止录屏                             |
+| `Super + s`                               | `grim`, `wl-copy`, `satty`                 | 框选区域、复制截图，然后进入 Satty 标注    |
+| `Super + Ctrl + s`                        | `grim`, `wl-copy`                          | 截取完整桌面并复制到剪贴板                 |
+| `Super + Alt + s`                         | `grim`, `satty`                            | 选择一台显示器并在 Satty 中打开完整截图    |
+| `Super + Shift + s`                       | `wshowkeys`                                | 显示屏幕按键提示                           |
+| `Super + Ctrl + c`                        | _Script_                                   | 取色并复制 Hex 代码到剪贴板                |
+| `Super + Alt + c`                         | `wl-color-picker`                          | 打开颜色选择器                             |
+| 音频媒体键                                | `wpctl`                                    | 调节音量或切换扬声器/麦克风静音            |
+| **投屏 (Screencasting)**                  |                                            |                                            |
+| `Super + Alt + m`                         | `set-dynamic-cast-monitor`                 | 设置动态投屏监视器                         |
+| `Super + Alt + w`                         | `set-dynamic-cast-window`                  | 设置动态投屏窗口                           |
+| `Super + Alt + n`                         | `clear-dynamic-cast-target`                | 清除动态投屏目标                           |
 
 命名工作区依次为：`1` coding、`2` browsing、`3` terminal、`4` reading、`5`
 music、`6` proxy、`7` general、`8` reference、`9` scratch。其中工作区 5
@@ -784,24 +784,24 @@ tmux
 
 ### 常用快捷键 (Fish Built-ins)
 
-| 快捷键        | 描述                                      |
-| :------------ | :---------------------------------------- |
-| `Ctrl + a`    | 跳转到行首 (Start of Line)                |
-| `Ctrl + e`    | 跳转到行尾 (End of Line)                  |
-| `Ctrl + f`    | 接受建议 (Accept Autosuggestion)          |
-| `Alt + f`     | 接受建议的一个单词 (Accept Word)          |
-| `Alt + s`     | 快速添加/取消 `sudo` (Toggle Sudo)        |
-| `Ctrl + u`    | 删除光标前的所有内容 (Clear to Start)     |
-| `Ctrl + k`    | 删除光标后的所有内容 (Clear to End)       |
-| `Ctrl + l`    | 清屏 (Clear Screen)                       |
-| `Ctrl + t`    | fzf 搜索当前目录文件并插入路径 (fzf.fish) |
-| `Ctrl + r`    | fzf 模糊搜索历史命令，带预览 (fzf.fish)   |
+| 快捷键        | 描述                                        |
+| :------------ | :------------------------------------------ |
+| `Ctrl + a`    | 跳转到行首 (Start of Line)                  |
+| `Ctrl + e`    | 跳转到行尾 (End of Line)                    |
+| `Ctrl + f`    | 接受建议 (Accept Autosuggestion)            |
+| `Alt + f`     | 接受建议的一个单词 (Accept Word)            |
+| `Alt + s`     | 快速添加/取消 `sudo` (Toggle Sudo)          |
+| `Ctrl + u`    | 删除光标前的所有内容 (Clear to Start)       |
+| `Ctrl + k`    | 删除光标后的所有内容 (Clear to End)         |
+| `Ctrl + l`    | 清屏 (Clear Screen)                         |
+| `Ctrl + t`    | fzf 搜索当前目录文件并插入路径 (fzf.fish)   |
+| `Ctrl + r`    | fzf 模糊搜索历史命令，带预览 (fzf.fish)     |
 | `Alt + l`     | fzf 搜索 git 提交记录，预览 diff (fzf.fish) |
-| `Ctrl + g`    | fzf 搜索 git 改动文件 (fzf.fish)          |
-| `Ctrl + v`    | fzf 搜索环境变量 (fzf.fish)               |
-| `Esc`         | 进入 Vi 普通模式（光标形状随模式切换）    |
-| `Alt + ← / →` | 移动到上/下一个访问的目录 (Prev/Next Dir) |
-| `Tab`         | 自动补全 (Autocomplete)                   |
+| `Ctrl + g`    | fzf 搜索 git 改动文件 (fzf.fish)            |
+| `Ctrl + v`    | fzf 搜索环境变量 (fzf.fish)                 |
+| `Esc`         | 进入 Vi 普通模式（光标形状随模式切换）      |
+| `Alt + ← / →` | 移动到上/下一个访问的目录 (Prev/Next Dir)   |
+| `Tab`         | 自动补全 (Autocomplete)                     |
 
 ### 命令缩写 (Abbreviations) & 工具
 

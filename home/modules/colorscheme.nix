@@ -74,7 +74,8 @@ in
           polarity
           ;
       };
-      specialisation =
-        builtins.listToAttrs (map buildSpecialisation (builtins.filter (c: !c.isDefault) colorSchemes));
+      specialisation = builtins.listToAttrs (
+        map buildSpecialisation (builtins.filter (c: !c.isDefault) colorSchemes)
+      );
     };
 }

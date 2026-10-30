@@ -27,6 +27,7 @@
       inherit (inputs.awww.packages.${final.stdenv.hostPlatform.system}) awww;
     });
 
-  niri = final: prev: if prev.stdenv.hostPlatform.isLinux then inputs.niri.overlays.niri final prev else { };
+  niri =
+    final: prev: if prev.stdenv.hostPlatform.isLinux then inputs.niri.overlays.niri final prev else { };
   nur = inputs.nur.overlays.default;
 }

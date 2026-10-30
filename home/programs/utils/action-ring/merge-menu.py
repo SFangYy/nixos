@@ -26,9 +26,11 @@ def resolve_commands(item):
 
 resolve_commands(menu["root"])
 dest = args.destination
-data = json.loads(dest.read_text()) if dest.exists() else {
-    "version": "3.0.0", "menus": [], "collections": []
-}
+data = (
+    json.loads(dest.read_text())
+    if dest.exists()
+    else {"version": "3.0.0", "menus": [], "collections": []}
+)
 old = data.get("menus", [])
 updated = []
 inserted = False

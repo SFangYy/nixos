@@ -1,4 +1,8 @@
-{ host ? "", lib, ... }:
+{
+  host ? "",
+  lib,
+  ...
+}:
 {
   imports = [
     ./editor
@@ -6,7 +10,8 @@
     ./utils
     ./git
     ./snippets
-  ] ++ lib.optionals (host != "macos") [
+  ]
+  ++ lib.optionals (host != "macos") [
     ./lsp
     ./dap
     ./ai

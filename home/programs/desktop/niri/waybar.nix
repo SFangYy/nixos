@@ -140,8 +140,8 @@ in
   home.file = {
     ".config/waybar/config.jsonc".text =
       let
-        otherMonitorsConfig =
-          builtins.concatStringsSep "\n" (map (
+        otherMonitorsConfig = builtins.concatStringsSep "\n" (
+          map (
             name:
             # json
             ''
@@ -159,7 +159,8 @@ in
                 ],
                 ${moduleConfiguration}
               },
-            '') config.lib.monitors.otherMonitorsNames);
+            '') config.lib.monitors.otherMonitorsNames
+        );
       in
       # json
       ''

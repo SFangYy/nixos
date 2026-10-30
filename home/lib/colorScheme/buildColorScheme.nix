@@ -76,7 +76,10 @@ let
         in
         {
           base16Scheme = forceOrDefault (
-            if builtins.pathExists customPath then customPath else "${pkgs.base16-schemes}/share/themes/${name}.yaml"
+            if builtins.pathExists customPath then
+              customPath
+            else
+              "${pkgs.base16-schemes}/share/themes/${name}.yaml"
           );
         }
     )
