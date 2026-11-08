@@ -96,7 +96,7 @@ pkill -f '/home/sfangyy/EDAHome/HimaFormal/.*/empyrean' || true
 更稳妥的方式是先正常退出 HimaFormal 工具，再重新进入环境：
 
 ```bash
-formal
+ue
 ```
 
 ## 一条命令完成常规重启
@@ -146,17 +146,14 @@ pgrep -af 'lmgrd|empyrean'
 
 ### 环境变量未更新
 
-进入 `formal` 环境后，确认变量指向固定 license 文件：
+进入 `ue` 后，客户端包装脚本默认使用下面的许可证路径：
 
 ```bash
-echo "$FORMAL_LICENSE_FILE"
-echo "$LM_LICENSE_FILE"
+echo "${FORMAL_LICENSE_FILE:-$HOME/EDAHome/HimaFormal/IC2026_FORMAL.BOSC}"
+hima-lmutil lmstat -c "${FORMAL_LICENSE_FILE:-$HOME/EDAHome/HimaFormal/IC2026_FORMAL.BOSC}"
 ```
 
-两个变量都应指向：
+`LM_LICENSE_FILE` 只在 HimaFormal 子进程中设置；UE shell 中保留 Synopsys 的设置。
+如需临时指定客户端许可证，可运行 `FORMAL_LICENSE_FILE=/path/to/license ave -f script.tcl`。
 
-```text
-/home/sfangyy/EDAHome/HimaFormal/IC2026_FORMAL.BOSC
-```
-
-如果当前已经打开了旧的 shell 或 HimaFormal 进程，退出后重新执行 `formal`。
+如果当前已经打开了旧的 shell 或 HimaFormal 进程，退出后重新执行 `ue`。

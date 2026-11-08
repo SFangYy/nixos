@@ -106,6 +106,13 @@
       }
     ];
 
+    # Root-side nix evaluation fetches (fetchGit in cargo lock vendoring)
+    # cannot reach GitHub directly; pass the session proxy through to
+    # `sudo nixos-rebuild` so those fetches use the local proxy.
+    sudo.extraConfig = ''
+      Defaults env_keep += "http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy no_proxy NO_PROXY"
+    '';
+
     polkit.enable = true;
   };
 

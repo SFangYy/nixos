@@ -32,6 +32,18 @@
           keyboard.xkb.options = "caps:escape";
         };
         environment = {
+          # Also repair command lookup in an already running compositor:
+          # Niri reloads this child-process environment without a logout.
+          PATH = lib.concatStringsSep ":" [
+            "${config.home.homeDirectory}/.local/bin"
+            "/run/wrappers/bin"
+            "${config.home.homeDirectory}/.nix-profile/bin"
+            "/nix/profile/bin"
+            "${config.home.homeDirectory}/.local/state/nix/profile/bin"
+            "/etc/profiles/per-user/${user}/bin"
+            "/nix/var/nix/profiles/default/bin"
+            "/run/current-system/sw/bin"
+          ];
           XIM = "fcitx";
           GTK_IM_MODULE = "fcitx";
           QT_IM_MODULE = "fcitx";
@@ -188,7 +200,9 @@
             spawn "bash" "-c"
               "shot_file=$(mktemp --suffix=.png) && trap 'rm -f \"$shot_file\"' EXIT && grim -g \"$(slurp)\" \"$shot_file\" && wl-copy < \"$shot_file\" && satty --filename \"$shot_file\"";
           "Ctrl+Super+S".action = spawn "sh" "-c" "grim - | wl-copy";
-          "Alt+Super+S".action = spawn "sh" "-c" "grim -g \"$(slurp -f '%o')\" - | satty --filename -";
+          "Alt+Super+S".action =
+            spawn "bash" "-c"
+              "output=$(slurp -o -f '%o') && grim -o \"$output\" - | satty --filename -";
 
           "Super+Alt+M".action = set-dynamic-cast-monitor;
           "Super+Alt+W".action = set-dynamic-cast-window;

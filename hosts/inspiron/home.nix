@@ -15,7 +15,7 @@
         x = 0;
         y = 0;
       };
-      rotation = 270;
+      rotation = 90;
     };
     "Dell Inc. DELL U2723QE 6JJBCP3" = {
       isMain = true;

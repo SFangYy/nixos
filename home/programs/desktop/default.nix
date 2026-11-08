@@ -41,5 +41,13 @@
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
 
+  # Satty annotations need an explicit CJK-capable font; installing CJK
+  # fonts alone does not make its default annotation font cover Chinese.
+  xdg.configFile."satty/config.toml".text = ''
+    [font]
+    family = "Noto Sans CJK SC"
+    style = "Regular"
+  '';
+
   services.wl-clip-persist.enable = true;
 }

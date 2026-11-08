@@ -8,6 +8,52 @@ let
 
   pkgsLegacy = import inputs.nixpkgs-eda-21 { system = "x86_64-linux"; };
 
+  pkgsLegacy19 = import inputs.nixpkgs-eda-19 { system = "x86_64-linux"; };
+
+  # Keep legacy OpenSSL out of the shared FHS library directories. Only
+  # HimaFormal subprocesses see these libraries and compatibility names.
+  formalOpenSSL = pkgs.runCommand "hima-formal-openssl" { } ''
+    mkdir -p "$out/lib"
+    ln -s ${pkgsLegacy19.openssl_1_0_2.out}/lib/libssl.so.1.0.0 "$out/lib/libssl.so.10"
+    ln -s ${pkgsLegacy19.openssl_1_0_2.out}/lib/libcrypto.so.1.0.0 "$out/lib/libcrypto.so.10"
+  '';
+  formalRun = pkgs.writeShellScript "hima-formal-run" ''
+    set -euo pipefail
+    tool="$1"
+    shift
+    export AVIS_HOME="''${AVIS_HOME:-$HOME/EDAHome/HimaFormal}"
+    if [ ! -x "$AVIS_HOME/bin/$tool" ]; then
+      echo "HimaFormal executable not found: $AVIS_HOME/bin/$tool" >&2
+      exit 127
+    fi
+    export FORMAL_LICENSE_FILE="''${FORMAL_LICENSE_FILE:-$AVIS_HOME/IC2026_FORMAL.BOSC}"
+    export LM_LICENSE_FILE="$FORMAL_LICENSE_FILE"
+    export LM_TMP_DIR="$AVIS_HOME/tmp"
+    mkdir -p "$LM_TMP_DIR"
+    export LD_LIBRARY_PATH="${pkgsLegacy19.openssl_1_0_2.out}/lib:${formalOpenSSL}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+    # The bundled lmutil requests /lib64/ld-lsb-x86-64.so.3, which
+    # the FHS environment does not provide. Use its native glibc loader.
+    if [ "$tool" = lmutil ]; then
+      exec /lib64/ld-linux-x86-64.so.2 "$AVIS_HOME/bin/$tool" "$@"
+    fi
+    exec "$AVIS_HOME/bin/$tool" "$@"
+  '';
+  formalTools = pkgs.symlinkJoin {
+    name = "ue-formal-tools";
+    paths = [
+      (pkgs.writeShellScriptBin "FormalMC" ''
+        exec ${formalRun} FormalMC "$@"
+      '')
+      (pkgs.writeShellScriptBin "ave" ''
+        exec ${formalRun} FormalMC "$@"
+      '')
+      # Avoid shadowing Synopsys' lmutil in the shared environment.
+      (pkgs.writeShellScriptBin "hima-lmutil" ''
+        exec ${formalRun} lmutil "$@"
+      '')
+    ];
+  };
+
   # Pin the schema-compatible etcd runtime for UCSwarm in UE only.
   ueEtcd = pkgs.stdenvNoCC.mkDerivation {
     pname = "ue-etcd";
@@ -201,6 +247,10 @@ in
           pkgs.uv
           git
 
+          # HimaFormal commands share UE Picker/Verilator; their runtime and
+          # license settings are applied only by the command wrappers.
+          formalTools
+
           # FM-Agent runtime and plugin tooling
           bun
           unzip
@@ -250,29 +300,33 @@ in
         export UVM_HOME="''${UVM_HOME:-$VCS_HOME/etc/uvm}"
         export PATH="$VCS_HOME/bin:$HOME/.local/bin:$PATH"
 
-        # Keep binary, templates, headers and xspcomm from the same installation.
-        export PICKER_PREFIX="''${PICKER_PREFIX:-$HOME/.local}"
-        if [ ! -x "$PICKER_PREFIX/bin/picker" ] && [ -x "$UE_EDA_ROOT/picker/bin/picker" ]; then
-          export PICKER_PREFIX="$UE_EDA_ROOT/picker"
-        fi
-        export PATH="$PICKER_PREFIX/bin:$PATH"
-        export CMAKE_PREFIX_PATH="$PICKER_PREFIX''${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}"
-
         # Site-specific license server/file settings stay outside the Nix store.
         if [ -r /etc/eda/license.sh ]; then
           . /etc/eda/license.sh
         fi
 
-        # Picker installs its Python bindings as support files rather than as a
-        # package in each virtual environment. Make them importable inside the
-        # UE development shell while leaving the rest of the user session
-        # untouched.
-        export PICKER_PYTHON_SUPPORT="$PICKER_PREFIX/share/picker/python"
-        if [ -d "$PICKER_PYTHON_SUPPORT/xspcomm" ]; then
-          case ":''${PYTHONPATH-}:" in
-            *":$PICKER_PYTHON_SUPPORT:"*) ;;
-            *) export PYTHONPATH="$PICKER_PYTHON_SUPPORT''${PYTHONPATH:+:$PYTHONPATH}" ;;
-          esac
+        # The shared eda account runs plain VCS/Verdi without Picker, so skip
+        # Picker paths for it unless PICKER_REQUIRED=1 forces them back.
+        if [ "''${USER:-}" != eda ] || [ "''${PICKER_REQUIRED:-}" = 1 ]; then
+          # Keep binary, templates, headers and xspcomm from the same installation.
+          export PICKER_PREFIX="''${PICKER_PREFIX:-$HOME/.local}"
+          if [ ! -x "$PICKER_PREFIX/bin/picker" ] && [ -x "$UE_EDA_ROOT/picker/bin/picker" ]; then
+            export PICKER_PREFIX="$UE_EDA_ROOT/picker"
+          fi
+          export PATH="$PICKER_PREFIX/bin:$PATH"
+          export CMAKE_PREFIX_PATH="$PICKER_PREFIX''${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}"
+
+          # Picker installs its Python bindings as support files rather than as
+          # a package in each virtual environment. Make them importable inside
+          # the UE development shell while leaving the rest of the user session
+          # untouched.
+          export PICKER_PYTHON_SUPPORT="$PICKER_PREFIX/share/picker/python"
+          if [ -d "$PICKER_PYTHON_SUPPORT/xspcomm" ]; then
+            case ":''${PYTHONPATH-}:" in
+              *":$PICKER_PYTHON_SUPPORT:"*) ;;
+              *) export PYTHONPATH="$PICKER_PYTHON_SUPPORT''${PYTHONPATH:+:$PYTHONPATH}" ;;
+            esac
+          fi
         fi
 
         # Do not set a global LD_LIBRARY_PATH in the shell. Mixing old FHS

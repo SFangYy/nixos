@@ -93,13 +93,6 @@
       shellInit = ''
         export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$PATH"
 
-        # The formal FHS environment exports its dedicated picker wrapper.
-        # Re-prepend it after the user-local PATH setup above so a globally
-        # installed picker cannot shadow the formal-specific version.
-        if test -n "$FORMAL_PICKER_BIN"
-          set -gx PATH "$FORMAL_PICKER_BIN" $PATH
-        end
-
         if test -n "$container"
           export PATH="$HOME/.local/bin:$HOME/.juliaup/bin:$HOME/.npm-global/bin:$PATH"
           if test -f /home/linuxbrew/.linuxbrew/bin/brew
