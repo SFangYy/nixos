@@ -1,0 +1,59 @@
+{
+  "bookmarks": [
+    {
+      "id": "termius-template-eda",
+      "title": "eda",
+      "type": "ssh",
+      "host": "",
+      "port": 22,
+      "username": "",
+      "authType": "password",
+      "password": "",
+      "enableSsh": true,
+      "term": "xterm-256color",
+      "color": "#a7c080",
+      "description": "从 Termius 迁移的待补填模板；请填写地址、端口、用户名和认证信息。端口 22 为默认值，尚未核实。"
+    },
+    {
+      "id": "termius-template-node20",
+      "title": "node20",
+      "type": "ssh",
+      "host": "",
+      "port": 22,
+      "username": "",
+      "authType": "password",
+      "password": "",
+      "enableSsh": true,
+      "term": "xterm-256color",
+      "color": "#7fbbb3",
+      "description": "从 Termius 迁移的待补填模板；请填写地址、端口、用户名和认证信息。端口 22 为默认值，尚未核实。"
+    },
+    {
+      "id": "termius-template-ucagent",
+      "title": "ucagent",
+      "type": "ssh",
+      "host": "",
+      "port": 22,
+      "username": "",
+      "authType": "password",
+      "password": "",
+      "enableSsh": true,
+      "term": "xterm-256color",
+      "color": "#d699b6",
+      "description": "从 Termius 迁移的待补填模板；请填写地址、端口、用户名和认证信息。端口 22 为默认值，尚未核实。"
+    }
+  ],
+  "bookmarkGroups": [
+    {
+      "id": "termius-selected-hosts",
+      "title": "Termius",
+      "bookmarkIds": [
+        "termius-template-eda",
+        "termius-template-node20",
+        "termius-template-ucagent"
+      ],
+      "bookmarkGroupIds": [],
+      "color": "#a7c080"
+    }
+  ]
+}

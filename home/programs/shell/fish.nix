@@ -5,6 +5,12 @@
   ...
 }:
 {
+  xdg.configFile."fish/conf.d/10-nix-path.fish".text = ''
+    # Directly launched fish sessions may not inherit Nix's PATH from a login shell.
+    # Keep environment-specific tools ahead of these fallback paths.
+    fish_add_path --global --append --path "$HOME/.nix-profile/bin" /nix/var/nix/profiles/default/bin
+  '';
+
   programs = {
     bash = {
       enable = true;

@@ -26,28 +26,45 @@ let
     fi
     printf '%s\n' "$DISPLAY_LIST"
 
+    # 当前 m1ddc 也会列出没有产品名称的内屏；不要对它发送 DDC 指令。
+    EXTERNAL_LIST=$(printf '%s\n' "$DISPLAY_LIST" | sed '/^\[[0-9][0-9]*\] (null) (/d')
+
     # m1ddc 的列表格式为 `[1] Display Name (UUID)`。使用稳定 UUID 而非数字索引：
     # 第一台屏切走后会从 macOS 列表消失，数字索引随之重排，导致第二台无法命中。
-    DISPS=$(printf '%s\n' "$DISPLAY_LIST" | sed -nE 's/^\[[0-9]+\].*\(([[:xdigit:]-]{36})\)$/\1/p')
+    DISPS=$(printf '%s\n' "$EXTERNAL_LIST" | sed -nE 's/^\[[0-9]+\].*\(([[:xdigit:]-]{36})\)$/\1/p')
     if [ -z "$DISPS" ]; then
       # 兼容无 UUID 的旧版输出。倒序切换可避免前面的索引在显示器消失后改变。
-      DISPS=$(printf '%s\n' "$DISPLAY_LIST" | sed -nE 's/^\[([0-9]+)\].*$/\1/p; s/^([0-9]+):.*$/\1/p' | sort -rn)
+      DISPS=$(printf '%s\n' "$EXTERNAL_LIST" | sed -nE 's/^\[([0-9]+)\].*$/\1/p; s/^([0-9]+):.*$/\1/p' | sort -rn)
     fi
     if [ -z "$DISPS" ]; then
       echo "[错误] 未从 m1ddc 输出中识别到外接显示器。"
       exit 1
     fi
 
+    # 同时启动所有切换，避免第一台断开后触发拓扑重建，影响另一台的 DDC 通道。
+    # 每台屏单独保存日志、等待并统计结果，不能仅用后台启动成功判断切换成功。
+    LOG_DIR=$(mktemp -d) || exit 1
+    trap 'rm -rf "$LOG_DIR"' EXIT
+    PIDS=()
+    TARGETS=()
     echo "==> 正在将所有外接显示器输入源切换至 DP (VCP: $DP_VCP)..."
+    for d in $DISPS; do
+      i=''${#PIDS[@]}
+      echo "  - 切换显示器 $d 输入源至 DP ($DP_VCP) ..."
+      "$M1DDC" display "$d" set input "$DP_VCP" >"$LOG_DIR/$i" 2>&1 &
+      PIDS+=("$!")
+      TARGETS+=("$d")
+    done
+
     SUCCESS=0
     FAILED=0
-    for d in $DISPS; do
-      echo "  - 切换显示器 $d 输入源至 DP ($DP_VCP) ..."
-      if OUTPUT=$("$M1DDC" display "$d" set input "$DP_VCP" 2>&1); then
+    for i in "''${!PIDS[@]}"; do
+      if wait "''${PIDS[$i]}"; then
         SUCCESS=$((SUCCESS + 1))
       else
         FAILED=$((FAILED + 1))
-        echo "    [警告] 切换失败: $OUTPUT"
+        echo "    [警告] 显示器 ''${TARGETS[$i]} 切换失败:"
+        cat "$LOG_DIR/$i"
       fi
     done
 
@@ -122,6 +139,9 @@ in
       fi
     '';
   };
+
+  # 为快捷指令等外部工具提供固定入口，由 Home Manager 随脚本更新链接目标。
+  home.file.".config/switch-to-nixos".source = "${switchToNixos}/bin/switch-to-nixos";
 
   # macOS 额外需要的包
   home.packages = with pkgs; [
